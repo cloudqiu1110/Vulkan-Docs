@@ -5,7 +5,14 @@
 	如果对翻译工作感兴趣，请和我联系，以便做好任务分配。git repo 在 https://github.com/cloudqiu1110/Vulkan-Docs-CN。
 	
 	任务分配列表(以chapter为单位)：
-	@knowthyself   1, 2, 3, 4, 5, 8, 9
+	http://knowthyself.cn[@knowthyself]   1, 2, 3, 4, 5, 6, 7, 8, 9,10,
+	http://blog.csdn.net/liuyizhou95[@花粥_95]			 11
+	
+	如何翻译：
+	1， git clone  https://github.com/cloudqiu1110/Vulkan-Docs-CN,  git checkout 1.0-CN
+	2,   花二十分钟了解一下https://github.com/stanzgy/wiki/blob/master/markup/asciidoc-guide.asciidoc[asciidoc文档]
+	3， 在Vulkan-Docs-CN/doc/specs/vulkan/chapters 选择对应的章节的txt文件开始翻译
+	4， push 并提交 pull request
 
 [[introduction]]
 = 简介
