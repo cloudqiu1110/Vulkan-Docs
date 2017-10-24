@@ -10,10 +10,10 @@
 |贡献者
 |负责章节
 
-|http://knowthyself.cn[knowthyself] 
+|http://knowthyself.cn[knowthyself, role="external", window="_blank"] 
 |  1, 2, 3, 4, 5, 6, 7, 8, 9,10
 
-|http://blog.csdn.net/liuyizhou95[花粥_95]
+|http://blog.csdn.net/liuyizhou95[花粥_95, role="external", window="_blank"]
 |11
 |===
 	
@@ -22,6 +22,8 @@
 	2,   花二十分钟了解一下https://github.com/stanzgy/wiki/blob/master/markup/asciidoc-guide.asciidoc[asciidoc文档]
 	3， 在Vulkan-Docs-CN/doc/specs/vulkan/chapters 选择对应的章节的txt文件开始翻译
 	4， push 并提交 pull request
+	
+	asciidoc 编译环境搭建似乎有点问题，有兴趣的同学可以找各平台的资料或者自己写一份出来。
 
 [[introduction]]
 = 简介
