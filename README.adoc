@@ -56,3 +56,13 @@ The other generated files are built as required via dependencies in
 中文翻译的版本，以v1.0.41-core这个release为蓝本，工作分支为1.0-CN，估计这个翻译工作将持续一段时间，等到
 Vulkan Spec有重大更新了，中文版再跟进。
 
+编译环境搭建：
+windows上我简单试了试，感觉很有难度。还是选用简单的Linux环境吧。 VirtualBox 安装 Ubuntu 16.
+sudo apt install cmake make gcc asciidoctor ruby ruby-dev git 
+sudo gem install coderay
+
+cd Vulkan-Docs-CN/doc/specs/vulkan/
+git checkout 1.0-CN
+make html
+
+输出的html文件在Vulkan-Docs-CN/out/1.0/html/，单个html有 5M左右
