@@ -58,6 +58,7 @@ Vulkan Spec有重大更新了，中文版再跟进。
 
 编译环境搭建：
 windows上我简单试了试，感觉很有难度。还是选用简单的Linux环境吧。 VirtualBox 安装 Ubuntu 16。
+
     sudo apt install cmake make gcc asciidoctor ruby ruby-dev git
     sudo gem install coderay 
 
