@@ -165,26 +165,19 @@ endif::VK_KHR_get_physical_device_properties2[]
 include::../api/protos/vkGetPhysicalDeviceQueueFamilyProperties.txt[]
 
   * pname:physicalDevice 是将被查询各种属性的物理设备的handle。
-  * pname:pQueueFamilyPropertyCount is a pointer to an integer related to
-    the number of queue families available or queried, as described below.
-  * pname:pQueueFamilyProperties is either `NULL` or a pointer to an array
-    of slink:VkQueueFamilyProperties structures.
+  * pname:pQueueFamilyPropertyCount 是一个指针，指向一个和可用的或者查询到的队列族数量相关的整数，如下所描述。 
+  * pname:pQueueFamilyProperties 是`NULL`，或者是一个指向 slink:VkQueueFamilyProperties 类型数组的指针。
 
-If pname:pQueueFamilyProperties is `NULL`, then the number of queue families
-available is returned in pname:pQueueFamilyPropertyCount.
-Otherwise, pname:pQueueFamilyPropertyCount must: point to a variable set by
-the user to the number of elements in the pname:pQueueFamilyProperties
-array, and on return the variable is overwritten with the number of
-structures actually written to pname:pQueueFamilyProperties.
-If pname:pQueueFamilyPropertyCount is less than the number of queue families
-available, at most pname:pQueueFamilyPropertyCount structures will be
-written.
+如果pname:pQueueFamilyProperties 为`NULL`，那么可用的队列族的数量通过 pname:pQueueFamilyPropertyCount 返回。
+否则，pname:pQueueFamilyPropertyCount 必须: 指向一个变量，由用户设置的pname:pQueueFamilyProperties 数组的个数，
+返回的时候，这个变量值被 写入到pname:pQueueFamilyProperties的个数所覆盖。
+如果pname:pQueueFamilyPropertyCount 比可用的队列族少，最多有 pname:pQueueFamilyPropertyCount 个数据被写入。
 
 include::../validity/protos/vkGetPhysicalDeviceQueueFamilyProperties.txt[]
 
 // refBegin VkQueueFamilyProperties Structure providing information about a queue family
 
-The sname:VkQueueFamilyProperties structure is defined as:
+sname:VkQueueFamilyProperties 数据结构定义如下：
 
 include::../api/structs/VkQueueFamilyProperties.txt[]
 
