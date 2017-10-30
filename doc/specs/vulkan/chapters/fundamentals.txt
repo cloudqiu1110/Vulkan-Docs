@@ -865,65 +865,42 @@ signed normalized fixed-point.
 [[fundamentals-versionnum]]
 == API版本数字和语义
 
-The Vulkan version number is used in several places in the API.
-In each such use, the API _major version number_, _minor version number_,
-and _patch version number_ are packed into a 32-bit integer as follows:
+Vulkan版本号在API中数个地方被用到。在每一处使用点， API _主版本号_，_次版本号_ 和 _补丁版本号_ 都被塞入到如下的一个32位整型数字内：
 
-  * The major version number is a 10-bit integer packed into bits 31-22.
-  * The minor version number is a 10-bit integer packed into bits 21-12.
-  * The patch version number is a 12-bit integer packed into bits 11-0.
+  * 主版本号是10-bit 整型，被塞入到31-22 bit的位置。
+  * 次版本号是10-bit 整型，被塞入到21-12 bit的位置。
+  * 补丁版本号是12-bit 整型，被塞入到11-0 bit的位置。
 
-Differences in any of the Vulkan version numbers indicates a change to the
-API in some way, with each part of the version number indicating a different
-scope of changes.
+Vulkan的任何版本号区别意味着API在一定程度上已经改变了，版本号的每一部分意味着更改的范围不同。
 
-A difference in patch version numbers indicates that some usually small part
-of the specification or header has been modified, typically to fix a bug,
-and may: have an impact on the behavior of existing functionality.
-Differences in this version number should: not affect either _full
-compatibility_ or _backwards compatibility_ between two versions, or add
-additional interfaces to the API.
+补丁版本号的区别意味着此规范文档或者头文件很小一部分被修改了，通常为了修复bug，或者现有功能有性能性能问题。
+这个号码变更不应该影响 _兼容性_ 或两个版本之间的 _向后兼容_ ，亦或者是为了向API添加接口。
 
-A difference in minor version numbers indicates that some amount of new
-functionality has been added.
-This will usually include new interfaces in the header, and may: also
-include behavior changes and bug fixes.
-Functionality may: be deprecated in a minor revision, but will not be
-removed.
-When a new minor version is introduced, the patch version is reset to 0, and
-each minor revision maintains its own set of patch versions.
-Differences in this version should: not affect backwards compatibility, but
-will affect full compatibility.
+次版本号的变更意味着新增了一系列的新功能。这通常宝货向头文件中增加新街口，或者包括行为变更、bug修复。
+在次版本中可能淘汰一些功能，但并不会移除。
+当引入了一个新的此版本后，补丁版本号被重置为0，每一个次版本都维护自己的补丁版本。
+次版本的变更不应该影响后向兼容，但是会影响全兼容性。
 
-A difference in major version numbers indicates a large set of changes to
-the API, potentially including new functionality and header interfaces,
-behavioral changes, removal of deprecated features, modification or outright
-replacement of any feature, and is thus very likely to break any and all
-compatibility.
-Differences in this version will typically require significant modification
-to an application in order for it to function.
+主版本的变更意味着API的重大变化，可能包括新功能和头文件接口，行为变更，已淘汰特性的移除，
+修改或者公开替换任何特性，极有可能破坏兼容性。
+主版本变更通常导致已有的应用程序需进行明显的修改才能正常工作。
 
-C language macros for manipulating version numbers are defined in the
-<<boilerplate-versions,Version Number Macros>> appendix.
+操纵版本号数字的C语言宏在附录 <<boilerplate-versions,Version Number Macros>> 中定义。
 
 
 [[fundamentals-common-objects]]
 == 常见对象类型
 
-Some types of Vulkan objects are used in many different structures and
-command parameters, and are described here.
-These types include _offsets_, _extents_, and _rectangles_.
+这里列举了在很多不同的数据结构和命令参数中使用的Vulkan对象。这些类型包括 _offsets_, _extents_,  和 _rectangles_。
 
 
 === Offsets
 
-Offsets are used to describe a pixel location within an image or
-framebuffer, as an (x,y) location for two-dimensional images, or an (x,y,z)
-location for three-dimensional images.
+Offset 用来描述图像或者帧缓冲区的某个像素的位置，在二维图像中是(x,y)，在三维图像中是(x,y,z)。
 
 // refBegin VkOffset2D Structure specifying a two-dimensional offset
 
-A two-dimensional offsets is defined by the structure:
+下列数据结构定义了二维Offset：
 
 include::../api/structs/VkOffset2D.txt[]
 
@@ -931,7 +908,7 @@ include::../validity/structs/VkOffset2D.txt[]
 
 // refBegin VkOffset3D Structure specifying a three-dimensional offset
 
-A three-dimensional offset is defined by the structure:
+下列数据结构定义了三维Offset：
 
 include::../api/structs/VkOffset3D.txt[]
 
@@ -940,13 +917,11 @@ include::../validity/structs/VkOffset3D.txt[]
 
 === Extents
 
-Extents are used to describe the size of a rectangular region of pixels
-within an image or framebuffer, as (width,height) for two-dimensional
-images, or as (width,height,depth) for three-dimensional images.
+Extends被用来描述图像或者帧缓冲区内矩形区域的大小，对于二维图像是(width,height)，对于三维图像是(width,height,depth)。
 
 // refBegin VkExtent2D Structure specifying a two-dimensional extent
 
-A two-dimensional extent is defined by the structure:
+下列数据结构定义了二维extent：
 
 include::../api/structs/VkExtent2D.txt[]
 
@@ -954,7 +929,7 @@ include::../validity/structs/VkExtent2D.txt[]
 
 // refBegin VkExtent3D Structure specifying a three-dimensional extent
 
-A three-dimensional extent is defined by the structure:
+下列数据结构定义了三维extent：
 
 include::../api/structs/VkExtent3D.txt[]
 
@@ -965,11 +940,10 @@ include::../validity/structs/VkExtent3D.txt[]
 
 // refBegin VkRect2D Structure specifying a two-dimensional subregion
 
-Rectangles are used to describe a specified rectangular region of pixels
-within an image or framebuffer.
-Rectangles include both an offset and an extent of the same dimensionality,
-as described above.
-Two-dimensional rectangles are defined by the structure
+Rectangles被用来描述图像或者帧缓冲区内某个矩形区域内的像素。
+Rectangles 包含一个offset和一个 extend，二者是同一个维度。
+
+下列数据结构定义了二维rectangles：
 
 include::../api/structs/VkRect2D.txt[]
 
