@@ -23,8 +23,19 @@
 	3， 在Vulkan-Docs-CN/doc/specs/vulkan/chapters 选择对应的章节的txt文件开始翻译
 	4， push 并提交 pull request
 	
-	asciidoctor 编译环境搭建似乎有点问题，有兴趣的同学可以找各平台的资料或者自己写一份出来。
+	编译环境搭建：
+	windows上我简单试了试，感觉很有难度。还是选用简单的Linux环境吧。 VirtualBox 安装 Ubuntu 16。
+    sudo apt install cmake make gcc asciidoctor ruby ruby-dev git
+    sudo gem install coderay 
+	如果在CentOS系列上，还需要运行：
+	gem install asciidoctor
+	sudo yum install python34
+    cd Vulkan-Docs-CN/doc/specs/vulkan
+    git checkout 1.0-CN
+    make html 
 
+输出的html文件在Vulkan-Docs-CN/out/1.0/html/，单个html有 5M左右
+	
 [[introduction]]
 = 简介
 

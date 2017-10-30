@@ -27,12 +27,9 @@ include::../api/handles/VkPhysicalDevice.txt[]
 
 include::../api/protos/vkEnumeratePhysicalDevices.txt[]
 
-  * pname:instance is a handle to a Vulkan instance previously created with
-    fname:vkCreateInstance.
-  * pname:pPhysicalDeviceCount is a pointer to an integer related to the
-    number of physical devices available or queried, as described below.
-  * pname:pPhysicalDevices is either `NULL` or a pointer to an array of
-    sname:VkPhysicalDevice handles.
+  * pname:instance 是一个handle，指向了之前用  fname:vkCreateInstance 创建的Vulkan实例。
+  * pname:pPhysicalDeviceCount 是一个指针，指向了可用的或者已查询到的物理设备数量的整数，如下面所描述。
+  * pname:pPhysicalDevices 要么是 `NULL` ，要么是一个指向 sname:VkPhysicalDevice 数组的指针。
 
 如果pname:pPhysicalDevices 为 `NULL`，那么可用的物理设备的个数通过pname:pPhysicalDeviceCount返回。
 否则，pname:pPhysicalDeviceCount必须指向一个用户端设置的、值为pname:pPhysicalDevices数组大小的变量，
@@ -48,49 +45,36 @@ include::../validity/protos/vkEnumeratePhysicalDevices.txt[]
 
 include::../api/protos/vkGetPhysicalDeviceProperties.txt[]
 
-  * pname:physicalDevice is the handle to the physical device whose
-    properties will be queried.
-  * pname:pProperties points to an instance of the
-    slink:VkPhysicalDeviceProperties structure, that will be filled with
-    returned information.
+  * pname:physicalDevice 是将被查询各种属性的物理设备的handle。  
+  * pname:pProperties 指向一个 slink:VkPhysicalDeviceProperties 类型数据结构的实例，将被返回的信息所填充。
 
 include::../validity/protos/vkGetPhysicalDeviceProperties.txt[]
 
 // refBegin VkPhysicalDeviceProperties Structure specifying physical device properties
 
-The sname:VkPhysicalDeviceProperties structure is defined as:
+sname:VkPhysicalDeviceProperties 数据结构定义如下：
 
 include::../api/structs/VkPhysicalDeviceProperties.txt[]
 
-  * pname:apiVersion is the version of Vulkan supported by the device,
-    encoded as described in the <<fundamentals-versionnum,API Version
-    Numbers and Semantics>> section.
-  * pname:driverVersion is the vendor-specified version of the driver.
-  * pname:vendorID is a unique identifier for the _vendor_ (see below) of
-    the physical device.
-  * pname:deviceID is a unique identifier for the physical device among
-    devices available from the vendor.
-  * pname:deviceType is a elink:VkPhysicalDeviceType specifying the type of
-    device.
-  * pname:deviceName is a null-terminated UTF-8 string containing the name
-    of the device.
+  * pname:apiVersion 是设备所支持的Vulkan版本，如<<fundamentals-versionnum,API Version
+    Numbers and Semantics>> 一节所描述的那样被编码.
+  * pname:driverVersion 是显卡生产商所提供的驱动版本号。
+  * pname:vendorID 是物理设备的 _vendor_ (see below) 对应的唯一标识。
+  * pname:deviceID is a 供应商所有设备中此设备的唯一标识。
+  * pname:deviceType 一个 elink:VkPhysicalDeviceType ，指定了设备的类型。
+  * pname:deviceName 是一个以 null 结束的UTF-8字符串，包含了设备的名字。
   * pname:pipelineCacheUUID is an array of size ename:VK_UUID_SIZE,
     containing 8-bit values that represent a universally unique identifier
     for the device.
-  * pname:limits is the slink:VkPhysicalDeviceLimits structure which
-    specifies device-specific limits of the physical device.
-    See <<features-limits,Limits>> for details.
-  * pname:sparseProperties is the slink:VkPhysicalDeviceSparseProperties
-    structure which specifies various sparse related properties of the
-    physical device.
-    See <<sparsememory-physicalprops,Sparse Properties>> for details.
+  * pname:limits 是一个 slink:VkPhysicalDeviceLimits 数据结构，给出了物理设备特定的物理限制。细节部分请参考<<features-limits,Limits>> 。
+  * pname:sparseProperties 是一个 slink:VkPhysicalDeviceSparseProperties 数据结构，给出了和物理设备的各种稀疏相关的属性。
+     细节部分请参考<<sparsememory-physicalprops,Sparse Properties>> 。
 
 pname:vendorID 和 pname:deviceID 域可以让应用程序适配硬件的没有通过其他Vulkan查询暴露出来的特性，
 这些也可能包括性能分析，硬件勘误，或者其他的特性。在基于PCI的Vulkan实现中，pname:vendorID 和
 pname:deviceID最低6位必须包含 PCI供应商和硬件设备关联的设备ID，剩下的位必须设置为0。
-在非PCI实现中，渲染返回什么值可以有操作系统或者平台策略来决定。
-It is otherwise at the discretion of the implementer, subject to the
-following constraints and guidelines:
+在非PCI实现中，渲染返回什么值可以由操作系统或者平台策略来决定。
+其他方面，则由Vulkan实现者根据如下限制条件或者指导意见来自由决定：
 
   * For purposes of physical device identification, the _vendor_ of a
     physical device is the entity responsible for the most salient
@@ -124,25 +108,18 @@ include::../validity/structs/VkPhysicalDeviceProperties.txt[]
 
 // refBegin VkPhysicalDeviceType Supported physical device types
 
-The physical devices types are:
+物理设备的类型为：
 
 include::../api/enums/VkPhysicalDeviceType.txt[]
 
-  * ename:VK_PHYSICAL_DEVICE_TYPE_OTHER The device does not match any other
-    available types.
-  * ename:VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU The device is typically one
-    embedded in or tightly coupled with the host.
-  * ename:VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU The device is typically a
-    separate processor connected to the host via an interlink.
-  * ename:VK_PHYSICAL_DEVICE_TYPE_VIRTUAL_GPU The device is typically a
-    virtual node in a virtualization environment.
-  * ename:VK_PHYSICAL_DEVICE_TYPE_CPU The device is typically running on the
-    same processors as the host.
+  * ename:VK_PHYSICAL_DEVICE_TYPE_OTHER 此设备不与其他任何可用的类型匹配。
+  * ename:VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU 此设备通常是嵌入式的，或者是集成到CPU内部的。
+  * ename:VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU 此设备通常是一个与CPU通过内部总线直接相连的独立设备。
+  * ename:VK_PHYSICAL_DEVICE_TYPE_VIRTUAL_GPU 此设备通常是虚拟环境中的一个虚拟节点。
+  * ename:VK_PHYSICAL_DEVICE_TYPE_CPU 此设备通常和CPU一样运行在同一个处理器上。
 
-The physical device type is advertised for informational purposes only, and
-does not directly affect the operation of the system.
-However, the device type may: correlate with other advertised properties or
-capabilities of the system, such as how many memory heaps there are.
+物理设备类型只是提供建议性的信息，并不直接影响系统的操作。
+然而，设备类型可能与其他宣称的属性或者系统兼容性 有关，比如有多少个内存堆。
 
 // refEnd VkPhysicalDeviceType
 
@@ -150,38 +127,32 @@ ifdef::VK_KHR_get_physical_device_properties2[]
 
 // refBegin vkGetPhysicalDeviceProperties2KHR Returns properties of a physical device
 
-To query general properties of physical devices once enumerated, call:
+可调用如下函数来查询列举的物理设备的属性：
 
 include::../api/protos/vkGetPhysicalDeviceProperties2KHR.txt[]
 
-  * pname:physicalDevice is the handle to the physical device whose
-    properties will be queried.
-  * pname:pProperties points to an instance of the
-    slink:VkPhysicalDeviceProperties2KHR structure, that will be filled with
-    returned information.
+  * pname:physicalDevice 是将被查询各种属性的物理设备的handle。
+  * pname:pProperties 指向一个 slink:VkPhysicalDeviceProperties2KHR 类型数据结构的实例，将被返回的信息所填充。
 
-Each structure in pname:pProperties and its pname:pNext chain contain
-members corresponding to properties or implementation-dependent limits.
-fname:vkGetPhysicalDeviceProperties2KHR writes each member to a value
-indicating the value of that property or limit.
+pname:pProperties内每一个数据结构和它的 pname:pNext 链包含了许多成员，对应着属性或者实现特定的限制。
+
+fname:vkGetPhysicalDeviceProperties2KHR 向每一个成员写入值，表明该属性或者限制。
 
 include::../validity/protos/vkGetPhysicalDeviceProperties2KHR.txt[]
 
 // refBegin VkPhysicalDeviceProperties2KHR Structure specifying physical device properties
 
-The sname:VkPhysicalDeviceProperties2KHR structure is defined as:
+sname:VkPhysicalDeviceProperties2KHR 数据结构定义如下：
 
 include::../api/structs/VkPhysicalDeviceProperties2KHR.txt[]
 
-  * pname:sType is the type of this structure.
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
-  * pname:properties is a structure of type slink:VkPhysicalDeviceProperties
-    describing the properties of the physical device.
-    This structure is written with the same values as if it were written by
-    flink:vkGetPhysicalDeviceProperties.
+  * pname:sType 是数据结构的类型。
+  * pname:pNext 是 `NULL` 或者指向一个拓展特定的数据结构。
+  * pname:properties 是一个 slink:VkPhysicalDeviceProperties 类型的数据结构，描述了物理设备的属性。
+     这个数据结构被写入的值同调用flink:vkGetPhysicalDeviceProperties写入的值。
+   
 
-The pname:pNext chain of this structure is used to extend the structure with
-properties defined by extensions.
+这个数据结构的pname:pNext 链 被用来拓展 Vulkan拓展定义的属性。   
 
 include::../validity/structs/VkPhysicalDeviceProperties2KHR.txt[]
 
@@ -189,12 +160,11 @@ endif::VK_KHR_get_physical_device_properties2[]
 
 // refBegin vkGetPhysicalDeviceQueueFamilyProperties Reports properties of the queues of the specified physical device
 
-To query properties of queues available on a physical device, call:
+可调用下列命令来查询在物理设备上可用的队列的属性：
 
 include::../api/protos/vkGetPhysicalDeviceQueueFamilyProperties.txt[]
 
-  * pname:physicalDevice is the handle to the physical device whose
-    properties will be queried.
+  * pname:physicalDevice 是将被查询各种属性的物理设备的handle。
   * pname:pQueueFamilyPropertyCount is a pointer to an integer related to
     the number of queue families available or queried, as described below.
   * pname:pQueueFamilyProperties is either `NULL` or a pointer to an array
@@ -634,7 +604,7 @@ include::../api/handles/VkQueue.txt[]
 
 // refBegin VkDeviceQueueCreateInfo Structure specifying parameters of a newly created device queue
 
-The sname:VkDeviceQueueCreateInfo structure is defined as:
+sname:VkDeviceQueueCreateInfo 数据结构定义如下：
 
 include::../api/structs/VkDeviceQueueCreateInfo.txt[]
 
