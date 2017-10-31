@@ -63,9 +63,7 @@ include::../api/structs/VkPhysicalDeviceProperties.txt[]
   * pname:deviceID is a 供应商所有设备中此设备的唯一标识。
   * pname:deviceType 一个 elink:VkPhysicalDeviceType ，指定了设备的类型。
   * pname:deviceName 是一个以 null 结束的UTF-8字符串，包含了设备的名字。
-  * pname:pipelineCacheUUID is an array of size ename:VK_UUID_SIZE,
-    containing 8-bit values that represent a universally unique identifier
-    for the device.
+  * pname:pipelineCacheUUID 是一个大小为ename:VK_UUID_SIZE 的数组，每个元素包含8-bit，表示该设备的唯一编号。
   * pname:limits 是一个 slink:VkPhysicalDeviceLimits 数据结构，给出了物理设备特定的物理限制。细节部分请参考<<features-limits,Limits>> 。
   * pname:sparseProperties 是一个 slink:VkPhysicalDeviceSparseProperties 数据结构，给出了和物理设备的各种稀疏相关的属性。
      细节部分请参考<<sparsememory-physicalprops,Sparse Properties>> 。
@@ -181,19 +179,14 @@ sname:VkQueueFamilyProperties 数据结构定义如下：
 
 include::../api/structs/VkQueueFamilyProperties.txt[]
 
-  * pname:queueFlags contains flags indicating the capabilities of the
-    queues in this queue family.
-  * pname:queueCount is the unsigned integer count of queues in this queue
-    family.
-  * pname:timestampValidBits is the unsigned integer count of meaningful
-    bits in the timestamps written via fname:vkCmdWriteTimestamp.
-    The valid range for the count is 36..64 bits, or a value of 0,
-    indicating no support for timestamps.
-    Bits outside the valid range are guaranteed to be zeros.
-  * pname:minImageTransferGranularity is the minimum granularity supported
-    for image transfer operations on the queues in this queue family.
+  * pname:queueFlags 包含了此队列在队列族中兼容性的标志位。
+  * pname:queueCount 是队列族中队列的个数。
+  * pname:timestampValidBits 是通过 fname:vkCmdWriteTimestamp写入的时间戳的有效位个数。有效位的范围是 36-64，或者值为0，表示不支持时间戳。
+	 在有效bit位之外的位置被保证都为0。    
+  * pname:minImageTransferGranularity 是队列族中的队列支持的转移图像的最小粒度。
 
-The bits specified in pname:queueFlags are:
+  
+pname:queueFlags 的标志位如下:
 
 // refBegin VkQueueFlagBits Bitmask specifying capabilities of queues in a queue family
 include::../api/enums/VkQueueFlagBits.txt[]
@@ -210,13 +203,10 @@ include::../api/enums/VkQueueFlagBits.txt[]
     If any of the sparse resource features are enabled, then at least one
     queue family must: support this bit.
 
-If an implementation exposes any queue family that supports graphics
-operations, at least one queue family of at least one physical device
-exposed by the implementation must: support both graphics and compute
-operations.
+如果Vulkan实现保留了任何支持图形操作的队列族，那么至少一个物理设备中至少有一个队列族必须都支持图形和计算操作。	
 
 [NOTE]
-.Note
+.注意
 ====
 All commands that are allowed on a queue that supports transfer operations
 are also allowed on a queue that supports either graphics or compute
@@ -226,7 +216,7 @@ ename:VK_QUEUE_TRANSFER_BIT capability separately for that queue family is
 optional:.
 ====
 
-For further details see <<devsandqueues-queues,Queues>>.
+更多细节请参考<<devsandqueues-queues,Queues>>.
 
 The value returned in pname:minImageTransferGranularity has a unit of
 compressed texel blocks for images having a block-compressed format, and a
@@ -280,44 +270,36 @@ for queues belonging to such queue families may: be [eq]#(0,0,0)#.
 
 include::../validity/structs/VkQueueFamilyProperties.txt[]
 
-The <<memory-device,Device Memory>> section describes memory properties
-queried from the physical device.
+<<memory-device,Device Memory>>一节描述了从物理设备中查询出来的内存属性。
 
-For physical device feature queries see the <<features, Features>> chapter.
+对于物理设备特征查询，请参考 <<features, Features>> 一章。
 
 ifdef::VK_KHR_get_physical_device_properties2[]
 
 // refBegin vkGetPhysicalDeviceQueueFamilyProperties2KHR Reports properties of the queues of the specified physical device
 
-To query properties of queues available on a physical device, call:
+可调用下列命令来查询物理设备上可用的队列的属性：
 
 include::../api/protos/vkGetPhysicalDeviceQueueFamilyProperties2KHR.txt[]
 
-  * pname:physicalDevice is the handle to the physical device whose
-    properties will be queried.
-  * pname:pQueueFamilyPropertyCount is a pointer to an integer related to
-    the number of queue families available or queried, as described in
-    flink:vkGetPhysicalDeviceQueueFamilyProperties.
-  * pname:pQueueFamilyProperties is either `NULL` or a pointer to an array
-    of slink:VkQueueFamilyProperties2KHR structures.
+  * pname:physicalDevice 是将被查询各种属性的物理设备的handle。
+  * pname:pQueueFamilyPropertyCount 是一个指针，指向了一个整数包含有可用的或者被查询的队列族的个数，如 flink:vkGetPhysicalDeviceQueueFamilyProperties中所描述。
+  * pname:pQueueFamilyProperties是 `NULL` ，或者是一个指针，指向元素为slink:VkQueueFamilyProperties2KHR 类型的数组。
 
-fname:vkGetPhysicalDeviceQueueFamilyProperties2KHR behaves similarly to
-flink:vkGetPhysicalDeviceQueueFamilyProperties, with the ability to return
-extended information via chained output structures.
+fname:vkGetPhysicalDeviceQueueFamilyProperties2KHR 和
+flink:vkGetPhysicalDeviceQueueFamilyProperties 表现类似，把拓展的信息通过链式数据结构输出。
 
 include::../validity/protos/vkGetPhysicalDeviceQueueFamilyProperties2KHR.txt[]
 
 // refBegin VkQueueFamilyProperties2KHR Structure providing information about a queue family
 
-The sname:VkQueueFamilyProperties2KHR structure is defined as:
+sname:VkQueueFamilyProperties2KHR 数据结构定义如下：
 
 include::../api/structs/VkQueueFamilyProperties2KHR.txt[]
 
-  * pname:sType is the type of this structure.
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
-  * pname:queueFamilyProperties is a structure of type
-    slink:VkQueueFamilyProperties which is populated with the same values as
-    in flink:vkGetPhysicalDeviceQueueFamilyProperties.
+  * pname:sType  是数据结构的类型。
+  * pname:pNext 是 `NULL` 或者指向一个拓展特定的数据结构。
+  * pname:queueFamilyProperties 是一个类型为slink:VkQueueFamilyProperties 的数据结构，和调用flink:vkGetPhysicalDeviceQueueFamilyProperties 产生的值完全相同。
 
 include::../validity/structs/VkQueueFamilyProperties2KHR.txt[]
 
@@ -356,16 +338,12 @@ include::../api/handles/VkDevice.txt[]
 
 include::../api/protos/vkCreateDevice.txt[]
 
-  * pname:physicalDevice must: be one of the device handles returned from a
-    call to fname:vkEnumeratePhysicalDevices (see
+  * pname:physicalDevice  必须: 是fname:vkEnumeratePhysicalDevices调用返回的多个队列中的一个的handle(参考
     <<devsandqueues-physical-device-enumeration, Physical Device
-    Enumeration>>).
-  * pname:pCreateInfo is a pointer to a slink:VkDeviceCreateInfo structure
-    containing information about how to create the device.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
-  * pname:pDevice points to a handle in which the created sname:VkDevice is
-    returned.
+    Enumeration>>)。
+  * pname:pCreateInfo 是一个指针，指向一个类型为 slink:VkDeviceCreateInfo 的数据结构，包含如何创建设备的信息。    
+  * pname:pAllocator 控制了CPU端内存分配，如 <<memory-allocation, Memory Allocation>> 一章所描述。
+  * pname:pDevice 指向了创建得到的 sname:VkDevice 的handle。    
 
 可以在同一个物理设备上创建多个逻辑设备。因为物理资源的缺乏（和其他错误），逻辑设备的创建可能失败。
 如果发生了失败，fname:vkCreateDevice 将返回ename:VK_ERROR_TOO_MANY_OBJECTS。
@@ -374,39 +352,27 @@ include::../validity/protos/vkCreateDevice.txt[]
 
 // refBegin VkDeviceCreateInfo Structure specifying parameters of a newly created device
 
-The sname:VkDeviceCreateInfo structure is defined as:
+sname:VkDeviceCreateInfo 数据结构定义如下：
 
 include::../api/structs/VkDeviceCreateInfo.txt[]
 
-  * pname:sType is the type of this structure.
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
-  * pname:flags is reserved for future use.
-  * pname:queueCreateInfoCount is the unsigned integer size of the
-    pname:pQueueCreateInfos array.
-    Refer to the <<devsandqueues-queue-creation,Queue Creation>> section
-    below for further details.
-  * pname:pQueueCreateInfos is a pointer to an array of
-    slink:VkDeviceQueueCreateInfo structures describing the queues that are
+  * pname:sType 是数据结构的类型。
+  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构。
+  * pname:flags 被保留使用。
+  * pname:queueCreateInfoCount 是 pname:pQueueCreateInfos 数组的大小。参考 下面的<<devsandqueues-queue-creation,Queue Creation>> 一节来获取更多信息。    
+  * pname:pQueueCreateInfos 是一个指针，指向一个元素类型为 slink:VkDeviceQueueCreateInfo 的数组，描述了 describing the queues that are
     requested to be created along with the logical device.
     Refer to the <<devsandqueues-queue-creation,Queue Creation>> section
     below for further details.
-  * pname:enabledLayerCount is deprecated and ignored.
-  * pname:ppEnabledLayerNames is deprecated and ignored.
-    See <<extended-functionality-device-layer-deprecation,Device Layer
-    Deprecation>>.
-  * pname:enabledExtensionCount is the number of device extensions to
-    enable.
-  * pname:ppEnabledExtensionNames is a pointer to an array of
-    pname:enabledExtensionCount null-terminated UTF-8 strings containing the
-    names of extensions to enable for the created device.
-    See the <<extended-functionality-extensions,Extensions>> section for
-    further details.
-  * pname:pEnabledFeatures is `NULL` or a pointer to a
-    slink:VkPhysicalDeviceFeatures structure that contains boolean
-    indicators of all the features to be enabled.
-    Refer to the <<features-features,Features>> section for further details.
+  * pname:enabledLayerCount 已弃用，被忽略。
+  * pname:ppEnabledLayerNames 已弃用，被忽略。参考 <<extended-functionality-device-layer-deprecation,Device Layer Deprecation>>.
+  * pname:enabledExtensionCount 是启用的设备拓展的个数。
+  * pname:ppEnabledExtensionNames 是一个指针，指向了一个长度为 pname:enabledExtensionCount ，null-terminated UTF-8 字符串， 包含了将对创建的设备所启用的拓展名字。
+     参考<<extended-functionality-extensions,Extensions>> 一节来获取更多细节。
+  * pname:pEnabledFeatures 是 `NULL`，或者是一个指针，指向一个 slink:VkPhysicalDeviceFeatures 数据结构，其包含了所有将被启用的特征的 boolean标志位。
+     参考<<features-features,Features>> 一节获取更多细节。
 
-.Valid Usage
+.正确使用
 ****
   * The pname:queueFamilyIndex member of any given element of
     pname:pQueueCreateInfos must: be unique within pname:pQueueCreateInfos
@@ -428,24 +394,18 @@ include::../validity/structs/VkDeviceCreateInfo.txt[]
 [[devsandqueues-use]]
 === 使用设备
 
+下面是如何使用 sname:VkDevice 的上层列表，还有详细信息的参考点：
 
-The following is a high-level list of sname:VkDevice uses along with
-references on where to find more information:
-
-  * Creation of queues.
-    See the <<devsandqueues-queues,Queues>> section below for further
-    details.
-  * Creation and tracking of various synchronization constructs.
-    See <<synchronization,Synchronization and Cache Control>> for further
-    details.
-  * Allocating, freeing, and managing memory.
-    See <<memory,Memory Allocation>> and <<resources,Resource Creation>> for
-    further details.
-  * Creation and destruction of command buffers and command buffer pools.
-    See <<commandbuffers,Command Buffers>> for further details.
-  * Creation, destruction, and management of graphics state.
-    See <<pipelines,Pipelines>> and <<descriptorsets,Resource Descriptors>>,
-    among others, for further details.
+  * 创建队列。
+    请参考下面的<<devsandqueues-queues,Queues>> 一节来获取更多细节。
+  * 创建并跟踪各种同步对象。
+    参考 <<synchronization,Synchronization and Cache Control>> 来获取更多细节。
+  * 分配，释放和管理内存。
+    参考 <<memory,Memory Allocation>> 和 <<resources,Resource Creation>> 以获取更多细节。
+  * 创建和销毁命令缓冲区、命令缓存池。
+    参考 <<commandbuffers,Command Buffers>> 以获取更多细节。
+  * 创建，销毁和管理图形状态。
+    参考 <<pipelines,Pipelines>> 和 <<descriptorsets,Resource Descriptors>>还有其他的小节，以获取更多细节。
 
 
 [[devsandqueues-lost-device]]
@@ -476,15 +436,11 @@ sname:VkPhysicalDevice 或者sname:VkInstance仍然是有效的，或者是可�
 
 当设备丢失了，它的子对象并没有隐式的被销毁，它们的handle仍然有效。这些对象必须要在他们父对象
 或者设备被销毁之前被销毁（参考 <<fundamentals-objectmodel-lifetime,Object Lifetime>> 小节 ）。
-The host address space corresponding to device memory mapped using
-flink:vkMapMemory is still valid, and host memory accesses to these mapped
-regions are still valid, but the contents are undefined.
-It is still legal to call any API command on the device and child objects.
+使用flink:vkMapMemory把设备内存映射到CPU端寻址空间的内存依然有效，对于被映射区域的CPU端内存访问仍然是有效的，但是内存内容是未定义的。
+仍然可以对设备和它的子对象调用任何API命令。
 
-Once a device is lost, command execution may: fail, and commands that return
-a elink:VkResult may: return ename:VK_ERROR_DEVICE_LOST.
-Commands that do not allow run-time errors must: still operate correctly for
-valid usage and, if applicable, return valid data.
+一旦设备丢失，命令执行可能失败:，返回elink:VkResult 的命令有可能:  返回ename:VK_ERROR_DEVICE_LOST。
+不允许运行时错误的命令有可能仍然正常使用中，有可能的话，仍返回有效的数据。
 
 Commands that wait indefinitely for device execution (namely
 flink:vkDeviceWaitIdle, flink:vkQueueWaitIdle, flink:vkWaitForFences
@@ -515,23 +471,18 @@ endif::editing-notes[]
 
 // refBegin vkDestroyDevice Destroy a logical device
 
-To destroy a device, call:
+可调用如下命令来销毁设备：
 
 include::../api/protos/vkDestroyDevice.txt[]
 
-  * pname:device is the logical device to destroy.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
+  * pname:device 是需要被销毁的逻辑设备。
+  * pname:pAllocator 控制CPU内存分配，如 <<memory-allocation, Memory Allocation>> 一章讲解。
 
-To ensure that no work is active on the device, flink:vkDeviceWaitIdle can:
-be used to gate the destruction of the device.
-Prior to destroying a device, an application is responsible for
-destroying/freeing any Vulkan objects that were created using that device as
-the first parameter of the corresponding ftext:vkCreate* or
-ftext:vkAllocate* command.
+为了保证在设备上没有正在进行的工作，vkDeviceWaitIdle 可以: 用来守护设备的销毁。
+在销毁设备之前，应用程序需要负责销毁/释放从该设备上创建出来的Vulkan对象（使用ftext:vkCreate* 、ftext:vkAllocate* 等命令并以该device作为第一个参数）。
 
 [NOTE]
-.Note
+.注意
 ====
 The lifetime of each of these objects is bound by the lifetime of the
 sname:VkDevice object.
@@ -540,7 +491,7 @@ explicitly free all of these resources prior to calling
 fname:vkDestroyDevice.
 ====
 
-.Valid Usage
+.正确使用
 ****
   * All child objects created on pname:device must: have been destroyed
     prior to destroying pname:device
@@ -601,22 +552,16 @@ sname:VkDeviceQueueCreateInfo 数据结构定义如下：
 
 include::../api/structs/VkDeviceQueueCreateInfo.txt[]
 
-  * pname:sType is the type of this structure.
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
-  * pname:flags is reserved for future use.
-  * pname:queueFamilyIndex is an unsigned integer indicating the index of
-    the queue family to create on this device.
-    This index corresponds to the index of an element of the
-    pname:pQueueFamilyProperties array that was returned by
-    fname:vkGetPhysicalDeviceQueueFamilyProperties.
-  * pname:queueCount is an unsigned integer specifying the number of queues
-    to create in the queue family indicated by pname:queueFamilyIndex.
-  * pname:pQueuePriorities is an array of pname:queueCount normalized
-    floating point values, specifying priorities of work that will be
-    submitted to each created queue.
-    See <<devsandqueues-priority,Queue Priority>> for more information.
+  * pname:sType 是数据结构的类型。
+  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构。
+  * pname:flags 被保留使用。
+  * pname:queueFamilyIndex 是一个无符号整形数字，表示在此设备上创建的队列族的索引。
+    这个索引对应着 fname:vkGetPhysicalDeviceQueueFamilyProperties返回的pname:pQueueFamilyProperties 数组中的元素的索引。
+  * pname:queueCount 是一个无符号整形数字，指定了 pname:queueFamilyIndex表示的队列族中的队列个数。
+  * pname:pQueuePriorities 是一个元素为归一化浮点数的数组，大小为pname:queueCount，指定了提交到已创建队列的任务的优先级。 
+     参考<<devsandqueues-priority,Queue Priority>> 以获取更多信息。
 
-.Valid Usage
+.正确使用
 ****
   * pname:queueFamilyIndex must: be less than
     pname:pQueueFamilyPropertyCount returned by
@@ -633,19 +578,16 @@ include::../validity/structs/VkDeviceQueueCreateInfo.txt[]
 
 // refBegin vkGetDeviceQueue Get a queue handle from a device
 
-To retrieve a handle to a VkQueue object, call:
+可调用如下命令来获取一个队列的handle：
 
 include::../api/protos/vkGetDeviceQueue.txt[]
 
-  * pname:device is the logical device that owns the queue.
-  * pname:queueFamilyIndex is the index of the queue family to which the
-    queue belongs.
-  * pname:queueIndex is the index within this queue family of the queue to
-    retrieve.
-  * pname:pQueue is a pointer to a sname:VkQueue object that will be filled
-    with the handle for the requested queue.
+  * pname:device 是拥有该队列的逻辑设备。
+  * pname:queueFamilyIndex 是队列所属的队列族的索引。
+  * pname:queueIndex 是需要获取的队列在队列族中的索引。
+  * pname:pQueue 是一个指针，指向了sname:VkQueue 对象，它将被获取到的队列的handle所覆盖。
 
-.Valid Usage
+.正确使用
 ****
   * pname:queueFamilyIndex must: be one of the queue family indices
     specified when pname:device was created, via the
@@ -661,30 +603,21 @@ include::../validity/protos/vkGetDeviceQueue.txt[]
 [[devsandqueues-index]]
 === 队列族索引
 
-The queue family index is used in multiple places in Vulkan in order to tie
-operations to a specific family of queues.
+队列族索引在Vulkan中多处被使用，它可以把操作和特定的队列族绑定起来。
 
-When retrieving a handle to the queue via fname:vkGetDeviceQueue, the queue
-family index is used to select which queue family to retrieve the
-sname:VkQueue handle from as described in the previous section.
+当通过fname:vkGetDeviceQueue获取到一个队列的handle时，队列族的索引被用来选择从哪个队列族中获取队列handle（上上节所述）。
 
-When creating a sname:VkCommandPool object (see
-<<commandbuffers-pools,Command Pools>>), a queue family index is specified
-in the slink:VkCommandPoolCreateInfo structure.
-Command buffers from this pool can: only be submitted on queues
-corresponding to this queue family.
+当创建sname:VkCommandPool 对象时(参考
+<<commandbuffers-pools,Command Pools>>)，一个队列族索引通过 slink:VkCommandPoolCreateInfo 数据结构指定。
+从缓存池中获取的命令缓冲区 只能提交到对应着此队列族的队列上。
 
-When creating sname:VkImage (see <<resources-images,Images>>) and
-sname:VkBuffer (see <<resources-buffers,Buffers>>) resources, a set of queue
-families is included in the slink:VkImageCreateInfo and
-slink:VkBufferCreateInfo structures to specify the queue families that can:
-access the resource.
+当创建 sname:VkImage (参考 <<resources-images,Images>>) 和
+sname:VkBuffer (参考 <<resources-buffers,Buffers>>) 资源时，一系列的队列族被包含到slink:VkImageCreateInfo 和
+slink:VkBufferCreateInfo 数据结构中，来指定可以访问到这些资源的队列族。
 
-When inserting a slink:VkBufferMemoryBarrier or slink:VkImageMemoryBarrier
-(see <<synchronization-events>>) a source and destination queue family index
-is specified to allow the ownership of a buffer or image to be transferred
-from one queue family to another.
-See the <<resources-sharing,Resource Sharing>> section for details.
+当插入一个slink:VkBufferMemoryBarrier 或 slink:VkImageMemoryBarrier
+(see <<synchronization-events>>) 时，一个源和目标队列族索引被指定来允许把缓冲区或图像转移到另外一个队列族。
+参考 <<resources-sharing,Resource Sharing>> 一节以获取细节。
 
 
 [[devsandqueues-priority]]
