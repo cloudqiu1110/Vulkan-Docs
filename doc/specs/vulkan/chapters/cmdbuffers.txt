@@ -74,10 +74,8 @@ include::../api/protos/vkCreateCommandPool.txt[]
 
   * pname:device 是创建命令缓冲池的逻辑设备。
   * pname:pCreateInfo 包含用来创建命令缓冲池的信息。
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
-  * pname:pCommandPool points to a sname:VkCommandPool handle in which the
-    created pool is returned.
+  * pname:pAllocator 控制CPU端内存分配，如<<memory-allocation, Memory Allocation>> 一章所讲。
+  * pname:pCommandPool 指向一个sname:VkCommandPool handle ，用它接收被创建缓存池。
 
 include::../validity/protos/vkCreateCommandPool.txt[]
 
@@ -89,9 +87,8 @@ include::../api/structs/VkCommandPoolCreateInfo.txt[]
 
   * pname:sType 是这个数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
-  * pname:flags is a bitmask indicating usage behavior for the pool and
-    command buffers allocated from it.
-    Bits which can: be set include:
+  * pname:flags is a bit标志位，表示缓存池和从它分配出来的命令缓冲区的用途。
+     bit位可选如下：
 +
 --
 // refBegin VkCommandPoolCreateFlagBits Bitmask specifying usage behavior for a command pool
@@ -118,7 +115,7 @@ include::../api/enums/VkCommandPoolCreateFlagBits.txt[]
     All command buffers allocated from this command pool must: be submitted
     on queues from the same queue family.
 
-.Valid Usage
+.正确使用
 ****
   * pname:queueFamilyIndex must: be the index of a queue family available in
     the calling command's pname:device parameter
@@ -138,12 +135,11 @@ include::../api/protos/vkTrimCommandPoolKHR.txt[]
   * pname:commandPool 是需要被trim的命令缓存池。
   * pname:flags 被保留使用。
 
-Trimming a command pool recycles unused memory from the command pool back to
-the system.
-Command buffers allocated from the pool are not affected by the command.
+缩减一个命令缓存池会回收从缓存池分配而来的未使用内存，返回给操作系统。
+从缓存池分配出来的命令缓冲区不受这个命令的影响。
 
 [NOTE]
-.Note
+.注意
 ====
 这个命令给应用程序提供了命令缓存池使用的内置内存分配之上的控制权。
 
@@ -193,7 +189,7 @@ command buffers allocated from the command pool back to the command pool.
 All command buffers that have been allocated from the command pool are put
 in the initial state.
 
-.Valid Usage
+.正确使用
 ****
   * All sname:VkCommandBuffer objects allocated from pname:commandPool must:
     not currently be pending execution
@@ -215,7 +211,7 @@ include::../api/protos/vkDestroyCommandPool.txt[]
 当一个缓存池被销毁了，所有从之分配命令缓冲区都被释放了，变得无效了。
 从一个给定的缓存池分配而来的命令缓冲区并不需要在销毁命令缓存池之前被释放。
 
-.Valid Usage
+.正确使用
 ****
   * All sname:VkCommandBuffer objects allocated from pname:commandPool must:
     not be pending execution
@@ -239,11 +235,8 @@ include::../api/protos/vkAllocateCommandBuffers.txt[]
 
   * pname:device 是拥有命令缓存池的逻辑设备。
   * pname:pAllocateInfo 是一个指向 sname:VkCommandBufferAllocateInfo 类型数据结构实例的指针，描述了分配行为的参数。
-  * pname:pCommandBuffers is a pointer to an array of sname:VkCommandBuffer
-    handles in which the resulting command buffer objects are returned.
-    The array must: be at least the length specified by the
-    pname:commandBufferCount member of pname:pAllocateInfo.
-    Each allocated command buffer begins in the initial state.
+  * pname:pCommandBuffers 是一个指针，执行一个元素类型为sname:VkCommandBuffer handle的数组，以接收被返回的命令缓冲区对象。
+	 数组的长度至少为pname:pAllocateInfo 的成员 pname:commandBufferCount 指定的大小。每一个分配的命令缓冲区都处于初始状态。
 
 ifdef::VK_KHR_maintenance1[]
 fname:vkAllocateCommandBuffers can: be used to create multiple command
@@ -265,9 +258,8 @@ include::../api/structs/VkCommandBufferAllocateInfo.txt[]
   * pname:sType 是这个数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:commandPool 是分配出命令缓冲区的命令缓存池。
-  * pname:level determines whether the command buffers are primary or
-    secondary command buffers.
-    Possible values include:
+  * pname:level 决定命令缓冲区是主缓冲区还是次缓冲区。
+    可选值包括：
 +
 --
 // refBegin VkCommandBufferLevel Structure specifying a command buffer level
@@ -277,7 +269,7 @@ include::../api/enums/VkCommandBufferLevel.txt[]
   * pname:commandBufferCount is the number of command buffers to allocate
     from the pool.
 
-.Valid Usage
+.正确使用
 ****
   * pname:commandBufferCount 必须: 大于 `0`
 ****
@@ -291,8 +283,8 @@ include::../validity/structs/VkCommandBufferAllocateInfo.txt[]
 include::../api/protos/vkResetCommandBuffer.txt[]
 
   * pname:commandBuffer 是需要被重置的命令缓冲区。命令缓冲区可以处于任何状态，并把它设置到初始状态。
-  * pname:flags is a bitmask controlling the reset operation.
-    Bits which can: be set include:
+  * pname:flags 是一个bit标志位，控制重置操作。
+     可选的bit位包括：    
 +
 --
 // refBegin VkCommandBufferResetFlagBits Bitmask controlling behavior of a command buffer reset
@@ -305,7 +297,7 @@ should: be returned to the parent command pool.
 If this flag is not set, then the command buffer may: hold onto memory
 resources and reuse them when recording commands.
 
-.Valid Usage
+.正确使用
 ****
   * pname:commandBuffer must: not currently be pending execution
   * pname:commandBuffer must: have been allocated from a pool that was
@@ -325,7 +317,7 @@ include::../api/protos/vkFreeCommandBuffers.txt[]
   * pname:commandBufferCount 是 pname:pCommandBuffers 数组的长度。
   * pname:pCommandBuffers 是需要被释放的命令缓冲区handle的数组。
 
-.Valid Usage
+.正确使用
 ****
   * All elements of pname:pCommandBuffers must: not be pending execution
   * pname:pCommandBuffers must: be a pointer to an array of
@@ -350,7 +342,7 @@ include::../api/protos/vkBeginCommandBuffer.txt[]
     structure, which defines additional information about how the command
     buffer begins recording.
 
-.Valid Usage
+.正确使用
 ****
   * pname:commandBuffer must: not be in the recording state
   * pname:commandBuffer must: not currently be pending execution
@@ -379,7 +371,7 @@ include::../api/structs/VkCommandBufferBeginInfo.txt[]
   * pname:sType 是这个数据结构的类型。
   * pname:pNext 为 `NULL` 或者指向拓展特定结构的指针
   * pname:flags 是一个标志位，用来表示命令缓冲区被使用时的行为。
-    Bits which can: be set include:
+     Bits which can: be set include:
 +
 --
 // refBegin VkCommandBufferUsageFlagBits Bitmask specifying usage behavior for command buffer
@@ -402,7 +394,7 @@ include::../api/enums/VkCommandBufferUsageFlagBits.txt[]
     pname:commandBuffer is a secondary command buffer.
     If this is a primary command buffer, then this value is ignored.
 
-.Valid Usage
+.正确使用
 ****
   * If pname:flags contains
     ename:VK_COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT, the
@@ -427,8 +419,8 @@ include::../validity/structs/VkCommandBufferBeginInfo.txt[]
 
 include::../api/structs/VkCommandBufferInheritanceInfo.txt[]
 
-  * pname:sType is the type of this structure.
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
+  * pname:sType 是数据结构的类型。
+  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:renderPass is a sname:VkRenderPass object defining which render
     passes the sname:VkCommandBuffer will be <<renderpass-compatibility,
     compatible>> with and can: be executed within.
@@ -473,7 +465,7 @@ include::../api/structs/VkCommandBufferInheritanceInfo.txt[]
     If this value excludes a given bit, then the active pipeline statistics
     query must: not be from a query pool that counts that statistic.
 
-.Valid Usage
+.正确使用
 ****
   * If the <<features-features-inheritedQueries,inherited queries>> feature
     is not enabled, pname:occlusionQueryEnable must: be ename:VK_FALSE
@@ -536,7 +528,7 @@ an unsuccessful return code returned by fname:vkEndCommandBuffer.
 If the application wishes to further use the command buffer, the command
 buffer must: be reset.
 
-.Valid Usage
+.正确使用
 ****
   * pname:commandBuffer must: be in the recording state
   * If pname:commandBuffer is a primary command buffer, there must: not be
@@ -547,8 +539,7 @@ buffer must: be reset.
 
 include::../validity/protos/vkEndCommandBuffer.txt[]
 
-When a command buffer is in the executable state, it can: be submitted to a
-queue for execution.
+当命令缓冲区处于可执行状态时，它可以被提交到队列等待执行。
 
 
 [[commandbuffers-submission]]
@@ -585,7 +576,7 @@ pname:pSubmits中各批次的任务依出现的顺序执行，但是，完成的
 在pname:pSubmits中批次出现的顺序通常由<<synchronization-submission-order, 提交顺序>>决定，故所有的<<synchronization-implicit, 隐式排序>>保证遵守这点。
 除了这些隐式排序保证和任何<<synchronization, 显式的同步原语>>，这些工作批次可能重叠或者乱序执行。
 
-.Valid Usage
+.正确使用
 ****
   * If pname:fence is not dlink:VK_NULL_HANDLE, pname:fence must: be
     unsignaled
@@ -645,16 +636,12 @@ include::../api/structs/VkSubmitInfo.txt[]
     If semaphores to be signaled are provided, they define a
     <<synchronization-semaphores-signaling, semaphore signal operation>>.
 
-The order that command buffers appear in pname:pCommandBuffers is used to
-determine <<synchronization-submission-order, submission order>>, and thus
-all the <<synchronization-implicit, implicit ordering guarantees>> that
-respect it.
-Other than these implicit ordering guarantees and any <<synchronization,
-explicit synchronization primitives>>, these command buffers may: overlap or
-otherwise execute out of order.
+命令缓冲区在pname:pCommandBuffers中出现的顺序决定了<<synchronization-submission-order, submission order>>，
+<<synchronization-implicit, implicit ordering guarantees>> 也取决于这个顺序。
+除了这些隐式的顺序保证 和其他的<<synchronization, explicit synchronization primitives>>，这些命令缓冲区可能重叠或者乱序执行。
 
 
-.Valid Usage
+.正确使用
 ****
   * Any given element of pname:pCommandBuffers must: either have been
     recorded with the ename:VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT, or
@@ -724,82 +711,48 @@ Vulkan实现可能对命令缓冲区等待的时长有限制，以避免和设�
 
 include::../api/protos/vkCmdExecuteCommands.txt[]
 
-  * pname:commandBuffer is a handle to a primary command buffer that the
-    secondary command buffers are executed in.
-  * pname:commandBufferCount is the length of the pname:pCommandBuffers
-    array.
-  * pname:pCommandBuffers is an array of secondary command buffer handles,
-    which are recorded to execute in the primary command buffer in the order
-    they are listed in the array.
+  * pname:commandBuffer 是主命令缓冲区，次命令缓冲区在它里面执行。
+  * pname:commandBufferCount 是 pname:pCommandBuffers 数组的大小。   
+  * pname:pCommandBuffers 是次命令缓冲区handle的数组，按照在数组中的位置被提交到主命令缓冲区中被记录、执行。
 
 一旦fname:vkCmdExecuteCommands被调用，在任何主命令缓冲区中的由pname:pCommandBuffers指定的次命令缓冲区之前的任何执行工作都被无效化了，
 除非这些次命令缓冲区被记录时带有ename:VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT。
 
-.Valid Usage
+.正确使用
 ****
-  * pname:commandBuffer must: have been allocated with a pname:level of
-    ename:VK_COMMAND_BUFFER_LEVEL_PRIMARY
-  * Any given element of pname:pCommandBuffers must: have been allocated
-    with a pname:level of ename:VK_COMMAND_BUFFER_LEVEL_SECONDARY
-  * Any given element of pname:pCommandBuffers must: not be already pending
-    execution in pname:commandBuffer, or appear twice in
-    pname:pCommandBuffers, unless it was recorded with the
-    ename:VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT flag
-  * Any given element of pname:pCommandBuffers must: not be already pending
-    execution in any other sname:VkCommandBuffer, unless it was recorded
-    with the ename:VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT flag
-  * Any given element of pname:pCommandBuffers must: be in the executable
-    state
-  * Any given element of pname:pCommandBuffers must: have been allocated
-    from a sname:VkCommandPool that was created for the same queue family as
-    the sname:VkCommandPool from which pname:commandBuffer was allocated
-  * If fname:vkCmdExecuteCommands is being called within a render pass
-    instance, that render pass instance must: have been begun with the
-    pname:contents parameter of fname:vkCmdBeginRenderPass set to
-    ename:VK_SUBPASS_CONTENTS_SECONDARY_COMMAND_BUFFERS
-  * If fname:vkCmdExecuteCommands is being called within a render pass
-    instance, any given element of pname:pCommandBuffers must: have been
-    recorded with the ename:VK_COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT
-  * If fname:vkCmdExecuteCommands is being called within a render pass
-    instance, any given element of pname:pCommandBuffers must: have been
-    recorded with sname:VkCommandBufferInheritanceInfo::pname:subpass set to
-    the index of the subpass which the given command buffer will be executed
-    in
-  * If fname:vkCmdExecuteCommands is being called within a render pass
-    instance, the render passes specified in the
-    pname::pBeginInfo::pname:pInheritanceInfo::pname:renderPass members of
-    the flink:vkBeginCommandBuffer commands used to begin recording each
-    element of pname:pCommandBuffers must: be
-    <<renderpass-compatibility,compatible>> with the current render pass.
-  * If fname:vkCmdExecuteCommands is being called within a render pass
-    instance, and any given element of pname:pCommandBuffers was recorded
-    with sname:VkCommandBufferInheritanceInfo::pname:framebuffer not equal
-    to dlink:VK_NULL_HANDLE, that sname:VkFramebuffer must: match the
-    sname:VkFramebuffer used in the current render pass instance
-  * If fname:vkCmdExecuteCommands is not being called within a render pass
-    instance, any given element of pname:pCommandBuffers must: not have been
-    recorded with the ename:VK_COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT
-  * If the <<features-features-inheritedQueries,inherited queries>> feature
-    is not enabled, pname:commandBuffer must: not have any queries
+  * pname:commandBuffer 必须在分配的时候带有的参数 pname:level 值为 ename:VK_COMMAND_BUFFER_LEVEL_PRIMARY
+  * pname:pCommandBuffers中任何一个元素必须在分配的时候带有的参数pname:level 值为 ename:VK_COMMAND_BUFFER_LEVEL_SECONDARY
+  * pname:pCommandBuffers中任何一个元素不能在pname:commandBuffer之中处于pending状态，也不能出现两次，除非带有
+    ename:VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT 标志位
+  *  pname:pCommandBuffers的任何元素都不能在任何其他的 sname:VkCommandBuffer中处于pending 状态，除非被记录时带有
+	ename:VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT 标志位
+  * pname:pCommandBuffers 中任何一个元素都不能处于可执行状态    
+  * pname:pCommandBuffers 中任何一个元素都必须从队列族索引与pname:commandBuffer所在的sname:VkCommandPool 相同的sname:VkCommandPool 分配而来。    
+  * 如果fname:vkCmdExecuteCommands在一个render pass 实例中被调用，此render pass实例必须在开始的时候保证 fname:vkCmdBeginRenderPass参数的成员 pname:contents
+	被设置为 ename:VK_SUBPASS_CONTENTS_SECONDARY_COMMAND_BUFFERS
+  * 如果在一个render pass实例内调用 fname:vkCmdExecuteCommands 命令，pname:pCommandBuffers 中的任何元素必须以 
+    ename:VK_COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT的方式被记录
+  * 如果在一个render pass实例内调用fname:vkCmdExecuteCommands 命令，pname:pCommandBuffers中的任何元素被记录时，
+	必须让sname:VkCommandBufferInheritanceInfo::pname:subpass 被设置为指定的将所在执行的命令缓冲区的subpass的索引
+  * 如果在一个render pass 实例内调用fname:vkCmdExecuteCommands， 在用来开始记录pname:pCommandBuffers 中每一个元素的
+  flink:vkBeginCommandBuffer 的成员pname::pBeginInfo::pname:pInheritanceInfo::pname:renderPass 指定 render  pass实例必须和
+	当前使用的render pass <<renderpass-compatibility, 兼容>> 
+  * 如果在一个render pass实例中调用 fname:vkCmdExecuteCommands，pname:pCommandBuffers 中任一个以sname:VkCommandBufferInheritanceInfo::pname:framebuffer
+   被记录的元素必须匹配在当前的render pass实例中使用的sname:VkFramebuffer 
+  * 如果在一个render pass实例中没有调用 fname:vkCmdExecuteCommands ，pname:pCommandBuffers 中任何一个元素在被记录时不能带有
+    ename:VK_COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT
+  * 如果 <<features-features-inheritedQueries,inherited queries>> 特征没有被启用，pname:commandBuffer 的queries都不能为
     <<queries-operation-active,active>>
-  * If pname:commandBuffer has a ename:VK_QUERY_TYPE_OCCLUSION query
-    <<queries-operation-active,active>>, then each element of
-    pname:pCommandBuffers must: have been recorded with
-    sname:VkCommandBufferInheritanceInfo::pname:occlusionQueryEnable set to
-    ename:VK_TRUE
-  * If pname:commandBuffer has a ename:VK_QUERY_TYPE_OCCLUSION query
-    <<queries-operation-active,active>>, then each element of
-    pname:pCommandBuffers must: have been recorded with
-    sname:VkCommandBufferInheritanceInfo::pname:queryFlags having all bits
-    set that are set for the query
-  * If pname:commandBuffer has a ename:VK_QUERY_TYPE_PIPELINE_STATISTICS
-    query <<queries-operation-active,active>>, then each element of
-    pname:pCommandBuffers must: have been recorded with
-    sname:VkCommandBufferInheritanceInfo::pname:pipelineStatistics having
-    all bits set that are set in the sname:VkQueryPool the query uses
-  * Any given element of pname:pCommandBuffers must: not begin any query
-    types that are <<queries-operation-active,active>> in
-    pname:commandBuffer
+  * 若 pname:commandBuffer 有一个ename:VK_QUERY_TYPE_OCCLUSION query
+    <<queries-operation-active,active>>, 那么 pname:pCommandBuffers 的每一个元素被记录时
+    sname:VkCommandBufferInheritanceInfo::pname:occlusionQueryEnable 必须设置为 ename:VK_TRUE
+  * 若 pname:commandBuffer 有一个ename:VK_QUERY_TYPE_OCCLUSION query
+    <<queries-operation-active,active>>, 那么 pname:pCommandBuffers 的每一个元素被记录时
+    sname:VkCommandBufferInheritanceInfo::pname:queryFlags 所有的bit必须为该query设置好    
+  * 若 pname:commandBuffer 有一个 ename:VK_QUERY_TYPE_PIPELINE_STATISTICS
+    query <<queries-operation-active,active>>，那么 pname:pCommandBuffers 的每一个元素在记录时
+    sname:VkCommandBufferInheritanceInfo::pname:pipelineStatistics 所有的bit都必须和这个query使用的sname:VkQueryPool 的bit位相同    
+  * pname:pCommandBuffers 任何一个元素不能开启 在pname:commandBuffer <<queries-operation-active,active>>的 query类型    
 ****
 
 include::../validity/protos/vkCmdExecuteCommands.txt[]
