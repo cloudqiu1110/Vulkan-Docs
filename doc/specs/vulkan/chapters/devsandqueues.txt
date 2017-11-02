@@ -216,11 +216,9 @@ ename:VK_QUEUE_TRANSFER_BIT capability separately for that queue family is
 optional:.
 ====
 
-更多细节请参考<<devsandqueues-queues,Queues>>.
+更多细节请参考<<devsandqueues-queues,Queues>>。
 
-The value returned in pname:minImageTransferGranularity has a unit of
-compressed texel blocks for images having a block-compressed format, and a
-unit of texels otherwise.
+pname:minImageTransferGranularity中返回的值有一个单位的压缩纹理块，因为图像拥有块压缩格式，其他的则是有一个单位的纹素。
 
 Possible values of pname:minImageTransferGranularity are:
 
@@ -553,7 +551,7 @@ sname:VkDeviceQueueCreateInfo 数据结构定义如下：
 include::../api/structs/VkDeviceQueueCreateInfo.txt[]
 
   * pname:sType 是数据结构的类型。
-  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构。
+  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:flags 被保留使用。
   * pname:queueFamilyIndex 是一个无符号整形数字，表示在此设备上创建的队列族的索引。
     这个索引对应着 fname:vkGetPhysicalDeviceQueueFamilyProperties返回的pname:pQueueFamilyProperties 数组中的元素的索引。
@@ -563,15 +561,10 @@ include::../api/structs/VkDeviceQueueCreateInfo.txt[]
 
 .正确使用
 ****
-  * pname:queueFamilyIndex must: be less than
-    pname:pQueueFamilyPropertyCount returned by
-    fname:vkGetPhysicalDeviceQueueFamilyProperties
-  * pname:queueCount must: be less than or equal to the pname:queueCount
-    member of the sname:VkQueueFamilyProperties structure, as returned by
-    fname:vkGetPhysicalDeviceQueueFamilyProperties in the
-    pname:pQueueFamilyProperties[pname:queueFamilyIndex]
-  * Each element of pname:pQueuePriorities must: be between `0.0` and `1.0`
-    inclusive
+  * pname:queueFamilyIndex 必须比 fname:vkGetPhysicalDeviceQueueFamilyProperties返回的pname:pQueueFamilyPropertyCount 值要小
+  * pname:queueCount 必须要小于等于  fname:vkGetPhysicalDeviceQueueFamilyProperties 调用返回的pname:pQueueFamilyProperties[pname:queueFamilyIndex]数组的一个
+  sname:VkQueueFamilyProperties类型元素 的pname:queueCount
+  * pname:pQueuePriorities 的每一个元素都必须在  `0.0` 和 `1.0`（开区间）之内。    
 ****
 
 include::../validity/structs/VkDeviceQueueCreateInfo.txt[]
@@ -655,8 +648,7 @@ Vulkan实现不保证不同设备之间的队列要如何安排优先级。
   ** If present, these describe a <<synchronization-semaphores-signaling,
      semaphore signal operation>>.
 
-If a fence is present in a queue submission, it describes a
-<<synchronization-fences-signaling, fence signal operation>>.
+如果在队列提交之间出现了fence，那么它描述了<<synchronization-fences-signaling, fence signal operation>>。
 
 通过一个队列提交命令描述的所有任务必须在命令返回前提交到队列。
 

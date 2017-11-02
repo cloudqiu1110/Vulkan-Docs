@@ -61,6 +61,9 @@ windows上我简单试了试，感觉很有难度。还是选用简单的Linux�
 
     sudo apt install cmake make gcc asciidoctor ruby ruby-dev git
     sudo gem install coderay 
+	如果在CentOS系列上，还需要运行：
+	gem install asciidoctor
+	sudo yum install python34
 
     cd Vulkan-Docs-CN/doc/specs/vulkan
     git checkout 1.0-CN
