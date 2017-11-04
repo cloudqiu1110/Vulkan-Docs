@@ -22,9 +22,7 @@
 	管线屏障也在命令缓冲区内提供了同步控制，但是只是单点的，而非可分离激发和等待操作。
 
 除了这里的基本的原语， 在本章的概念上，<<renderpass, Render Passes>> 为大多数渲染任务提供了同步框架。
-Many cases that would otherwise need an application to use synchronization
-primitives in this chapter can: be expressed more efficiently as part of a
-render pass.
+本章中很多需要应用程序来同步原语的情况，可以被render pass更加高效的表达出来。
 
 
 [[synchronization-dependencies]]
@@ -46,11 +44,9 @@ pipeline stages to be excluded from a dependency.
 Other scoping options are possible, depending on the particular command.
 
 [[synchronization-dependencies-execution]]
-An _execution dependency_ is a guarantee that for two sets of operations,
-the first set must: _happen-before_ the second set.
-If an operation happens-before another operation, then the first operation
-must: complete before the second operation is initiated.
-More precisely:
+_执行依赖_ 保证了两个集合的操作其中的一个一定在另外一个之前发生。
+如果一个操作在另外一个操作之前发生了，那么第一个操作一定会在第二个操作初始化之前完成。
+更准确的表述是：
 
   * Let *A* and *B* be separate sets of operations.
   * Let *S* be a synchronization command.
@@ -79,7 +75,7 @@ execution dependencies:
   * Let *B~S~* be the second synchronization scope of the last command in
     *S*.
 
-.Note
+.注意
 [NOTE]
 ====
 An execution dependency is inherently also multiple execution dependencies -
@@ -165,7 +161,6 @@ results and execution orders of memory accesses are undefined.
 
 [[synchronization-image-layout-transitions]]
 === 图像布局转换
-
 Image subresources can: be transitioned from one <<resources-image-layouts,
 layout>> to another as part of a <<synchronization-dependencies-memory,
 memory dependency>> (e.g. by using an
@@ -189,7 +184,7 @@ range, with one exception.
 The old layout can: always be specified as ename:VK_IMAGE_LAYOUT_UNDEFINED,
 though doing so invalidates the contents of the image subresource range.
 
-.Note
+.注意
 [NOTE]
 ====
 Setting the old layout to ename:VK_IMAGE_LAYOUT_UNDEFINED implies that the
@@ -198,7 +193,7 @@ Implementations may: use this information to avoid performing expensive data
 transition operations.
 ====
 
-.Note
+.注意
 [NOTE]
 ====
 Applications must: ensure that layout transitions happen-after all
@@ -440,7 +435,7 @@ Including any given stage in the destination stage mask for a particular
 synchronization command also implies that any logically later stages are
 included in *B~S~* for that command.
 
-.Note
+.注意
 [NOTE]
 ====
 Logically earlier/later stages are not included when defining the
@@ -667,7 +662,7 @@ A framebuffer-global dependency guarantees that the first set of operations
 for all framebuffer regions happens-before the second set of operations for
 any framebuffer region.
 
-.Note
+.注意
 [NOTE]
 ====
 Since fragment invocations are not specified to run in any particular
@@ -688,7 +683,7 @@ between non-framebuffer-space pipeline stages, nor does it affect the
 dependencies between framebuffer-space and non-framebuffer-space pipeline
 stages.
 
-.Note
+.注意
 [NOTE]
 ====
 Framebuffer-local dependencies are more optimal for most architectures;
@@ -825,7 +820,7 @@ include::../validity/structs/VkFenceCreateInfo.txt[]
 
 // refBegin vkDestroyFence Destroy a fence object
 
-To destroy a fence, call:
+可调用如下命令来销毁fence：
 
 include::../api/protos/vkDestroyFence.txt[]
 
@@ -834,7 +829,7 @@ include::../api/protos/vkDestroyFence.txt[]
   * pname:pAllocator controls host memory allocation as described in the
     <<memory-allocation, Memory Allocation>> chapter.
 
-.Valid Usage
+.正确使用
 ****
   * All <<devsandqueues-submission, queue submission>> commands that refer
     to pname:fence must: have completed execution
@@ -891,7 +886,7 @@ If any member of pname:pFences is already in the unsignaled state when
 flink:vkResetFences is executed, then flink:vkResetFences has no effect on
 that fence.
 
-.Valid Usage
+.正确使用
 ****
   * Any given element of pname:pFences must: not currently be associated
     with any queue command that has not yet completed execution on that
@@ -976,7 +971,7 @@ The second <<synchronization-dependencies-scopes, synchronization scope>>
 includes the host operations of flink:vkWaitForFences or
 flink:vkGetFenceStatus indicating that the fence has become signaled.
 
-.Note
+.注意
 [NOTE]
 ====
 Signaling a fence and waiting on the host does not guarantee that the
@@ -1060,7 +1055,7 @@ include::../api/protos/vkDestroySemaphore.txt[]
   * pname:pAllocator controls host memory allocation as described in the
     <<memory-allocation, Memory Allocation>> chapter.
 
-.Valid Usage
+.正确使用
 ****
   * All submitted batches that refer to pname:semaphore must: have completed
     execution
@@ -1134,7 +1129,7 @@ The semaphore unsignal operation happens-after the first set of operations
 in the execution dependency, and happens-before the second set of operations
 in the execution dependency.
 
-.Note
+.注意
 [NOTE]
 ====
 Unlike fences or events, the act of waiting for a semaphore also unsignals
@@ -1149,7 +1144,7 @@ Semaphore waits and signals should thus occur in discrete 1:1 pairs.
 ====
 
 ifdef::VK_KHR_swapchain[]
-.Note
+.注意
 [NOTE]
 ====
 A common scenario for using pname:pWaitDstStageMask with values other than
@@ -1259,7 +1254,7 @@ include::../api/protos/vkDestroyEvent.txt[]
   * pname:pAllocator controls host memory allocation as described in the
     <<memory-allocation, Memory Allocation>> chapter.
 
-.Valid Usage
+.正确使用
 ****
   * All submitted commands that refer to pname:event must: have completed
     execution
@@ -1339,7 +1334,7 @@ If pname:event is already in the unsignaled state when flink:vkResetEvent is
 executed, then flink:vkResetEvent has no effect, and no event unsignal
 operation occurs.
 
-.Valid Usage
+.正确使用
 ****
   * pname:event must: not be waited on by a fname:vkCmdWaitEvents command
     that is currently executing
@@ -1382,7 +1377,7 @@ If pname:event is already in the signaled state when flink:vkCmdSetEvent is
 executed on the device, then flink:vkCmdSetEvent has no effect, no event
 signal operation occurs, and no execution dependency is generated.
 
-.Valid Usage
+.正确使用
 ****
   * pname:stageMask must: not include ename:VK_PIPELINE_STAGE_HOST_BIT
   * If the <<features-features-geometryShader,geometry shaders>> feature is
@@ -1427,7 +1422,7 @@ If pname:event is already in the unsignaled state when flink:vkCmdResetEvent
 is executed on the device, then flink:vkCmdResetEvent has no effect, no
 event unsignal operation occurs, and no execution dependency is generated.
 
-.Valid Usage
+.正确使用
 ****
   * pname:stageMask must: not include ename:VK_PIPELINE_STAGE_HOST_BIT
   * If the <<features-features-geometryShader,geometry shaders>> feature is
@@ -1537,7 +1532,7 @@ other execution dependency must: be included between these commands (e.g. a
 semaphore).
 ====
 
-.Valid Usage
+.正确使用
 ****
   * pname:srcStageMask must: be the bitwise OR of the pname:stageMask
     parameter used in previous calls to fname:vkCmdSetEvent with any of the
@@ -1683,7 +1678,7 @@ framebuffer-space>> pipeline stages is
 <<synchronization-framebuffer-regions, framebuffer-local>> - otherwise it is
 <<synchronization-framebuffer-regions, framebuffer-global>>.
 
-.Valid Usage
+.正确使用
 ****
   * If the <<features-features-geometryShader,geometry shaders>> feature is
     not enabled, pname:srcStageMask must: not contain
@@ -1917,7 +1912,7 @@ memory barrier defines a <<synchronization-queue-transfers-acquire, queue
 family acquire operation>> for the specified buffer range, and the first
 access scope includes no access, as if pname:srcAccessMask was `0`.
 
-.Valid Usage
+.正确使用
 ****
   * pname:offset must: be less than the size of pname:buffer
   * If pname:size is not equal to ename:VK_WHOLE_SIZE, pname:size must: be
@@ -2022,7 +2017,7 @@ including those performed by <<renderpass, render passes>>.
 In effect there is an implicit execution dependency from each such layout
 transition to all layout transitions previously submitted to the same queue.
 
-.Valid Usage
+.正确使用
 ****
   * pname:oldLayout must: be ename:VK_IMAGE_LAYOUT_UNDEFINED or the current
     layout of the image subresources affected by the barrier
@@ -2085,7 +2080,7 @@ resource between two queues in different families, but no ownership transfer
 is defined, the contents of that resource are undefined for any read
 accesses performed by the second queue family.
 
-.Note
+.注意
 [NOTE]
 ====
 If an application does not need the contents of a resource to remain valid
@@ -2133,7 +2128,7 @@ operation is executed - the value of this mask does not affect the validity
 of the barrier.
 The acquire operation happens-before the visibility operation.
 
-.Note
+.注意
 [NOTE]
 ====
 Whilst it is not invalid to provide destination or source access masks for
