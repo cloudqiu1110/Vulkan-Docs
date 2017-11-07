@@ -40,7 +40,7 @@ include::../api/handles/VkShaderModule.txt[]
 
 // refBegin vkCreateShaderModule Creates a new shader module object
 
-To create a shader module, call:
+可调用如下命令来创建着色器模块：
 
 include::../api/protos/vkCreateShaderModule.txt[]
 
@@ -65,23 +65,20 @@ include::../validity/protos/vkCreateShaderModule.txt[]
 
 // refBegin VkShaderModuleCreateInfo Structure specifying parameters of a newly created shader module
 
-The sname:VkShaderModuleCreateInfo structure is defined as:
+sname:VkShaderModuleCreateInfo 数据结构定义如下：
 
 include::../api/structs/VkShaderModuleCreateInfo.txt[]
 
-  * pname:sType is the type of this structure.
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
-  * pname:flags is reserved for future use.
-  * pname:codeSize is the size, in bytes, of the code pointed to by
-    pname:pCode.
-  * pname:pCode points to code that is used to create the shader module.
-    The type and format of the code is determined from the content of the
-    memory addressed by pname:pCode.
+  * pname:sType 是数据结构的类型
+  * pname:pNext 是 `NULL` 或者指向一个指向拓展特定的数据结构的指针
+  * pname:flags 被保留
+  * pname:codeSize 是 pname:pCode指明的代码的大小，以字节为单位     
+  * pname:pCode 指向了将用来创建着色器模块的代码。代码的类型和格式由 pname:pCode所指向的内存内容所决定    
 
 .Valid Usage
 ****
-  * pname:codeSize must: be greater than 0
-  * pname:codeSize must: be a multiple of 4.
+  * pname:codeSize 必须要大于0
+  * pname:codeSize 必须是4的倍数
     If the +VK_NV_glsl_shader extension+ is enabled and pname:pCode
     references GLSL code pname:codeSize can be a multiple of 1
   * pname:pCode must: point to valid SPIR-V code, formatted and packed as
@@ -110,17 +107,15 @@ include::../validity/structs/VkShaderModuleCreateInfo.txt[]
 
 // refBegin vkDestroyShaderModule Destroy a shader module module
 
-To destroy a shader module, call:
+可调用如下命令来销毁着色器模块：
 
 include::../api/protos/vkDestroyShaderModule.txt[]
 
-  * pname:device is the logical device that destroys the shader module.
-  * pname:shaderModule is the handle of the shader module to destroy.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
+  * pname:device 是销毁着色器模块的逻辑设备
+  * pname:shaderModule 是需要被销毁的着色器模块
+  * pname:pAllocator 控制了CPU端内存分配，如 <<memory-allocation, Memory Allocation>> 一章所述
 
-A shader module can: be destroyed while pipelines created using its shaders
-are still in use.
+一个着色器模块可以在使用它的着色器的管线仍在使用中的时候被销毁。
 
 .Valid Usage
 ****
@@ -365,10 +360,9 @@ Vulkan提供了显式的控制，允许片元着色器开启早期片元测试�
 [[shaders-compute]]
 == 计算着色器
 
-Compute shaders are invoked via flink:vkCmdDispatch and
-flink:vkCmdDispatchIndirect commands.
-In general, they have access to similar resources as shader stages executing
-as part of a graphics pipeline.
+可通过 flink:vkCmdDispatch 和flink:vkCmdDispatchIndirect 命令来调用计算着色器。
+总的来说，它们在各着色器阶段执行时与图形管线的一部分对资源有类似的访问权限。
+
 
 Compute workloads are formed from groups of work items called workgroups and
 processed by the compute shader in the current compute pipeline.

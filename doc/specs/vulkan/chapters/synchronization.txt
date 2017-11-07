@@ -33,37 +33,27 @@
 
 
 [[synchronization-dependencies-scopes]]
-The synchronization scopes define which other operations a synchronization
-command is able to create execution dependencies with.
-Any type of operation that is not in a synchronization command's
-synchronization scopes will not be included in the resulting dependency.
-For example, for many synchronization commands, the synchronization scopes
-can: be limited to just operations executing in specific
-<<synchronization-pipeline-stages,pipeline stages>>, which allows other
-pipeline stages to be excluded from a dependency.
-Other scoping options are possible, depending on the particular command.
+同步范围定义了哪些其他的同步命令可以创建执行依赖。
+不再同步命令的同步范围内的任何类型的操作将不被包含进入生成的依赖之中。
+例如，对于很多同步命令来说，同步范围可以被限制到只执行特定<<synchronization-pipeline-stages,pipeline stages>>的操作上，这允许其他的管线阶段被排除在依赖之外。
+其他的范围选项也是可行的，依赖于特定的命令。
 
 [[synchronization-dependencies-execution]]
 _执行依赖_ 保证了两个集合的操作其中的一个一定在另外一个之前发生。
 如果一个操作在另外一个操作之前发生了，那么第一个操作一定会在第二个操作初始化之前完成。
 更准确的表述是：
 
-  * Let *A* and *B* be separate sets of operations.
-  * Let *S* be a synchronization command.
-  * Let *A~S~* and *B~S~* be the synchronization scopes of *S*.
-  * Let *A'* be the intersection of sets *A* and *A~S~*.
-  * Let *B'* be the intersection of sets *B* and *B~S~*.
-  * Submitting *A*, *S* and *B* for execution, in that order, will result in
-    execution dependency *E* between *A'* and *B'*.
-  * Execution dependency *E* guarantees that *A'* happens-before *B'*.
+  * 假定 *A* and *B* 是相互独立的操作集合
+  * 假定 *S* 是同步命令
+  * 假定 *A~S~* 和 *B~S~* 是 *S* 的同步范围.
+  * 假定 *A'* 是集合 *A* 与 *A~S~* 的交集
+  * 假定 *B'* 是集合 *B* 与 *B~S~*的交集
+  * 提交 *A*, *S* and *B* 来按照顺序执行，将导致在 *A'* 和 *B'* 产程一个执行依赖    
+  * 执行依赖 *E* 保证 *A'* 在*B'* 之前发生
 
 [[synchronization-dependencies-chains]]
-An _execution dependency chain_ is a sequence of execution dependencies that
-form a happens-before relation between the first dependency's *A'* and the
-final dependency's *B'*.
-For each consecutive pair of execution dependencies, a chain exists if the
-intersection of *B~S~* in the first dependency and *A~S~* in the second
-dependency is not an empty set.
+一个 _execution dependency chain_ 是一系列的执行依赖，形成了第一个依赖的 *A'*  与最后一个依赖的 *B'* 之间的 “先行发生”的关系。
+对于每一对连续的执行依赖，如果 第一个依赖中*B~S~* 与第二个依赖中*A~S~*的交集不是空集，那么就存在一个依赖链。
 The formation of a single execution dependency from an execution dependency
 chain can be described by substituting the following in the description of
 execution dependencies:

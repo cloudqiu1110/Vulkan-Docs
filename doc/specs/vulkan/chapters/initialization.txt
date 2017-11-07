@@ -15,8 +15,7 @@ Vulkan命令在各平台上并不是静态的暴露出来的。可以通过以�
 
 include::../api/protos/vkGetInstanceProcAddr.txt[]
 
-  * pname:instance is the instance that the function pointer will be
-    compatible with, or `NULL` for commands not dependent on any instance.
+  * pname:instance 是函数指针兼容的实例的指针，或者对不依赖于任何实例的命令来说是`NULL`
   * pname:pName 是需要获取的命令的名字。
 
 fname:vkGetInstanceProcAddr 自己是通过平台和loader各异的方式获取的。通常，loader库将以函数符号的方式导出这个命令，
@@ -95,7 +94,7 @@ include::../validity/protos/vkGetDeviceProcAddr.txt[]
 
 // refBegin PFN_vkVoidFunction Dummy function pointer type returned by queries
 
-The definition of tlink:PFN_vkVoidFunction is:
+tlink:PFN_vkVoidFunction 的定义是：
 
 include::../api/funcpointers/PFN_vkVoidFunction.txt[]
 
@@ -134,7 +133,7 @@ endif::VK_KHR_get_physical_device_properties2[]
 在Vulkan中没有全局的状态，所有应用程序自己的状态都存储在一个sname:VkInstance对象中。
 创建一个sname:VkInstance 对象会初始化Vulkan库并允许应用程序传递信息给Vulkan实现。
 
-Instances are represented by sname:VkInstance handles:
+实例由sname:VkInstance 类型的handle表示：
 
 include::../api/handles/VkInstance.txt[]
 
@@ -142,16 +141,13 @@ include::../api/handles/VkInstance.txt[]
 
 // refBegin vkCreateInstance Create a new Vulkan instance
 
-To create an instance object, call:
+可调用如下命令来创建一个实例：
 
 include::../api/protos/vkCreateInstance.txt[]
 
-  * pname:pCreateInfo points to an instance of slink:VkInstanceCreateInfo
-    controlling creation of the instance.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
-  * pname:pInstance points a sname:VkInstance handle in which the resulting
-    instance is returned.
+  * pname:pCreateInfo 指向一个slink:VkInstanceCreateInfo 类型数据结构，控制了实例的创建    
+  * pname:pAllocator 控制了CPU端内存分配，如 <<memory-allocation, Memory Allocation>> 一章所描述
+  * pname:pInstance 指向了一个 sname:VkInstance 类型handle ，产生的实例由此返回    
 
 fname:vkCreateInstance创建一个实例，然后启用并初始化应用程序需要的全局层和拓展。
 如果一个拓展通过一个层提供，那么层和拓展都必须在fname:vkCreateInstance指定。
@@ -162,29 +158,21 @@ include::../validity/protos/vkCreateInstance.txt[]
 
 // refBegin VkInstanceCreateInfo Structure specifying parameters of a newly created instance
 
-The sname:VkInstanceCreateInfo structure is defined as:
+sname:VkInstanceCreateInfo 类型数据结构定义如下：
 
 include::../api/structs/VkInstanceCreateInfo.txt[]
 
-  * pname:sType is the type of this structure.
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
-  * pname:flags is reserved for future use.
-  * pname:pApplicationInfo is `NULL` or a pointer to an instance of
-    sname:VkApplicationInfo.
-    If not `NULL`, this information helps implementations recognize behavior
-    inherent to classes of applications.
-    slink:VkApplicationInfo is defined in detail below.
-  * pname:enabledLayerCount is the number of global layers to enable.
-  * pname:ppEnabledLayerNames is a pointer to an array of
-    pname:enabledLayerCount null-terminated UTF-8 strings containing the
-    names of layers to enable for the created instance.
-    See the <<extended-functionality-layers,Layers>> section for further
-    details.
-  * pname:enabledExtensionCount is the number of global extensions to
-    enable.
-  * pname:ppEnabledExtensionNames is a pointer to an array of
-    pname:enabledExtensionCount null-terminated UTF-8 strings containing the
-    names of extensions to enable.
+  * pname:sType  是数据结构的类型
+  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针
+  * pname:flags 被保留
+  * pname:pApplicationInfo 是 `NULL` 或者是一个指向 sname:VkApplicationInfo 类型实例的指针。
+	如果不是`NULL`，这个信息帮助Vulkan实现识别多个类别的程序固有的行为。
+    slink:VkApplicationInfo 在下面有详细的定义。
+  * pname:enabledLayerCount 是将要启用的全局层的个数。
+  * pname:ppEnabledLayerNames 是一个指针，指向了大小为 pname:enabledLayerCount ，以null结尾UTF-8 字符串（包含了创建的实例将要启用的层的名字）的数组。
+     参考 <<extended-functionality-layers,Layers>> 一节以获取更多细节。    
+  * pname:enabledExtensionCount 是将要启用的全局拓展的个数。
+  * pname:ppEnabledExtensionNames 一个指针，指向了大小为 pname:enabledExtensionCount ，以null结尾UTF-8 字符串(包含了将要启用的拓展的名字）的数组。    
 
 include::../validity/structs/VkInstanceCreateInfo.txt[]
 
@@ -195,14 +183,13 @@ endif::VK_EXT_validation_flags[]
 
 // refBegin VkApplicationInfo Structure specifying application info
 
-The sname:VkApplicationInfo structure is defined as:
+sname:VkApplicationInfo 数据结构定义如下：
 
 include::../api/structs/VkApplicationInfo.txt[]
 
-  * pname:sType is the type of this structure.
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
-  * pname:pApplicationName is a pointer to a null-terminated UTF-8 string
-    containing the name of the application.
+  * pname:sType 是数据结构的类型
+  * pname:pNext 是 `NULL` 或者指向一个指向拓展特定的数据结构的指针
+  * pname:pApplicationName 是一个以 null 结束的UTF-8字符串，包含了应用程序的名字。 
   * pname:applicationVersion is an unsigned integer variable containing the
     developer-supplied version number of the application.
   * pname:pEngineName is a pointer to a null-terminated UTF-8 string
@@ -232,13 +219,12 @@ include::../validity/structs/VkApplicationInfo.txt[]
 
 // refBegin vkDestroyInstance Destroy an instance of Vulkan
 
-To destroy an instance, call:
+可调用如下命令来销毁一个实例：
 
 include::../api/protos/vkDestroyInstance.txt[]
 
-  * pname:instance is the handle of the instance to destroy.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
+  * pname:instance 是需要被销毁的实例的handle。
+  * pname:pAllocator 控制了CPU端内存分配，如 <<memory-allocation, Memory Allocation>> 一章所述
 
 .Valid Usage
 ****
