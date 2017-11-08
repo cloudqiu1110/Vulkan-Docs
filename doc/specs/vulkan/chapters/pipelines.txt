@@ -45,9 +45,7 @@ image::images/pipeline.svg[title="Block diagram of the Vulkan pipeline",{fullima
 
 
 // refBegin VkPipeline Opaque handle to a pipeline object
-
-Compute and graphics pipelines are each represented by sname:VkPipeline
-handles:
+计算和图形管线分别通过sname:VkPipeline 类型handle表示：
 
 include::../api/handles/VkPipeline.txt[]
 
@@ -65,23 +63,17 @@ include::../api/handles/VkPipeline.txt[]
 
 // refBegin vkCreateComputePipelines Creates a new compute pipeline object
 
-To create compute pipelines, call:
+可调用如下命令来创建计算管线：
 
 include::../api/protos/vkCreateComputePipelines.txt[]
 
-  * pname:device is the logical device that creates the compute pipelines.
-  * pname:pipelineCache is either dlink:VK_NULL_HANDLE, indicating that
-    pipeline caching is disabled; or the handle of a valid
-    <<pipelines-cache,pipeline cache>> object, in which case use of that
-    cache is enabled for the duration of the command.
-  * pname:createInfoCount is the length of the pname:pCreateInfos and
-    pname:pPipelines arrays.
-  * pname:pCreateInfos is an array of sname:VkComputePipelineCreateInfo
-    structures.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
-  * pname:pPipelines is a pointer to an array in which the resulting compute
-    pipeline objects are returned.
+  * pname:device 是创建计算管线的逻辑设备。
+  * pname:pipelineCache 要么是 dlink:VK_NULL_HANDLE，表示禁止使用管线缓存；要么是一个有效的 <<pipelines-cache,pipeline cache>> 对象的  handle，
+	 此时命令执行期间启用管线缓存。    
+  * pname:createInfoCount 是pname:pCreateInfos 和  pname:pPipelines 数组的长度。
+  * pname:pCreateInfos 是一个 sname:VkComputePipelineCreateInfo 数组。    
+  * pname:pAllocator 控制了CPU端内存分配，如 <<memory-allocation, Memory Allocation>> 一章所描述
+  * pname:pPipelines 是一个指针，指向了承载被返回的计算管线对象的数组。    
 +
 --
 ifdef::editing-notes[]
@@ -112,28 +104,23 @@ include::../validity/protos/vkCreateComputePipelines.txt[]
 
 // refBegin VkComputePipelineCreateInfo Structure specifying parameters of a newly created compute pipeline
 
-The sname:VkComputePipelineCreateInfo structure is defined as:
+sname:VkComputePipelineCreateInfo 数据结构定义如下：
 
 include::../api/structs/VkComputePipelineCreateInfo.txt[]
 
-  * pname:sType is the type of this structure.
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
-  * pname:flags provides options for pipeline creation, and is of type
-    elink:VkPipelineCreateFlagBits.
-  * pname:stage is a slink:VkPipelineShaderStageCreateInfo describing the
-    compute shader.
+  * pname:sType 是数据结构的类型。
+  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
+  * pname:flags 提供了管线创建的可选信息，枚举类型为 elink:VkPipelineCreateFlagBits。
+  * pname:stage 是一个 slink:VkPipelineShaderStageCreateInfo，描述了计算着色器。
   * pname:layout is the description of binding locations used by both the
     pipeline and descriptor sets used with the pipeline.
   * pname:basePipelineHandle is a pipeline to derive from
   * pname:basePipelineIndex is an index into the pname:pCreateInfos
     parameter to use as a pipeline to derive from
 
-The parameters pname:basePipelineHandle and pname:basePipelineIndex are
-described in more detail in <<pipelines-pipeline-derivatives,Pipeline
-Derivatives>>.
+参数 pname:basePipelineHandle 和 pname:basePipelineIndex 在<<pipelines-pipeline-derivatives,Pipeline Derivatives>> 中有详细描述。
 
-pname:stage points to a structure of type
-sname:VkPipelineShaderStageCreateInfo.
+pname:stage 指向一个类型为sname:VkPipelineShaderStageCreateInfo的数据
 
 .Valid Usage
 ****
@@ -165,27 +152,24 @@ include::../validity/structs/VkComputePipelineCreateInfo.txt[]
 
 // refBegin VkPipelineShaderStageCreateInfo Structure specifying parameters of a newly created pipeline shader stage
 
-The sname:VkPipelineShaderStageCreateInfo structure is defined as:
+sname:VkPipelineShaderStageCreateInfo 类型数据结构定义如下：
 
 include::../api/structs/VkPipelineShaderStageCreateInfo.txt[]
 
-  * pname:sType is the type of this structure.
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
-  * pname:flags is reserved for future use.
-  * pname:stage names a single pipeline stage.
+  * pname:sType 是数据结构的类型。
+  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
+  * pname:flags  被保留。
+  * pname:stage 是给管线阶段起的名字。
     Bits which can: be set include:
 +
 --
 // refBegin VkShaderStageFlagBits Bitmask specifying a pipeline stage
 include::../api/enums/VkShaderStageFlagBits.txt[]
 --
-  * pname:module is a sname:VkShaderModule object that contains the shader
-    for this stage.
-  * pname:pName is a pointer to a null-terminated UTF-8 string specifying
-    the entry point name of the shader for this stage.
-  * pname:pSpecializationInfo is a pointer to slink:VkSpecializationInfo, as
-    described in <<pipelines-specialization-constants,Specialization
-    Constants>>, and can: be `NULL`.
+  * pname:module 是一个 sname:VkShaderModule 类型对象，包含了这个阶段的着色器。
+  * pname:pName 是一个指针，指向了一个以null结尾的UTF-8字符串，指定了这个阶段着色器入口的名字。      
+  * pname:pSpecializationInfo 是一个指针，指向了一个slink:VkSpecializationInfo，在 <<pipelines-specialization-constants,Specialization Constants>>中有详细描述，
+	 可以为 `NULL`。
 
 .Valid Usage
 ****
@@ -265,7 +249,7 @@ include::../validity/structs/VkPipelineShaderStageCreateInfo.txt[]
 
 include::../api/protos/vkCreateGraphicsPipelines.txt[]
 
-  * pname:device is the logical device that creates the graphics pipelines.
+  * pname:device 是创建图形管线的逻辑设备。
   * pname:pipelineCache is either dlink:VK_NULL_HANDLE, indicating that
     pipeline caching is disabled; or the handle of a valid
     <<pipelines-cache,pipeline cache>> object, in which case use of that
@@ -274,15 +258,12 @@ include::../api/protos/vkCreateGraphicsPipelines.txt[]
     pname:pPipelines arrays.
   * pname:pCreateInfos is an array of sname:VkGraphicsPipelineCreateInfo
     structures.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
-  * pname:pPipelines is a pointer to an array in which the resulting
-    graphics pipeline objects are returned.
+  * pname:pAllocator 控制了CPU端内存分配，如 <<memory-allocation, Memory Allocation>> 一章所描述。
+  * pname:pPipelines 是一个指针，指向了存储被返回的图形管线对象的数组。    
 
-The slink:VkGraphicsPipelineCreateInfo structure includes an array of shader
-create info structures containing all the desired active shader stages, as
-well as creation info to define all relevant fixed-function stages, and a
-pipeline layout.
+  
+slink:VkGraphicsPipelineCreateInfo 数据结构包含一个数组的着色器创建信息， 包括了所有想要的活跃的着色器阶段，
+也包含了等译所有相关的固定管线阶段和管线布局。
 
 .Valid Usage
 ****
@@ -301,12 +282,12 @@ include::../validity/protos/vkCreateGraphicsPipelines.txt[]
 
 // refBegin VkGraphicsPipelineCreateInfo Structure specifying parameters of a newly created graphics pipeline
 
-The sname:VkGraphicsPipelineCreateInfo structure is defined as:
+sname:VkGraphicsPipelineCreateInfo 数据结构定义如下：
 
 include::../api/structs/VkGraphicsPipelineCreateInfo.txt[]
 
-  * pname:sType is the type of this structure.
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
+  * pname:sType 是数据结构的类型。
+  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:flags is a bitmask of elink:VkPipelineCreateFlagBits controlling
     how the pipeline will be generated, as described below.
   * pname:stageCount is the number of entries in the pname:pStages array.
@@ -358,13 +339,10 @@ include::../api/structs/VkGraphicsPipelineCreateInfo.txt[]
   * pname:basePipelineIndex is an index into the pname:pCreateInfos
     parameter to use as a pipeline to derive from.
 
-The parameters pname:basePipelineHandle and pname:basePipelineIndex are
-described in more detail in <<pipelines-pipeline-derivatives,Pipeline
-Derivatives>>.
+pname:basePipelineHandle 和 pname:basePipelineIndex 参数在 <<pipelines-pipeline-derivatives,Pipeline Derivatives>> 中有详细的描述。
 
-pname:pStages points to an array of slink:VkPipelineShaderStageCreateInfo
-structures, which were previously described in <<pipelines-compute,Compute
-Pipelines>>.
+pname:pStages 指向了一个 slink:VkPipelineShaderStageCreateInfo 数组，此类型在之前的
+<<pipelines-compute,Compute Pipelines>>中讲解过。
 
 Bits which can: be set in pname:flags are:
 
@@ -387,8 +365,7 @@ pipeline hierarchy.
 See <<pipelines-pipeline-derivatives,Pipeline Derivatives>> for more
 information.
 
-pname:pDynamicState points to a structure of type
-sname:VkPipelineDynamicStateCreateInfo.
+pname:pDynamicState 指向一个类型为sname:VkPipelineDynamicStateCreateInfo的数据结构。
 
 ifdef::VK_NV_glsl_shader[]
 If any shader stage fails to compile,
@@ -545,18 +522,15 @@ include::../validity/structs/VkGraphicsPipelineCreateInfo.txt[]
 
 // refBegin VkPipelineDynamicStateCreateInfo Structure specifying parameters of a newly created pipeline dynamic state
 
-The sname:VkPipelineDynamicStateCreateInfo structure is defined as:
+sname:VkPipelineDynamicStateCreateInfo 类型数据结构定义如下：
 
 include::../api/structs/VkPipelineDynamicStateCreateInfo.txt[]
 
-  * pname:sType is the type of this structure.
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
-  * pname:flags is reserved for future use.
-  * pname:dynamicStateCount is the number of elements in the
-    pname:pDynamicStates array.
-  * pname:pDynamicStates is an array of elink:VkDynamicState enums which
-    indicate which pieces of pipeline state will use the values from dynamic
-    state commands rather than from the pipeline state creation info.
+  * pname:sType 是数据结构的类型。
+  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
+  * pname:flags 被保留。
+  * pname:dynamicStateCount 是 pname:pDynamicStates 数组的元素个数。
+  * pname:pDynamicStates是一个elink:VkDynamicState枚举类型的数组，管线阶段的哪一部分将从动态命令中而不是从管线创建信息中使用值。
 
 include::../validity/structs/VkPipelineDynamicStateCreateInfo.txt[]
 
@@ -632,13 +606,11 @@ include::../api/enums/VkDynamicState.txt[]
 
 === Valid Combinations of Stages for Graphics Pipelines
 
-If tessellation shader stages are omitted, the tessellation shading and
-fixed-function stages of the pipeline are skipped.
+如果省略了细分着色器阶段，那么细分着色和这个管线的固定功能就被跳过了。
 
-If a geometry shader is omitted, the geometry shading stage is skipped.
+若省略了几何着色器，几何着色阶段就被跳过。
 
-If a fragment shader is omitted, the results of fragment processing are
-undefined.
+若省略了片元着色器，片元处理的结果就是未定义的。
 Specifically, any fragment color outputs are considered to have undefined
 values, and the fragment depth is considered to be unmodified.
 This can: be useful for depth-only rendering.
@@ -771,15 +743,10 @@ To create pipeline cache objects, call:
 
 include::../api/protos/vkCreatePipelineCache.txt[]
 
-  * pname:device is the logical device that creates the pipeline cache
-    object.
-  * pname:pCreateInfo is a pointer to a sname:VkPipelineCacheCreateInfo
-    structure that contains the initial parameters for the pipeline cache
-    object.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
-  * pname:pPipelineCache is a pointer to a sname:VkPipelineCache handle in
-    which the resulting pipeline cache object is returned.
+  * pname:device 是创建管线缓存的连接设备。
+  * pname:pCreateInfo 是一个指针，指向了一个a sname:VkPipelineCacheCreateInfo，包含着管线缓存的初始参数。    
+  * pname:pAllocator 控制了CPU端内存分配，如 <<memory-allocation, Memory Allocation>> 一章所描述。
+  * pname:pPipelineCache 是一个指针，指向了一个 sname:VkPipelineCache handle，存放被返回的管线缓存对象。    
 
 [NOTE]
 .注意
@@ -804,13 +771,13 @@ include::../validity/protos/vkCreatePipelineCache.txt[]
 
 // refBegin VkPipelineCacheCreateInfo Structure specifying parameters of a newly created pipeline cache
 
-The sname:VkPipelineCacheCreateInfo structure is defined as:
+sname:VkPipelineCacheCreateInfo 数据结构定义如下： 
 
 include::../api/structs/VkPipelineCacheCreateInfo.txt[]
 
-  * pname:sType is the type of this structure.
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
-  * pname:flags is reserved for future use.
+  * pname:sType 是数据结构的类型。
+  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
+  * pname:flags 被保留。
   * pname:initialDataSize is the number of bytes in pname:pInitialData.
     If pname:initialDataSize is zero, the pipeline cache will initially be
     empty.
@@ -833,17 +800,15 @@ include::../validity/structs/VkPipelineCacheCreateInfo.txt[]
 
 // refBegin vkMergePipelineCaches Combine the data stores of pipeline caches
 
-Pipeline cache objects can: be merged using the command:
+可以使用如下命令来合并管线缓存对象：
 
 include::../api/protos/vkMergePipelineCaches.txt[]
 
-  * pname:device is the logical device that owns the pipeline cache objects.
-  * pname:dstCache is the handle of the pipeline cache to merge results
-    into.
-  * pname:srcCacheCount is the length of the pname:pSrcCaches array.
-  * pname:pSrcCaches is an array of pipeline cache handles, which will be
-    merged into pname:dstCache.
-    The previous contents of pname:dstCache are included after the merge.
+  * pname:device 是拥有该管线缓存对象的逻辑设备。
+  * pname:dstCache 是存放合并产生的管线缓存的handle。
+  * pname:srcCacheCount 是 数组pname:pSrcCaches 的大小。
+  * pname:pSrcCaches 是一个管线缓存handle的数组，将被合并到 pname:dstCache。
+	 pname:dstCache 之前的内容仍包含在合并之后的缓存中。    
 
 [NOTE]
 .注意
@@ -862,34 +827,25 @@ include::../validity/protos/vkMergePipelineCaches.txt[]
 
 // refBegin vkGetPipelineCacheData Get the data store from a pipeline cache
 
-Data can: be retrieved from a pipeline cache object using the command:
+可以使用如下命令从管线缓存对象中取出数据：
 
 include::../api/protos/vkGetPipelineCacheData.txt[]
 
-  * pname:device is the logical device that owns the pipeline cache.
-  * pname:pipelineCache is the pipeline cache to retrieve data from.
-  * pname:pDataSize is a pointer to a value related to the amount of data in
-    the pipeline cache, as described below.
-  * pname:pData is either `NULL` or a pointer to a buffer.
+  * pname:device是拥有该管线缓存对象的逻辑设备。
+  * pname:pipelineCache 是获取数据的目标管线缓存对象。
+  * pname:pDataSize 是一个指针，指向存放从管线缓存中获取的数据大小的变量，下面有描述。   
+  * pname:pData要么是 `NULL`，要么指向一个缓冲区。
 
-If pname:pData is `NULL`, then the maximum size of the data that can: be
-retrieved from the pipeline cache, in bytes, is returned in pname:pDataSize.
-Otherwise, pname:pDataSize must: point to a variable set by the user to the
-size of the buffer, in bytes, pointed to by pname:pData, and on return the
-variable is overwritten with the amount of data actually written to
-pname:pData.
+若pname:pData 是 `NULL`，那么可以从管线缓存中取出的数据的最大大小通过 pname:pDataSize返回，以字节为单位。
+否则，pname:pDataSize 必须指向一个变量，由用户设置为 pname:pData所指向的buffer的大小（字节为单位），
+函数返回时，变量将被覆盖为写入到pname:pData的数据量的大小。
 
-If pname:pDataSize is less than the maximum size that can: be retrieved by
-the pipeline cache, at most pname:pDataSize bytes will be written to
-pname:pData, and fname:vkGetPipelineCacheData will return
-ename:VK_INCOMPLETE.
-Any data written to pname:pData is valid and can: be provided as the
-pname:pInitialData member of the sname:VkPipelineCacheCreateInfo structure
-passed to fname:vkCreatePipelineCache.
+若 pname:pDataSize 比可以从管线缓存中取出的数据的最大大小要小，那么最多只有pname:pDataSize字节的数据将被写入pname:pData，
+fname:vkGetPipelineCacheData将返回ename:VK_INCOMPLETE。
 
-Two calls to fname:vkGetPipelineCacheData with the same parameters must:
-retrieve the same data unless a command that modifies the contents of the
-cache is called between them.
+写入pname:pData的任何数据都是有效的，可以用作sname:VkPipelineCacheCreateInfo数据结构的pname:pInitialData 成员，从而传递给fname:vkCreatePipelineCache。
+
+用相同的参数两次调用fname:vkGetPipelineCacheData 必须要获取到完全相同的数据，除非在两次调用期间，其他的命令改变了缓存的内容。
 
 [[pipelines-cache-header]]
 Applications can: store the data retrieved from the pipeline cache, and use
@@ -987,7 +943,7 @@ sname:VkPipelineShaderStageCreateInfo的每一个实例包含一个参数pname:p
 
 // refBegin VkSpecializationInfo Structure specifying specialization info
 
-The sname:VkSpecializationInfo structure is defined as:
+sname:VkSpecializationInfo 类型数据结构定义如下：
 
 include::../api/structs/VkSpecializationInfo.txt[]
 
@@ -999,8 +955,7 @@ include::../api/structs/VkSpecializationInfo.txt[]
   * pname:dataSize is the byte size of the pname:pData buffer.
   * pname:pData contains the actual constant values to specialize with.
 
-pname:pMapEntries points to a structure of type
-slink:VkSpecializationMapEntry.
+pname:pMapEntries 指向一个类型为slink:VkSpecializationMapEntry 的数据。
 
 .Valid Usage
 ****
@@ -1017,18 +972,15 @@ include::../validity/structs/VkSpecializationInfo.txt[]
 
 // refBegin VkSpecializationMapEntry Structure specifying a specialization map entry
 
-The sname:VkSpecializationMapEntry structure is defined as:
+sname:VkSpecializationMapEntry 类型数据结构定义如下：
 
 include::../api/structs/VkSpecializationMapEntry.txt[]
 
-  * pname:constantID is the ID of the specialization constant in SPIR-V.
-  * pname:offset is the byte offset of the specialization constant value
-    within the supplied data buffer.
-  * pname:size is the byte size of the specialization constant value within
-    the supplied data buffer.
+  * pname:constantID 是SPIR-V中特化常量的ID。
+  * pname:offset 是提供的数据buffer中特化常量值的起始便宜量（字节单位）。
+  * pname:size 是提供的数据buffer中特化常量值的大小（字节单位）。
 
-If a pname:constantID value is not a specialization constant ID used in the
-shader, that map entry does not affect the behavior of the pipeline.
+若 pname:constantID 的值并不是在着色器中使用的特化常量ID，这个map entry将不会影响管线的行为。
 
 .Valid Usage
 ****
@@ -1172,10 +1124,8 @@ OpSpecConstant declarations.
 
 include::../api/protos/vkCmdBindPipeline.txt[]
 
-  * pname:commandBuffer is the command buffer that the pipeline will be
-    bound to.
-  * pname:pipelineBindPoint specifies the bind point, and must: have one of
-    the values
+  * pname:commandBuffer 是管线将要绑定的命令缓冲区。
+  * pname:pipelineBindPoint 指定了绑定点，必须是如下的值之一。
 +
 --
 // refBegin VkPipelineBindPoint Specify the bind point of a pipeline object to a command buffer

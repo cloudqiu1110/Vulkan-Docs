@@ -162,9 +162,9 @@ sname:VkInstanceCreateInfo 类型数据结构定义如下：
 
 include::../api/structs/VkInstanceCreateInfo.txt[]
 
-  * pname:sType  是数据结构的类型
-  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针
-  * pname:flags 被保留
+  * pname:sType  是数据结构的类型。
+  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
+  * pname:flags 被保留。
   * pname:pApplicationInfo 是 `NULL` 或者是一个指向 sname:VkApplicationInfo 类型实例的指针。
 	如果不是`NULL`，这个信息帮助Vulkan实现识别多个类别的程序固有的行为。
     slink:VkApplicationInfo 在下面有详细的定义。
