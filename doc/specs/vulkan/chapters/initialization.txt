@@ -145,9 +145,9 @@ include::../api/handles/VkInstance.txt[]
 
 include::../api/protos/vkCreateInstance.txt[]
 
-  * pname:pCreateInfo 指向一个slink:VkInstanceCreateInfo 类型数据结构，控制了实例的创建    
-  * pname:pAllocator 控制了CPU端内存分配，如 <<memory-allocation, Memory Allocation>> 一章所描述
-  * pname:pInstance 指向了一个 sname:VkInstance 类型handle ，产生的实例由此返回    
+  * pname:pCreateInfo 指向一个slink:VkInstanceCreateInfo 类型数据结构，控制了实例的创建 。
+  * pname:pAllocator 控制了CPU端内存分配，如 <<memory-allocation, Memory Allocation>> 一章所描述。
+  * pname:pInstance 指向了一个 sname:VkInstance 类型handle ，产生的实例由此返回 。
 
 fname:vkCreateInstance创建一个实例，然后启用并初始化应用程序需要的全局层和拓展。
 如果一个拓展通过一个层提供，那么层和拓展都必须在fname:vkCreateInstance指定。
@@ -187,8 +187,8 @@ sname:VkApplicationInfo 数据结构定义如下：
 
 include::../api/structs/VkApplicationInfo.txt[]
 
-  * pname:sType 是数据结构的类型
-  * pname:pNext 是 `NULL` 或者指向一个指向拓展特定的数据结构的指针
+  * pname:sType 是数据结构的类型。
+  * pname:pNext 是 `NULL` 或者指向一个指向拓展特定的数据结构的指针。
   * pname:pApplicationName 是一个以 null 结束的UTF-8字符串，包含了应用程序的名字。 
   * pname:applicationVersion is an unsigned integer variable containing the
     developer-supplied version number of the application.
@@ -209,7 +209,7 @@ include::../api/structs/VkApplicationInfo.txt[]
     Only the major and minor versions of the instance must: match those
     requested in pname:apiVersion.
 
-.Valid Usage
+.正确使用
 ****
   * pname:apiVersion must: be zero, or otherwise it must: be a version that
     the implementation supports, or supports an effective substitute for
@@ -224,9 +224,9 @@ include::../validity/structs/VkApplicationInfo.txt[]
 include::../api/protos/vkDestroyInstance.txt[]
 
   * pname:instance 是需要被销毁的实例的handle。
-  * pname:pAllocator 控制了CPU端内存分配，如 <<memory-allocation, Memory Allocation>> 一章所述
+  * pname:pAllocator 控制了CPU端内存分配，如 <<memory-allocation, Memory Allocation>> 一章所述。
 
-.Valid Usage
+.正确使用
 ****
   * All child objects created using pname:instance must: have been destroyed
     prior to destroying pname:instance

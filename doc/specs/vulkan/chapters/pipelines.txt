@@ -87,7 +87,7 @@ pname:pCreateInfos array''? Also for flink:vkCreateGraphicsPipelines below.
 endif::editing-notes[]
 --
 
-.Valid Usage
+.正确使用
 ****
   * If the pname:flags member of any given element of pname:pCreateInfos
     contains the ename:VK_PIPELINE_CREATE_DERIVATIVE_BIT flag, and the
@@ -122,7 +122,7 @@ include::../api/structs/VkComputePipelineCreateInfo.txt[]
 
 pname:stage 指向一个类型为sname:VkPipelineShaderStageCreateInfo的数据
 
-.Valid Usage
+.正确使用
 ****
   * If pname:flags contains the ename:VK_PIPELINE_CREATE_DERIVATIVE_BIT
     flag, and pname:basePipelineIndex is -1, pname:basePipelineHandle must:
@@ -171,7 +171,7 @@ include::../api/enums/VkShaderStageFlagBits.txt[]
   * pname:pSpecializationInfo 是一个指针，指向了一个slink:VkSpecializationInfo，在 <<pipelines-specialization-constants,Specialization Constants>>中有详细描述，
 	 可以为 `NULL`。
 
-.Valid Usage
+.正确使用
 ****
   * If the <<features-features-geometryShader,geometry shaders>> feature is
     not enabled, pname:stage must: not be ename:VK_SHADER_STAGE_GEOMETRY_BIT
@@ -265,7 +265,7 @@ include::../api/protos/vkCreateGraphicsPipelines.txt[]
 slink:VkGraphicsPipelineCreateInfo 数据结构包含一个数组的着色器创建信息， 包括了所有想要的活跃的着色器阶段，
 也包含了等译所有相关的固定管线阶段和管线布局。
 
-.Valid Usage
+.正确使用
 ****
   * If the pname:flags member of any given element of pname:pCreateInfos
     contains the ename:VK_PIPELINE_CREATE_DERIVATIVE_BIT flag, and the
@@ -375,7 +375,7 @@ endif::VK_EXT_debug_report[]
 ename:VK_ERROR_INVALID_SHADER_NV will be generated.
 endif::VK_NV_glsl_shader[]
 
-.Valid Usage
+.正确使用
 ****
   * If pname:flags contains the ename:VK_PIPELINE_CREATE_DERIVATIVE_BIT
     flag, and pname:basePipelineIndex is -1, pname:basePipelineHandle must:
@@ -670,16 +670,15 @@ pipeline has valid Tessellation Control and Tessellation Evaluation shaders.
 
 // refBegin vkDestroyPipeline Destroy a pipeline object
 
-To destroy a graphics or compute pipeline, call:
+可调用如下命令来销毁一个图形或者计算管线：
 
 include::../api/protos/vkDestroyPipeline.txt[]
 
-  * pname:device is the logical device that destroys the pipeline.
-  * pname:pipeline is the handle of the pipeline to destroy.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
+  * pname:device 是需要销毁管线的逻辑设备。
+  * pname:pipeline 是需要被销毁的管线的handle。
+  * pname:pAllocator 控制了CPU端内存分配，如 <<memory-allocation, Memory Allocation>> 一章所描述。
 
-.Valid Usage
+.正确使用
 ****
   * All submitted commands that refer to pname:pipeline must: have completed
     execution
@@ -739,7 +738,7 @@ include::../api/handles/VkPipelineCache.txt[]
 
 // refBegin vkCreatePipelineCache Creates a new pipeline cache
 
-To create pipeline cache objects, call:
+可调用如下命令来创建管线缓存对象：
 
 include::../api/protos/vkCreatePipelineCache.txt[]
 
@@ -787,7 +786,7 @@ include::../api/structs/VkPipelineCacheCreateInfo.txt[]
     device, the pipeline cache will be initially empty.
     If pname:initialDataSize is zero, pname:pInitialData is ignored.
 
-.Valid Usage
+.正确使用
 ****
   * If pname:initialDataSize is not `0`, it must: be equal to the size of
     pname:pInitialData, as returned by fname:vkGetPipelineCacheData when
@@ -818,7 +817,7 @@ implementations should: merge the contents of the specified pipelines and
 prune duplicate entries.
 ====
 
-.Valid Usage
+.正确使用
 ****
   * pname:dstCache must: not appear in the list of source caches
 ****
@@ -915,7 +914,7 @@ include::../api/protos/vkDestroyPipelineCache.txt[]
   * pname:pAllocator controls host memory allocation as described in the
     <<memory-allocation, Memory Allocation>> chapter.
 
-.Valid Usage
+.正确使用
 ****
   * If sname:VkAllocationCallbacks were provided when pname:pipelineCache
     was created, a compatible set of callbacks must: be provided here
@@ -957,7 +956,7 @@ include::../api/structs/VkSpecializationInfo.txt[]
 
 pname:pMapEntries 指向一个类型为slink:VkSpecializationMapEntry 的数据。
 
-.Valid Usage
+.正确使用
 ****
   * The pname:offset member of any given element of pname:pMapEntries must:
     be less than pname:dataSize
@@ -982,7 +981,7 @@ include::../api/structs/VkSpecializationMapEntry.txt[]
 
 若 pname:constantID 的值并不是在着色器中使用的特化常量ID，这个map entry将不会影响管线的行为。
 
-.Valid Usage
+.正确使用
 ****
   * For a pname:constantID specialization constant declared in a shader,
     pname:size must: match the byte size of the pname:constantID.
@@ -1146,7 +1145,7 @@ one does not disturb the other.
 flink:vkCmdDrawIndirect, and flink:vkCmdDrawIndexedIndirect的行为。
 其他的命令不受管线状态的影响。
 
-.Valid Usage
+.正确使用
 ****
   * If pname:pipelineBindPoint is ename:VK_PIPELINE_BIND_POINT_COMPUTE, the
     sname:VkCommandPool that pname:commandBuffer was allocated from must:

@@ -44,7 +44,7 @@ include::../api/handles/VkShaderModule.txt[]
 
 include::../api/protos/vkCreateShaderModule.txt[]
 
-  * pname:device is the logical device that creates the shader module.
+  * pname:device 是创建着色器模块的逻辑设备。
   * pname:pCreateInfo parameter is a pointer to an instance of the
     sname:VkShaderModuleCreateInfo structure.
   * pname:pAllocator controls host memory allocation as described in the
@@ -75,7 +75,7 @@ include::../api/structs/VkShaderModuleCreateInfo.txt[]
   * pname:codeSize 是 pname:pCode指明的代码的大小，以字节为单位     
   * pname:pCode 指向了将用来创建着色器模块的代码。代码的类型和格式由 pname:pCode所指向的内存内容所决定    
 
-.Valid Usage
+.正确使用
 ****
   * pname:codeSize 必须要大于0
   * pname:codeSize 必须是4的倍数
@@ -117,7 +117,7 @@ include::../api/protos/vkDestroyShaderModule.txt[]
 
 一个着色器模块可以在使用它的着色器的管线仍在使用中的时候被销毁。
 
-.Valid Usage
+.正确使用
 ****
   * If sname:VkAllocationCallbacks were provided when pname:shaderModule was
     created, a compatible set of callbacks must: be provided here

@@ -33,7 +33,7 @@ include::../api/structs/VkAllocationCallbacks.txt[]
   * pname:pfnInternalAllocation 是一个指向应用程序定义的函数的指针，当被Vulkan实现调用时，就进行内部内存分配，类型为  tlink:PFN_vkInternalAllocationNotification。
   * pname:pfnInternalFree 是一个指向应用程序定义的函数的指针，当被Vulkan实现调用时，就释放内部内存，类型为tlink:PFN_vkInternalFreeNotification。
 
-.Valid Usage
+.正确使用
 ****
   * pname:pfnAllocation 必须: 是一个有效的用户自定义的tlink:PFN_vkAllocationFunction 类型的函数指针。
   * pname:pfnReallocation 必须: 是一个指向有效的用户自定义的 tlink:PFN_vkReallocationFunction类型的函数指针。
@@ -264,7 +264,7 @@ If pname:pfnAllocation or pname:pfnReallocation fail, the implementation
 may: fail object creation and/or generate an
 ename:VK_ERROR_OUT_OF_HOST_MEMORY error, as appropriate.
 
-Allocation callbacks must: not call any Vulkan commands.
+内存分配回调函数不能调用任何Vulkan命令。
 
 The following sets of rules define when an implementation is permitted to
 call the allocator callbacks.
@@ -457,7 +457,7 @@ ifdef::VK_KHR_get_physical_device_properties2[]
 
 // refBegin vkGetPhysicalDeviceMemoryProperties2KHR Reports memory information for the specified physical device
 
-To query memory properties, call:
+可调用如下命令来查询内存属性：
 
 include::../api/protos/vkGetPhysicalDeviceMemoryProperties2KHR.txt[]
 
@@ -474,12 +474,12 @@ include::../validity/protos/vkGetPhysicalDeviceMemoryProperties2KHR.txt[]
 
 // refBegin VkPhysicalDeviceMemoryProperties2KHR Structure specifying physical device memory properties
 
-The sname:VkPhysicalDeviceMemoryProperties2KHR structure is defined as:
+sname:VkPhysicalDeviceMemoryProperties2KHR 数据结构定义如下：
 
 include::../api/structs/VkPhysicalDeviceMemoryProperties2KHR.txt[]
 
-  * pname:sType is the type of this structure.
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
+  * pname:sType 是数据结构的类型。
+  * pname:pNext 是 `NULL` 或者指向一个指向拓展特定的数据结构的指针。
   * pname:memoryProperties is a structure of type
     slink:VkPhysicalDeviceMemoryProperties which is populated with the same
     values as in flink:vkGetPhysicalDeviceMemoryProperties.
@@ -490,7 +490,7 @@ endif::VK_KHR_get_physical_device_properties2[]
 
 // refBegin VkMemoryHeap Structure specifying a memory heap
 
-The sname:VkMemoryHeap structure is defined as:
+sname:VkMemoryHeap 类型数据结构定义如下：
 
 include::../api/structs/VkMemoryHeap.txt[]
 
@@ -512,7 +512,7 @@ include::../validity/structs/VkMemoryHeap.txt[]
 
 // refBegin VkMemoryType Structure specifying memory type
 
-The sname:VkMemoryType structure is defined as:
+sname:VkMemoryType 类型数据结构定义如下：
 
 include::../api/structs/VkMemoryType.txt[]
 
@@ -558,10 +558,9 @@ include::../validity/structs/VkMemoryType.txt[]
 
 // refBegin VkDeviceMemory Opaque handle to a device memory object
 
-A Vulkan device operates on data in device memory via memory objects that
-are represented in the API by a sname:VkDeviceMemory handle.
+一个Vulkan设备通过内存对象操作设备内存上的数据，内存对象由API 的sname:VkDeviceMemory handle表示。
 
-Memory objects are represented by sname:VkDeviceMemory handles:
+内存对象通过sname:VkDeviceMemory handle表示：
 
 include::../api/handles/VkDeviceMemory.txt[]
 
@@ -604,7 +603,7 @@ Such a limit is implementation-dependent, and if such a failure occurs then
 the error ename:VK_ERROR_OUT_OF_DEVICE_MEMORY should: be returned.
 ====
 
-.Valid Usage
+.正确使用
 ****
   * The number of currently valid memory objects, allocated from
     pname:device, must: be less than
@@ -615,18 +614,18 @@ include::../validity/protos/vkAllocateMemory.txt[]
 
 // refBegin VkMemoryAllocateInfo Structure containing parameters of a memory allocation
 
-The sname:VkMemoryAllocateInfo structure is defined as:
+sname:VkMemoryAllocateInfo 类型数据结构定义如下：
 
 include::../api/structs/VkMemoryAllocateInfo.txt[]
 
-  * pname:sType is the type of this structure.
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
+  * pname:sType 是数据结构的类型。
+  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:allocationSize is the size of the allocation in bytes
   * pname:memoryTypeIndex is the memory type index, which selects the
     properties of the memory to be allocated, as well as the heap the memory
     will come from.
 
-.Valid Usage
+.正确使用
 ****
   * pname:allocationSize must: be less than or equal to the amount of memory
     available to the sname:VkMemoryHeap specified by pname:memoryTypeIndex
@@ -645,18 +644,18 @@ sname:VkDedicatedAllocationMemoryAllocateInfoNV structure, then that
 structure includes a handle of the sole buffer or image resource that the
 memory can: be bound to.
 
-The sname:VkDedicatedAllocationMemoryAllocateInfoNV structure is defined as:
+sname:VkDedicatedAllocationMemoryAllocateInfoNV 类型数据结构定义如下：
 
 include::../api/structs/VkDedicatedAllocationMemoryAllocateInfoNV.txt[]
 
-  * pname:sType is the type of this structure.
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
+  * pname:sType 是数据结构的类型。
+  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:image is sname:VK_NULL_HANDLE or a handle of an image which this
     memory will be bound to.
   * pname:buffer is sname:VK_NULL_HANDLE or a handle of a buffer which this
     memory will be bound to.
 
-.Valid Usage
+.正确使用
 ****
   * At least one of pname:image and pname:buffer must: be
     sname:VK_NULL_HANDLE
@@ -696,14 +695,13 @@ endif::VK_NV_external_memory_win32[]
 
 // refBegin vkFreeMemory Free GPU memory
 
-To free a memory object, call:
+可调用如下命令来释放内存对象：
 
 include::../api/protos/vkFreeMemory.txt[]
 
-  * pname:device is the logical device that owns the memory.
-  * pname:memory is the sname:VkDeviceMemory object to be freed.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
+  * pname:device 是拥有内存对象的逻辑设备。
+  * pname:memory 是需要被释放的sname:VkDeviceMemory 对象。
+  * pname:pAllocator 控制了CPU端内存分配，如 <<memory-allocation, Memory Allocation>> 一章所述。
 
 Before freeing a memory object, an application must: ensure the memory
 object is no longer in use by the device--for example by command buffers
@@ -724,7 +722,7 @@ the <<resources-association, Resource Memory Association>> section.
 If a memory object is mapped at the time it is freed, it is implicitly
 unmapped.
 
-.Valid Usage
+.正确使用
 ****
   * All submitted commands that refer to pname:memory (via images or
     buffers) must: have completed execution
@@ -751,14 +749,14 @@ object, call:
 
 include::../api/protos/vkMapMemory.txt[]
 
-  * pname:device is the logical device that owns the memory.
-  * pname:memory is the sname:VkDeviceMemory object to be mapped.
+  * pname:device 是拥有内存对象的逻辑设备。
+  * pname:memory 是将要被映射的sname:VkDeviceMemory 对象。
   * pname:offset is a zero-based byte offset from the beginning of the
     memory object.
   * pname:size is the size of the memory range to map, or
     ename:VK_WHOLE_SIZE to map from pname:offset to the end of the
     allocation.
-  * pname:flags is reserved for future use.
+  * pname:flags 被保留。
   * pname:ppData points to a pointer in which is returned a host-accessible
     pointer to the beginning of the mapped range.
     This pointer minus pname:offset must: be aligned to at least
@@ -768,7 +766,7 @@ It is an application error to call fname:vkMapMemory on a memory object that
 is already mapped.
 
 [NOTE]
-.Note
+.注意
 ====
 fname:vkMapMemory will fail if the implementation is unable to allocate an
 appropriately sized contiguous virtual address range, e.g. due to virtual
@@ -801,7 +799,7 @@ responsible for synchronizing both device and host access to that memory
 range.
 
 [NOTE]
-.Note
+.注意
 ====
 It is important for the application developer to become meticulously
 familiar with all of the mechanisms described in the chapter on
@@ -809,7 +807,7 @@ familiar with all of the mechanisms described in the chapter on
 to maintaining memory access ordering.
 ====
 
-.Valid Usage
+.正确使用
 ****
   * pname:memory must: not currently be mapped
   * pname:offset must: be less than the size of pname:memory
@@ -828,7 +826,7 @@ memory allocations: fname:vkFlushMappedMemoryRanges and
 fname:vkInvalidateMappedMemoryRanges.
 
 [NOTE]
-.Note
+.注意
 ====
 If the memory object was created with the
 ename:VK_MEMORY_PROPERTY_HOST_COHERENT_BIT set,
@@ -842,7 +840,7 @@ To flush ranges of non-coherent memory from the host caches, call:
 
 include::../api/protos/vkFlushMappedMemoryRanges.txt[]
 
-  * pname:device is the logical device that owns the memory ranges.
+  * pname:device 是拥有内存对象的逻辑设备。
   * pname:memoryRangeCount is the length of the pname:pMemoryRanges array.
   * pname:pMemoryRanges is a pointer to an array of
     slink:VkMappedMemoryRange structures describing the memory ranges to
@@ -855,7 +853,7 @@ completed and before command buffers that will read or write any of those
 memory locations are submitted to a queue.
 
 [NOTE]
-.Note
+.注意
 ====
 Unmapping non-coherent memory does not implicitly flush the mapped memory,
 and host writes that have not been flushed may: not ever be visible to the
@@ -870,7 +868,7 @@ To invalidate ranges of non-coherent memory from the host caches, call:
 
 include::../api/protos/vkInvalidateMappedMemoryRanges.txt[]
 
-  * pname:device is the logical device that owns the memory ranges.
+  * pname:device 是拥有内存范围的逻辑设备。 
   * pname:memoryRangeCount is the length of the pname:pMemoryRanges array.
   * pname:pMemoryRanges is a pointer to an array of
     slink:VkMappedMemoryRange structures describing the memory ranges to
@@ -885,7 +883,7 @@ If a range of non-coherent memory is written by the host and then
 invalidated without first being flushed, its contents are undefined.
 
 [NOTE]
-.Note
+.注意
 ====
 Mapping non-coherent memory does not implicitly invalidate the mapped
 memory, and device writes that have not been invalidated must: be made
@@ -896,12 +894,12 @@ include::../validity/protos/vkInvalidateMappedMemoryRanges.txt[]
 
 // refBegin VkMappedMemoryRange Structure specifying a mapped memory range
 
-The sname:VkMappedMemoryRange structure is defined as:
+sname:VkMappedMemoryRange 类型数据结构定义如下：
 
 include::../api/structs/VkMappedMemoryRange.txt[]
 
-  * pname:sType is the type of this structure.
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
+  * pname:sType 是数据结构的类型。
+  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:memory is the memory object to which this range belongs.
   * pname:offset is the zero-based byte offset from the beginning of the
     memory object.
@@ -909,7 +907,7 @@ include::../api/structs/VkMappedMemoryRange.txt[]
     the range from pname:offset to the end of the current mapping of the
     allocation.
 
-.Valid Usage
+.正确使用
 ****
   * pname:memory must: currently be mapped
   * If pname:size is not equal to ename:VK_WHOLE_SIZE, pname:offset and
@@ -962,10 +960,10 @@ application, call:
 
 include::../api/protos/vkUnmapMemory.txt[]
 
-  * pname:device is the logical device that owns the memory.
+  * pname:device 是拥有内存的逻辑设备。
   * pname:memory is the memory object to be unmapped.
 
-.Valid Usage
+.正确使用
 ****
   * pname:memory must: currently be mapped
 ****
@@ -974,14 +972,11 @@ include::../validity/protos/vkUnmapMemory.txt[]
 
 
 [[memory-device-lazy_allocation]]
-=== 惰性内存分配
+=== 延迟内存分配
+若从堆中分配的内存带有ename:VK_MEMORY_PROPERTY_LAZILY_ALLOCATED_BIT 标志位，
+这个对象对应的内存可能被Vulkan实现延迟分配。
+内存真实的提交大小初始的时候可能最小为0（也可能可要求的一样大），当更多的内存被使用时不断的增长。
 
-If the memory object is allocated from a heap with the
-ename:VK_MEMORY_PROPERTY_LAZILY_ALLOCATED_BIT bit set, that object's backing
-memory may: be provided by the implementation lazily.
-The actual committed size of the memory may: initially be as small as zero
-(or as large as the requested size), and monotonically increases as
-additional memory is needed.
 
 A memory type with this flag set is only allowed to be bound to a
 sname:VkImage whose usage flags include
@@ -1002,8 +997,8 @@ committed for a memory object, call:
 
 include::../api/protos/vkGetDeviceMemoryCommitment.txt[]
 
-  * pname:device is the logical device that owns the memory.
-  * pname:memory is the memory object being queried.
+  * pname:device 是拥有内存的逻辑设备。
+  * pname:memory 是被查询的内存对象。
   * pname:pCommittedMemoryInBytes is a pointer to a basetype:VkDeviceSize
     value in which the number of bytes currently committed is returned, on
     success.
@@ -1015,7 +1010,7 @@ The implementation guarantees to allocate any committed memory from the
 heapIndex indicated by the memory type that the memory object was created
 with.
 
-.Valid Usage
+.正确使用
 ****
   * pname:memory must: have been created with a memory type that reports
     ename:VK_MEMORY_PROPERTY_LAZILY_ALLOCATED_BIT

@@ -82,8 +82,8 @@ sname:VkRenderPassCreateInfo 数据类型定义如下：
 
 include::../api/structs/VkRenderPassCreateInfo.txt[]
 
-  * pname:sType is the type of this structure.
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
+  * pname:sType 是数据结构的类型。
+  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:flags is reserved for future use.
   * pname:attachmentCount is the number of attachments used by this render
     pass, or zero indicating no attachments.
@@ -106,7 +106,7 @@ include::../api/structs/VkRenderPassCreateInfo.txt[]
     of slink:VkSubpassDependency structures describing dependencies between
     pairs of subpasses, or `NULL` if pname:dependencyCount is zero.
 
-.Valid Usage
+.正确使用
 ****
   * If any two subpasses operate on attachments with overlapping ranges of
     the same sname:VkDeviceMemory object, and at least one subpass writes to
@@ -271,7 +271,7 @@ not improperly reordered against other uses of the same physical memory via
 a different attachment.
 This is described in more detail below.
 
-.Valid Usage
+.正确使用
 ****
   * pname:finalLayout must: not be ename:VK_IMAGE_LAYOUT_UNDEFINED or
     ename:VK_IMAGE_LAYOUT_PREINITIALIZED
@@ -415,7 +415,7 @@ However, they remain valid for subpasses in other subpass dependency chains
 starting with subpass *S~1~* if those subpasses use or preserve the
 attachment.
 
-.Valid Usage
+.正确使用
 ****
   * pname:pipelineBindPoint must: be ename:VK_PIPELINE_BIND_POINT_GRAPHICS
   * pname:colorAttachmentCount must: be less than or equal to
@@ -465,7 +465,7 @@ include::../api/structs/VkAttachmentReference.txt[]
   * pname:layout is a elink:VkImageLayout value specifying the layout the
     attachment uses during the subpass.
 
-.Valid Usage
+.正确使用
 ****
   * pname:layout must: not be ename:VK_IMAGE_LAYOUT_UNDEFINED or
     ename:VK_IMAGE_LAYOUT_PREINITIALIZED
@@ -544,7 +544,7 @@ visibility operations>> defined by a subpass dependency affect the execution
 of <<renderpass-layout-transitions, image layout transitions>> within the
 render pass.
 
-.Valid Usage
+.正确使用
 ****
   * If pname:srcSubpass is not ename:VK_SUBPASS_EXTERNAL, pname:srcStageMask
     must: not include ename:VK_PIPELINE_STAGE_HOST_BIT
@@ -776,7 +776,7 @@ include::../api/protos/vkDestroyRenderPass.txt[]
   * pname:pAllocator controls host memory allocation as described in the
     <<memory-allocation, Memory Allocation>> chapter.
 
-.Valid Usage
+.正确使用
 ****
   * All submitted commands that refer to pname:renderPass must: have
     completed execution
@@ -844,8 +844,8 @@ The sname:VkFramebufferCreateInfo structure is defined as:
 
 include::../api/structs/VkFramebufferCreateInfo.txt[]
 
-  * pname:sType is the type of this structure.
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
+  * pname:sType 是数据结构的类型。
+  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:flags is reserved for future use.
   * pname:renderPass is a render pass that defines what render passes the
     framebuffer will be compatible with.
@@ -880,7 +880,7 @@ code:VK_FALSE, then all pipelines to be bound with a given zero-attachment
 subpass must: have the same value for
 slink:VkPipelineMultisampleStateCreateInfo::pname:rasterizationSamples.
 
-.Valid Usage
+.正确使用
 ****
   * pname:attachmentCount must: be equal to the attachment count specified
     in pname:renderPass
@@ -935,7 +935,7 @@ include::../api/protos/vkDestroyFramebuffer.txt[]
   * pname:pAllocator controls host memory allocation as described in the
     <<memory-allocation, Memory Allocation>> chapter.
 
-.Valid Usage
+.正确使用
 ****
   * All submitted commands that refer to pname:framebuffer must: have
     completed execution
@@ -981,7 +981,7 @@ fname:vkCmdEndRenderPass。
 
 一个render pass实例开始后，命令缓冲区就准备好了记录命令到该render pass的第一个subpass。
 
-.Valid Usage
+.正确使用
 ****
   * If any of the pname:initialLayout or pname:finalLayout member of the
     sname:VkAttachmentDescription structures or the pname:layout member of
@@ -994,7 +994,7 @@ fname:vkCmdEndRenderPass。
     set
 ****
 
-.Valid Usage
+.正确使用
 ****
   * If any of the pname:initialLayout or pname:finalLayout member of the
     sname:VkAttachmentDescription structures or the pname:layout member of
@@ -1082,7 +1082,7 @@ render area 必须包含在帧缓冲区维度的中。
 当render area比帧缓冲区小的时候会造成性能损失，除非它和render pass的render area粒度。
 ====
 
-.Valid Usage
+.正确使用
 ****
   * pname:clearValueCount must: be greater than the largest attachment index
     in pname:renderPass that specifies a pname:loadOp (or
@@ -1167,7 +1167,7 @@ explicit dependency is needed.
 After transitioning to the next subpass, the application can: record the
 commands for that subpass.
 
-.Valid Usage
+.正确使用
 ****
   * The current subpass index must: be less than the number of subpasses in
     the render pass minus one
@@ -1188,7 +1188,7 @@ include::../api/protos/vkCmdEndRenderPass.txt[]
 Ending a render pass instance performs any multisample resolve operations on
 the final subpass.
 
-.Valid Usage
+.正确使用
 ****
   * The current subpass index must: be equal to the number of subpasses in
     the render pass minus one
