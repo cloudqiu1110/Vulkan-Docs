@@ -342,11 +342,8 @@ sname:VkPhysicalDeviceMemoryProperties数据类型定义如下：
 include::../api/structs/VkPhysicalDeviceMemoryProperties.txt[]
 
   * pname:memoryTypeCount 是pname:memoryTypes 数组中有效元素的个数。
-  * pname:memoryTypes is an array of slink:VkMemoryType structures
-    describing the _memory types_ that can: be used to access memory
-    allocated from the heaps specified by pname:memoryHeaps.
-  * pname:memoryHeapCount is the number of valid elements in the
-    pname:memoryHeaps array.
+  * pname:memoryTypes 是一个 slink:VkMemoryType 类型的数组，描述了 可以用来访问pname:memoryHeaps从堆上分配出来的内存的 _内存类型_。
+  * pname:memoryHeapCount 是 pname:memoryHeaps 数组中有效元素的个数。
   * pname:memoryHeaps is an array of slink:VkMemoryHeap structures
     describing the _memory heaps_ from which memory can: be allocated.
 
