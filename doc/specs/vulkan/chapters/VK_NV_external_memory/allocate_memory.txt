@@ -8,7 +8,7 @@ The slink:VkExportMemoryAllocateInfoNV structure is defined as:
 include::../../api/structs/VkExportMemoryAllocateInfoNV.txt[]
 
   * pname:sType 是数据结构的类型。
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
+  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:handleTypes is a bitmask of
     elink:VkExternalMemoryHandleTypeFlagBitsNV specifying one or more memory
     handle types that may: be exported.

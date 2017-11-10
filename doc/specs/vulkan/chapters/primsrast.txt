@@ -45,7 +45,7 @@ The sname:VkPipelineRasterizationStateCreateInfo structure is defined as:
 include::../api/structs/VkPipelineRasterizationStateCreateInfo.txt[]
 
   * pname:sType 是数据结构的类型。
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
+  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:flags is reserved for future use.
   * pname:depthClampEnable controls whether to clamp the fragment's depth
     values instead of clipping primitives to the z planes of the frustum, as
@@ -97,7 +97,7 @@ The sname:VkPipelineMultisampleStateCreateInfo structure is defined as:
 include::../api/structs/VkPipelineMultisampleStateCreateInfo.txt[]
 
   * pname:sType 是数据结构的类型。
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
+  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:flags is reserved for future use.
   * pname:rasterizationSamples is a elink:VkSampleCountFlagBits specifying
     the number of samples per pixel used in rasterization.
@@ -209,7 +209,7 @@ defined as:
 include::../api/structs/VkPipelineRasterizationStateRasterizationOrderAMD.txt[]
 
   * pname:sType 是数据结构的类型。
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
+  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:rasterizationOrder is the primitive rasterization order to use.
 
 include::../validity/structs/VkPipelineRasterizationStateRasterizationOrderAMD.txt[]

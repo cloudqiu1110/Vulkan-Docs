@@ -281,7 +281,7 @@ The sname:VkDisplayModeCreateInfoKHR structure is defined as:
 include::../../api/structs/VkDisplayModeCreateInfoKHR.txt[]
 
   * pname:sType 是数据结构的类型。
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
+  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:flags is reserved for future use, and must: be zero.
   * pname:parameters is a sname:VkDisplayModeParametersKHR structure
     describing the display parameters to use in creating the new mode.
@@ -420,7 +420,7 @@ The sname:VkDisplaySurfaceCreateInfoKHR structure is defined as:
 include::../../api/structs/VkDisplaySurfaceCreateInfoKHR.txt[]
 
   * pname:sType 是数据结构的类型。
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
+  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:flags is reserved for future use, and must: be zero.
   * pname:displayMode is the mode to use when displaying this surface.
   * pname:planeIndex is the plane on which this surface appears.

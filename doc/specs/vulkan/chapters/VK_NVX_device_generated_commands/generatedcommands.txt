@@ -59,7 +59,7 @@ The sname:VkDeviceGeneratedCommandsFeaturesNVX structure is defined as:
 include::../../api/structs/VkDeviceGeneratedCommandsFeaturesNVX.txt[]
 
   * pname:sType 是数据结构的类型。
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
+  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:computeBindingPointSupport indicates whether the
     sname:VkObjectTableNVX supports entries with
     ename:VK_OBJECT_ENTRY_USAGE_GRAPHICS_BIT_NVX bit set and
@@ -75,7 +75,7 @@ The sname:VkDeviceGeneratedCommandsLimitsNVX structure is defined as:
 include::../../api/structs/VkDeviceGeneratedCommandsLimitsNVX.txt[]
 
   * pname:sType 是数据结构的类型。
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
+  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:maxIndirectCommandsLayoutTokenCount the maximum number of tokens
     in sname:VkIndirectCommandsLayoutNVX.
   * pname:maxObjectEntryCounts the maximum number of entries per resource

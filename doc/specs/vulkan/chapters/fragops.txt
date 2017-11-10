@@ -283,7 +283,7 @@ The sname:VkPipelineDepthStencilStateCreateInfo structure is defined as:
 include::../api/structs/VkPipelineDepthStencilStateCreateInfo.txt[]
 
   * pname:sType 是数据结构的类型。
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
+  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:flags is reserved for future use.
   * pname:depthTestEnable controls whether <<fragops-depth,depth testing>>
     is enabled.

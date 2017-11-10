@@ -29,7 +29,7 @@ The sname:VkDeviceEventInfoEXT structure is defined as:
 include::../../api/structs/VkDeviceEventInfoEXT.txt[]
 
   * pname:sType 是数据结构的类型。
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
+  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:device specifies when the fence will be signaled.
     Possible values are:
 +
@@ -71,7 +71,7 @@ The sname:VkDisplayEventInfoEXT structure is defined as:
 include::../../api/structs/VkDisplayEventInfoEXT.txt[]
 
   * pname:sType 是数据结构的类型。
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
+  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:displayEvent specifies when the fence will be signaled.
     Possible values are:
 +

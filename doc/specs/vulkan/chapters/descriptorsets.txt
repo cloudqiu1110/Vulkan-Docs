@@ -593,7 +593,7 @@ sname:VkDescriptorSetLayoutCreateInfo structure:
 include::../api/structs/VkDescriptorSetLayoutCreateInfo.txt[]
 
   * pname:sType 是数据结构的类型。
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
+  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:flags is reserved for future use.
   * pname:bindingCount is the number of elements in pname:pBindings.
   * pname:pBindings is a pointer to an array of
@@ -898,7 +898,7 @@ The slink:VkPipelineLayoutCreateInfo structure is defined as:
 include::../api/structs/VkPipelineLayoutCreateInfo.txt[]
 
   * pname:sType 是数据结构的类型。
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
+  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:flags is reserved for future use.
   * pname:setLayoutCount is the number of descriptor sets included in the
     pipeline layout.
@@ -1224,7 +1224,7 @@ sname:VkDescriptorPoolCreateInfo structure:
 include::../api/structs/VkDescriptorPoolCreateInfo.txt[]
 
   * pname:sType 是数据结构的类型。
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
+  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:flags specifies certain supported operations on the pool.
     Bits which can: be set include:
 +
@@ -1412,7 +1412,7 @@ The sname:VkDescriptorSetAllocateInfo structure is defined as:
 include::../api/structs/VkDescriptorSetAllocateInfo.txt[]
 
   * pname:sType 是数据结构的类型。
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
+  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:descriptorPool is the pool which the sets will be allocated from.
   * pname:descriptorSetCount determines the number of descriptor sets to be
     allocated from the pool.
@@ -1530,7 +1530,7 @@ The sname:VkWriteDescriptorSet structure is defined as:
 include::../api/structs/VkWriteDescriptorSet.txt[]
 
   * pname:sType 是数据结构的类型。
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
+  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:dstSet is the destination descriptor set to update.
   * pname:dstBinding is the descriptor binding within that set.
   * pname:dstArrayElement is the starting element in that array.
@@ -1773,7 +1773,7 @@ The sname:VkCopyDescriptorSet structure is defined as:
 include::../api/structs/VkCopyDescriptorSet.txt[]
 
   * pname:sType 是数据结构的类型。
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
+  * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:srcSet, pname:srcBinding, and pname:srcArrayElement are the source
     set, binding, and array element, respectively.
   * pname:dstSet, pname:dstBinding, and pname:dstArrayElement are the
