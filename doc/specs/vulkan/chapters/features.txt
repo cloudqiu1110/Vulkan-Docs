@@ -721,7 +721,7 @@ properties of individual formats.
     whether a secondary command buffer may: be executed while a query is
     active.
 
-.Valid Usage
+.正确使用
 ****
   * If any member of this structure is ename:VK_FALSE, as returned by
     flink:vkGetPhysicalDeviceFeatures, then it must: be ename:VK_FALSE when

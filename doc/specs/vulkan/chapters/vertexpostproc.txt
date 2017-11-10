@@ -338,7 +338,7 @@ include::../api/structs/VkPipelineViewportStateCreateInfo.txt[]
     viewport.
     If the scissor state is dynamic, this member is ignored.
 
-.Valid Usage
+.正确使用
 ****
   * If the <<features-features-multiViewport,multiple viewports>> feature is
     not enabled, pname:viewportCount must: be `1`
@@ -396,7 +396,7 @@ The viewport parameters taken from element [eq]#i# of pname:pViewports
 replace the current state for the viewport index [eq]#pname:firstViewport
 {plus} i#, for [eq]#i# in [eq]#[0, pname:viewportCount)#.
 
-.Valid Usage
+.正确使用
 ****
   * The currently bound graphics pipeline must: have been created with the
     ename:VK_DYNAMIC_STATE_VIEWPORT dynamic state enabled
@@ -469,7 +469,7 @@ and attached to a framebuffer.
 The floating-point viewport bounds are represented with an
 <<features-limits-viewportSubPixelBits,implementation-dependent precision>>.
 
-.Valid Usage
+.正确使用
 ****
   * pname:width must: be greater than `0.0` and less than or equal to
     sname:VkPhysicalDeviceLimits::pname:maxViewportDimensions[0]

@@ -851,7 +851,7 @@ plane will return a single sname:VkSparseImageFormatProperties structure
 with the pname:aspectMask set to ename:VK_IMAGE_ASPECT_DEPTH_BIT |
 ename:VK_IMAGE_ASPECT_STENCIL_BIT.
 
-.Valid Usage
+.正确使用
 ****
   * pname:samples must: be a bit value that is set in
     sname:VkImageFormatProperties::pname:sampleCounts returned by
@@ -908,7 +908,7 @@ include::../api/structs/VkPhysicalDeviceSparseImageFormatInfo2KHR.txt[]
   * pname:usage is a bitmask describing the intended usage of the image.
   * pname:tiling is the tiling arrangement of the data elements in memory.
 
-.Valid Usage
+.正确使用
 ****
   * pname:samples must: be a bit value that is set in
     sname:VkImageFormatProperties::pname:sampleCounts returned by
@@ -1234,7 +1234,7 @@ If pname:flags does not contain ename:VK_SPARSE_MEMORY_BIND_METADATA_BIT,
 the binding range must: be within the range
 [eq]#[0,slink:VkMemoryRequirements::pname:size)#.
 
-.Valid Usage
+.正确使用
 ****
   * If pname:memory is not dlink:VK_NULL_HANDLE, pname:memory and
     pname:memoryOffset must: match the memory requirements of the resource,
@@ -1282,7 +1282,7 @@ include::../api/structs/VkSparseImageOpaqueMemoryBindInfo.txt[]
   * pname:pBinds is a pointer to array of sname:VkSparseMemoryBind
     structures.
 
-.Valid Usage
+.正确使用
 ****
   * For any given element of pname:pBinds, if the pname:flags member of that
     element contains ename:VK_SPARSE_MEMORY_BIND_METADATA_BIT, the binding
@@ -1372,7 +1372,7 @@ include::../api/structs/VkSparseImageMemoryBind.txt[]
     If pname:memory is dlink:VK_NULL_HANDLE, this value is ignored.
   * pname:flags are sparse memory binding flags.
 
-.Valid Usage
+.正确使用
 ****
   * If the <<features-features-sparseResidencyAliased,sparse aliased
     residency>> feature is not enabled, and if any other resources are bound
@@ -1442,7 +1442,7 @@ only define execution dependencies.
 Additional information about fence and semaphore operation is described in
 <<synchronization, the synchronization chapter>>.
 
-.Valid Usage
+.正确使用
 ****
   * If pname:fence is not dlink:VK_NULL_HANDLE, pname:fence must: be
     unsignaled

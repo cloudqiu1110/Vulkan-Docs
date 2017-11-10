@@ -40,7 +40,7 @@ include::../api/protos/vkCmdClearColorImage.txt[]
 Each specified range in pname:pRanges is cleared to the value specified by
 pname:pColor.
 
-.Valid Usage
+.正确使用
 ****
 ifdef::VK_KHR_maintenance1[]
   * pname:image must: use a format that supports
@@ -96,7 +96,7 @@ include::../api/protos/vkCmdClearDepthStencilImage.txt[]
     structure that contains the values the image subresource ranges will be
     cleared to (see <<clears-values>> below).
 
-.Valid Usage
+.正确使用
 ****
 ifdef::VK_KHR_maintenance1[]
   * pname:image must: use a format that supports
@@ -154,7 +154,7 @@ This command must: be called only inside a render pass instance, and
 implicitly selects the images to clear based on the current framebuffer
 attachments and the command parameters.
 
-.Valid Usage
+.正确使用
 ****
   * If the pname:aspectMask member of any given element of
     pname:pAttachments contains ename:VK_IMAGE_ASPECT_COLOR_BIT, the
@@ -222,7 +222,7 @@ by setting pname:loadOp (or pname:stencilLoadOp) of
 slink:VkAttachmentDescription to ename:VK_ATTACHMENT_LOAD_OP_CLEAR, as
 described for flink:vkCreateRenderPass.
 
-.Valid Usage
+.正确使用
 ****
   * If pname:aspectMask includes ename:VK_IMAGE_ASPECT_COLOR_BIT, it must:
     not include ename:VK_IMAGE_ASPECT_DEPTH_BIT or
@@ -287,7 +287,7 @@ include::../api/structs/VkClearDepthStencilValue.txt[]
     It is a 32-bit integer value which is converted to the attachment's
     format by taking the appropriate number of LSBs.
 
-.Valid Usage
+.正确使用
 ****
   * pname:depth must: be between `0.0` and `1.0`, inclusive
 ****
@@ -309,7 +309,7 @@ This union is used where part of the API requires either color or
 depth/stencil clear values, depending on the attachment, and defines the
 initial clear values in the slink:VkRenderPassBeginInfo structure.
 
-.Valid Usage
+.正确使用
 ****
   * pname:depthStencil must: be a valid sname:VkClearDepthStencilValue
     structure
@@ -347,7 +347,7 @@ The ename:VK_BUFFER_USAGE_TRANSFER_DST_BIT must: be specified in pname:usage
 of sname:VkBufferCreateInfo in order for the buffer to be compatible with
 fname:vkCmdFillBuffer.
 
-.Valid Usage
+.正确使用
 ****
   * pname:dstOffset must: be less than the size of pname:dstBuffer
   * pname:dstOffset must: be a multiple of `4`
@@ -403,7 +403,7 @@ The ename:VK_BUFFER_USAGE_TRANSFER_DST_BIT must: be specified in pname:usage
 of slink:VkBufferCreateInfo in order for the buffer to be compatible with
 fname:vkCmdUpdateBuffer.
 
-.Valid Usage
+.正确使用
 ****
   * pname:dstOffset must: be less than the size of pname:dstBuffer
   * pname:dataSize must: be less than or equal to the size of

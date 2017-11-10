@@ -43,7 +43,7 @@ following element through the end of the originally specified elements.
 The primitive restart index value comparison is performed before adding the
 pname:vertexOffset value to the index value.
 
-.Valid Usage
+.正确使用
 ****
   * If pname:topology is ename:VK_PRIMITIVE_TOPOLOGY_POINT_LIST,
     ename:VK_PRIMITIVE_TOPOLOGY_LINE_LIST,
@@ -456,7 +456,7 @@ include::../api/protos/vkCmdBindIndexBuffer.txt[]
 include::../api/enums/VkIndexType.txt[]
 --
 
-.Valid Usage
+.正确使用
 ****
   * pname:offset must: be less than the size of pname:buffer
   * The sum of pname:offset and the address of the range of
@@ -500,7 +500,7 @@ starting with pname:firstInstance and increasing sequentially for each
 instance.
 The assembled primitives execute the currently bound graphics pipeline.
 
-.Valid Usage
+.正确使用
 ****
   * The current render pass must: be <<renderpass-compatibility,compatible>>
     with the pname:renderPass member of the
@@ -636,7 +636,7 @@ starting with pname:firstInstance and increasing sequentially for each
 instance.
 The assembled primitives execute the currently bound graphics pipeline.
 
-.Valid Usage
+.正确使用
 ****
   * The current render pass must: be <<renderpass-compatibility,compatible>>
     with the pname:renderPass member of the
@@ -763,7 +763,7 @@ The parameters of each draw are encoded in an array of
 slink:VkDrawIndirectCommand structures.
 If pname:drawCount is less than or equal to one, pname:stride is ignored.
 
-.Valid Usage
+.正确使用
 ****
   * If pname:buffer is non-sparse then it must: be bound completely and
     contiguously to a single sname:VkDeviceMemory object
@@ -894,7 +894,7 @@ include::../api/structs/VkDrawIndirectCommand.txt[]
 The members of sname:VkDrawIndirectCommand have the same meaning as the
 similarly named parameters of flink:vkCmdDraw.
 
-.Valid Usage
+.正确使用
 ****
   * For a given vertex buffer binding, any attribute data fetched must: be
     entirely contained within the corresponding vertex buffer binding, as
@@ -937,7 +937,7 @@ execution.
 The command will read an unsigned 32-bit integer from pname:countBuffer
 located at pname:countBufferOffset and use this as the draw count.
 
-.Valid Usage
+.正确使用
 ****
   * pname:offset must: be a multiple of `4`
   * pname:countBufferOffset must: be a multiple of `4`
@@ -1068,7 +1068,7 @@ The parameters of each draw are encoded in an array of
 slink:VkDrawIndexedIndirectCommand structures.
 If pname:drawCount is less than or equal to one, pname:stride is ignored.
 
-.Valid Usage
+.正确使用
 ****
   * If pname:buffer is non-sparse then it must: be bound completely and
     contiguously to a single sname:VkDeviceMemory object
@@ -1201,7 +1201,7 @@ include::../api/structs/VkDrawIndexedIndirectCommand.txt[]
 The members of sname:VkDrawIndexedIndirectCommand have the same meaning as
 the similarly named parameters of flink:vkCmdDrawIndexed.
 
-.Valid Usage
+.正确使用
 ****
   * For a given vertex buffer binding, any attribute data fetched must: be
     entirely contained within the corresponding vertex buffer binding, as
@@ -1249,7 +1249,7 @@ device from a buffer during execution.
 The command will read an unsigned 32-bit integer from pname:countBuffer
 located at pname:countBufferOffset and use this as the draw count.
 
-.Valid Usage
+.正确使用
 ****
   * pname:offset must: be a multiple of `4`
   * pname:countBufferOffset must: be a multiple of `4`

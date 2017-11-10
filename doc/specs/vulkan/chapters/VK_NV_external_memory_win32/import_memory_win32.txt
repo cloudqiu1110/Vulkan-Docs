@@ -38,7 +38,7 @@ include::../../api/enums/VkExternalMemoryHandleTypeFlagBitsNV.txt[]
 If pname:handleType is 0, this structure is ignored by consumers of the
 slink:VkMemoryAllocateInfo structure it is chained from.
 
-.Valid Usage
+.正确使用
 ****
   * pname:handleType must: not have more than one bit set.
   * pname:handle must: be a valid handle to memory, obtained as specified by

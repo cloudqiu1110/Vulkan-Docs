@@ -30,7 +30,7 @@ include::../api/protos/vkCmdDispatch.txt[]
 When the command is executed, a global workgroup consisting of [eq]#x
 {times} y {times} z# local workgroups is assembled.
 
-.Valid Usage
+.正确使用
 ****
   * pname:x must: be less than or equal to
     sname:VkPhysicalDeviceLimits::pname:maxComputeWorkGroupCount[0]
@@ -129,7 +129,7 @@ The parameters of the dispatch are encoded in a
 slink:VkDispatchIndirectCommand structure taken from pname:buffer starting
 at pname:offset.
 
-.Valid Usage
+.正确使用
 ****
   * If pname:buffer is non-sparse then it must: be bound completely and
     contiguously to a single sname:VkDeviceMemory object
@@ -227,7 +227,7 @@ include::../api/structs/VkDispatchIndirectCommand.txt[]
 The members of sname:VkDispatchIndirectCommand structure have the same
 meaning as the similarly named parameters of flink:vkCmdDispatch.
 
-.Valid Usage
+.正确使用
 ****
   * pname:x must: be less than or equal to
     sname:VkPhysicalDeviceLimits::pname:maxComputeWorkGroupCount[0]

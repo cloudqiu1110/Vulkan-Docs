@@ -177,7 +177,7 @@ the specified pname:planeIndex for pname:physicalDevice, ename:VK_INCOMPLETE
 will be returned instead of ename:VK_SUCCESS to indicate that not all the
 available values were returned.
 
-.Valid Usage
+.正确使用
 ****
   * pname:planeIndex must: be less than the number of display planes
     supported by the device as determined by calling
@@ -288,7 +288,7 @@ include::../../api/structs/VkDisplayModeCreateInfoKHR.txt[]
     If the parameters are not compatible with the specified display, the
     implementation must: return ename:VK_ERROR_INITIALIZATION_FAILED.
 
-.Valid Usage
+.正确使用
 ****
   * The pname:width and pname:height members of the pname:visibleRegion
     member of pname:parameters must: be greater than `0`
@@ -445,7 +445,7 @@ Application of display configuration occurs as a side effect of presenting
 to a display surface.
 ====
 
-.Valid Usage
+.正确使用
 ****
   * pname:planeIndex must: be less than the number of display planes
     supported by the device as determined by calling

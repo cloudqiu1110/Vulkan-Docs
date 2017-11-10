@@ -36,7 +36,7 @@ include::../../api/structs/VkMirSurfaceCreateInfoKHR.txt[]
     code:MirConnection and code:MirSurface for the window to associate the
     surface with.
 
-.Valid Usage
+.正确使用
 ****
   * pname:connection must: point to a valid code:MirConnection.
   * pname:surface must: point to a valid code:MirSurface.

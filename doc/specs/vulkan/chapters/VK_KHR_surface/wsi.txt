@@ -134,7 +134,7 @@ Destroying a sname:VkSurfaceKHR merely severs the connection between Vulkan
 and the native surface, and does not imply destroying the native surface,
 closing a window, or similar behavior.
 
-.Valid Usage
+.正确使用
 ****
   * All sname:VkSwapchainKHR objects created for pname:surface must: have
     been destroyed prior to destroying pname:surface
@@ -175,7 +175,7 @@ include::../../api/protos/vkGetPhysicalDeviceSurfaceSupportKHR.txt[]
   * pname:pSupported is a pointer to a basetype:VkBool32, which is set to
     ename:VK_TRUE to indicate support, and ename:VK_FALSE otherwise.
 
-.Valid Usage
+.正确使用
 ****
   * pname:queueFamilyIndex must: be less than
     pname:pQueueFamilyPropertyCount returned by

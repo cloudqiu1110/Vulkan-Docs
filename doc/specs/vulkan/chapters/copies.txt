@@ -92,7 +92,7 @@ pname:srcBuffer and pname:dstBuffer can: be the same buffer or alias the
 same memory, but the result is undefined if the copy regions overlap in
 memory.
 
-.Valid Usage
+.正确使用
 ****
   * The pname:size member of a given element of pname:pRegions must: be
     greater than `0`
@@ -248,7 +248,7 @@ copy.
 fname:vkCmdCopyImage can: be used to copy image data between multisample
 images, but both images must: have the same number of samples.
 
-.Valid Usage
+.正确使用
 ****
   * The source region specified by a given element of pname:pRegions must:
     be a region that is contained within pname:srcImage
@@ -335,7 +335,7 @@ destination.
 pname:layerCount layers are copied to the destination image.
 endif::VK_KHR_maintenance1[]
 
-.Valid Usage
+.正确使用
 ****
   * The pname:aspectMask member of pname:srcSubresource and
     pname:dstSubresource must: match
@@ -444,7 +444,7 @@ include::../api/structs/VkImageSubresourceLayers.txt[]
   * pname:baseArrayLayer and pname:layerCount are the starting layer and
     number of layers to copy.
 
-.Valid Usage
+.正确使用
 ****
   * If pname:aspectMask contains ename:VK_IMAGE_ASPECT_COLOR_BIT, it must:
     not contain either of ename:VK_IMAGE_ASPECT_DEPTH_BIT or
@@ -482,7 +482,7 @@ include::../api/protos/vkCmdCopyBufferToImage.txt[]
 Each region in pname:pRegions is copied from the specified region of the
 source buffer to the specified region of the destination image.
 
-.Valid Usage
+.正确使用
 ****
   * The buffer region specified by a given element of pname:pRegions must:
     be a region that is contained within pname:srcBuffer
@@ -538,7 +538,7 @@ include::../api/protos/vkCmdCopyImageToBuffer.txt[]
 Each region in pname:pRegions is copied from the specified region of the
 source image to the specified region of the destination buffer.
 
-.Valid Usage
+.正确使用
 ****
   * The image region specified by a given element of pname:pRegions must: be
     a region that is contained within pname:srcImage
@@ -634,7 +634,7 @@ pname:baseArrayLayer member of pname:imageSubresource.
 pname:layerCount layers are copied from the source image or to the
 destination image.
 
-.Valid Usage
+.正确使用
 ****
   * If the the calling command's sname:VkImage parameter's format is not a
     depth/stencil format, then pname:bufferOffset must: be a multiple of the
@@ -889,7 +889,7 @@ The following filtering and conversion rules apply:
 Signed and unsigned integers are converted by first clamping to the
 representable range of the destination format, then casting the value.
 
-.Valid Usage
+.正确使用
 ****
   * The source region specified by a given element of pname:pRegions must:
     be a region that is contained within pname:srcImage
@@ -985,7 +985,7 @@ include::../api/structs/VkImageBlit.txt[]
 For each element of the pname:pRegions array, a blit operation is performed
 the specified source and destination regions.
 
-.Valid Usage
+.正确使用
 ****
   * The pname:aspectMask member of pname:srcSubresource and
     pname:dstSubresource must: match
@@ -1074,7 +1074,7 @@ of pname:srcSubresource for the source and pname:dstSubresource for the
 destination.
 pname:layerCount layers are resolved to the destination image.
 
-.Valid Usage
+.正确使用
 ****
   * The source region specified by a given element of pname:pRegions must:
     be a region that is contained within pname:srcImage
@@ -1136,7 +1136,7 @@ include::../api/structs/VkImageResolve.txt[]
   * pname:extent is the size in texels of the source image to resolve in
     pname:width, pname:height and pname:depth.
 
-.Valid Usage
+.正确使用
 ****
   * The pname:aspectMask member of pname:srcSubresource and
     pname:dstSubresource must: only contain ename:VK_IMAGE_ASPECT_COLOR_BIT

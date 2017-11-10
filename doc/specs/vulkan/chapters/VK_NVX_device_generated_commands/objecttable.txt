@@ -109,7 +109,7 @@ include::../../api/enums/VkObjectEntryUsageFlagBitsNVX.txt[]
   * ename:VK_OBJECT_ENTRY_USAGE_COMPUTE_BIT_NVX indicates that the resource
     is bound to ename:VK_PIPELINE_BIND_POINT_COMPUTE
 
-.Valid Usage
+.正确使用
 ****
   * If the
     sname:VkDeviceGeneratedCommandsFeaturesNVX::pname:computeBindingPointSupport
@@ -140,7 +140,7 @@ include::../../api/protos/vkDestroyObjectTableNVX.txt[]
   * pname:pAllocator controls host memory allocation as described in the
     <<memory-allocation, Memory Allocation>> chapter.
 
-.Valid Usage
+.正确使用
 ****
   * All submitted commands that refer to pname:objectTable must: have
     completed execution.
@@ -174,7 +174,7 @@ include::../../api/protos/vkRegisterObjectsNVX.txt[]
   * pname:pObjectIndices are the indices at which each resource is
     registered.
 
-.Valid Usage
+.正确使用
 ****
   * The contents of pname:pObjectTableEntry must yield plausible bindings
     supported by the device.
@@ -196,7 +196,7 @@ include::../../api/structs/VkObjectTableEntryNVX.txt[]
     used with.
     Some entry types allow only a single flag to be set.
 
-.Valid Usage
+.正确使用
 ****
   * If the
     sname:VkDeviceGeneratedCommandsFeaturesNVX::pname:computeBindingPointSupport
@@ -211,7 +211,7 @@ include::../../api/structs/VkObjectTablePipelineEntryNVX.txt[]
   * pname:pipeline specifies the sname:VkPipeline that this resource entry
     references.
 
-.Valid Usage
+.正确使用
 ****
   * pname:type must be ename:VK_OBJECT_ENTRY_PIPELINE_NVX
 ****
@@ -225,7 +225,7 @@ include::../../api/structs/VkObjectTableDescriptorSetEntryNVX.txt[]
   * pname:descriptorSet specifies the sname:VkDescriptorSet that can be
     bound with this entry.
 
-.Valid Usage
+.正确使用
 ****
   * pname:type must be ename:VK_OBJECT_ENTRY_DESCRIPTOR_SET_NVX
 ****
@@ -237,7 +237,7 @@ include::../../api/structs/VkObjectTableVertexBufferEntryNVX.txt[]
   * pname:buffer specifies the sname:VkBuffer that can be bound as vertex
     bufer
 
-.Valid Usage
+.正确使用
 ****
   * pname:type must be ename:VK_OBJECT_ENTRY_VERTEX_BUFFER_NVX
 ****
@@ -251,7 +251,7 @@ include::../../api/structs/VkObjectTableIndexBufferEntryNVX.txt[]
   * pname:indexType specifies the sname:VkIndexType used with this index
     buffer
 
-.Valid Usage
+.正确使用
 ****
   * pname:type must be ename:VK_OBJECT_ENTRY_INDEX_BUFFER_NVX
 ****
@@ -265,7 +265,7 @@ include::../../api/structs/VkObjectTablePushConstantEntryNVX.txt[]
   * pname:descriptorSet stageFlags the sname:VkShaderStageFlags that
     pushconstants using this pname:objectIndex are used with.
 
-.Valid Usage
+.正确使用
 ****
   * pname:type must be ename:VK_OBJECT_ENTRY_PUSH_CONSTANT_NVX
 ****
@@ -285,7 +285,7 @@ include::../../api/protos/vkUnregisterObjectsNVX.txt[]
     for the resources being removed.
   * pname:pObjectIndices provides the array of object indices to be removed.
 
-.Valid Usage
+.正确使用
 ****
   * At any pname:pObjectIndices there must: be a registered resource
     already.

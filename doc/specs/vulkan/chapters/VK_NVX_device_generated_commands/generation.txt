@@ -13,7 +13,7 @@ include::../../api/protos/vkCmdReserveSpaceForCommandsNVX.txt[]
     slink:vkCmdReserveSpaceForCommandsNVX structure containing parameters
     affecting the reservation of command buffer space.
 
-.Valid Usage
+.正确使用
 ****
   * The provided pname:commandBuffer must: not have had a prior space
     reservation since its creation or the last reset.
@@ -103,7 +103,7 @@ include::../../api/structs/VkCmdProcessCommandsInfoNVX.txt[]
     pname:sequencesIndexBuffer where the index values start.
 
 
-.Valid Usage
+.正确使用
 ****
   * The provided pname:objectTable must: include all objects referenced by
     the generation process.

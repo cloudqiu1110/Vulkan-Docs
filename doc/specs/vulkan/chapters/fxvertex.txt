@@ -290,7 +290,7 @@ include::../api/structs/VkPipelineVertexInputStateCreateInfo.txt[]
   * pname:pVertexAttributeDescriptions is a pointer to an array of
     sname:VkVertexInputAttributeDescription structures.
 
-.Valid Usage
+.正确使用
 ****
   * pname:vertexBindingDescriptionCount must: be less than or equal to
     sname:VkPhysicalDeviceLimits::pname:maxVertexInputBindings
@@ -333,7 +333,7 @@ include::../api/enums/VkVertexInputRate.txt[]
   ** ename:VK_VERTEX_INPUT_RATE_INSTANCE indicates that vertex attribute
      addressing is a function of the instance index.
 
-.Valid Usage
+.正确使用
 ****
   * pname:binding must: be less than
     sname:VkPhysicalDeviceLimits::pname:maxVertexInputBindings
@@ -359,7 +359,7 @@ include::../api/structs/VkVertexInputAttributeDescription.txt[]
   * pname:offset is a byte offset of this attribute relative to the start of
     an element in the vertex input binding.
 
-.Valid Usage
+.正确使用
 ****
   * pname:location must: be less than
     sname:VkPhysicalDeviceLimits::pname:maxVertexInputAttributes
@@ -400,7 +400,7 @@ All vertex input attributes that use each of these bindings will use these
 updated addresses in their address calculations for subsequent draw
 commands.
 
-.Valid Usage
+.正确使用
 ****
   * pname:firstBinding must: be less than
     sname:VkPhysicalDeviceLimits::pname:maxVertexInputBindings

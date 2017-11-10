@@ -481,7 +481,7 @@ include::../api/structs/VkPipelineTessellationStateCreateInfo.txt[]
   * pname:flags is reserved for future use.
   * pname:patchControlPoints number of control points per patch.
 
-.Valid Usage
+.正确使用
 ****
   * pname:patchControlPoints must: be greater than zero and less than or
     equal to sname:VkPhysicalDeviceLimits::pname:maxTessellationPatchSize

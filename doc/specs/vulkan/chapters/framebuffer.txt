@@ -68,7 +68,7 @@ If the <<features-features-independentBlend,independent blending>> feature
 is not enabled on the device, all slink:VkPipelineColorBlendAttachmentState
 elements in the pname:pAttachments array must: be identical.
 
-.Valid Usage
+.正确使用
 ****
   * If the <<features-features-independentBlend,independent blending>>
     feature is not enabled, all elements of pname:pAttachments must: be
@@ -107,7 +107,7 @@ include::../api/structs/VkPipelineColorBlendAttachmentState.txt[]
     A components are enabled for writing, as described later in this
     chapter.
 
-.Valid Usage
+.正确使用
 ****
   * If the <<features-features-dualSrcBlend,dual source blending>> feature
     is not enabled, pname:srcColorBlendFactor must: not be
@@ -211,7 +211,7 @@ include::../api/protos/vkCmdSetBlendConstants.txt[]
     and A components of the blend constant color used in blending, depending
     on the <<framebuffer-blendfactors,blend factor>>.
 
-.Valid Usage
+.正确使用
 ****
   * The currently bound graphics pipeline must: have been created with the
     ename:VK_DYNAMIC_STATE_BLEND_CONSTANTS dynamic state enabled

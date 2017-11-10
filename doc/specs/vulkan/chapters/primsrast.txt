@@ -79,7 +79,7 @@ rendering with the corresponding graphics pipeline as described in
 <<primrast-order, Rasterization Order>>.
 endif::VK_AMD_rasterization_order[]
 
-.Valid Usage
+.正确使用
 ****
   * If the <<features-features-depthClamp,depth clamping>> feature is not
     enabled, pname:depthClampEnable must: be ename:VK_FALSE
@@ -117,7 +117,7 @@ include::../api/structs/VkPipelineMultisampleStateCreateInfo.txt[]
     fragment's first color output is replaced with one as described in
     <<fragops-covg,Multisample Coverage>>.
 
-.Valid Usage
+.正确使用
 ****
   * If the <<features-features-sampleRateShading,sample rate shading>>
     feature is not enabled, pname:sampleShadingEnable must: be
@@ -443,7 +443,7 @@ include::../api/protos/vkCmdSetLineWidth.txt[]
     recorded.
   * pname:lineWidth is the width of rasterized line segments.
 
-.Valid Usage
+.正确使用
 ****
   * The currently bound graphics pipeline must: have been created with the
     ename:VK_DYNAMIC_STATE_LINE_WIDTH dynamic state enabled
@@ -891,7 +891,7 @@ the range [eq]#[0,1]# by clamping after depth bias addition is performed.
 Fragment depth values are clamped even when the depth buffer uses a
 floating-point representation.
 
-.Valid Usage
+.正确使用
 ****
   * The currently bound graphics pipeline must: have been created with the
     ename:VK_DYNAMIC_STATE_DEPTH_BIAS dynamic state enabled

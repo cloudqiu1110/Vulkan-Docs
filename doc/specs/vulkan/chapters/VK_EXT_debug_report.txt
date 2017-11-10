@@ -230,7 +230,7 @@ The parameters are passed on to the callback in addition to the
 pname:pUserData value that was defined at the time the callback was
 registered.
 
-.Valid Usage
+.正确使用
 ****
   * pname:object must: be a Vulkan object or ename:VK_NULL_HANDLE
 ****
@@ -246,7 +246,7 @@ include::../api/protos/vkDestroyDebugReportCallbackEXT.txt[]
  * pname:instance the instance where the callback was created.
  * pname:callback the sname:VkDebugReportCallbackEXT object to destroy.
 
-.Valid Usage
+.正确使用
 ****
   * If sname:VkAllocationCallbacks were provided when pname:instance was
     created, a compatible set of callbacks must: be provided here

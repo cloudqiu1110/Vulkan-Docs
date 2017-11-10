@@ -45,7 +45,7 @@ include::../../api/structs/VkViSurfaceCreateInfoNN.txt[]
   * pname:window is the code:nn::code:vi::code:NativeWindowHandle for the
     code:nn::code:vi::code:Layer with which to associate the surface.
 
-.Valid Usage
+.正确使用
 ****
   * pname:window must: be a valid code:nn::code:vi::code:NativeWindowHandle
 ****

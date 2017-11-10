@@ -73,7 +73,7 @@ include::../api/enums/VkQueryType.txt[]
     pname:pipelineStatistics is ignored if pname:queryType is not
     ename:VK_QUERY_TYPE_PIPELINE_STATISTICS.
 
-.Valid Usage
+.正确使用
 ****
   * If the <<features-features-pipelineStatisticsQuery,pipeline statistics
     queries>> feature is not enabled, pname:queryType must: not be
@@ -96,7 +96,7 @@ include::../api/protos/vkDestroyQueryPool.txt[]
   * pname:pAllocator controls host memory allocation as described in the
     <<memory-allocation, Memory Allocation>> chapter.
 
-.Valid Usage
+.正确使用
 ****
   * All submitted commands that refer to pname:queryPool must: have
     completed execution
@@ -165,7 +165,7 @@ When executed on a queue, this command sets the status of query indices
 [eq]#[pname:firstQuery, pname:firstQuery + pname:queryCount - 1]# to
 unavailable.
 
-.Valid Usage
+.正确使用
 ****
   * pname:firstQuery must: be less than the number of queries in
     pname:queryPool
@@ -227,7 +227,7 @@ command buffer it was called in until that same query is ended.
 Queries active in a primary command buffer when secondary command buffers
 are executed are considered active for those secondary command buffers.
 
-.Valid Usage
+.正确使用
 ****
   * The query identified by pname:queryPool and pname:query must: currently
     not be <<queries-operation-active,active>>
@@ -285,7 +285,7 @@ Once a query is ended the query must: finish in finite time, unless the
 state of the query is changed using other commands, e.g. by issuing a reset
 of the query.
 
-.Valid Usage
+.正确使用
 ****
   * The query identified by pname:queryPool and pname:query must: currently
     be <<queries-operation-active,active>>
@@ -440,7 +440,7 @@ Satisfying this guarantee may: require careful ordering by the application,
 e.g. to read the availability status before reading the results.
 ====
 
-.Valid Usage
+.正确使用
 ****
   * pname:firstQuery must: be less than the number of queries in
     pname:queryPool
@@ -534,7 +534,7 @@ and its writes to buffer memory must: be synchronized using
 ename:VK_PIPELINE_STAGE_TRANSFER_BIT and ename:VK_ACCESS_TRANSFER_WRITE_BIT
 before using the results.
 
-.Valid Usage
+.正确使用
 ****
   * pname:dstOffset must: be less than the size of pname:dstBuffer
   * pname:firstQuery must: be less than the number of queries in
@@ -829,7 +829,7 @@ While fname:vkCmdWriteTimestamp can: be called inside or outside of a render
 pass instance, flink:vkCmdCopyQueryPoolResults must: only be called outside
 of a render pass instance.
 
-.Valid Usage
+.正确使用
 ****
   * The query identified by pname:queryPool and pname:query must: be
     _unavailable_

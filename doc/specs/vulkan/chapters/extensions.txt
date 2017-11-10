@@ -249,7 +249,7 @@ The extensions supported by a layer may also change between two calls, e.g.
 if the layer implementation is replaced by a different version between those
 calls.
 
-.Valid Usage
+.正确使用
 ****
   * If pname:pLayerName is not `NULL`, it must: be the name of a layer
     returned by flink:vkEnumerateInstanceLayerProperties
@@ -287,7 +287,7 @@ Vulkan implementation or by implicitly enabled layers are returned.
 When pname:pLayerName is the name of a layer, the device extensions provided
 by that layer are returned.
 
-.Valid Usage
+.正确使用
 ****
   * If pname:pLayerName is not `NULL`, it must: be the name of a layer
     returned by flink:vkEnumerateDeviceLayerProperties

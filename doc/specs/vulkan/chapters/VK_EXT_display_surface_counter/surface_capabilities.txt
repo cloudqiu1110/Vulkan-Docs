@@ -34,7 +34,7 @@ The remaining members are:
   * pname:supportedSurfaceCounters is a bitfield containing one bit set for
     each surface counter type supported.
 
-.Valid Usage
+.正确使用
 ****
   * pname:supportedSurfaceCounters must: not include
     ename:VK_SURFACE_COUNTER_VBLANK_EXT unless the surface queried is a

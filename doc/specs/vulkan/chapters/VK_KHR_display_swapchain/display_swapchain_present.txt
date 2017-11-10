@@ -46,7 +46,7 @@ include::../../api/structs/VkDisplayPresentInfoKHR.txt[]
 If the extent of the pname:srcRect and pname:dstRect are not equal, the
 presented pixels will be scaled accordingly.
 
-.Valid Usage
+.正确使用
 ****
   * pname:srcRect must: specify a rectangular region that is a subset of the
     image being presented

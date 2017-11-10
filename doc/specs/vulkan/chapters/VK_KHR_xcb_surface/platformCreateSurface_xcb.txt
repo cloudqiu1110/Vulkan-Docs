@@ -38,7 +38,7 @@ include::../../api/structs/VkXcbSurfaceCreateInfoKHR.txt[]
   * pname:window is the code:xcb_window_t for the X11 window to associate
     the surface with.
 
-.Valid Usage
+.正确使用
 ****
   * pname:connection must: point to a valid X11 code:xcb_connection_t.
   * pname:window must: be a valid X11 code:xcb_window_t.

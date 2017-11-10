@@ -37,7 +37,7 @@ include::../../api/structs/VkXlibSurfaceCreateInfoKHR.txt[]
     server.
   * pname:window is an Xlib code:Window to associate the surface with.
 
-.Valid Usage
+.正确使用
 ****
   * pname:dpy must: point to a valid Xlib code:Display.
   * pname:window must: be a valid Xlib code:Window.

@@ -61,7 +61,7 @@ include::../../api/structs/VkAndroidSurfaceCreateInfoKHR.txt[]
   * pname:window is a pointer to the code:ANativeWindow to associate the
     surface with.
 
-.Valid Usage
+.正确使用
 ****
   * pname:window must: point to a valid Android code:ANativeWindow.
 ****
