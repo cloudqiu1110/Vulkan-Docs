@@ -745,7 +745,7 @@ The values of [eq]#a~i~# may: differ from fragment to fragment, but at
 vertex [eq]#i#, [eq]#a~i~ = 1# and [eq]#a~j~ = 0# for [eq]#j {neq} i#.
 
 [NOTE]
-.Note
+.注意
 ====
 One algorithm that achieves the required behavior is to triangulate a
 polygon (without adding any vertices) and then treat each triangle

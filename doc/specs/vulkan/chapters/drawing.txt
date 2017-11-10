@@ -87,7 +87,7 @@ Each primitive topology, and its construction from a list of vertices, is
 summarized below.
 
 [NOTE]
-.Note
+.注意
 ====
 The terminology {ldquo}the vertex [eq]#i# {rdquo} means {ldquo}the vertex
 with index [eq]#i# in the ordered list of vertices defining this

@@ -176,7 +176,7 @@ is positive, and clockwise ordering if [eq]#a# is negative.
 normalized parameter space of the [eq]##i##th vertex of the triangle.
 
 [NOTE]
-.Note
+.注意
 ====
 The value [eq]#a# is proportional (with a positive factor) to the signed
 area of the triangle.

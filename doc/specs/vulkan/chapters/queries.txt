@@ -389,7 +389,7 @@ However, availability state is still written to pname:pData for those
 queries if ename:VK_QUERY_RESULT_WITH_AVAILABILITY_BIT is set.
 
 [NOTE]
-.Note
+.注意
 ====
 Applications must: take care to ensure that use of the
 ename:VK_QUERY_RESULT_WAIT_BIT bit has the desired effect.
@@ -411,7 +411,7 @@ been executed since the last use of the query.
 ====
 
 [NOTE]
-.Note
+.注意
 ====
 Applications can: double-buffer query pool usage, with a pool per frame, and
 reset queries at the end of the frame in which they are read.
@@ -434,7 +434,7 @@ numerical results must: be valid, assuming the results are not reset by a
 subsequent command.
 
 [NOTE]
-.Note
+.注意
 ====
 Satisfying this guarantee may: require careful ordering by the application,
 e.g. to read the availability status before reading the results.
@@ -589,7 +589,7 @@ implementation may: generate any non-zero result value for the query if the
 count of passing samples is non-zero.
 
 [NOTE]
-.Note
+.注意
 ====
 Not setting ename:VK_QUERY_CONTROL_PRECISE_BIT mode may: be more efficient
 on some implementations, and should: be used where it is sufficient to know
@@ -605,7 +605,7 @@ fname:vkCmdCopyQueryPoolResults) or request it be put into host memory (via
 fname:vkGetQueryPoolResults).
 
 [NOTE]
-.Note
+.注意
 ====
 If occluding geometry is not drawn first, samples can: pass the depth test,
 but still not be visible in a final image.
@@ -737,7 +737,7 @@ Any or all counters may: be affected by the issues described in
 <<queries-operation-undefined,Query Operation>>.
 
 [NOTE]
-.Note
+.注意
 ====
 For example, tile-based rendering devices may: need to replay the scene
 multiple times, affecting some of the counts.
@@ -809,7 +809,7 @@ When the timestamp value is written, the availability status of the query is
 set to available.
 
 [NOTE]
-.Note
+.注意
 ====
 If an implementation is unable to detect completion and latch the timer at
 any specific stage of the pipeline, it may: instead do so at any logically

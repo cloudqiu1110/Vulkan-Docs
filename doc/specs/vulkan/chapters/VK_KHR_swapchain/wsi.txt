@@ -24,7 +24,7 @@ The presentation engine is an abstraction for the platform's compositor or
 hardware/software display engine.
 
 [NOTE]
-.Note
+.注意
 ====
 The presentation engine may: be synchronous or asynchronous with respect to
 the application and/or logical device.
@@ -55,7 +55,7 @@ The presentation engine controls the order in which presentable images are
 acquired for use by the application.
 
 [NOTE]
-.Note
+.注意
 ====
 This allows the platform to handle situations which require out-of-order
 return of images after presentation.
@@ -149,7 +149,7 @@ include::../../api/structs/VkSwapchainCreateInfoKHR.txt[]
      some platforms.
 
 [NOTE]
-.Note
+.注意
 ====
 Applications should: set this value to ename:VK_TRUE if they do not expect
 to read back the content of presentable images before presenting them or
@@ -279,7 +279,7 @@ can: be used to create a new sname:VkSwapchainKHR, provided the previous one
 was destroyed.
 
 [NOTE]
-.Note
+.注意
 ====
 As mentioned in <<devsandqueues-lost-device,Lost Device>>, after a lost
 device event, the sname:VkPhysicalDevice may: also be lost.
@@ -361,7 +361,7 @@ returned.
 include::../../validity/protos/vkGetSwapchainImagesKHR.txt[]
 
 [NOTE]
-.Note
+.注意
 ====
 By knowing all presentable images used in the swapchain, the application
 can: create command buffers that reference these images prior to entering
@@ -444,7 +444,7 @@ passed (in which case it will return ename:VK_TIMEOUT).
 An error can: also cause fname:vkAcquireNextImageKHR to return early.
 
 [NOTE]
-.Note
+.注意
 ====
 As mentioned above, the presentation engine may: be asynchronous with
 respect to the application and/or logical device.
@@ -461,7 +461,7 @@ to meter their rendering speed.
 Various factors can: interrupt fname:vkAcquireNextImageKHR from blocking.
 
 [NOTE]
-.Note
+.注意
 ====
 For example, if an error occurs, fname:vkAcquireNextImageKHR may: return
 even though no image is available.
@@ -493,7 +493,7 @@ pname:timeout of code:UINT64_MAX; in such a case,
 fname:vkAcquireNextImageKHR may: block indefinitely.
 
 [NOTE]
-.Note
+.注意
 ====
 For example, if the pname:minImageCount member of
 sname:VkSurfaceCapabilitiesKHR is 2, and the application creates a swapchain
@@ -546,7 +546,7 @@ dependencies>> to prevent the image transition from occurring before the
 semaphore passed to fname:vkAcquireNextImageKHR has signaled.
 
 [NOTE]
-.Note
+.注意
 ====
 When the presentable image will be written by some stage [eq]#S#, the
 recommended idiom for ensuring the semaphore signals before the transition
@@ -569,7 +569,7 @@ previously presented, or in the ename:VK_IMAGE_LAYOUT_UNDEFINED layout if
 this is the first time it has been acquired.
 
 [NOTE]
-.Note
+.注意
 ====
 Exclusive ownership of presentable images corresponding to a swapchain
 created with ename:VK_SHARING_MODE_EXCLUSIVE as defined in
@@ -597,7 +597,7 @@ pname:timeout provided:
     still be used to present to the surface successfully.
 
 [NOTE]
-.Note
+.注意
 ====
 This may: happen, for example, if the platform surface has been resized but
 the platform is able to scale the presented images to the new size to
@@ -627,7 +627,7 @@ image sizes, a ename:VK_ERROR_OUT_OF_DATE_KHR error will be returned.
 Before an application can: present an image, the image's layout must: be
 transitioned to the ename:VK_IMAGE_LAYOUT_PRESENT_SRC_KHR layout.
 
-.Note
+.注意
 [NOTE]
 ====
 When transitioning the image to ename:VK_IMAGE_LAYOUT_PRESENT_SRC_KHR, there

@@ -242,7 +242,7 @@ represents a sampled image along with a set of sampling parameters.
 It is logically considered a sampled image and a sampler bound together.
 
 [NOTE]
-.Note
+.注意
 ====
 On some implementations, it may: be more efficient to sample from an image
 using a combination of sampler and sampled image that are stored together in
@@ -667,7 +667,7 @@ used, though it should: not consume additional memory from the descriptor
 pool.
 
 [NOTE]
-.Note
+.注意
 ====
 The maximum binding number specified should: be as compact as possible to
 avoid wasted memory.
@@ -913,7 +913,7 @@ include::../api/structs/VkPipelineLayoutCreateInfo.txt[]
     how many push constants can: be accessed by each stage of the pipeline.
 +
 [NOTE]
-.Note
+.注意
 ====
 Push constants represent a high speed path to modify constant data in
 pipelines that is expected to outperform memory-backed resource updates.
@@ -1123,7 +1123,7 @@ sets [0..N].
 endif::implementation-guide[]
 
 [NOTE]
-.Note
+.注意
 ====
 Place the least frequently changing descriptor sets near the start of the
 pipeline layout, and place the descriptor sets representing the most
@@ -1388,7 +1388,7 @@ dlink:VK_NULL_HANDLE and return the error.
 endif::VK_KHR_maintenance1[]
 
 [NOTE]
-.Note
+.注意
 ====
 Applications should: check for a negative return value when allocating new
 descriptor sets, assume that any error effectively means
@@ -1710,7 +1710,7 @@ include::../api/structs/VkDescriptorBufferInfo.txt[]
 +
 --
 [NOTE]
-.Note
+.注意
 ====
 When using ename:VK_WHOLE_SIZE, the effective range must: not be larger than
 the maximum range for the descriptor type
@@ -1919,7 +1919,7 @@ updated via Vulkan commands rather than via writes to memory or copy
 commands.
 
 [NOTE]
-.Note
+.注意
 ====
 Push constants represent a high speed path to modify constant data in
 pipelines that is expected to outperform memory-backed resource updates.

@@ -163,7 +163,7 @@ cmdProcessAllSequences(cmd, objectTable,
 ---------------------------------------------------
 
 [NOTE]
-.Note
+.注意
 ====
 It is important to note that the state that may be affected through
 generated commands must be considered undefined for the commands following

@@ -14,7 +14,7 @@ operands, and return a value based on one or more neighboring texture
 elements (_texels_) in the image.
 
 [NOTE]
-.Note
+.注意
 ==================
 Texel is a term which is a combination of the words texture and element.
 Early interactive computer graphics supported texture operations on
@@ -208,7 +208,7 @@ sharedexp_{max} & = \frac{(2^N-1)}{2^N} \times 2^{(E_{max}-B)}
 +++++++++++++++++++
 
 [NOTE]
-.Note
+.注意
 ==================
 [eq]#NaN#, if supported, is handled as in <<ieee-754,IEEE 754-2008>>
 `minNum()` and `maxNum()`.
@@ -572,7 +572,7 @@ The border color is:
 |====
 
 [NOTE]
-.Note
+.注意
 ====
 The names etext:VK_BORDER_COLOR_*\_TRANSPARENT_BLACK,
 etext:VK_BORDER_COLOR_*\_OPAQUE_BLACK, and

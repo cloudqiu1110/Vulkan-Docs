@@ -17,7 +17,7 @@ explicitly queried before use to ensure they are supported by the
 implementation.
 
 [NOTE]
-.Note on extensibility
+.注意 on extensibility
 ====
 The features and limits are reported via basic structures (that is
 slink:VkPhysicalDeviceFeatures and slink:VkPhysicalDeviceLimits), as well as
@@ -88,7 +88,7 @@ endif::VK_KHR_get_physical_device_properties2[]
 is equivalent to setting all members of the structure to ename:VK_FALSE.
 
 [NOTE]
-.Note
+.注意
 ====
 Some features, such as pname:robustBufferAccess, may: incur a run-time
 performance cost.
@@ -167,7 +167,7 @@ following features:
 +
 --
 [NOTE]
-.Note
+.注意
 ====
 If a SPIR-V code:OpLoad instruction loads a structure and the tail end of
 the structure is out of bounds, then all members of the structure are
@@ -1140,7 +1140,7 @@ include::../api/structs/VkPhysicalDeviceLimits.txt[]
 +
 --
 [NOTE]
-.Note
+.注意
 ====
 For example, if this value is 2 bits then when linearly filtering between
 two levels, each level could: contribute: 0%, 33%, 66%, or 100% (this is
@@ -1193,7 +1193,7 @@ different equations in the spec).
 +
 --
 [NOTE]
-.Note
+.注意
 ====
 The intent of the pname:viewportBoundsRange limit is to allow a maximum
 sized viewport to be arbitrarily shifted relative to the output target as
@@ -3300,7 +3300,7 @@ flink:vkGetPhysicalDeviceFormatProperties::pname:format:
     (sname:VkVertexInputAttributeDescription::pname:format).
 
 [NOTE]
-.Note
+.注意
 ====
 ifndef::VK_KHR_maintenance1[]
 If no format feature flags are supported, then the only possible use would
@@ -3929,7 +3929,7 @@ include::../api/structs/VkImageFormatProperties.txt[]
     pname:maxResourceSize must: be at least 2^31^.
 
 [NOTE]
-.Note
+.注意
 ====
 There is no mechanism to query the size of an image before creating it, to
 compare that size against pname:maxResourceSize.

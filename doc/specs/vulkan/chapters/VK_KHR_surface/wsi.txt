@@ -48,7 +48,7 @@ handles of other Vulkan objects.
 
 ifdef::implementation-guide[]
 [NOTE]
-.Note
+.注意
 ====
 On certain platforms, the Vulkan loader and ICDs may: have conventions that
 treat the handle as a pointer to a struct that contains the
@@ -291,7 +291,7 @@ include::../../api/structs/VkSurfaceCapabilitiesKHR.txt[]
     but implementations may: support additional usages.
 
 [NOTE]
-.Note
+.注意
 ====
 Formulas such as [eq]#min(N, pname:maxImageCount)# are not correct, since
 pname:maxImageCount may: be zero.
@@ -473,7 +473,7 @@ pname:colorSpace and pname:format equal to the corresponding SRGB (or UNORM)
 format.
 
 [NOTE]
-.Note
+.注意
 ====
 If pname:pSurfaceFormats includes just one entry, whose value for
 pname:format is ename:VK_FORMAT_UNDEFINED, pname:surface has no preferred
@@ -482,7 +482,7 @@ In this case, the application can: use any valid ename:VkFormat value.
 ====
 
 [NOTE]
-.Note
+.注意
 ====
 In the initial release of the +VK_KHR_surface+ and +VK_KHR_swapchain+
 extensions, the token ename:VK_COLORSPACE_SRGB_NONLINEAR_KHR was used.
@@ -574,7 +574,7 @@ include::../../api/enums/VkPresentModeKHR.txt[]
     each vertical blanking period in which the queue is non-empty.
 
 [NOTE]
-.Note
+.注意
 ====
 For reference, the mode indicated by ename:VK_PRESENT_MODE_FIFO_KHR is
 equivalent to the behavior of {wgl|glX|egl}SwapBuffers with a swap interval

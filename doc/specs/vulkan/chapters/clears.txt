@@ -420,7 +420,7 @@ fname:vkCmdUpdateBuffer.
 include::../validity/protos/vkCmdUpdateBuffer.txt[]
 
 [NOTE]
-.Note
+.注意
 ====
 The pname:pData parameter was of type code:uint32_t*` instead of code:void*
 prior to revision 1.0.19 of the Specification and dlink:VK_HEADER_VERSION 19

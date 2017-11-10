@@ -658,7 +658,7 @@ to the following rules.
     declaration order.
 
 [NOTE]
-.Note
+.注意
 ====
 The *std140 layout* in GLSL satisfies these rules.
 ====
@@ -673,7 +673,7 @@ a decoration of code:BufferBlock (storage buffers) must: be laid out as
 base alignment which do not need to be rounded up to a multiple of [eq]#16#.
 
 [NOTE]
-.Note
+.注意
 ====
 The *std430 layout* in GLSL satisfies these rules.
 ====
@@ -833,14 +833,14 @@ Any variable decorated with code:ClipDistance must: be declared as an array
 of 32-bit floating-point values.
 
 [NOTE]
-.Note
+.注意
 ====
 The array variable decorated with code:ClipDistance is explicitly sized by
 the shader.
 ====
 
 [NOTE]
-.Note
+.注意
 ====
 In the last vertex processing stage, these values will be linearly
 interpolated across the primitive and the portion of the primitive with
@@ -875,14 +875,14 @@ Any variable decorated with code:CullDistance must: be declared as an array
 of 32-bit floating-point values.
 
 [NOTE]
-.Note
+.注意
 ====
 In fragment shaders, the values of the code:CullDistance array are linearly
 interpolated across each primitive.
 ====
 
 [NOTE]
-.Note
+.注意
 ====
 If code:CullDistance decorates an input variable, that variable will contain
 the corresponding value from the code:CullDistance decorated output variable
@@ -1019,7 +1019,7 @@ The variable decorated with code:HelperInvocation must: be declared as a
 boolean.
 
 [NOTE]
-.Note
+.注意
 ====
 It is very likely that a helper invocation will have a value of
 code:SampleMask fragment shader input value that is zero.
@@ -1112,7 +1112,7 @@ The variable decorated with code:LocalInvocationId must: be declared as a
 three-component vector of 32-bit integers.
 
 [NOTE]
-.Note
+.注意
 ====
 If the size of the workgroup in a particular dimension is one, then the
 code:LocalInvocationId in that dimension will be zero.
@@ -1177,7 +1177,7 @@ The variable decorated with code:PointCoord must: be declared as
 two-component vector of 32-bit floating-point values.
 
 [NOTE]
-.Note
+.注意
 ====
 Depending on how the point is rasterized, code:PointCoord may: never reach
 [eq]#(0,0)# or [eq]#(1,1)#.
@@ -1205,7 +1205,7 @@ Any variable decorated with code:PointSize must: be declared as a scalar
 32-bit floating-point value.
 
 [NOTE]
-.Note
+.注意
 ====
 When code:PointSize decorates a variable in the code:Input storage class, it
 contains the data written to the output variable decorated with
@@ -1234,7 +1234,7 @@ Any variable decorated with code:Position must: be declared as a
 four-component vector of 32-bit floating-point values.
 
 [NOTE]
-.Note
+.注意
 ====
 When code:Position decorates a variable in the code:Input storage class, it
 contains the data written to the output variable decorated with
@@ -1282,7 +1282,7 @@ Any variable decorated with code:PrimitiveId must: be declared as a scalar
 32-bit integer.
 
 [NOTE]
-.Note
+.注意
 ====
 When the code:PrimitiveId decoration is applied to an output variable in the
 geometry shader, the resulting value is seen through the code:PrimitiveId
@@ -1596,7 +1596,7 @@ The variable decorated with code:VertexIndex must: be declared as a scalar
 32-bit integer.
 
 [NOTE]
-.Note
+.注意
 ====
 code:VertexIndex starts at the same starting value for each instance.
 ====

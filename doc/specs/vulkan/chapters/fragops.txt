@@ -256,7 +256,7 @@ of 1.0 and all 0's corresponding to 0.0.
 The algorithm may: be different at different pixel locations.
 
 [NOTE]
-.Note
+.注意
 ====
 Using different algorithms at different pixel location may: help to avoid
 artifacts caused by regular coverage sample locations.

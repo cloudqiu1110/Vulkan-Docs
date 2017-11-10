@@ -364,7 +364,7 @@ Examples of instance extensions include:
     affect any device-level commands.
 
 [NOTE]
-.Note
+.注意
 ====
 Instance extensions generally require support in the Vulkan loader.
 This is especially true for commands that are dispatched from instances and

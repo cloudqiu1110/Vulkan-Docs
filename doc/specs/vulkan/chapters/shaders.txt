@@ -207,7 +207,7 @@ The order that coherent writes to different locations become available is
 undefined, unless enforced by a memory barrier instruction or other memory
 dependency.
 
-.Note
+.注意
 [注意]
 ====
 显式的内存依赖仍然需要使用，来保证对其他缓冲区、缓冲区视图、图像视图的访问的可用性和可见性。

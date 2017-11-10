@@ -158,7 +158,7 @@ For example, an entry point does not exist, or shader code is not capable of
 expressing an operation.
 
 [NOTE]
-.Note
+.注意
 ==================
 There is an important distinction between *cannot* and *must not*, as used
 in this Specification.

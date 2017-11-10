@@ -27,7 +27,7 @@ include::../validity/protos/vkCreateDebugReportCallbackEXT.txt[]
 include::../api/enums/VkDebugReportErrorEXT.txt[]
 
 [NOTE]
-.Note
+.注意
 ====
 The +VK_EXT_debug_report+ extension defines the elink:VkDebugReportErrorEXT
 enumerant type, but does not currently explain what the enumeration is used
@@ -189,7 +189,7 @@ include::../api/enums/VkDebugReportObjectTypeEXT.txt[]
     sname:VkIndirectCommandsLayoutNVX.
 
 [NOTE]
-.Note
+.注意
 ====
 The primary expected use of ename:VK_ERROR_VALIDATION_FAILED_EXT is for
 validation layer testing.
