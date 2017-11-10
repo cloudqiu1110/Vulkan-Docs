@@ -594,7 +594,7 @@ include::../api/structs/VkDescriptorSetLayoutCreateInfo.txt[]
 
   * pname:sType 是数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
-  * pname:flags is reserved for future use.
+  * pname:flags 被保留。
   * pname:bindingCount is the number of elements in pname:pBindings.
   * pname:pBindings is a pointer to an array of
     slink:VkDescriptorSetLayoutBinding structures.
@@ -899,7 +899,7 @@ include::../api/structs/VkPipelineLayoutCreateInfo.txt[]
 
   * pname:sType 是数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
-  * pname:flags is reserved for future use.
+  * pname:flags 被保留。
   * pname:setLayoutCount is the number of descriptor sets included in the
     pipeline layout.
   * pname:pSetLayouts is a pointer to an array of
@@ -1470,7 +1470,7 @@ include::../api/protos/vkResetDescriptorPool.txt[]
 
   * pname:device is the logical device that owns the descriptor pool.
   * pname:descriptorPool is the descriptor pool to be reset.
-  * pname:flags is reserved for future use.
+  * pname:flags 被保留。
 
 Resetting a descriptor pool recycles all of the resources from all of the
 descriptor sets allocated from the descriptor pool back to the descriptor

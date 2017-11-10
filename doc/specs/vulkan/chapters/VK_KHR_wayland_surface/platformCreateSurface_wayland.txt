@@ -31,7 +31,7 @@ include::../../api/structs/VkWaylandSurfaceCreateInfoKHR.txt[]
 
   * pname:sType 是数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
-  * pname:flags is reserved for future use.
+  * pname:flags 被保留。
   * pname:display and pname:surface are pointers to the Wayland
     code:wl_display and code:wl_surface to associate the surface with.
 

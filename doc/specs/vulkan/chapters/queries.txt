@@ -58,7 +58,7 @@ include::../api/structs/VkQueryPoolCreateInfo.txt[]
 
   * pname:sType 是数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
-  * pname:flags is reserved for future use.
+  * pname:flags 被保留。
   * pname:queryType is the type of queries managed by the pool, and must: be
     one of the values
 +

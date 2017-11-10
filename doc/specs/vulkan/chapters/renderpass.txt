@@ -84,7 +84,7 @@ include::../api/structs/VkRenderPassCreateInfo.txt[]
 
   * pname:sType 是数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
-  * pname:flags is reserved for future use.
+  * pname:flags 被保留。
   * pname:attachmentCount is the number of attachments used by this render
     pass, or zero indicating no attachments.
     Attachments are referred to by zero-based indices in the range
@@ -346,7 +346,7 @@ The sname:VkSubpassDescription structure is defined as:
 
 include::../api/structs/VkSubpassDescription.txt[]
 
-  * pname:flags is reserved for future use.
+  * pname:flags 被保留。
   * pname:pipelineBindPoint is a elink:VkPipelineBindPoint value specifying
     whether this is a compute or graphics subpass.
     Currently, only graphics subpasses are supported.
@@ -846,7 +846,7 @@ include::../api/structs/VkFramebufferCreateInfo.txt[]
 
   * pname:sType 是数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
-  * pname:flags is reserved for future use.
+  * pname:flags 被保留。
   * pname:renderPass is a render pass that defines what render passes the
     framebuffer will be compatible with.
     See <<renderpass-compatibility,Render Pass Compatibility>> for details.

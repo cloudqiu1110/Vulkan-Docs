@@ -41,7 +41,7 @@ include::../api/structs/VkSamplerCreateInfo.txt[]
 
   * pname:sType 是数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
-  * pname:flags is reserved for future use.
+  * pname:flags 被保留。
   * pname:magFilter is the magnification filter to apply to lookups, and is
     of type:
 +

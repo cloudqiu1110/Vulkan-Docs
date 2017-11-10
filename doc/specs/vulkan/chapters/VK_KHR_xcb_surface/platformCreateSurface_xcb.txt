@@ -32,7 +32,7 @@ include::../../api/structs/VkXcbSurfaceCreateInfoKHR.txt[]
 
   * pname:sType 是数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
-  * pname:flags is reserved for future use.
+  * pname:flags 被保留。
   * pname:connection is a pointer to an code:xcb_connection_t to the X
     server.
   * pname:window is the code:xcb_window_t for the X11 window to associate

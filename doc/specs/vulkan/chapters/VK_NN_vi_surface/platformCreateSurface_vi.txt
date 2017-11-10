@@ -41,7 +41,7 @@ include::../../api/structs/VkViSurfaceCreateInfoNN.txt[]
 
   * pname:sType 是数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
-  * pname:flags is reserved for future use.
+  * pname:flags 被保留。
   * pname:window is the code:nn::code:vi::code:NativeWindowHandle for the
     code:nn::code:vi::code:Layer with which to associate the surface.
 

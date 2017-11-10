@@ -31,7 +31,7 @@ include::../../api/structs/VkWin32SurfaceCreateInfoKHR.txt[]
 
   * pname:sType 是数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
-  * pname:flags is reserved for future use.
+  * pname:flags 被保留。
   * pname:hinstance and pname:hwnd are the Win32 code:HINSTANCE and
     code:HWND for the window to associate the surface with.
 

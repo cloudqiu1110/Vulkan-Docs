@@ -1030,7 +1030,7 @@ include::../api/structs/VkSemaphoreCreateInfo.txt[]
 
   * pname:sType 是数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
-  * pname:flags is reserved for future use.
+  * pname:flags 被保留。
 
 include::../validity/structs/VkSemaphoreCreateInfo.txt[]
 
@@ -1229,7 +1229,7 @@ include::../api/structs/VkEventCreateInfo.txt[]
 
   * pname:sType 是数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
-  * pname:flags is reserved for future use.
+  * pname:flags 被保留。
 
 include::../validity/structs/VkEventCreateInfo.txt[]
 

@@ -46,7 +46,7 @@ include::../api/structs/VkPipelineRasterizationStateCreateInfo.txt[]
 
   * pname:sType 是数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
-  * pname:flags is reserved for future use.
+  * pname:flags 被保留。
   * pname:depthClampEnable controls whether to clamp the fragment's depth
     values instead of clipping primitives to the z planes of the frustum, as
     described in <<vertexpostproc-clipping,Primitive Clipping>>.
@@ -98,7 +98,7 @@ include::../api/structs/VkPipelineMultisampleStateCreateInfo.txt[]
 
   * pname:sType 是数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
-  * pname:flags is reserved for future use.
+  * pname:flags 被保留。
   * pname:rasterizationSamples is a elink:VkSampleCountFlagBits specifying
     the number of samples per pixel used in rasterization.
   * pname:sampleShadingEnable specifies that fragment shading executes
