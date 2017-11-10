@@ -788,7 +788,7 @@ include::../validity/protos/vkCreateFence.txt[]
 
 // refBegin VkFenceCreateInfo Structure specifying parameters of a newly created fence
 
-The sname:VkFenceCreateInfo structure is defined as:
+sname:VkFenceCreateInfo 类型数据结构定义如下：
 
 include::../api/structs/VkFenceCreateInfo.txt[]
 
@@ -1024,7 +1024,7 @@ include::../validity/protos/vkCreateSemaphore.txt[]
 
 // refBegin VkSemaphoreCreateInfo Structure specifying parameters of a newly created semaphore
 
-The sname:VkSemaphoreCreateInfo structure is defined as:
+sname:VkSemaphoreCreateInfo 类型数据结构定义如下：
 
 include::../api/structs/VkSemaphoreCreateInfo.txt[]
 
@@ -1223,7 +1223,7 @@ include::../validity/protos/vkCreateEvent.txt[]
 
 // refBegin VkEventCreateInfo Structure specifying parameters of a newly created event
 
-The sname:VkEventCreateInfo structure is defined as:
+sname:VkEventCreateInfo 类型数据结构定义如下：
 
 include::../api/structs/VkEventCreateInfo.txt[]
 
@@ -1813,7 +1813,7 @@ that exist at the time of its execution.
 
 // refBegin VkMemoryBarrier Structure specifying a global memory barrier
 
-The sname:VkMemoryBarrier structure is defined as:
+sname:VkMemoryBarrier 类型数据结构定义如下：
 
 include::../api/structs/VkMemoryBarrier.txt[]
 
@@ -1850,7 +1850,7 @@ specified buffer range.
 
 // refBegin VkBufferMemoryBarrier Structure specifying a buffer memory barrier
 
-The sname:VkBufferMemoryBarrier structure is defined as:
+sname:VkBufferMemoryBarrier 类型数据结构定义如下：
 
 include::../api/structs/VkBufferMemoryBarrier.txt[]
 
@@ -1942,7 +1942,7 @@ specified image subresource range.
 
 // refBegin VkImageMemoryBarrier Structure specifying the parameters of an image memory barrier
 
-The sname:VkImageMemoryBarrier structure is defined as:
+sname:VkImageMemoryBarrier 类型数据结构定义如下：
 
 include::../api/structs/VkImageMemoryBarrier.txt[]
 

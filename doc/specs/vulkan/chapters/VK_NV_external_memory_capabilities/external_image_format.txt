@@ -34,7 +34,7 @@ include::../../validity/protos/vkGetPhysicalDeviceExternalImageFormatPropertiesN
 
 // refBegin VkExternalImageFormatPropertiesNV - Structure specifying external image format properties
 
-The sname:VkExternalImageFormatPropertiesNV structure is defined as:
+sname:VkExternalImageFormatPropertiesNV 类型数据结构定义如下：
 
 include::../../api/structs/VkExternalImageFormatPropertiesNV.txt[]
 

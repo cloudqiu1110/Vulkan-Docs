@@ -278,7 +278,7 @@ sname:VkPipelineDepthStencilStateCreateInfo structure.
 
 // refBegin VkPipelineDepthStencilStateCreateInfo Structure specifying parameters of a newly created pipeline depth stencil state
 
-The sname:VkPipelineDepthStencilStateCreateInfo structure is defined as:
+sname:VkPipelineDepthStencilStateCreateInfo 类型数据结构定义如下：
 
 include::../api/structs/VkPipelineDepthStencilStateCreateInfo.txt[]
 
@@ -372,7 +372,7 @@ sname:VkStencilOpState.
 
 // refBegin VkStencilOpState Structure specifying stencil operation state
 
-The sname:VkStencilOpState structure is defined as:
+sname:VkStencilOpState 类型数据结构定义如下：
 
 include::../api/structs/VkStencilOpState.txt[]
 

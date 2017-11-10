@@ -118,11 +118,11 @@ include::../validity/protos/vkGetPhysicalDeviceFeatures2KHR.txt[]
 
 // refBegin VkPhysicalDeviceFeatures2KHR Structure describing the fine-grained features that can be supported by an implementation
 
-The sname:VkPhysicalDeviceFeatures2KHR structure is defined as:
+sname:VkPhysicalDeviceFeatures2KHR 类型数据结构定义如下：
 
 include::../api/structs/VkPhysicalDeviceFeatures2KHR.txt[]
 
-The sname:VkPhysicalDeviceFeatures2KHR structure is defined as:
+sname:VkPhysicalDeviceFeatures2KHR 类型数据结构定义如下：
 
   * pname:sType 是数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
@@ -142,7 +142,7 @@ endif::VK_KHR_get_physical_device_properties2[]
 
 // refBegin VkPhysicalDeviceFeatures Structure describing the fine-grained features that can be supported by an implementation
 
-The sname:VkPhysicalDeviceFeatures structure is defined as:
+sname:VkPhysicalDeviceFeatures 类型数据结构定义如下：
 
 include::../api/structs/VkPhysicalDeviceFeatures.txt[]
 
@@ -754,7 +754,7 @@ flink:vkGetPhysicalDeviceProperties.
 
 // refBegin VkPhysicalDeviceLimits Structure reporting implementation-dependent physical device limits
 
-The sname:VkPhysicalDeviceLimits structure is defined as:
+sname:VkPhysicalDeviceLimits 类型数据结构定义如下：
 
 include::../api/structs/VkPhysicalDeviceLimits.txt[]
 
@@ -3182,7 +3182,7 @@ include::../validity/protos/vkGetPhysicalDeviceFormatProperties.txt[]
 
 // refBegin VkFormatProperties Structure specifying image format properties
 
-The sname:VkPhysicalDeviceLimits structure is defined as:
+sname:VkPhysicalDeviceLimits 类型数据结构定义如下：
 
 include::../api/structs/VkFormatProperties.txt[]
 
@@ -3343,7 +3343,7 @@ include::../validity/protos/vkGetPhysicalDeviceFormatProperties2KHR.txt[]
 
 // refBegin VkFormatProperties2KHR Structure specifying image format properties
 
-The sname:VkFormatProperties2KHR structure is defined as:
+sname:VkFormatProperties2KHR 类型数据结构定义如下：
 
 include::../api/structs/VkFormatProperties2KHR.txt[]
 
@@ -3899,7 +3899,7 @@ include::../validity/protos/vkGetPhysicalDeviceImageFormatProperties.txt[]
 
 // refBegin VkImageFormatProperties Structure specifying a image format properties
 
-The sname:VkImageFormatProperties structure is defined as:
+sname:VkImageFormatProperties 类型数据结构定义如下：
 
 include::../api/structs/VkImageFormatProperties.txt[]
 
@@ -3982,7 +3982,7 @@ include::../validity/protos/vkGetPhysicalDeviceImageFormatProperties2KHR.txt[]
 
 // refBegin VkPhysicalDeviceImageFormatInfo2KHR Structure specifying image creation parameters
 
-The sname:VkPhysicalDeviceImageFormatInfo2KHR structure is defined as:
+sname:VkPhysicalDeviceImageFormatInfo2KHR 类型数据结构定义如下：
 
 include::../api/structs/VkPhysicalDeviceImageFormatInfo2KHR.txt[]
 
@@ -4007,7 +4007,7 @@ include::../validity/structs/VkPhysicalDeviceImageFormatInfo2KHR.txt[]
 
 // refBegin VkImageFormatProperties2KHR Structure specifying a image format properties
 
-The sname:VkImageFormatProperties2KHR structure is defined as:
+sname:VkImageFormatProperties2KHR 类型数据结构定义如下：
 
 include::../api/structs/VkImageFormatProperties2KHR.txt[]
 
@@ -4107,7 +4107,7 @@ include::../validity/structs/VkPhysicalDeviceExternalImageFormatInfoKHX.txt[]
 
 // refBegin VkExternalImageFormatPropertiesKHX Structure specifying supported external handle properties
 
-The sname:VkExternalImageFormatPropertiesKHX structure is defined as:
+sname:VkExternalImageFormatPropertiesKHX 类型数据结构定义如下：
 
 include::../api/structs/VkExternalImageFormatPropertiesKHX.txt[]
 
@@ -4122,7 +4122,7 @@ include::../validity/structs/VkExternalImageFormatPropertiesKHX.txt[]
 
 // refBegin VkExternalMemoryPropertiesKHX Structure specifying external memory handle type capabilities
 
-The sname:VkExternalMemoryPropertiesKHX structure is defined as:
+sname:VkExternalMemoryPropertiesKHX 类型数据结构定义如下：
 
 include::../api/structs/VkExternalMemoryPropertiesKHX.txt[]
 

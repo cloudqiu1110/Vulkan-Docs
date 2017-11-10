@@ -35,7 +35,7 @@ include::../../validity/protos/vkCreateViSurfaceNN.txt[]
 
 // refBegin VkViSurfaceCreateInfoNN - Structure specifying parameters of a newly created VI surface object
 
-The sname:VkViSurfaceCreateInfoNN structure is defined as:
+sname:VkViSurfaceCreateInfoNN 类型数据结构定义如下：
 
 include::../../api/structs/VkViSurfaceCreateInfoNN.txt[]
 

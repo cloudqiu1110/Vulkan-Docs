@@ -342,7 +342,7 @@ attachments on multiple uses via ename:VK_ATTACHMENT_LOAD_OP_CLEAR.
 
 // refBegin VkSubpassDescription Structure specifying a subpass description
 
-The sname:VkSubpassDescription structure is defined as:
+sname:VkSubpassDescription 类型数据结构定义如下：
 
 include::../api/structs/VkSubpassDescription.txt[]
 
@@ -453,7 +453,7 @@ include::../validity/structs/VkSubpassDescription.txt[]
 
 // refBegin VkAttachmentReference Structure specifying an attachment reference
 
-The sname:VkAttachmentReference structure is defined as:
+sname:VkAttachmentReference 类型数据结构定义如下：
 
 include::../api/structs/VkAttachmentReference.txt[]
 
@@ -475,7 +475,7 @@ include::../validity/structs/VkAttachmentReference.txt[]
 
 // refBegin VkSubpassDependency Structure specifying a subpass dependency
 
-The sname:VkSubpassDependency structure is defined as:
+sname:VkSubpassDependency 类型数据结构定义如下：
 
 include::../api/structs/VkSubpassDependency.txt[]
 
@@ -840,7 +840,7 @@ include::../validity/protos/vkCreateFramebuffer.txt[]
 
 // refBegin VkFramebufferCreateInfo Structure specifying parameters of a newly created framebuffer
 
-The sname:VkFramebufferCreateInfo structure is defined as:
+sname:VkFramebufferCreateInfo 类型数据结构定义如下：
 
 include::../api/structs/VkFramebufferCreateInfo.txt[]
 

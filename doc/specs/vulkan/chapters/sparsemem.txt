@@ -707,7 +707,7 @@ structure of type sname:VkPhysicalDeviceSparseProperties.
 
 // refBegin VkPhysicalDeviceSparseProperties Structure specifying physical device sparse memory properties
 
-The sname:VkPhysicalDeviceSparseProperties structure is defined as:
+sname:VkPhysicalDeviceSparseProperties 类型数据结构定义如下：
 
 include::../api/structs/VkPhysicalDeviceSparseProperties.txt[]
 
@@ -774,7 +774,7 @@ is supported and what the sparse image block shape will be.
 
 // refBegin VkSparseImageFormatProperties Structure specifying sparse image format properties
 
-The sname:VkSparseImageFormatProperties structure is defined as:
+sname:VkSparseImageFormatProperties 类型数据结构定义如下：
 
 include::../api/structs/VkSparseImageFormatProperties.txt[]
 
@@ -895,7 +895,7 @@ include::../validity/protos/vkGetPhysicalDeviceSparseImageFormatProperties2KHR.t
 
 // refBegin VkPhysicalDeviceSparseImageFormatInfo2KHR Structure specifying sparse image format inputs
 
-The sname:VkPhysicalDeviceSparseImageFormatInfo2KHR structure is defined as:
+sname:VkPhysicalDeviceSparseImageFormatInfo2KHR 类型数据结构定义如下：
 
 include::../api/structs/VkPhysicalDeviceSparseImageFormatInfo2KHR.txt[]
 
@@ -922,7 +922,7 @@ include::../validity/structs/VkPhysicalDeviceSparseImageFormatInfo2KHR.txt[]
 
 // refBegin VkSparseImageFormatProperties2KHR Structure specifying sparse image format properties
 
-The sname:VkSparseImageFormatProperties2KHR structure is defined as:
+sname:VkSparseImageFormatProperties2KHR 类型数据结构定义如下：
 
 include::../api/structs/VkSparseImageFormatProperties2KHR.txt[]
 
@@ -1005,7 +1005,7 @@ image memory requirements.
 
 // refBegin VkSparseImageMemoryRequirements Structure specifying sparse image memory requirements
 
-The sname:VkSparseImageMemoryRequirements structure is defined as:
+sname:VkSparseImageMemoryRequirements 类型数据结构定义如下：
 
 include::../api/structs/VkSparseImageMemoryRequirements.txt[]
 
@@ -1188,7 +1188,7 @@ structures.
 
 // refBegin VkSparseMemoryBind Structure specifying a sparse memory bind operation
 
-The sname:VkSparseMemoryBind structure is defined as:
+sname:VkSparseMemoryBind 类型数据结构定义如下：
 
 include::../api/structs/VkSparseMemoryBind.txt[]
 
@@ -1350,7 +1350,7 @@ include::../validity/structs/VkSparseImageMemoryBindInfo.txt[]
 
 // refBegin VkSparseImageMemoryBind Structure specifying sparse image memory bind
 
-The sname:VkSparseImageMemoryBind structure is defined as:
+sname:VkSparseImageMemoryBind 类型数据结构定义如下：
 
 include::../api/structs/VkSparseImageMemoryBind.txt[]
 
@@ -1465,7 +1465,7 @@ include::../validity/protos/vkQueueBindSparse.txt[]
 
 // refBegin VkBindSparseInfo Structure specifying a sparse binding operation
 
-The sname:VkBindSparseInfo structure is defined as:
+sname:VkBindSparseInfo 类型数据结构定义如下：
 
 include::../api/structs/VkBindSparseInfo.txt[]
 

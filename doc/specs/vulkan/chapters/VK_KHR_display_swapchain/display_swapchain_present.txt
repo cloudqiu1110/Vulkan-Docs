@@ -10,7 +10,7 @@ slink:VkDisplayPresentInfoKHR structure.
 
 // refBegin VkDisplayPresentInfoKHR - Structure describing parameters of a queue presentation to a swapchain
 
-The sname:VkDisplayPresentInfoKHR structure is defined as:
+sname:VkDisplayPresentInfoKHR 类型数据结构定义如下：
 
 include::../../api/structs/VkDisplayPresentInfoKHR.txt[]
 

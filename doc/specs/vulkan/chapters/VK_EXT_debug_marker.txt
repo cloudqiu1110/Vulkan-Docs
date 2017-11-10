@@ -40,7 +40,7 @@ include::../validity/protos/vkDebugMarkerSetObjectNameEXT.txt[]
 
 // refBegin VkDebugMarkerObjectNameInfoEXT Specify parameters of a name to give to an object
 
-The sname:VkDebugMarkerObjectNameInfoEXT structure is defined as:
+sname:VkDebugMarkerObjectNameInfoEXT 类型数据结构定义如下：
 
 include::../api/structs/VkDebugMarkerObjectNameInfoEXT.txt[]
 
@@ -85,7 +85,7 @@ include::../validity/protos/vkDebugMarkerSetObjectTagEXT.txt[]
 
 // refBegin VkDebugMarkerObjectTagInfoEXT Specify parameters of a tag to attach to an object
 
-The sname:VkDebugMarkerObjectTagInfoEXT structure is defined as:
+sname:VkDebugMarkerObjectTagInfoEXT 类型数据结构定义如下：
 
 include::../api/structs/VkDebugMarkerObjectTagInfoEXT.txt[]
 
@@ -137,7 +137,7 @@ include::../validity/protos/vkCmdDebugMarkerBeginEXT.txt[]
 
 // refBegin VkDebugMarkerMarkerInfoEXT Specify parameters of a command buffer marker region
 
-The sname:VkDebugMarkerMarkerInfoEXT structure is defined as:
+sname:VkDebugMarkerMarkerInfoEXT 类型数据结构定义如下：
 
 include::../api/structs/VkDebugMarkerMarkerInfoEXT.txt[]
 

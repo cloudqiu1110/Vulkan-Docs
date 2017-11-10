@@ -21,7 +21,7 @@ include::../../validity/protos/vkGetPhysicalDeviceSurfaceCapabilities2EXT.txt[]
 
 // refBegin VkSurfaceCapabilities2EXT Structure describing capabilities of a surface
 
-The sname:VkSurfaceCapabilities2EXT structure is defined as:
+sname:VkSurfaceCapabilities2EXT 类型数据结构定义如下：
 
 include::../../api/structs/VkSurfaceCapabilities2EXT.txt[]
 

@@ -40,7 +40,7 @@ creation:
 
 // refBegin VkPipelineColorBlendStateCreateInfo Structure specifying parameters of a newly created pipeline color blend state
 
-The sname:VkPipelineColorBlendStateCreateInfo structure is defined as:
+sname:VkPipelineColorBlendStateCreateInfo 类型数据结构定义如下：
 
 include::../api/structs/VkPipelineColorBlendStateCreateInfo.txt[]
 
@@ -83,7 +83,7 @@ include::../validity/structs/VkPipelineColorBlendStateCreateInfo.txt[]
 
 // refBegin VkPipelineColorBlendAttachmentState Structure specifying a pipeline color blend attachment state
 
-The sname:VkPipelineColorBlendAttachmentState structure is defined as:
+sname:VkPipelineColorBlendAttachmentState 类型数据结构定义如下：
 
 include::../api/structs/VkPipelineColorBlendAttachmentState.txt[]
 

@@ -224,7 +224,7 @@ include::../../validity/protos/vkCreateIndirectCommandsLayoutNVX.txt[]
 
 // refBegin VkIndirectCommandsLayoutCreateInfoNVX Structure specifying the parameters of a newly created indirect commands layout object
 
-The sname:VkIndirectCommandsLayoutCreateInfoNVX structure is defined as:
+sname:VkIndirectCommandsLayoutCreateInfoNVX 类型数据结构定义如下：
 
 include::../../api/structs/VkIndirectCommandsLayoutCreateInfoNVX.txt[]
 

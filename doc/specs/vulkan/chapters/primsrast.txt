@@ -40,7 +40,7 @@ sname:VkPipelineMultisampleStateCreateInfo.
 
 // refBegin VkPipelineRasterizationStateCreateInfo Structure specifying parameters of a newly created pipeline rasterization state
 
-The sname:VkPipelineRasterizationStateCreateInfo structure is defined as:
+sname:VkPipelineRasterizationStateCreateInfo 类型数据结构定义如下：
 
 include::../api/structs/VkPipelineRasterizationStateCreateInfo.txt[]
 
@@ -92,7 +92,7 @@ include::../validity/structs/VkPipelineRasterizationStateCreateInfo.txt[]
 
 // refBegin VkPipelineMultisampleStateCreateInfo Structure specifying parameters of a newly created pipeline multisample state
 
-The sname:VkPipelineMultisampleStateCreateInfo structure is defined as:
+sname:VkPipelineMultisampleStateCreateInfo 类型数据结构定义如下：
 
 include::../api/structs/VkPipelineMultisampleStateCreateInfo.txt[]
 

@@ -25,7 +25,7 @@ include::../../validity/protos/vkCreateMirSurfaceKHR.txt[]
 
 // refBegin VkMirSurfaceCreateInfoKHR - Structure specifying parameters of a newly created Mir surface object
 
-The sname:VkMirSurfaceCreateInfoKHR structure is defined as:
+sname:VkMirSurfaceCreateInfoKHR 类型数据结构定义如下：
 
 include::../../api/structs/VkMirSurfaceCreateInfoKHR.txt[]
 

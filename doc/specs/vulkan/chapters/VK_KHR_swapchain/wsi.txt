@@ -86,7 +86,7 @@ include::../../validity/protos/vkCreateSwapchainKHR.txt[]
 
 // refBegin VkSwapchainCreateInfoKHR - Structure specifying parameters of a newly created swapchain object
 
-The sname:VkSwapchainCreateInfoKHR structure is defined as:
+sname:VkSwapchainCreateInfoKHR 类型数据结构定义如下：
 
 include::../../api/structs/VkSwapchainCreateInfoKHR.txt[]
 
@@ -685,7 +685,7 @@ include::../../validity/protos/vkQueuePresentKHR.txt[]
 
 // refBegin VkPresentInfoKHR - Structure describing parameters of a queue presentation
 
-The sname:VkPresentInfoKHR structure is defined as:
+sname:VkPresentInfoKHR 类型数据结构定义如下：
 
 include::../../api/structs/VkPresentInfoKHR.txt[]
 

@@ -171,7 +171,7 @@ include::../validity/protos/vkCmdClearAttachments.txt[]
 
 // refBegin VkClearRect Structure specifying a clear rectangle
 
-The sname:VkClearRect structure is defined as:
+sname:VkClearRect 类型数据结构定义如下：
 
 include::../api/structs/VkClearRect.txt[]
 
@@ -187,7 +187,7 @@ include::../validity/structs/VkClearRect.txt[]
 
 // refBegin VkClearAttachment Structure specifying a clear attachment
 
-The sname:VkClearAttachment structure is defined as:
+sname:VkClearAttachment 类型数据结构定义如下：
 
 include::../api/structs/VkClearAttachment.txt[]
 
@@ -239,7 +239,7 @@ include::../validity/structs/VkClearAttachment.txt[]
 
 // refBegin VkClearColorValue Structure specifying a clear color value
 
-The sname:VkClearColorValue structure is defined as:
+sname:VkClearColorValue 类型数据结构定义如下：
 
 include::../api/structs/VkClearColorValue.txt[]
 
@@ -274,7 +274,7 @@ include::../validity/structs/VkClearColorValue.txt[]
 
 // refBegin VkClearDepthStencilValue Structure specifying a clear depth stencil value
 
-The sname:VkClearDepthStencilValue structure is defined as:
+sname:VkClearDepthStencilValue 类型数据结构定义如下：
 
 include::../api/structs/VkClearDepthStencilValue.txt[]
 

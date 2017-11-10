@@ -25,7 +25,7 @@ include::../../validity/protos/vkCreateWaylandSurfaceKHR.txt[]
 
 // refBegin VkWaylandSurfaceCreateInfoKHR - Structure specifying parameters of a newly created Wayland surface object
 
-The sname:VkWaylandSurfaceCreateInfoKHR structure is defined as:
+sname:VkWaylandSurfaceCreateInfoKHR 类型数据结构定义如下：
 
 include::../../api/structs/VkWaylandSurfaceCreateInfoKHR.txt[]
 

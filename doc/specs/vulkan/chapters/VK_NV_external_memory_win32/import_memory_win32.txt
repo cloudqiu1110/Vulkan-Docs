@@ -5,7 +5,7 @@ current Vulkan instance, add a slink:VkImportMemoryWin32HandleInfoNV
 structure to the pname:pNext chain of the slink:VkMemoryAllocateInfo
 structure, specifying a handle to and the type of the memory.
 
-The sname:VkImportMemoryWin32HandleInfoNV structure is defined as:
+sname:VkImportMemoryWin32HandleInfoNV 类型数据结构定义如下：
 
 include::../../api/structs/VkImportMemoryWin32HandleInfoNV.txt[]
 

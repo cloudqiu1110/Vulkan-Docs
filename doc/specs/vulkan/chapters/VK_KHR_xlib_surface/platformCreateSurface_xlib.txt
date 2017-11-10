@@ -26,7 +26,7 @@ include::../../validity/protos/vkCreateXlibSurfaceKHR.txt[]
 
 // refBegin VkXlibSurfaceCreateInfoKHR - Structure specifying parameters of a newly created Xlib surface object
 
-The sname:VkXlibSurfaceCreateInfoKHR structure is defined as:
+sname:VkXlibSurfaceCreateInfoKHR 类型数据结构定义如下：
 
 include::../../api/structs/VkXlibSurfaceCreateInfoKHR.txt[]
 

@@ -12,7 +12,7 @@ To acquire keyed mutexes before submitted work and/or release them after,
 add a slink:VkWin32KeyedMutexAcquireReleaseInfoNV structure to the
 pname:pNext chain of the slink:VkSubmitInfo structure.
 
-The sname:VkWin32KeyedMutexAcquireReleaseInfoNV structure is defined as:
+sname:VkWin32KeyedMutexAcquireReleaseInfoNV 类型数据结构定义如下：
 
 include::../../api/structs/VkWin32KeyedMutexAcquireReleaseInfoNV.txt[]
 

@@ -86,7 +86,7 @@ include::../validity/protos/vkEnumerateInstanceLayerProperties.txt[]
 
 // refBegin VkLayerProperties Structure specifying layer properties
 
-The sname:VkLayerProperties structure is defined as:
+sname:VkLayerProperties 类型数据结构定义如下：
 
 include::../api/structs/VkLayerProperties.txt[]
 
@@ -297,7 +297,7 @@ include::../validity/protos/vkEnumerateDeviceExtensionProperties.txt[]
 
 // refBegin VkExtensionProperties Structure specifying a extension properties
 
-The sname:VkExtensionProperties structure is defined as:
+sname:VkExtensionProperties 类型数据结构定义如下：
 
 include::../api/structs/VkExtensionProperties.txt[]
 

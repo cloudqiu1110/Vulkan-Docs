@@ -48,7 +48,7 @@ include::../../validity/protos/vkGetPhysicalDeviceDisplayPropertiesKHR.txt[]
 
 // refBegin VkDisplayPropertiesKHR - Structure describing an available display device
 
-The sname:VkDisplayPropertiesKHR structure is defined as:
+sname:VkDisplayPropertiesKHR 类型数据结构定义如下：
 
 include::../../api/structs/VkDisplayPropertiesKHR.txt[]
 
@@ -133,7 +133,7 @@ include::../../validity/protos/vkGetPhysicalDeviceDisplayPlanePropertiesKHR.txt[
 
 // refBegin VkDisplayPlanePropertiesKHR - Structure describing display plane properties
 
-The sname:VkDisplayPlanePropertiesKHR structure is defined as:
+sname:VkDisplayPlanePropertiesKHR 类型数据结构定义如下：
 
 include::../../api/structs/VkDisplayPlanePropertiesKHR.txt[]
 
@@ -226,7 +226,7 @@ include::../../validity/protos/vkGetDisplayModePropertiesKHR.txt[]
 
 // refBegin VkDisplayModePropertiesKHR - Structure describing display mode properties
 
-The sname:VkDisplayModePropertiesKHR structure is defined as:
+sname:VkDisplayModePropertiesKHR 类型数据结构定义如下：
 
 include::../../api/structs/VkDisplayModePropertiesKHR.txt[]
 
@@ -240,7 +240,7 @@ include::../../validity/structs/VkDisplayModePropertiesKHR.txt[]
 
 // refBegin VkDisplayModeParametersKHR - Structure describing display parameters associated with a display mode
 
-The sname:VkDisplayModeParametersKHR structure is defined as:
+sname:VkDisplayModeParametersKHR 类型数据结构定义如下：
 
 include::../../api/structs/VkDisplayModeParametersKHR.txt[]
 
@@ -276,7 +276,7 @@ include::../../validity/protos/vkCreateDisplayModeKHR.txt[]
 
 // refBegin VkDisplayModeCreateInfoKHR - Structure specifying parameters of a newly created display mode object
 
-The sname:VkDisplayModeCreateInfoKHR structure is defined as:
+sname:VkDisplayModeCreateInfoKHR 类型数据结构定义如下：
 
 include::../../api/structs/VkDisplayModeCreateInfoKHR.txt[]
 
@@ -325,7 +325,7 @@ include::../../validity/protos/vkGetDisplayPlaneCapabilitiesKHR.txt[]
 
 // refBegin VkDisplayPlaneCapabilitiesKHR - Structure describing capabilities of a mode and plane combination
 
-The sname:VkDisplayPlaneCapabilitiesKHR structure is defined as:
+sname:VkDisplayPlaneCapabilitiesKHR 类型数据结构定义如下：
 
 include::../../api/structs/VkDisplayPlaneCapabilitiesKHR.txt[]
 
@@ -415,7 +415,7 @@ include::../../validity/protos/vkCreateDisplayPlaneSurfaceKHR.txt[]
 
 // refBegin VkDisplaySurfaceCreateInfoKHR - Structure specifying parameters of a newly created display plane surface object
 
-The sname:VkDisplaySurfaceCreateInfoKHR structure is defined as:
+sname:VkDisplaySurfaceCreateInfoKHR 类型数据结构定义如下：
 
 include::../../api/structs/VkDisplaySurfaceCreateInfoKHR.txt[]
 

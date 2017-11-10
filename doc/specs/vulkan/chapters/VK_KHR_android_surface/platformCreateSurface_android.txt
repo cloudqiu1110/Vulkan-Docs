@@ -51,7 +51,7 @@ include::../../validity/protos/vkCreateAndroidSurfaceKHR.txt[]
 
 // refBegin VkAndroidSurfaceCreateInfoKHR - Structure specifying parameters of a newly created Android surface object
 
-The sname:VkAndroidSurfaceCreateInfoKHR structure is defined as:
+sname:VkAndroidSurfaceCreateInfoKHR 类型数据结构定义如下：
 
 include::../../api/structs/VkAndroidSurfaceCreateInfoKHR.txt[]
 

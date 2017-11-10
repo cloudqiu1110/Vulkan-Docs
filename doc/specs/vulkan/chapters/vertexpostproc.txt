@@ -320,7 +320,7 @@ structure used in pipeline creation.
 
 // refBegin VkPipelineViewportStateCreateInfo Structure specifying parameters of a newly created pipeline viewport state
 
-The sname:VkPipelineViewportStateCreateInfo structure is defined as:
+sname:VkPipelineViewportStateCreateInfo 类型数据结构定义如下：
 
 include::../api/structs/VkPipelineViewportStateCreateInfo.txt[]
 
@@ -419,7 +419,7 @@ sname:VkViewport to set the viewport transformation parameters.
 
 // refBegin VkViewport Structure specifying a viewport
 
-The sname:VkViewport structure is defined as:
+sname:VkViewport 类型数据结构定义如下：
 
 include::../api/structs/VkViewport.txt[]
 

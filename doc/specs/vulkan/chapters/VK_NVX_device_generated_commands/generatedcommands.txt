@@ -54,7 +54,7 @@ include::../../validity/protos/vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX
 
 // refBegin VkDeviceGeneratedCommandsFeaturesNVX Structure specifying physical device support
 
-The sname:VkDeviceGeneratedCommandsFeaturesNVX structure is defined as:
+sname:VkDeviceGeneratedCommandsFeaturesNVX 类型数据结构定义如下：
 
 include::../../api/structs/VkDeviceGeneratedCommandsFeaturesNVX.txt[]
 
@@ -70,7 +70,7 @@ include::../../validity/structs/VkDeviceGeneratedCommandsFeaturesNVX.txt[]
 
 // refBegin VkDeviceGeneratedCommandsLimitsNVX Structure specifying physical device limits
 
-The sname:VkDeviceGeneratedCommandsLimitsNVX structure is defined as:
+sname:VkDeviceGeneratedCommandsLimitsNVX 类型数据结构定义如下：
 
 include::../../api/structs/VkDeviceGeneratedCommandsLimitsNVX.txt[]
 

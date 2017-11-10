@@ -3,7 +3,7 @@ instance, add a slink:VkExportMemoryAllocateInfoNV structure to the
 pname:pNext chain of the slink:VkMemoryAllocateInfo structure, specifying
 the handle types that may: be exported.
 
-The slink:VkExportMemoryAllocateInfoNV structure is defined as:
+slink:VkExportMemoryAllocateInfoNV 类型数据结构定义如下：
 
 include::../../api/structs/VkExportMemoryAllocateInfoNV.txt[]
 

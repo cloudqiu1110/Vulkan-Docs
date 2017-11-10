@@ -213,7 +213,7 @@ include::../validity/protos/vkCmdDispatchIndirect.txt[]
 
 // refBegin VkDispatchIndirectCommand Structure specifying a dispatch indirect command
 
-The sname:VkDispatchIndirectCommand structure is defined as:
+sname:VkDispatchIndirectCommand 类型数据结构定义如下：
 
 include::../api/structs/VkDispatchIndirectCommand.txt[]
 

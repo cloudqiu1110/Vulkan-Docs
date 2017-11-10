@@ -24,7 +24,7 @@ include::../../validity/protos/vkRegisterDeviceEventEXT.txt[]
 
 // refBegin VkDeviceEventInfoEXT Describe a device event to create
 
-The sname:VkDeviceEventInfoEXT structure is defined as:
+sname:VkDeviceEventInfoEXT 类型数据结构定义如下：
 
 include::../../api/structs/VkDeviceEventInfoEXT.txt[]
 
@@ -66,7 +66,7 @@ include::../../validity/protos/vkRegisterDisplayEventEXT.txt[]
 
 // refBegin VkDisplayEventInfoEXT Describe a display event to create
 
-The sname:VkDisplayEventInfoEXT structure is defined as:
+sname:VkDisplayEventInfoEXT 类型数据结构定义如下：
 
 include::../../api/structs/VkDisplayEventInfoEXT.txt[]
 

@@ -121,7 +121,7 @@ include::../validity/protos/vkCmdCopyBuffer.txt[]
 
 // refBegin VkBufferCopy Structure specifying a buffer copy operation
 
-The sname:VkBufferCopy structure is defined as:
+sname:VkBufferCopy 类型数据结构定义如下：
 
 include::../api/structs/VkBufferCopy.txt[]
 
@@ -302,7 +302,7 @@ include::../validity/protos/vkCmdCopyImage.txt[]
 
 // refBegin VkImageCopy Structure specifying an image copy operation
 
-The sname:VkImageCopy structure is defined as:
+sname:VkImageCopy 类型数据结构定义如下：
 
 include::../api/structs/VkImageCopy.txt[]
 
@@ -434,7 +434,7 @@ include::../validity/structs/VkImageCopy.txt[]
 
 // refBegin VkImageSubresourceLayers Structure specifying a image subresource layers
 
-The sname:VkImageSubresourceLayers structure is defined as:
+sname:VkImageSubresourceLayers 类型数据结构定义如下：
 
 include::../api/structs/VkImageSubresourceLayers.txt[]
 
@@ -970,7 +970,7 @@ include::../validity/protos/vkCmdBlitImage.txt[]
 
 // refBegin VkImageBlit Structure specifying an image blit operation
 
-The sname:VkImageBlit structure is defined as:
+sname:VkImageBlit 类型数据结构定义如下：
 
 include::../api/structs/VkImageBlit.txt[]
 
@@ -1121,7 +1121,7 @@ include::../validity/protos/vkCmdResolveImage.txt[]
 
 // refBegin VkImageResolve Structure specifying an image resolve operation
 
-The sname:VkImageResolve structure is defined as:
+sname:VkImageResolve 类型数据结构定义如下：
 
 include::../api/structs/VkImageResolve.txt[]
 

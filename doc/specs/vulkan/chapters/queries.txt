@@ -52,7 +52,7 @@ include::../validity/protos/vkCreateQueryPool.txt[]
 
 // refBegin VkQueryPoolCreateInfo Structure specifying parameters of a newly created query pool
 
-The sname:VkQueryPoolCreateInfo structure is defined as:
+sname:VkQueryPoolCreateInfo 类型数据结构定义如下：
 
 include::../api/structs/VkQueryPoolCreateInfo.txt[]
 

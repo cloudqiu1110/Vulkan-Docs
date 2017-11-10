@@ -274,7 +274,7 @@ structure of type sname:VkPipelineVertexInputStateCreateInfo.
 
 // refBegin VkPipelineVertexInputStateCreateInfo Structure specifying parameters of a newly created pipeline vertex input state
 
-The sname:VkPipelineVertexInputStateCreateInfo structure is defined as:
+sname:VkPipelineVertexInputStateCreateInfo 类型数据结构定义如下：
 
 include::../api/structs/VkPipelineVertexInputStateCreateInfo.txt[]
 
@@ -313,7 +313,7 @@ sname:VkVertexInputBindingDescription structure.
 
 // refBegin VkVertexInputBindingDescription Structure specifying vertex input binding description
 
-The sname:VkVertexInputBindingDescription structure is defined as:
+sname:VkVertexInputBindingDescription 类型数据结构定义如下：
 
 include::../api/structs/VkVertexInputBindingDescription.txt[]
 
@@ -348,7 +348,7 @@ sname:VkVertexInputAttributeDescription structure.
 
 // refBegin VkVertexInputAttributeDescription Structure specifying vertex input attribute description
 
-The sname:VkVertexInputAttributeDescription structure is defined as:
+sname:VkVertexInputAttributeDescription 类型数据结构定义如下：
 
 include::../api/structs/VkVertexInputAttributeDescription.txt[]
 

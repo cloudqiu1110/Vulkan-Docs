@@ -472,7 +472,7 @@ points to a structure of type sname:VkPipelineTessellationStateCreateInfo.
 
 // refBegin VkPipelineTessellationStateCreateInfo Structure specifying parameters of a newly created pipeline tessellation state
 
-The sname:VkPipelineTessellationStateCreateInfo structure is defined as:
+sname:VkPipelineTessellationStateCreateInfo 类型数据结构定义如下：
 
 include::../api/structs/VkPipelineTessellationStateCreateInfo.txt[]
 

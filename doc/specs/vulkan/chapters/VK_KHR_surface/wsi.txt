@@ -235,7 +235,7 @@ include::../../validity/protos/vkGetPhysicalDeviceSurfaceCapabilitiesKHR.txt[]
 
 // refBegin VkSurfaceCapabilitiesKHR - Structure describing capabilities of a surface
 
-The sname:VkSurfaceCapabilitiesKHR structure is defined as:
+sname:VkSurfaceCapabilitiesKHR 类型数据结构定义如下：
 
 include::../../api/structs/VkSurfaceCapabilitiesKHR.txt[]
 
@@ -407,7 +407,7 @@ include::../../validity/protos/vkGetPhysicalDeviceSurfaceFormatsKHR.txt[]
 
 // refBegin VkSurfaceFormatKHR - Structure describing a supported swapchain format-color space pair
 
-The sname:VkSurfaceFormatKHR structure is defined as:
+sname:VkSurfaceFormatKHR 类型数据结构定义如下：
 
 include::../../api/structs/VkSurfaceFormatKHR.txt[]
 

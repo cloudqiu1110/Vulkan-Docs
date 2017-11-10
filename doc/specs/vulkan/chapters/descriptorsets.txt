@@ -609,7 +609,7 @@ include::../validity/structs/VkDescriptorSetLayoutCreateInfo.txt[]
 
 // refBegin VkDescriptorSetLayoutBinding Structure specifying a descriptor set layout binding
 
-The sname:VkDescriptorSetLayoutBinding structure is defined as:
+sname:VkDescriptorSetLayoutBinding 类型数据结构定义如下：
 
 include::../api/structs/VkDescriptorSetLayoutBinding.txt[]
 
@@ -893,7 +893,7 @@ include::../validity/protos/vkCreatePipelineLayout.txt[]
 
 // refBegin VkPipelineLayoutCreateInfo Structure specifying the parameters of a newly created pipeline layout object
 
-The slink:VkPipelineLayoutCreateInfo structure is defined as:
+slink:VkPipelineLayoutCreateInfo 类型数据结构定义如下：
 
 include::../api/structs/VkPipelineLayoutCreateInfo.txt[]
 
@@ -962,7 +962,7 @@ include::../validity/structs/VkPipelineLayoutCreateInfo.txt[]
 
 // refBegin VkPushConstantRange Structure specifying a push constant range
 
-The sname:VkPushConstantRange structure is defined as:
+sname:VkPushConstantRange 类型数据结构定义如下：
 
 include::../api/structs/VkPushConstantRange.txt[]
 
@@ -1285,7 +1285,7 @@ include::../validity/structs/VkDescriptorPoolCreateInfo.txt[]
 
 // refBegin VkDescriptorPoolSize Structure specifying descriptor pool size
 
-The sname:VkDescriptorPoolSize structure is defined as:
+sname:VkDescriptorPoolSize 类型数据结构定义如下：
 
 include::../api/structs/VkDescriptorPoolSize.txt[]
 
@@ -1407,7 +1407,7 @@ include::../validity/protos/vkAllocateDescriptorSets.txt[]
 
 // refBegin VkDescriptorSetAllocateInfo Structure specifying the allocation parameters for descriptor sets
 
-The sname:VkDescriptorSetAllocateInfo structure is defined as:
+sname:VkDescriptorSetAllocateInfo 类型数据结构定义如下：
 
 include::../api/structs/VkDescriptorSetAllocateInfo.txt[]
 
@@ -1525,7 +1525,7 @@ include::../validity/protos/vkUpdateDescriptorSets.txt[]
 
 // refBegin VkWriteDescriptorSet Structure specifying the parameters of a descriptor set write operation
 
-The sname:VkWriteDescriptorSet structure is defined as:
+sname:VkWriteDescriptorSet 类型数据结构定义如下：
 
 include::../api/structs/VkWriteDescriptorSet.txt[]
 
@@ -1696,7 +1696,7 @@ descriptors, and other arrays will be ignored.
 
 // refBegin VkDescriptorBufferInfo Structure specifying descriptor buffer info
 
-The sname:VkDescriptorBufferInfo structure is defined as:
+sname:VkDescriptorBufferInfo 类型数据结构定义如下：
 
 include::../api/structs/VkDescriptorBufferInfo.txt[]
 
@@ -1740,7 +1740,7 @@ include::../validity/structs/VkDescriptorBufferInfo.txt[]
 
 // refBegin VkDescriptorImageInfo Structure specifying descriptor image info
 
-The sname:VkDescriptorImageInfo structure is defined as:
+sname:VkDescriptorImageInfo 类型数据结构定义如下：
 
 include::../api/structs/VkDescriptorImageInfo.txt[]
 
@@ -1768,7 +1768,7 @@ include::../validity/structs/VkDescriptorImageInfo.txt[]
 
 // refBegin VkCopyDescriptorSet Structure specifying a copy descriptor set operation
 
-The sname:VkCopyDescriptorSet structure is defined as:
+sname:VkCopyDescriptorSet 类型数据结构定义如下：
 
 include::../api/structs/VkCopyDescriptorSet.txt[]
 

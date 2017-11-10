@@ -15,7 +15,7 @@ include::../../validity/protos/vkDisplayPowerControlEXT.txt[]
 
 // refBegin VkDisplayPowerInfoEXT Describe the power state of a display
 
-The sname:VkDisplayPowerInfoEXT structure is defined as:
+sname:VkDisplayPowerInfoEXT 类型数据结构定义如下：
 
 include::../../api/structs/VkDisplayPowerInfoEXT.txt[]
 

@@ -882,7 +882,7 @@ include::../validity/protos/vkCmdDrawIndirect.txt[]
 
 // refBegin VkDrawIndirectCommand Structure specifying a draw indirect command
 
-The sname:VkDrawIndirectCommand structure is defined as:
+sname:VkDrawIndirectCommand 类型数据结构定义如下：
 
 include::../api/structs/VkDrawIndirectCommand.txt[]
 
@@ -1187,7 +1187,7 @@ include::../validity/protos/vkCmdDrawIndexedIndirect.txt[]
 
 // refBegin VkDrawIndexedIndirectCommand Structure specifying a draw indexed indirect command
 
-The sname:VkDrawIndexedIndirectCommand structure is defined as:
+sname:VkDrawIndexedIndirectCommand 类型数据结构定义如下：
 
 include::../api/structs/VkDrawIndexedIndirectCommand.txt[]
 

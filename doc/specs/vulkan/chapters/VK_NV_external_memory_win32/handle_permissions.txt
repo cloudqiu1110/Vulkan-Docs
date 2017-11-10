@@ -6,7 +6,7 @@ sname:VkExportMemoryWin32HandleInfoNV to the pname:pNext chain of the
 slink:VkExportMemoryAllocateInfoNV structure to specify security attributes
 and access rights for the memory object's external handle.
 
-The sname:VkExportMemoryWin32HandleInfoNV structure is defined as:
+sname:VkExportMemoryWin32HandleInfoNV 类型数据结构定义如下：
 
 include::../../api/structs/VkExportMemoryWin32HandleInfoNV.txt[]
 

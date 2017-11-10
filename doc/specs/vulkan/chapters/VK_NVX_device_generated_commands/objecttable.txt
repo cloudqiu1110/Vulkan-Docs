@@ -39,7 +39,7 @@ include::../../validity/protos/vkCreateObjectTableNVX.txt[]
 
 // refBegin VkObjectTableCreateInfoNVX Structure specifying the parameters of a newly created object table
 
-The sname:VkObjectTableCreateInfoNVX structure is defined as:
+sname:VkObjectTableCreateInfoNVX 类型数据结构定义如下：
 
 include::../../api/structs/VkObjectTableCreateInfoNVX.txt[]
 

@@ -35,7 +35,7 @@ include::../validity/protos/vkCreateSampler.txt[]
 
 // refBegin VkSamplerCreateInfo Structure specifying parameters of a newly created sampler
 
-The sname:VkSamplerCreateInfo structure is defined as:
+sname:VkSamplerCreateInfo 类型数据结构定义如下：
 
 include::../api/structs/VkSamplerCreateInfo.txt[]
 

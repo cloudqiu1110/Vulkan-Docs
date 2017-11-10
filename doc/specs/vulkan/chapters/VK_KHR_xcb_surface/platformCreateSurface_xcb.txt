@@ -26,7 +26,7 @@ include::../../validity/protos/vkCreateXcbSurfaceKHR.txt[]
 
 // refBegin VkXcbSurfaceCreateInfoKHR - Structure specifying parameters of a newly created Xcb surface object
 
-The sname:VkXcbSurfaceCreateInfoKHR structure is defined as:
+sname:VkXcbSurfaceCreateInfoKHR 类型数据结构定义如下：
 
 include::../../api/structs/VkXcbSurfaceCreateInfoKHR.txt[]
 
