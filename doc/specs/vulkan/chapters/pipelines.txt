@@ -777,14 +777,9 @@ include::../api/structs/VkPipelineCacheCreateInfo.txt[]
   * pname:sType 是数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:flags 被保留。
-  * pname:initialDataSize is the number of bytes in pname:pInitialData.
-    If pname:initialDataSize is zero, the pipeline cache will initially be
-    empty.
-  * pname:pInitialData is a pointer to previously retrieved pipeline cache
-    data.
-    If the pipeline cache data is incompatible (as defined below) with the
-    device, the pipeline cache will be initially empty.
-    If pname:initialDataSize is zero, pname:pInitialData is ignored.
+  * pname:initialDataSize 是 pname:pInitialData 的字节大小。如果pname:initialDataSize为0，管线缓存将被初始为空。
+  * pname:pInitialData 是一个指针，指向了之前获取到的管线缓存数据。如果管线缓存数据和设备是不兼容的（如下有解释），
+	管线缓存将被初始化为空。如果pname:initialDataSize 为0，pname:pInitialData 将被忽略。
 
 .正确使用
 ****
@@ -904,15 +899,13 @@ include::../validity/protos/vkGetPipelineCacheData.txt[]
 
 // refBegin vkDestroyPipelineCache Destroy a pipeline cache object
 
-To destroy a pipeline cache, call:
+可调用如下命令来销毁管线缓存：
 
 include::../api/protos/vkDestroyPipelineCache.txt[]
 
-  * pname:device is the logical device that destroys the pipeline cache
-    object.
-  * pname:pipelineCache is the handle of the pipeline cache to destroy.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
+  * pname:device 是销毁管线缓存的逻辑设备。 
+  * pname:pipelineCache 是需要被销毁的管线缓存。 
+  * pname:pAllocator 控制了主机端内存如何分配，如<<memory-allocation, Memory Allocation>>一章所述。
 
 .正确使用
 ****
