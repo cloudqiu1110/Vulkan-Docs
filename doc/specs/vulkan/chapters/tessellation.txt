@@ -476,7 +476,7 @@ The sname:VkPipelineTessellationStateCreateInfo structure is defined as:
 
 include::../api/structs/VkPipelineTessellationStateCreateInfo.txt[]
 
-  * pname:sType is the type of this structure.
+  * pname:sType 是数据结构的类型。
   * pname:pNext is `NULL` or a pointer to an extension-specific structure.
   * pname:flags is reserved for future use.
   * pname:patchControlPoints number of control points per patch.

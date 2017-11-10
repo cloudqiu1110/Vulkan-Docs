@@ -28,7 +28,7 @@ include::../../validity/protos/vkCmdReserveSpaceForCommandsNVX.txt[]
 
 include::../../api/structs/VkCmdReserveSpaceForCommandsInfoNVX.txt[]
 
-  * pname:sType is the type of this structure.
+  * pname:sType 是数据结构的类型。
   * pname:pNext is `NULL` or a pointer to an extension-specific structure.
   * pname:objectTable is the sname:VkObjectTableNVX to be used for the
     generation process.
@@ -68,7 +68,7 @@ include::../../validity/protos/vkCmdProcessCommandsNVX.txt[]
 
 include::../../api/structs/VkCmdProcessCommandsInfoNVX.txt[]
 
-  * pname:sType is the type of this structure.
+  * pname:sType 是数据结构的类型。
   * pname:pNext is `NULL` or a pointer to an extension-specific structure.
   * pname:objectTable is the sname:VkObjectTableNVX to be used for the
     generation process.

@@ -44,7 +44,7 @@ The sname:VkDebugMarkerObjectNameInfoEXT structure is defined as:
 
 include::../api/structs/VkDebugMarkerObjectNameInfoEXT.txt[]
 
-  * pname:sType is the type of this structure.
+  * pname:sType 是数据结构的类型。
   * pname:pNext is `NULL` or a pointer to an extension-specific structure.
   * pname:objectType is a elink:VkDebugReportObjectTypeEXT specifying the
     type of the object to be named.
@@ -89,7 +89,7 @@ The sname:VkDebugMarkerObjectTagInfoEXT structure is defined as:
 
 include::../api/structs/VkDebugMarkerObjectTagInfoEXT.txt[]
 
-  * pname:sType is the type of this structure.
+  * pname:sType 是数据结构的类型。
   * pname:pNext is `NULL` or a pointer to an extension-specific structure.
   * pname:objectType is a elink:VkDebugReportObjectTypeEXT specifying the
     type of the object to be named.
@@ -141,7 +141,7 @@ The sname:VkDebugMarkerMarkerInfoEXT structure is defined as:
 
 include::../api/structs/VkDebugMarkerMarkerInfoEXT.txt[]
 
-  * pname:sType is the type of this structure.
+  * pname:sType 是数据结构的类型。
   * pname:pNext is `NULL` or a pointer to an extension-specific structure.
   * pname:pMarkerName is a pointer to a null-terminated UTF-8 string that
     contains the name of the marker.

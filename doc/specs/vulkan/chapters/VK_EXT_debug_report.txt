@@ -41,7 +41,7 @@ The definition of slink:VkDebugReportCallbackCreateInfoEXT is:
 
 include::../api/structs/VkDebugReportCallbackCreateInfoEXT.txt[]
 
-  * pname:sType is the type of this structure.
+  * pname:sType 是数据结构的类型。
   * pname:pNext is `NULL` or a pointer to an extension-specific structure.
   * pname:flags indicate which event(s) will cause this callback to be
     called.

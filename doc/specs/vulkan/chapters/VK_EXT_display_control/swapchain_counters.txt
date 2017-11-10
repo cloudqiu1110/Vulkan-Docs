@@ -7,7 +7,7 @@ sname:VkSwapchainCounterCreateInfoEXT is defined as:
 
 include::../../api/structs/VkSwapchainCounterCreateInfoEXT.txt[]
 
-  * pname:sType is the type of this structure.
+  * pname:sType 是数据结构的类型。
   * pname:pNext is `NULL` or a pointer to an extension-specific structure.
   * pname:surfaceCounters is a bitmask containing a bit set for each surface
     counter to enable for the swapchain.

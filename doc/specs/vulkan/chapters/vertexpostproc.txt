@@ -324,7 +324,7 @@ The sname:VkPipelineViewportStateCreateInfo structure is defined as:
 
 include::../api/structs/VkPipelineViewportStateCreateInfo.txt[]
 
-  * pname:sType is the type of this structure.
+  * pname:sType 是数据结构的类型。
   * pname:pNext is `NULL` or a pointer to an extension-specific structure.
   * pname:flags is reserved for future use.
   * pname:viewportCount is the number of viewports used by the pipeline.

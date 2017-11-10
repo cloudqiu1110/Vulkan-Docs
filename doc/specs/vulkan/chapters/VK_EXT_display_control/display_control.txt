@@ -19,7 +19,7 @@ The sname:VkDisplayPowerInfoEXT structure is defined as:
 
 include::../../api/structs/VkDisplayPowerInfoEXT.txt[]
 
-  * pname:sType is the type of this structure.
+  * pname:sType 是数据结构的类型。
   * pname:pNext is `NULL` or a pointer to an extension-specific structure.
   * pname:powerState is the new power state of the display.
     Possible values are:

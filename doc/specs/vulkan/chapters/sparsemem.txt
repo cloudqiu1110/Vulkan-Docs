@@ -899,7 +899,7 @@ The sname:VkPhysicalDeviceSparseImageFormatInfo2KHR structure is defined as:
 
 include::../api/structs/VkPhysicalDeviceSparseImageFormatInfo2KHR.txt[]
 
-  * pname:sType is the type of this structure.
+  * pname:sType 是数据结构的类型。
   * pname:pNext is `NULL` or a pointer to an extension-specific structure.
   * pname:format is the image format.
   * pname:type is the dimensionality of image.
@@ -926,7 +926,7 @@ The sname:VkSparseImageFormatProperties2KHR structure is defined as:
 
 include::../api/structs/VkSparseImageFormatProperties2KHR.txt[]
 
-  * pname:sType is the type of this structure.
+  * pname:sType 是数据结构的类型。
   * pname:pNext is `NULL` or a pointer to an extension-specific structure.
   * pname:properties is a structure of type
     slink:VkSparseImageFormatProperties which is populated with the same
@@ -1469,7 +1469,7 @@ The sname:VkBindSparseInfo structure is defined as:
 
 include::../api/structs/VkBindSparseInfo.txt[]
 
-  * pname:sType is the type of this structure.
+  * pname:sType 是数据结构的类型。
   * pname:pNext is `NULL` or a pointer to an extension-specific structure.
   * pname:waitSemaphoreCount is the number of semaphores upon which to wait
     before executing the sparse binding operations for the batch.

@@ -228,7 +228,7 @@ The sname:VkIndirectCommandsLayoutCreateInfoNVX structure is defined as:
 
 include::../../api/structs/VkIndirectCommandsLayoutCreateInfoNVX.txt[]
 
-  * pname:sType is the type of this structure.
+  * pname:sType 是数据结构的类型。
   * pname:pNext is `NULL` or a pointer to an extension-specific structure.
   * pname:pipelineBindPoint is the sname:VkPipelineBindPoint that this
     layout targets.

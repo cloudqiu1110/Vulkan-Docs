@@ -10,7 +10,7 @@ The sname:VkExportMemoryWin32HandleInfoNV structure is defined as:
 
 include::../../api/structs/VkExportMemoryWin32HandleInfoNV.txt[]
 
-  * pname:sType is the type of this structure.
+  * pname:sType 是数据结构的类型。
   * pname:pNext is `NULL` or a pointer to an extension-specific structure.
   * pname:pAttributes is a pointer to a Windows code:SECURITY_ATTRIBUTES
     structure specifying security attributes of the handle.

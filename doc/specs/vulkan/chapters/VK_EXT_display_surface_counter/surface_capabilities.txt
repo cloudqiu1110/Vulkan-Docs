@@ -29,7 +29,7 @@ All members of sname:VkSurfaceCapabilities2EXT are identical to the
 corresponding members of slink:VkSurfaceCapabilitiesKHR where one exists.
 The remaining members are:
 
-  * pname:sType is the type of this structure.
+  * pname:sType 是数据结构的类型。
   * pname:pNext is `NULL` or a pointer to an extension-specific structure.
   * pname:supportedSurfaceCounters is a bitfield containing one bit set for
     each surface counter type supported.

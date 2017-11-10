@@ -124,7 +124,7 @@ include::../api/structs/VkPhysicalDeviceFeatures2KHR.txt[]
 
 The sname:VkPhysicalDeviceFeatures2KHR structure is defined as:
 
-  * pname:sType is the type of this structure.
+  * pname:sType 是数据结构的类型。
   * pname:pNext is `NULL` or a pointer to an extension-specific structure.
   * pname:features is a structure of type slink:VkPhysicalDeviceFeatures
     describing the fine-grained features of the Vulkan 1.0 API.
@@ -3347,7 +3347,7 @@ The sname:VkFormatProperties2KHR structure is defined as:
 
 include::../api/structs/VkFormatProperties2KHR.txt[]
 
-  * pname:sType is the type of this structure.
+  * pname:sType 是数据结构的类型。
   * pname:pNext is `NULL` or a pointer to an extension-specific structure.
   * pname:formatProperties is a structure of type slink:VkFormatProperties
     describing features supported by the requested format.
@@ -3986,7 +3986,7 @@ The sname:VkPhysicalDeviceImageFormatInfo2KHR structure is defined as:
 
 include::../api/structs/VkPhysicalDeviceImageFormatInfo2KHR.txt[]
 
-  * pname:sType is the type of this structure.
+  * pname:sType 是数据结构的类型。
   * pname:pNext is `NULL` or a pointer to an extension-specific structure.
   * pname:format is the image format, corresponding to
     slink:VkImageCreateInfo::pname:format.
@@ -4011,7 +4011,7 @@ The sname:VkImageFormatProperties2KHR structure is defined as:
 
 include::../api/structs/VkImageFormatProperties2KHR.txt[]
 
-  * pname:sType is the type of this structure.
+  * pname:sType 是数据结构的类型。
   * pname:pNext is `NULL` or a pointer to an extension-specific structure.
   * pname:imageFormatProperties is an instance of a
     slink:VkImageFormatProperties structure in which capabilities are
@@ -4038,7 +4038,7 @@ as:
 
 include::../api/structs/VkPhysicalDeviceExternalImageFormatInfoKHX.txt[]
 
-  * pname:sType is the type of this structure.
+  * pname:sType 是数据结构的类型。
   * pname:pNext is `NULL` or a pointer to an extension-specific structure.
   * pname:handleType is a bit indicating a memory handle type that will be
     used with the memory associated with the image.
@@ -4111,7 +4111,7 @@ The sname:VkExternalImageFormatPropertiesKHX structure is defined as:
 
 include::../api/structs/VkExternalImageFormatPropertiesKHX.txt[]
 
-  * pname:sType is the type of this structure.
+  * pname:sType 是数据结构的类型。
   * pname:pNext is `NULL` or a pointer to an extension-specific structure.
   * pname:externalMemoryProperties is an instance of the
     slink:VkExternalMemoryPropertiesKHX structure specifying various
