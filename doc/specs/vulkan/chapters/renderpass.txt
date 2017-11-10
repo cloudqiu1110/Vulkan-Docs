@@ -824,17 +824,14 @@ include::../api/handles/VkFramebuffer.txt[]
 
 // refBegin vkCreateFramebuffer Create a new framebuffer object
 
-To create a framebuffer, call:
+可调用如下命令来创建帧缓冲区：
 
 include::../api/protos/vkCreateFramebuffer.txt[]
 
-  * pname:device is the logical device that creates the framebuffer.
-  * pname:pCreateInfo points to a slink:VkFramebufferCreateInfo structure
-    which describes additional information about framebuffer creation.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
-  * pname:pFramebuffer points to a sname:VkFramebuffer handle in which the
-    resulting framebuffer object is returned.
+  * pname:device 是创建帧缓冲区的逻辑设备。
+  * pname:pCreateInfo 指向了一个slink:VkFramebufferCreateInfo 数据结构，它描述了创建帧缓冲区的附加信息。    
+  * pname:pAllocator控制了CPU端内存分配，如 <<memory-allocation, Memory Allocation>> 一章所描述。
+  * pname:pFramebuffer 指向了一个 sname:VkFramebuffer handle，它接收生成的帧缓冲区对象。
 
 include::../validity/protos/vkCreateFramebuffer.txt[]
 
@@ -926,14 +923,13 @@ include::../validity/structs/VkFramebufferCreateInfo.txt[]
 
 // refBegin vkDestroyFramebuffer Destroy a framebuffer object
 
-To destroy a framebuffer, call:
+可调用如下命令来销毁帧缓冲区：
 
 include::../api/protos/vkDestroyFramebuffer.txt[]
 
-  * pname:device is the logical device that destroys the framebuffer.
-  * pname:framebuffer is the handle of the framebuffer to destroy.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
+  * pname:device 是销毁帧缓冲区的逻辑设备。
+  * pname:framebuffer 是需要被销毁的帧缓冲区的handle。
+  * pname:pAllocator 控制了CPU端内存分配，如 <<memory-allocation, Memory Allocation>> 一章所描述。
 
 .正确使用
 ****
@@ -956,7 +952,7 @@ include::../validity/protos/vkDestroyFramebuffer.txt[]
 
 // refBegin vkCmdBeginRenderPass Begin a new render pass
 
-To begin a render pass instance, call:
+可以调用如下命令来开始一个render pass实例：
 
 include::../api/protos/vkCmdBeginRenderPass.txt[]
 
@@ -1054,20 +1050,15 @@ sname:VkRenderPassBeginInfo 结构定义如下：
 
 include::../api/structs/VkRenderPassBeginInfo.txt[]
 
-  * pname:sType 是本数据结构的类型
-  * pname:pNext 为 `NULL` 或者指向拓展特定结构的指针
-  * pname:renderPass 是开始记录的render pass对象 
-  * pname:framebuffer 是包含被用于render pass的附件的帧缓冲区
-  * pname:renderArea 是被render pass实例影响的渲染区域，下方有详细描述
-  * pname:clearValueCount is the number of elements in pname:pClearValues.
-  * pname:pClearValues is an array of slink:VkClearValue structures that
-    contains clear values for each attachment, if the attachment uses a
-    pname:loadOp value of ename:VK_ATTACHMENT_LOAD_OP_CLEAR or if the
-    attachment has a depth/stencil format and uses a pname:stencilLoadOp
-    value of ename:VK_ATTACHMENT_LOAD_OP_CLEAR.
-    The array is indexed by attachment number.
-    Only elements corresponding to cleared attachments are used.
-    Other elements of pname:pClearValues are ignored.
+  * pname:sType 是本数据结构的类型。
+  * pname:pNext 为 `NULL` 或者指向拓展特定结构的指针。
+  * pname:renderPass 是开始记录的render pass对象 。
+  * pname:framebuffer 是包含被用于render pass的附件的帧缓冲区。
+  * pname:renderArea 是被render pass实例影响的渲染区域，下方有详细描述。
+  * pname:clearValueCount  pname:pClearValues 数组中元素的个数。
+  * pname:pClearValues 是一个 slink:VkClearValue 类型的数组，包含了每一个附件需要清除的值，如果附件使用了 
+     ename:VK_ATTACHMENT_LOAD_OP_CLEAR 的pname:loadOp值，或者附件拥有深度/挡板格式并使用ename:VK_ATTACHMENT_LOAD_OP_CLEAR
+	 的 pname:stencilLoadOp值。只有对应的呗清除了附件的元素才能被使用。pname:pClearValues中其他的元素被忽略。
 
 pname:renderArea是被render pass实例影响的渲染区域。
 附件load，store和多采样解析操作的效果被限制到所有附件的像素x和y坐标所限定的区域。
@@ -1100,12 +1091,12 @@ include::../validity/structs/VkRenderPassBeginInfo.txt[]
 
 // refBegin vkGetRenderAreaGranularity Returns the granularity for optimal render area
 
-To query the render area granularity, call:
+可调用如下命令来查询render area的粒度：
 
 include::../api/protos/vkGetRenderAreaGranularity.txt[]
 
-  * pname:device is the logical device that owns the render pass.
-  * pname:renderPass is a handle to a render pass.
+  * pname:device 是拥有该render pass的逻辑设备。
+  * pname:renderPass 是 render pass 的handle。
   * pname:pGranularity points to a slink:VkExtent2D structure in which the
     granularity is returned.
 
@@ -1126,11 +1117,8 @@ The conditions leading to an optimal pname:renderArea are:
     equal to the pname:height of the pname:framebuffer in the
     slink:VkRenderPassBeginInfo.
 
-Subpass dependencies不受render area的影响，
-Subpass dependencies are not affected by the render area, and apply to the
-entire image subresources attached to the framebuffer.
-Similarly, pipeline barriers are valid even if their effect extends outside
-the render area.
+Subpass dependencies不受render area的影响，并且应用到附属到帧缓冲区的整个图像子资源。
+同样的，即使它们的效果拓展到了render area外，管线屏障依然有效。
 
 include::../validity/protos/vkGetRenderAreaGranularity.txt[]
 
