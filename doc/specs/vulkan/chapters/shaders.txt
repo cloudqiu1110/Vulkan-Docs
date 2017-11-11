@@ -116,10 +116,8 @@ include::../api/protos/vkDestroyShaderModule.txt[]
 
 .正确使用
 ****
-  * If sname:VkAllocationCallbacks were provided when pname:shaderModule was
-    created, a compatible set of callbacks must: be provided here
-  * If no sname:VkAllocationCallbacks were provided when pname:shaderModule
-    was created, pname:pAllocator must: be `NULL`
+  * 若创建pname:shaderModule 时提供了 sname:VkAllocationCallbacks ，在此处也必须有匹配的回调函数
+  *若创建pname:shaderModule 时没有提供 sname:VkAllocationCallbacks ，则pname:pAllocator 必须为 `NULL`
 ****
 
 include::../validity/protos/vkDestroyShaderModule.txt[]
@@ -143,23 +141,18 @@ include::../validity/protos/vkDestroyShaderModule.txt[]
 着色器读取或者写入图像或缓冲区的顺序基本上是未定义的。
 对于一些着色器类型（顶点、细分求值和某些情况下的片元着色器），甚至是可能进行加载和存储的着色器调用的次数也是未定义的。
 
-In particular, the following rules apply:
+尤其是以下规则应用时：
 
-  * <<shaders-vertex-execution,Vertex>> and
-    <<shaders-tessellation-evaluation-execution,tessellation evaluation>>
-    shaders will be invoked at least once for each unique vertex, as defined
-    in those sections.
-  * <<shaders-fragment-execution,Fragment>> shaders will be invoked zero or
-    more times, as defined in that section.
-  * The relative order of invocations of the same shader type are undefined.
+  * 对于每一个不同的顶点，<<shaders-vertex-execution,Vertex>> 和 <<shaders-tessellation-evaluation-execution,tessellation evaluation>> 着色器将被至少调用一次。
+  * <<shaders-fragment-execution,Fragment>> 着色器将被调用0次或者多次。
+  * 同类型的着色器的相对调用顺序是未定义的。
     A store issued by a shader when working on primitive B might complete
     prior to a store for primitive A, even if primitive A is specified prior
     to primitive B.
     This applies even to fragment shaders; while fragment shader outputs are
     always written to the framebuffer in <<primrast-order, rasterization
     order>>, stores executed by fragment shader invocations are not.
-  * The relative order of invocations of different shader types is largely
-    undefined.
+  * 不同类型着色器程序的相对调用顺序基本上是未定义的。
 
 [NOTE]
 .注意

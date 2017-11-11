@@ -943,13 +943,9 @@ include::../validity/protos/vkDestroyFramebuffer.txt[]
 
 include::../api/protos/vkCmdBeginRenderPass.txt[]
 
-  * pname:commandBuffer is the command buffer in which to record the
-    command.
-  * pname:pRenderPassBegin is a pointer to a slink:VkRenderPassBeginInfo
-    structure (defined below) which indicates the render pass to begin an
-    instance of, and the framebuffer the instance uses.
-  * pname:contents specifies how the commands in the first subpass will be
-    provided, and is one of the values:
+  * pname:commandBuffer 是记录命令的命令缓冲区。
+  * pname:pRenderPassBegin 是一个指针，指向了一个slink:VkRenderPassBeginInfo实例（下有定义），它指明了要开启的render pass，和实例使用的帧缓冲区。    
+  * pname:contents 指定了第一个subpass中的命令是如何提供的，需为以下值之一：
 +
 --
 // refBegin VkSubpassContents Specify how commands in the first subpass of a render pass are provided
@@ -1084,9 +1080,8 @@ include::../api/protos/vkGetRenderAreaGranularity.txt[]
 
   * pname:device 是拥有该render pass的逻辑设备。
   * pname:renderPass 是 render pass 的handle。
-  * pname:pGranularity points to a slink:VkExtent2D structure in which the
-    granularity is returned.
-
+  * pname:pGranularity 指向一个slink:VkExtent2D 数据结构，它接受返回的粒度。
+  
 The conditions leading to an optimal pname:renderArea are:
 
   * the pname:offset.x member in pname:renderArea is a multiple of the
@@ -1144,8 +1139,7 @@ commands for that subpass.
 
 .正确使用
 ****
-  * The current subpass index must: be less than the number of subpasses in
-    the render pass minus one
+  * 当前subpass索引必须要比render pass个数减一的结果要小。
 ****
 
 include::../validity/protos/vkCmdNextSubpass.txt[]
