@@ -222,13 +222,11 @@ Vulkan实现将在内部分配内存，当这些内存分配或释放时，调�
 
 include::../api/enums/VkInternalAllocationType.txt[]
 
-  * ename:VK_INTERNAL_ALLOCATION_TYPE_EXECUTABLE - The allocation is
-    intended for execution by the host.
+  * ename:VK_INTERNAL_ALLOCATION_TYPE_EXECUTABLE - 分配的内存是计划给CPU端使用的。
 
 // refEnd VkInternalAllocationType PFN_vkInternalAllocationNotification PFN_vkInternalFreeNotification
 
-An implementation must: only make calls into an application-provided
-allocator during the execution of an API command.
+Vulkan实现在API命令执行期间，只能调用应用程序提供的分配函数。
 An implementation must: only make calls into an application-provided
 allocator from the same thread that called the provoking API command.
 The implementation should: not synchronize calls to any of the callbacks.
@@ -728,20 +726,17 @@ include::../validity/protos/vkFreeMemory.txt[]
 
 
 [[memory-device-hostaccess]]
-=== Host Access to Device Memory Objects
+=== CPU访问设备内存对象
 
-Memory objects created with fname:vkAllocateMemory are not directly host
-accessible.
+通过fname:vkAllocateMemory创建的内存对象不能被CPU端直接访问。
 
-Memory objects created with the memory property
-ename:VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT are considered _mappable_.
-Memory objects must: be mappable in order to be successfully mapped on the
-host.
+创建时带有ename:VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT属性的内存对象被认为是 _可映射的_ 。
+内存对象必须是可映射的，才能被映射到CPU端。
+
 
 // refBegin vkMapMemory Map a memory object into application address space
 
-To retrieve a host virtual address pointer to a region of a mappable memory
-object, call:
+可调用如下命令可以获取指向映射到可映射内存对象的指针：
 
 include::../api/protos/vkMapMemory.txt[]
 
@@ -758,8 +753,7 @@ include::../api/protos/vkMapMemory.txt[]
     This pointer minus pname:offset must: be aligned to at least
     sname:VkPhysicalDeviceLimits::pname:minMemoryMapAlignment.
 
-It is an application error to call fname:vkMapMemory on a memory object that
-is already mapped.
+若调用  fname:vkMapMemory对已映射过的内存对象再次映射，则是应用程序的错误。
 
 [NOTE]
 .注意
@@ -805,7 +799,7 @@ to maintaining memory access ordering.
 
 .正确使用
 ****
-  * pname:memory must: not currently be mapped
+  * pname:memory 必须未被映射过
   * pname:offset must: be less than the size of pname:memory
   * If pname:size is not equal to ename:VK_WHOLE_SIZE, pname:size must: be
     greater than `0`
@@ -824,23 +818,20 @@ fname:vkInvalidateMappedMemoryRanges.
 [NOTE]
 .注意
 ====
-If the memory object was created with the
-ename:VK_MEMORY_PROPERTY_HOST_COHERENT_BIT set,
-fname:vkFlushMappedMemoryRanges and fname:vkInvalidateMappedMemoryRanges are
+若创建内存对象时带有ename:VK_MEMORY_PROPERTY_HOST_COHERENT_BIT 参数，
+fname:vkFlushMappedMemoryRanges 和 fname:vkInvalidateMappedMemoryRanges 是没有必要的，且可能会有性能损失。
 unnecessary and may: have performance cost.
 ====
 
 // refBegin vkFlushMappedMemoryRanges Flush mapped memory ranges
 
-To flush ranges of non-coherent memory from the host caches, call:
+可调用如下命令来把CPU缓存刷新到非一致的内存区域中：
 
 include::../api/protos/vkFlushMappedMemoryRanges.txt[]
 
   * pname:device 是拥有内存对象的逻辑设备。
-  * pname:memoryRangeCount is the length of the pname:pMemoryRanges array.
-  * pname:pMemoryRanges is a pointer to an array of
-    slink:VkMappedMemoryRange structures describing the memory ranges to
-    flush.
+  * pname:memoryRangeCount 是 pname:pMemoryRanges 数组的长度。
+  * pname:pMemoryRanges 是一个指向 slink:VkMappedMemoryRange 类型数组的指针，描述了需要刷新的内存区域。
 
 fname:vkFlushMappedMemoryRanges must: be used to guarantee that host writes
 to non-coherent memory are visible to the device.
