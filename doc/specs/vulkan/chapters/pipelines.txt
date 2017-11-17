@@ -250,14 +250,10 @@ include::../validity/structs/VkPipelineShaderStageCreateInfo.txt[]
 include::../api/protos/vkCreateGraphicsPipelines.txt[]
 
   * pname:device 是创建图形管线的逻辑设备。
-  * pname:pipelineCache is either dlink:VK_NULL_HANDLE, indicating that
-    pipeline caching is disabled; or the handle of a valid
-    <<pipelines-cache,pipeline cache>> object, in which case use of that
-    cache is enabled for the duration of the command.
-  * pname:createInfoCount is the length of the pname:pCreateInfos and
-    pname:pPipelines arrays.
-  * pname:pCreateInfos is an array of sname:VkGraphicsPipelineCreateInfo
-    structures.
+  * pname:pipelineCache 或者是 dlink:VK_NULL_HANDLE，表示禁用管线缓存；或者是一个<<pipelines-cache,pipeline cache>> 对象有效的handle，此时
+	该命令运行期间将启用该缓存。
+  * pname:createInfoCount 是  pname:pCreateInfos 和 pname:pPipelines 数组的长度。
+  * pname:pCreateInfos 是一个 sname:VkGraphicsPipelineCreateInfo 数组。    
   * pname:pAllocator 控制了CPU端内存分配，如 <<memory-allocation, Memory Allocation>> 一章所描述。
   * pname:pPipelines 是一个指针，指向了存储被返回的图形管线对象的数组。    
 
@@ -939,13 +935,10 @@ sname:VkSpecializationInfo 类型数据结构定义如下：
 
 include::../api/structs/VkSpecializationInfo.txt[]
 
-  * pname:mapEntryCount is the number of entries in the pname:pMapEntries
-    array.
-  * pname:pMapEntries is a pointer to an array of
-    sname:VkSpecializationMapEntry which maps constant IDs to offsets in
-    pname:pData.
-  * pname:dataSize is the byte size of the pname:pData buffer.
-  * pname:pData contains the actual constant values to specialize with.
+  * pname:mapEntryCount 是  pname:pMapEntries 数组的元素个数。
+  * pname:pMapEntries是一个 sname:VkSpecializationMapEntry 数组，每一个元素存储了 constant IDs 和对应的pname:pData偏移值。
+  * pname:dataSize 是pname:pData buffer 的字节大小。
+  * pname:pData 包含了真实的需要特化的constant值。 
 
 pname:pMapEntries 指向一个类型为slink:VkSpecializationMapEntry 的数据。
 

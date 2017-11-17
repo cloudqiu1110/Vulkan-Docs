@@ -143,21 +143,16 @@ sname:VkAttachmentDescription数据结构定义如下:
 
 include::../api/structs/VkAttachmentDescription.txt[]
 
-  * pname:flags is a bitmask describing additional properties of the
-    attachment.
-    Bits which can: be set include:
+  * pname:flags 是一个位掩码，描述了附件的附加属性。
+	位掩码包含以下可选：
 +
 --
 // refBegin VkAttachmentDescriptionFlagBits Bitmask specifying additional properties of an attachment
 include::../api/enums/VkAttachmentDescriptionFlagBits.txt[]
 --
-  * pname:format is a elink:VkFormat value specifying the format of the
-    image that will be used for the attachment.
-  * pname:samples is the number of samples of the image as defined in
-    elink:VkSampleCountFlagBits.
-  * pname:loadOp specifies how the contents of color and depth components of
-    the attachment are treated at the beginning of the subpass where it is
-    first used:
+  * pname:format 是一个elink:VkFormat 值，指定了用于附件的图像的格式。
+  * pname:samples 是elink:VkSampleCountFlagBits中定义的图像的采样数。
+  * pname:loadOp 指定了附件的颜色和深度内容在subpass中第一次使用时被如何看待。
 +
 --
 // refBegin VkAttachmentLoadOp Specify how contents of an attachment are treated at the beginning of a subpass
@@ -241,27 +236,20 @@ pname:storeOp 和 pname:stencilStoreOp 定义了 _store operations_，它作为�
 带有其他浮点或定点颜色格式，或深度成分的附件可能通过比附件格式精度更高的格式所表示，但是必须表示相同的范围。
 当这样的component通过pname:loadOp被载入时，它将被转换为被render pass使用的依赖于Vulkan实现的格式。
 
-Such components must: be converted from the render pass format, to the
-format of the attachment, before they are resolved or stored at the end of a
-render pass instance via pname:storeOp.
-Conversions occur as described in <<fundamentals-numerics,Numeric
-Representation and Computation>> and <<fundamentals-fixedconv, Fixed-Point
-Data Conversions>>.
+这些成分必须在通过 pname:storeOp在render pass实例的结束时进行解析和存储之前从render pass格式转换到附件的格式。
+转换的发生在  <<fundamentals-numerics,Numeric
+Representation and Computation>> 和 <<fundamentals-fixedconv, Fixed-Point
+Data Conversions>>中讲解。
 
 [[renderpass-aliasing]]
-If pname:flags includes ename:VK_ATTACHMENT_DESCRIPTION_MAY_ALIAS_BIT, then
-the attachment is treated as if it shares physical memory with another
-attachment in the same render pass.
-This information limits the ability of the implementation to reorder certain
-operations (like layout transitions and the pname:loadOp) such that it is
-not improperly reordered against other uses of the same physical memory via
+如果pname:flags 包含了 ename:VK_ATTACHMENT_DESCRIPTION_MAY_ALIAS_BIT，那么附件就被等同视作在同一个render pass中与另一个附件共享物理内存。
+这个信息限制了Vulkan实现记录某些操作（如布局转换和 pname:loadOp）的能力，以致于操作不会通过其他附件使用同一块物理内存而被不正确的排序。
 a different attachment.
-This is described in more detail below.
+如下有更详细的描述：
 
 .正确使用
 ****
-  * pname:finalLayout must: not be ename:VK_IMAGE_LAYOUT_UNDEFINED or
-    ename:VK_IMAGE_LAYOUT_PREINITIALIZED
+  * pname:finalLayout 不能是 ename:VK_IMAGE_LAYOUT_UNDEFINED 或者 ename:VK_IMAGE_LAYOUT_PREINITIALIZED
 ****
 
 include::../validity/structs/VkAttachmentDescription.txt[]
@@ -275,11 +263,8 @@ flink:vkCreateRenderPass above for automatic ref page generation.
 ====
 endif::editing-notes[]
 
-If a render pass uses multiple attachments that alias the same device
-memory, those attachments must: each include the
-ename:VK_ATTACHMENT_DESCRIPTION_MAY_ALIAS_BIT bit in their attachment
-description flags.
-Attachments aliasing the same memory occurs in multiple ways:
+如果一个render pass使用多个共享一块内存的附件，这些附件必须每一个都在附件描述标志中包含ename:VK_ATTACHMENT_DESCRIPTION_MAY_ALIAS_BIT 标志位。
+多个附件共享同一块内存在以下集中情况中可能发生：
 
   * Multiple attachments being assigned the same image view as part of
     framebuffer creation.
@@ -831,15 +816,10 @@ include::../api/structs/VkFramebufferCreateInfo.txt[]
   * pname:sType 是数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:flags 被保留。
-  * pname:renderPass is a render pass that defines what render passes the
-    framebuffer will be compatible with.
-    See <<renderpass-compatibility,Render Pass Compatibility>> for details.
-  * pname:attachmentCount is the number of attachments.
-  * pname:pAttachments is an array of sname:VkImageView handles, each of
-    which will be used as the corresponding attachment in a render pass
-    instance.
-  * pname:width, pname:height and pname:layers define the dimensions of the
-    framebuffer.
+  * pname:renderPass 是定义了帧缓冲区兼容的render pass。参考<<renderpass-compatibility,Render Pass Compatibility>>获取更多细节。
+  * pname:attachmentCount是附件的数量。
+  * pname:pAttachments 是一个 sname:VkImageView handle数组，每一个元素都将在一个render pass实例中被当作对应的附件使用。
+  * pname:width, pname:height 和 pname:layers 定义了帧缓冲区的维度。
 
 被当作图像子资源使用的附件不能通过非附件用途的方式在render pass实例内部被使用。
 
@@ -866,8 +846,7 @@ slink:VkPipelineMultisampleStateCreateInfo::pname:rasterizationSamples.
 
 .正确使用
 ****
-  * pname:attachmentCount must: be equal to the attachment count specified
-    in pname:renderPass
+  * pname:attachmentCount 必须等于pname:renderPass指定的附件数量。
   * Any given element of pname:pAttachments that is used as a color
     attachment or resolve attachment by pname:renderPass must: have been
     created with a pname:usage value including
@@ -1146,14 +1125,12 @@ include::../validity/protos/vkCmdNextSubpass.txt[]
 
 // refBegin vkCmdEndRenderPass End the current render pass
 
-To record a command to end a render pass instance after recording the
-commands for the last subpass, call:
+可调用如下命令来在为最后一个subpass记录命令时记录一个命令来完成render pass实例：
 
 include::../api/protos/vkCmdEndRenderPass.txt[]
 
-  * pname:commandBuffer is the command buffer in which to end the current
-    render pass instance.
-
+  * pname:commandBuffer 是将结束当前render pass实例的命令缓冲区。
+  
 Ending a render pass instance performs any multisample resolve operations on
 the final subpass.
 
