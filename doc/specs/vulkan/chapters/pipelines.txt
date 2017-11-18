@@ -124,13 +124,9 @@ pname:stage 指向一个类型为sname:VkPipelineShaderStageCreateInfo的数据
 
 .正确使用
 ****
-  * If pname:flags contains the ename:VK_PIPELINE_CREATE_DERIVATIVE_BIT
-    flag, and pname:basePipelineIndex is -1, pname:basePipelineHandle must:
-    be a valid handle to a compute sname:VkPipeline
-  * If pname:flags contains the ename:VK_PIPELINE_CREATE_DERIVATIVE_BIT
-    flag, and pname:basePipelineHandle is dlink:VK_NULL_HANDLE,
-    pname:basePipelineIndex must: be a valid index into the calling
-    command's pname:pCreateInfos parameter
+  * If pname:flags 包含 ename:VK_PIPELINE_CREATE_DERIVATIVE_BIT，且pname:basePipelineIndex 为 -1，pname:basePipelineHandle 必须是一个计算sname:VkPipeline对象的有效的handle。
+  * If pname:flags 包含 ename:VK_PIPELINE_CREATE_DERIVATIVE_BIT，且pname:basePipelineHandle 为 dlink:VK_NULL_HANDLE，
+    pname:basePipelineIndex 必须是调用的命令的 pname:pCreateInfos参数的一个有效的索引。
   * If pname:flags contains the ename:VK_PIPELINE_CREATE_DERIVATIVE_BIT
     flag, and pname:basePipelineIndex is not -1, pname:basePipelineHandle
     must: be dlink:VK_NULL_HANDLE
