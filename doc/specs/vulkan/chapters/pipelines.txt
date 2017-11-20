@@ -112,11 +112,9 @@ include::../api/structs/VkComputePipelineCreateInfo.txt[]
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:flags 提供了管线创建的可选信息，枚举类型为 elink:VkPipelineCreateFlagBits。
   * pname:stage 是一个 slink:VkPipelineShaderStageCreateInfo，描述了计算着色器。
-  * pname:layout is the description of binding locations used by both the
-    pipeline and descriptor sets used with the pipeline.
-  * pname:basePipelineHandle is a pipeline to derive from
-  * pname:basePipelineIndex is an index into the pname:pCreateInfos
-    parameter to use as a pipeline to derive from
+  * pname:layout 是管线、描述符集合共用的绑定点的描述。 
+  * pname:basePipelineHandle 用来衍生的管线
+  * pname:basePipelineIndex 是用来衍生的管线的pname:pCreateInfos参数的元素的索引。 
 
 参数 pname:basePipelineHandle 和 pname:basePipelineIndex 在<<pipelines-pipeline-derivatives,Pipeline Derivatives>> 中有详细描述。
 
@@ -124,24 +122,16 @@ pname:stage 指向一个类型为sname:VkPipelineShaderStageCreateInfo的数据
 
 .正确使用
 ****
-  * If pname:flags 包含 ename:VK_PIPELINE_CREATE_DERIVATIVE_BIT，且pname:basePipelineIndex 为 -1，pname:basePipelineHandle 必须是一个计算sname:VkPipeline对象的有效的handle。
+  * If pname:flags 包含 ename:VK_PIPELINE_CREATE_DERIVATIVE_BIT，且pname:basePipelineIndex 为 -1，
+     pname:basePipelineHandle 必须是一个计算sname:VkPipeline对象的有效的handle。
   * If pname:flags 包含 ename:VK_PIPELINE_CREATE_DERIVATIVE_BIT，且pname:basePipelineHandle 为 dlink:VK_NULL_HANDLE，
     pname:basePipelineIndex 必须是调用的命令的 pname:pCreateInfos参数的一个有效的索引。
-  * If pname:flags contains the ename:VK_PIPELINE_CREATE_DERIVATIVE_BIT
-    flag, and pname:basePipelineIndex is not -1, pname:basePipelineHandle
-    must: be dlink:VK_NULL_HANDLE
-  * If pname:flags contains the ename:VK_PIPELINE_CREATE_DERIVATIVE_BIT
-    flag, and pname:basePipelineHandle is not dlink:VK_NULL_HANDLE,
-    pname:basePipelineIndex must: be -1
-  * The pname:stage member of pname:stage must: be
-    ename:VK_SHADER_STAGE_COMPUTE_BIT
-  * The shader code for the entry point identified by pname:stage and the
-    rest of the state identified by this structure must: adhere to the
-    pipeline linking rules described in the <<interfaces,Shader Interfaces>>
-    chapter
-  * pname:layout must: be
-    <<descriptorsets-pipelinelayout-consistency,consistent>> with the layout
-    of the compute shader specified in pname:stage
+  * If pname:flags 包含ename:VK_PIPELINE_CREATE_DERIVATIVE_BIT，且 pname:basePipelineIndex 不为 -1， pname:basePipelineHandle必须为dlink:VK_NULL_HANDLE。
+  * If pname:flags 包含ename:VK_PIPELINE_CREATE_DERIVATIVE_BIT，且 pname:basePipelineHandle 不为dlink:VK_NULL_HANDLE，
+	则 pname:basePipelineIndex 必须为-1
+  * pname:stage 的成员pname:stage 必须为 ename:VK_SHADER_STAGE_COMPUTE_BIT
+  * 由pname:stage指定的入口点着色器代码，和这个数据结构指定剩余的状态必须附着到管线，链接规则在<<interfaces,Shader Interfaces>>一章中讲解。    
+  * pname:layout 必须与 <<descriptorsets-pipelinelayout-consistency,consistent>> pname:stage指定的计算着色器的布局兼容。
 ****
 
 include::../validity/structs/VkComputePipelineCreateInfo.txt[]
@@ -336,26 +326,18 @@ pname:basePipelineHandle 和 pname:basePipelineIndex 参数在 <<pipelines-pipel
 pname:pStages 指向了一个 slink:VkPipelineShaderStageCreateInfo 数组，此类型在之前的
 <<pipelines-compute,Compute Pipelines>>中讲解过。
 
-Bits which can: be set in pname:flags are:
+pname:flags 有如下可选枚举值：
 
 // refBegin VkPipelineCreateFlagBits Bitmask controlling how a pipeline is generated
 include::../api/enums/VkPipelineCreateFlagBits.txt[]
 
-  * ename:VK_PIPELINE_CREATE_DISABLE_OPTIMIZATION_BIT specifies that the
-    created pipeline will not be optimized.
-    Using this flag may: reduce the time taken to create the pipeline.
-  * ename:VK_PIPELINE_CREATE_ALLOW_DERIVATIVES_BIT specifies that the
-    pipeline to be created is allowed to be the parent of a pipeline that
-    will be created in a subsequent call to flink:vkCreateGraphicsPipelines.
-  * ename:VK_PIPELINE_CREATE_DERIVATIVE_BIT specifies that the pipeline to
-    be created will be a child of a previously created parent pipeline.
+  * ename:VK_PIPELINE_CREATE_DISABLE_OPTIMIZATION_BIT 指定了创建的管线将不会被优化。使用这个标志位将减少创建管线的时间。    
+  * ename:VK_PIPELINE_CREATE_ALLOW_DERIVATIVES_BIT 指定了将要创建的管线可以是另外一个管线的父，子管线可以在接下来的一次flink:vkCreateGraphicsPipelines调用中创建。
+  * ename:VK_PIPELINE_CREATE_DERIVATIVE_BIT 指定了当前被创建的管线是之前被创建的管线的子。
 
-It is valid to set both ename:VK_PIPELINE_CREATE_ALLOW_DERIVATIVES_BIT and
-ename:VK_PIPELINE_CREATE_DERIVATIVE_BIT.
-This allows a pipeline to be both a parent and possibly a child in a
-pipeline hierarchy.
-See <<pipelines-pipeline-derivatives,Pipeline Derivatives>> for more
-information.
+同时设置ename:VK_PIPELINE_CREATE_ALLOW_DERIVATIVES_BIT 和
+ename:VK_PIPELINE_CREATE_DERIVATIVE_BIT也是合法的。这将允许管线即是父，也是子。
+参考<<pipelines-pipeline-derivatives,Pipeline Derivatives>> 获取更多详细信息。
 
 pname:pDynamicState 指向一个类型为sname:VkPipelineDynamicStateCreateInfo的数据结构。
 
@@ -775,11 +757,8 @@ include::../api/structs/VkPipelineCacheCreateInfo.txt[]
 
 .正确使用
 ****
-  * If pname:initialDataSize is not `0`, it must: be equal to the size of
-    pname:pInitialData, as returned by fname:vkGetPipelineCacheData when
-    pname:pInitialData was originally retrieved
-  * If pname:initialDataSize is not `0`, pname:pInitialData must: have been
-    retrieved from a previous call to fname:vkGetPipelineCacheData
+  * 若 pname:initialDataSize 不为 `0`，它必须等于 pname:pInitialData的大小，pname:pInitialData 最初通过调用fname:vkGetPipelineCacheData 返回的。    
+  * 若 pname:initialDataSize不为 `0`，pname:pInitialData 必须已经通过上一次调用fname:vkGetPipelineCacheData 获取到。
 ****
 
 include::../validity/structs/VkPipelineCacheCreateInfo.txt[]
@@ -1119,7 +1098,7 @@ specifying whether pname:pipeline will be bound as a compute
 There are separate bind points for each of graphics and compute, so binding
 one does not disturb the other.
 +
-  * pname:pipeline is the pipeline to be bound.
+  * pname:pipeline 是将被绑定的管线。
 
 绑定完成后，该绑定影响命令缓冲区中稍后的图形和计算命令，直到新的管线被绑定到绑定点。
 绑定到ename:VK_PIPELINE_BIND_POINT_COMPUTE的管线控制了flink:vkCmdDispatch and flink:vkCmdDispatchIndirect的行为。
@@ -1129,22 +1108,12 @@ flink:vkCmdDrawIndirect, and flink:vkCmdDrawIndexedIndirect的行为。
 
 .正确使用
 ****
-  * If pname:pipelineBindPoint is ename:VK_PIPELINE_BIND_POINT_COMPUTE, the
-    sname:VkCommandPool that pname:commandBuffer was allocated from must:
-    support compute operations
-  * If pname:pipelineBindPoint is ename:VK_PIPELINE_BIND_POINT_GRAPHICS, the
-    sname:VkCommandPool that pname:commandBuffer was allocated from must:
-    support graphics operations
-  * If pname:pipelineBindPoint is ename:VK_PIPELINE_BIND_POINT_COMPUTE,
-    pname:pipeline must: be a compute pipeline
-  * If pname:pipelineBindPoint is ename:VK_PIPELINE_BIND_POINT_GRAPHICS,
-    pname:pipeline must: be a graphics pipeline
-  * If the <<features-features-variableMultisampleRate,variable multisample
-    rate>> feature is not supported, pname:pipeline is a graphics pipeline,
-    the current subpass has no attachments, and this is not the first call
-    to this function with a graphics pipeline after transitioning to the
-    current subpass, then the sample count specified by this pipeline must:
-    match that set in the previous pipeline
+  * 若 pname:pipelineBindPoint 是 ename:VK_PIPELINE_BIND_POINT_COMPUTE，分配出pname:commandBuffer 的sname:VkCommandPool 必须支持计算操作。
+  * 若 pname:pipelineBindPoint 是 ename:VK_PIPELINE_BIND_POINT_GRAPHICS，分配出pname:commandBuffer的sname:VkCommandPool 必须支持图像操作。    
+  * 若 pname:pipelineBindPoint 是 ename:VK_PIPELINE_BIND_POINT_COMPUTE，pname:pipeline 必须是计算管线。
+  * 若 pname:pipelineBindPoint 是 ename:VK_PIPELINE_BIND_POINT_GRAPHICS，pname:pipeline 必须是图形管线。
+  * 若<<features-features-variableMultisampleRate,variable multisample rate>> 特征不受支持，pname:pipeline 就是图形管线，当前subpass没有附件，当转移到当前subpass后
+	这并不是第一次对图形管线调用这个函数，由此管线指定的采样数必须和前一个管线匹配。    
 ****
 
 include::../validity/protos/vkCmdBindPipeline.txt[]
