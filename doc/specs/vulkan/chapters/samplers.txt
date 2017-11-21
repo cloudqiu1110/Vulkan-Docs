@@ -6,11 +6,9 @@
 
 // refBegin VkSampler Opaque handle to a sampler object
 
-sname:VkSampler objects represent the state of an image sampler which is
-used by the implementation to read image data and apply filtering and other
-transformations for the shader.
+sname:VkSampler 对象代表着图像采样器的状态，图像采样器被Vulkan实现用来为着色器读取图像数据并进行过滤和其他变形操作。
 
-Samplers are represented by sname:VkSampler handles:
+采样器通过sname:VkSampler handle表示：
 
 include::../api/handles/VkSampler.txt[]
 
@@ -18,18 +16,14 @@ include::../api/handles/VkSampler.txt[]
 
 // refBegin vkCreateSampler Create a new sampler object
 
-To create a sampler object, call:
+可调用如下命令来创建采样器对象：
 
 include::../api/protos/vkCreateSampler.txt[]
 
-  * pname:device is the logical device that creates the sampler.
-  * pname:pCreateInfo is a pointer to an instance of the
-    slink:VkSamplerCreateInfo structure specifying the state of the sampler
-    object.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
-  * pname:pSampler points to a sname:VkSampler handle in which the resulting
-    sampler object is returned.
+  * pname:device 是创建采样器的逻辑设备。
+  * pname:pCreateInfo 是一个指针，指向一个slink:VkSamplerCreateInfo 实例，指定了采样器对象的状态。
+  * pname:pAllocator 控制CPU端内存分配，如<<memory-allocation, Memory Allocation>> 一章所讲解。
+  * pname:pSampler 指向一个sname:VkSampler handle，接收返回的采样器对象。
 
 include::../validity/protos/vkCreateSampler.txt[]
 
@@ -50,26 +44,17 @@ include::../api/structs/VkSamplerCreateInfo.txt[]
 include::../api/enums/VkFilter.txt[]
 --
 +
-  * pname:minFilter is the minification filter to apply to lookups, and is
-    of type elink:VkFilter.
-  * pname:mipmapMode is the mipmap filter to apply to lookups as described
-    in the <<textures-texel-filtering, Texel Filtering>> section, and is of
-    type:
+  * pname:minFilter 是应用到查找表的缩小过滤器，elink:VkFilter类型。
+  * pname:mipmapMode 是应用到查找表的mipmap过滤器，在<<textures-texel-filtering, Texel Filtering>> 小节中有讲解，可选类型如下：
 +
 --
 // refBegin VkSamplerMipmapMode Specify mipmap mode used for texture lookups
 include::../api/enums/VkSamplerMipmapMode.txt[]
 --
 +
-  * pname:addressModeU is the addressing mode for outside [0..1] range for U
-    coordinate.
-    See elink:VkSamplerAddressMode.
-  * pname:addressModeV is the addressing mode for outside [0..1] range for V
-    coordinate.
-    See elink:VkSamplerAddressMode.
-  * pname:addressModeW is the addressing mode for outside [0..1] range for W
-    coordinate.
-    See elink:VkSamplerAddressMode.
+  * pname:addressModeU 是对于U坐标在[0..1] 之外的寻址方式。参考 elink:VkSamplerAddressMode
+  * pname:addressModeV 是对于V坐标在[0..1] 之外的寻址方式。参考 elink:VkSamplerAddressMode。
+  * pname:addressModeW 是对于V坐标在[0..1] 之外的寻址方式。参考 elink:VkSamplerAddressMode。
   * [[samplers-mipLodBias]] pname:mipLodBias is the bias to be added to
     mipmap LOD calculation and bias provided by image sampling functions in
     SPIR-V, as described in the <<textures-level-of-detail-operation,
@@ -92,9 +77,7 @@ include::../api/enums/VkSamplerMipmapMode.txt[]
     <<textures-level-of-detail-operation, Level-of-Detail Operation>>
     section.
     pname:maxLod must: be greater than or equal to pname:minLod.
-  * pname:borderColor is the predefined border color to use, as described in
-    the <<textures-texel-replacement, Texel Replacement>> section, and is of
-    type:
+  * pname:borderColor 是将要使用的预定义的边界颜色，在<<textures-texel-replacement, Texel Replacement>> 一节讲解，可选类型如下：
 +
 --
 // refBegin VkBorderColor Specify border color used for texture lookups
@@ -169,10 +152,8 @@ These values control the behavior of sampling with coordinates outside the
 range [eq]#[0,1]# for the respective u, v, or w coordinate as defined in the
 <<textures-wrapping-operation, Wrapping Operation>> section.
 
-  * ename:VK_SAMPLER_ADDRESS_MODE_REPEAT indicates that the repeat wrap mode
-    will be used.
-  * ename:VK_SAMPLER_ADDRESS_MODE_MIRRORED_REPEAT indicates that the
-    mirrored repeat wrap mode will be used.
+  * ename:VK_SAMPLER_ADDRESS_MODE_REPEAT 表明将使用重复铺排模式。
+  * ename:VK_SAMPLER_ADDRESS_MODE_MIRRORED_REPEAT 表明将使用镜像重复铺排模式。
   * ename:VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE indicates that the clamp to
     edge wrap mode will be used.
   * ename:VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER indicates that the clamp
@@ -236,23 +217,19 @@ include::../validity/structs/VkSamplerCreateInfo.txt[]
 
 // refBegin vkDestroySampler Destroy a sampler object
 
-To destroy a sampler, call:
+可调用如下命令来销毁一个采样器：
 
 include::../api/protos/vkDestroySampler.txt[]
 
-  * pname:device is the logical device that destroys the sampler.
-  * pname:sampler is the sampler to destroy.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
+  * pname:device 是销毁采样器的逻辑设备。
+  * pname:sampler 是需要被销毁的采样器。
+  * pname:pAllocator 控制CPU端内存分配，如<<memory-allocation, Memory Allocation>> 一章所讲解。
 
 .正确使用
 ****
-  * All submitted commands that refer to pname:sampler must: have completed
-    execution
-  * If sname:VkAllocationCallbacks were provided when pname:sampler was
-    created, a compatible set of callbacks must: be provided here
-  * If no sname:VkAllocationCallbacks were provided when pname:sampler was
-    created, pname:pAllocator must: be `NULL`
+  * 所有引用到pname:sampler的被提交的命令必须已经完成了。
+  * 若创建pname:sampler 时提供了sname:VkAllocationCallbacks，那么就必须提供兼容的回调函数。
+  * 若创建pname:sampler 时没有提供sname:VkAllocationCallbacks，pname:pAllocator 必须为`NULL`
 ****
 
 include::../validity/protos/vkDestroySampler.txt[]
