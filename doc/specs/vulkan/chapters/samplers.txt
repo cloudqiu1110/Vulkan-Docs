@@ -114,13 +114,10 @@ include::../api/enums/VkBorderColor.txt[]
   ** The functions must: not use offsets.
 
 [NOTE]
-.Mapping of OpenGL to Vulkan filter modes
+.把OpenGL的模式映射到Vulkan过滤模式
 ==================
-pname:magFilter values of ename:VK_FILTER_NEAREST and ename:VK_FILTER_LINEAR
-directly correspond to code:GL_NEAREST and code:GL_LINEAR magnification
-filters.
-pname:minFilter and pname:mipmapMode combine to correspond to the similarly
-named OpenGL minification filter of code:GL_minFilter_MIPMAP_mipmapMode
+pname:magFilter的值 ename:VK_FILTER_NEAREST 和 ename:VK_FILTER_LINEAR直接对应为 code:GL_NEAREST 和code:GL_LINEAR 放大过滤器。
+pname:minFilter 和 pname:mipmapMode 联合起来对应着 OpenGL 缩小过滤器 code:GL_minFilter_MIPMAP_mipmapMode
 (e.g. pname:minFilter of ename:VK_FILTER_LINEAR and pname:mipmapMode of
 ename:VK_SAMPLER_MIPMAP_MODE_NEAREST correspond to
 code:GL_LINEAR_MIPMAP_NEAREST).
@@ -142,8 +139,7 @@ If the pname:minFilter and pname:magFilter are equal, then using a
 pname:maxLod of zero also works.
 ==================
 
-pname:addressModeU, pname:addressModeV, and pname:addressModeW must: each
-have one of the following values:
+pname:addressModeU, pname:addressModeV, 和 pname:addressModeW 任何一个必须是如下值：
 
 // refBegin VkSamplerAddressMode Specify behavior of sampling with texture coordinates outside an image
 include::../api/enums/VkSamplerAddressMode.txt[]
@@ -154,58 +150,37 @@ range [eq]#[0,1]# for the respective u, v, or w coordinate as defined in the
 
   * ename:VK_SAMPLER_ADDRESS_MODE_REPEAT 表明将使用重复铺排模式。
   * ename:VK_SAMPLER_ADDRESS_MODE_MIRRORED_REPEAT 表明将使用镜像重复铺排模式。
-  * ename:VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE indicates that the clamp to
-    edge wrap mode will be used.
-  * ename:VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER indicates that the clamp
-    to border wrap mode will be used.
+  * ename:VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE 表明将使用边缘展开模式（clamp to edge）。
+  * ename:VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER 表明将使用边界展开模式( clamp to border）。
   * ename:VK_SAMPLER_ADDRESS_MODE_MIRROR_CLAMP_TO_EDGE indicates that the
     mirror clamp to edge wrap mode will be used.
     This is only valid if the +VK_KHR_mirror_clamp_to_edge+ extension is
     enabled.
 
-The maximum number of sampler objects which can: be simultaneously created
-on a device is implementation-dependent and specified by the
-<<features-limits-maxSamplerAllocationCount,pname:maxSamplerAllocationCount>>
-member of the sname:VkPhysicalDeviceLimits structure.
-If pname:maxSamplerAllocationCount is exceeded, fname:vkCreateSampler will
-return ename:VK_ERROR_TOO_MANY_OBJECTS.
+一个设备上可以同时创建的采样器个数最大值依赖于硬件设备，通过sname:VkPhysicalDeviceLimits数据结构的
+<<features-limits-maxSamplerAllocationCount,pname:maxSamplerAllocationCount>>成员来指定。
+若超过了pname:maxSamplerAllocationCount，fname:vkCreateSampler 将返回 ename:VK_ERROR_TOO_MANY_OBJECTS。
 
-Since sname:VkSampler is a non-dispatchable handle type, implementations
-may: return the same handle for sampler state vectors that are identical.
-In such cases, all such objects would only count once against the
-pname:maxSamplerAllocationCount limit.
+因为 sname:VkSampler 是一个不可分发handle类型，Vulkan实现可以为相同的采样器状态数组返回一个handle。
+在这中情形下， 限制条件，所有的对象都将算作pname:maxSamplerAllocationCount限制的一个。
 
 .正确使用
 ****
-  * The absolute value of pname:mipLodBias must: be less than or equal to
-    sname:VkPhysicalDeviceLimits::pname:maxSamplerLodBias
-  * If the <<features-features-samplerAnisotropy,anisotropic sampling>>
-    feature is not enabled, pname:anisotropyEnable must: be ename:VK_FALSE
-  * If pname:anisotropyEnable is ename:VK_TRUE, pname:maxAnisotropy must: be
-    between `1.0` and
-    sname:VkPhysicalDeviceLimits::pname:maxSamplerAnisotropy, inclusive
-  * If pname:unnormalizedCoordinates is ename:VK_TRUE, pname:minFilter and
-    pname:magFilter must: be equal
-  * If pname:unnormalizedCoordinates is ename:VK_TRUE, pname:mipmapMode
-    must: be ename:VK_SAMPLER_MIPMAP_MODE_NEAREST
-  * If pname:unnormalizedCoordinates is ename:VK_TRUE, pname:minLod and
-    pname:maxLod must: be zero
-  * If pname:unnormalizedCoordinates is ename:VK_TRUE, pname:addressModeU
-    and pname:addressModeV must: each be either
-    ename:VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE or
-    ename:VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER
-  * If pname:unnormalizedCoordinates is ename:VK_TRUE,
-    pname:anisotropyEnable must: be ename:VK_FALSE
-  * If pname:unnormalizedCoordinates is ename:VK_TRUE, pname:compareEnable
-    must: be ename:VK_FALSE
-  * If any of pname:addressModeU, pname:addressModeV or pname:addressModeW
-    are ename:VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER, pname:borderColor
-    must: be a valid elink:VkBorderColor value
-  * If the +VK_KHR_sampler_mirror_clamp_to_edge+ extension is not enabled,
-    pname:addressModeU, pname:addressModeV and pname:addressModeW must: not
-    be ename:VK_SAMPLER_ADDRESS_MODE_MIRROR_CLAMP_TO_EDGE
-  * If pname:compareEnable is ename:VK_TRUE, pname:compareOp must: be a
-    valid elink:VkCompareOp value
+  * pname:mipLodBias 的绝对值必须小于等于 sname:VkPhysicalDeviceLimits::pname:maxSamplerLodBias
+  * 若<<features-features-samplerAnisotropy,anisotropic sampling>> 特征没有被启用，pname:anisotropyEnable 必须是ename:VK_FALSE
+  * 若pname:anisotropyEnable 为 ename:VK_TRUE，pname:maxAnisotropy 必须在`1.0` 和 name:VkPhysicalDeviceLimits::pname:maxSamplerAnisotropy之间，闭区间
+  * 若 pname:unnormalizedCoordinates 为ename:VK_TRUE，pname:minFilter 和pname:magFilter 必须相等
+  * 若 pname:unnormalizedCoordinates 为 ename:VK_TRUE，pname:mipmapMode必须为 ename:VK_SAMPLER_MIPMAP_MODE_NEAREST
+  * 若 pname:unnormalizedCoordinates 为 ename:VK_TRUE，pname:minLod 和pname:maxLod 必须为0
+  * 若 pname:unnormalizedCoordinates 为 ename:VK_TRUE，pname:addressModeU和pname:addressModeV 必须是ename:VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE，
+	或者ename:VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER
+  * 若 pname:unnormalizedCoordinates 为 ename:VK_TRUE，pname:anisotropyEnable 必须为ename:VK_FALSE
+  * 若 pname:unnormalizedCoordinates 为 ename:VK_TRUE，pname:compareEnable必须为ename:VK_FALSE
+  * 若 pname:addressModeU, pname:addressModeV 或 pname:addressModeW其中任何一个为ename:VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER，
+	pname:borderColor必须为一个有效的elink:VkBorderColor 值
+  * 若 +VK_KHR_sampler_mirror_clamp_to_edge+ 拓展没有被启用，
+    pname:addressModeU, pname:addressModeV 和 pname:addressModeW 不能为ename:VK_SAMPLER_ADDRESS_MODE_MIRROR_CLAMP_TO_EDGE
+  * 若 pname:compareEnable 为 ename:VK_TRUE，pname:compareOp 必须是一个有效的elink:VkCompareOp 值
 ifdef::VK_IMG_filter_cubic[]
   * If either pname:magFilter or pname:minFilter is
     ename:VK_FILTER_CUBIC_IMG, pname:anisotropyEnable must: be

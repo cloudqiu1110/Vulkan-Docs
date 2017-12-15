@@ -69,9 +69,8 @@ layout (set=M, binding=N) uniform sampler2D variableNameArray[I];
 
 [[descriptorsets-types]]
 == 描述符类型
-
-The following sections outline the various descriptor types supported by
-Vulkan.
+如下几个小节简单讲解Vulkan支持的各种描述符类型。
+每一小节定义了一种描述符类型，每一种类型在着色器语言和SPIR-V中都有详细讲解。
 Each section defines a descriptor type, and each descriptor type has a
 manifestation in the shading language and SPIR-V as well as in descriptor
 sets.
