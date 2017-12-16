@@ -55,28 +55,19 @@ include::../api/enums/VkSamplerMipmapMode.txt[]
   * pname:addressModeU 是对于U坐标在[0..1] 之外的寻址方式。参考 elink:VkSamplerAddressMode
   * pname:addressModeV 是对于V坐标在[0..1] 之外的寻址方式。参考 elink:VkSamplerAddressMode。
   * pname:addressModeW 是对于V坐标在[0..1] 之外的寻址方式。参考 elink:VkSamplerAddressMode。
-  * [[samplers-mipLodBias]] pname:mipLodBias is the bias to be added to
-    mipmap LOD calculation and bias provided by image sampling functions in
-    SPIR-V, as described in the <<textures-level-of-detail-operation,
-    Level-of-Detail Operation>> section.
-  * [[samplers-maxAnisotropy]] pname:anisotropyEnable is ename:VK_TRUE to
-    enable anisotropic filtering, as described in the
-    <<textures-texel-anisotropic-filtering, Texel Anisotropic Filtering>>
-    section, or ename:VK_FALSE otherwise.
+  * [[samplers-mipLodBias]] pname:mipLodBias 是将添加到 mipmap LOD 计算的偏差值，
+  此偏差值由SPIR-V提供图像采样函数提供，在 <<textures-level-of-detail-operation, Level-of-Detail Operation>> 一节中讲解。
+  * [[samplers-maxAnisotropy]] pname:anisotropyEnable 为 ename:VK_TRUE 时开启各向异性过滤，
+	在 <<textures-texel-anisotropic-filtering, Texel Anisotropic Filtering>>一节中讲解，其值为 ename:VK_FALSE 时则不开启。
   * pname:maxAnisotropy is the anisotropy value clamp.
-  * pname:compareEnable is ename:VK_TRUE to enable comparison against a
-    reference value during lookups, or ename:VK_FALSE otherwise.
+  * pname:compareEnable 为 ename:VK_TRUE 时开启查找阶段与参考值进行比对的功能，为 ename:VK_FALSE 时则不开启。
   ** Note: Some implementations will default to shader state if this member
      does not match.
-  * pname:compareOp is the comparison function to apply to fetched data
-    before filtering as described in the <<textures-depth-compare-operation,
-    Depth Compare Operation>> section.
+  * pname:compareOp 是将应用的在过滤前获取数据的函数，在 <<textures-depth-compare-operation, Depth Compare Operation>> 一节中讲解。
     See elink:VkCompareOp.
-  * pname:minLod and pname:maxLod are the values used to clamp the computed
-    level-of-detail value, as described in the
-    <<textures-level-of-detail-operation, Level-of-Detail Operation>>
-    section.
-    pname:maxLod must: be greater than or equal to pname:minLod.
+  * pname:minLod 和 pname:maxLod 是用来包裹计算出来的 level-of-detail 值，在 <<textures-level-of-detail-operation, Level-of-Detail Operation>>
+    一节中有讲解。
+    pname:maxLod 必须要大于等于  pname:minLod。
   * pname:borderColor 是将要使用的预定义的边界颜色，在<<textures-texel-replacement, Texel Replacement>> 一节讲解，可选类型如下：
 +
 --
@@ -94,24 +85,20 @@ include::../api/enums/VkBorderColor.txt[]
     one.
     When pname:unnormalizedCoordinates is ename:VK_TRUE, samplers have the
     following requirements:
-  ** pname:minFilter and pname:magFilter must: be equal.
-  ** pname:mipmapMode must: be ename:VK_SAMPLER_MIPMAP_MODE_NEAREST.
-  ** pname:minLod and pname:maxLod must: be zero.
-  ** pname:addressModeU and pname:addressModeV must: each be either
-     ename:VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE or
-     ename:VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER.
-  ** pname:anisotropyEnable must: be ename:VK_FALSE.
-  ** pname:compareEnable must: be ename:VK_FALSE.
-  * When pname:unnormalizedCoordinates is ename:VK_TRUE, images the sampler
-    is used with in the shader have the following requirements:
-  ** The pname:viewType must: be either ename:VK_IMAGE_VIEW_TYPE_1D or
-     ename:VK_IMAGE_VIEW_TYPE_2D.
-  ** The image view must: have a single layer and a single mip level.
-  * When pname:unnormalizedCoordinates is ename:VK_TRUE, image built-in
-    functions in the shader that use the sampler have the following
-    requirements:
-  ** The functions must: not use projection.
-  ** The functions must: not use offsets.
+  ** pname:minFilter 和 pname:magFilter 必须相等。
+  ** pname:mipmapMode 必须为 ename:VK_SAMPLER_MIPMAP_MODE_NEAREST.
+  ** pname:minLod 和 pname:maxLod 必须为0。
+  ** pname:addressModeU 和 pname:addressModeV 必须是如下二者之一：
+     ename:VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE 、
+     ename:VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER。
+  ** pname:anisotropyEnable 必须为 ename:VK_FALSE。
+  ** pname:compareEnable  必须为 ename:VK_FALSE。
+  * 当 pname:unnormalizedCoordinates 为 ename:VK_TRUE时，着色器内采样器使用的图像必须满足如下要求：
+  ** pname:viewType 必须是如下二者之一：ename:VK_IMAGE_VIEW_TYPE_1D 、 ename:VK_IMAGE_VIEW_TYPE_2D。
+  ** 图像视图只能有单层，和一个 mip level。
+  * 当 pname:unnormalizedCoordinates 为 ename:VK_TRUE时，着色器内置的使用采样器的图像函数必须满足如下条件：
+  ** The functions 不能使用投影。
+  ** The functions 不能使用 offsets。
 
 [NOTE]
 .把OpenGL的模式映射到Vulkan过滤模式
@@ -144,9 +131,8 @@ pname:addressModeU, pname:addressModeV, 和 pname:addressModeW 任何一个必�
 // refBegin VkSamplerAddressMode Specify behavior of sampling with texture coordinates outside an image
 include::../api/enums/VkSamplerAddressMode.txt[]
 
-These values control the behavior of sampling with coordinates outside the
-range [eq]#[0,1]# for the respective u, v, or w coordinate as defined in the
-<<textures-wrapping-operation, Wrapping Operation>> section.
+这些值控制了u，v或w坐标在 [eq]#[0,1]# 范围之外的采样行为，在<<textures-wrapping-operation, Wrapping Operation>> 一节中有定义。
+
 
   * ename:VK_SAMPLER_ADDRESS_MODE_REPEAT 表明将使用重复铺排模式。
   * ename:VK_SAMPLER_ADDRESS_MODE_MIRRORED_REPEAT 表明将使用镜像重复铺排模式。
