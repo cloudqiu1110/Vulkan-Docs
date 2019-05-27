@@ -311,7 +311,7 @@ include::../validity/structs/VkBufferViewCreateInfo.txt[]
 
 // refBegin vkDestroyBufferView Destroy a buffer view object
 
-To destroy a buffer view, call:
+可调用如下函数以销毁缓冲区视图：
 
 include::../api/protos/vkDestroyBufferView.txt[]
 
@@ -418,34 +418,25 @@ include::../api/structs/VkImageCreateInfo.txt[]
     pname:initialLayout must: be ename:VK_IMAGE_LAYOUT_UNDEFINED or
     ename:VK_IMAGE_LAYOUT_PREINITIALIZED.
 
-Images created with pname:tiling equal to ename:VK_IMAGE_TILING_LINEAR have
-further restrictions on their limits and capabilities compared to images
-created with pname:tiling equal to ename:VK_IMAGE_TILING_OPTIMAL.
-Creation of images with tiling ename:VK_IMAGE_TILING_LINEAR may: not be
-supported unless other parameters meet all of the constraints:
+使用pname:tiling值为ename:VK_IMAGE_TILING_LINEAR 创建的图像，比使用pname:tiling值为ename:VK_IMAGE_TILING_OPTIMAL创建的图像由更多的限制。
+使用 ename:VK_IMAGE_TILING_LINEAR 创建的图像可能不被支持，除非其他参数满足如下限制：
 
-  * pname:imageType is ename:VK_IMAGE_TYPE_2D
-  * pname:format is not a depth/stencil format
-  * pname:mipLevels is 1
-  * pname:arrayLayers is 1
-  * pname:samples is ename:VK_SAMPLE_COUNT_1_BIT
-  * pname:usage only includes ename:VK_IMAGE_USAGE_TRANSFER_SRC_BIT and/or
-    ename:VK_IMAGE_USAGE_TRANSFER_DST_BIT
 
-Implementations may: support additional limits and capabilities beyond those
-listed above.
+  * pname:imageType 是 ename:VK_IMAGE_TYPE_2D  
+  * pname:format 不是 depth/stencil 格式
+  * pname:mipLevels 是 1
+  * pname:arrayLayers 是 1
+  * pname:samples 是 ename:VK_SAMPLE_COUNT_1_BIT
+  * pname:usage 只包含 ename:VK_IMAGE_USAGE_TRANSFER_SRC_BIT 和/或    ename:VK_IMAGE_USAGE_TRANSFER_DST_BIT
 
-To query an implementation's specific capabilities for a given combination
-of pname:format, pname:type, pname:tiling, pname:usage, and pname:flags,
-call flink:vkGetPhysicalDeviceImageFormatProperties.
-The return value indicates whether that combination of image settings is
-supported.
-On success, the sname:VkImageFormatProperties output parameter indicates the
-set of valid pname:samples bits and the limits for pname:extent,
-pname:mipLevels, and pname:arrayLayers.
+除了上面表格所列，Vulkan实现可能支持附加的限制条件和功能。
 
-To determine the set of valid pname:usage bits for a given format, call
-flink:vkGetPhysicalDeviceFormatProperties.
+对于给定的 pname:format, pname:type, pname:tiling, pname:usage, and pname:flags组合方式的能力，可以通过调用 flink:vkGetPhysicalDeviceImageFormatProperties来
+向Vulkan实现查询。
+返回值可表示对于图像的该种组合方式是否受支持。
+若支持， sname:VkImageFormatProperties 输出参数表示有效的 pname:samples bits和  pname:extent参数的限制的集合。
+
+可调用如下函数来获知对于给定格式有效的标志位集合：
 
 .Valid Usage
 ****
@@ -715,8 +706,7 @@ ifdef::VK_NV_dedicated_allocation[]
 
 // refBegin VkDedicatedAllocationImageCreateInfoNV Specify that an image is bound to a dedicated memory resource
 
-If the pname:pNext list includes a
-sname:VkDedicatedAllocationImageCreateInfoNV structure, then that structure
+若 pname:pNext 列表包含一个sname:VkDedicatedAllocationImageCreateInfoNV 数据结构，那么该数据结构包含一个控制开关，控制图像是否使用为它专门分配的, then that structure
 includes an enable controlling whether the image will have a dedicated
 memory allocation bound to it.
 

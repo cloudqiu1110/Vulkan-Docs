@@ -174,15 +174,10 @@ ename:VK_SYSTEM_ALLOCATION_SCOPE_CACHE时，内存的存活范围就是被创建
 
 当Vulkan实现获取主机端内存时，它将回调应用程序提供的回调函数来使用特定的内存分配器和内存存活范围：
 
-  * If an allocation is scoped to the duration of a command, the allocator
-    will use the ename:VK_SYSTEM_ALLOCATION_SCOPE_COMMAND allocation scope.
-    The most specific allocator available is used: if the object being
-    created or manipulated has an allocator, that object's allocator will be
-    used, else if the parent sname:VkDevice has an allocator it will be
-    used, else if the parent sname:VkInstance has an allocator it will be
-    used.
-    Else,
-  * If an allocation is associated with an object of type
+  * 若分配的内存生存周期限定于一个命令之内，内存分配器将使用  ename:VK_SYSTEM_ALLOCATION_SCOPE_COMMAND。
+   若创建的、或者被操控的对象有对应的内存分配器，那么将使用该特定的内存分配器，否则若 父 sname:VkDevice 有内存分配器，便使用此内存分配器，否则便使用父 sname:VkInstance 拥有的内存分配器。
+  * 若
+  If an allocation is associated with an object of type
     sname:VkPipelineCache, the allocator will use the
     ename:VK_SYSTEM_ALLOCATION_SCOPE_CACHE allocation scope.
     The most specific allocator available is used (pipeline cache, else
@@ -226,27 +221,14 @@ include::../api/enums/VkInternalAllocationType.txt[]
 
 // refEnd VkInternalAllocationType PFN_vkInternalAllocationNotification PFN_vkInternalFreeNotification
 
-Vulkan实现在API命令执行期间，只能调用应用程序提供的分配函数。
-An implementation must: only make calls into an application-provided
-allocator from the same thread that called the provoking API command.
-The implementation should: not synchronize calls to any of the callbacks.
-If synchronization is needed, the callbacks must: provide it themselves.
-The informational callbacks are subject to the same restrictions as the
-allocation callbacks.
+Vulkan实现在API命令执行期间，只能调用应用程序在当前线程提供的分配函数。
+Vulkan实现不应该同时调用这些回调函数。如果需要保持同步，回调函数应该自己实现。提供信息这一类的回调函数也和内存分配函数一样遵从此限制。
 
-If an implementation intends to make calls through an
-sname:VkAllocationCallbacks structure between the time a ftext:vkCreate*
-command returns and the time a corresponding ftext:vkDestroy* command
-begins, that implementation must: save a copy of the allocator before the
-ftext:vkCreate* command returns.
-The callback functions and any data structures they rely upon must: remain
-valid for the lifetime of the object they are associated with.
+若Vulkan实现倾向于在ftext:vkCreate*命令返回和对应的 ftext:vkDestroy*命令开始之间通过sname:VkAllocationCallbacks 数据结构来进行函数调用，该Vulkan实现必须在ftext:vkCreate*返回之前保存一份内存分配器的copy。
+它们依赖的回掉函数和任何数据结构都必须在与之关联的对象生命周期内都保持有效。
 
-If an allocator is provided to a ftext:vkCreate* command, a _compatible_
-allocator must: be provided to the corresponding ftext:vkDestroy* command.
-Two sname:VkAllocationCallbacks structures are compatible if memory
-allocated with pname:pfnAllocation or pname:pfnReallocation in each can: be
-freed with pname:pfnReallocation or pname:pfnFree in the other.
+若给ftext:vkCreate*提供一个内存分配器，则必须要给对应的ftext:vkDestroy*命令提供一个兼容匹配的内存分配器。
+若用pname:pfnAllocation or pname:pfnReallocation分配而来的内存都可以被pname:pfnReallocation or pname:pfnFree释放掉，那么两个sname:VkAllocationCallbacks 数据结构必须兼容。
 An allocator must: not be provided to a ftext:vkDestroy* command if an
 allocator was not provided to the corresponding ftext:vkCreate* command.
 
@@ -835,7 +817,7 @@ To invalidate ranges of non-coherent memory from the host caches, call:
 include::../api/protos/vkInvalidateMappedMemoryRanges.txt[]
 
   * pname:device 是拥有内存范围的逻辑设备。 
-  * pname:memoryRangeCount is the length of the pname:pMemoryRanges array.
+  * pname:memoryRangeCount 是 pname:pMemoryRanges 数组的长度。
   * pname:pMemoryRanges is a pointer to an array of
     slink:VkMappedMemoryRange structures describing the memory ranges to
     invalidate.
@@ -867,24 +849,18 @@ include::../api/structs/VkMappedMemoryRange.txt[]
   * pname:sType 是数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:memory is the memory object to which this range belongs.
-  * pname:offset is the zero-based byte offset from the beginning of the
-    memory object.
+  * pname:offset 是 the zero-based byte offset from the beginning of the memory object.
   * pname:size is either the size of range, or ename:VK_WHOLE_SIZE to affect
     the range from pname:offset to the end of the current mapping of the
     allocation.
 
 .正确使用
 ****
-  * pname:memory must: currently be mapped
-  * If pname:size is not equal to ename:VK_WHOLE_SIZE, pname:offset and
-    pname:size must: specify a range contained within the currently mapped
-    range of pname:memory
-  * If pname:size is equal to ename:VK_WHOLE_SIZE, pname:offset must: be
-    within the currently mapped range of pname:memory
-  * pname:offset must: be a multiple of
-    sname:VkPhysicalDeviceLimits::pname:nonCoherentAtomSize
-  * If pname:size is not equal to ename:VK_WHOLE_SIZE, pname:size must: be a
-    multiple of sname:VkPhysicalDeviceLimits::pname:nonCoherentAtomSize
+  * pname:memory 当前必须已经被映射了
+  * 若 pname:size 和   ename:VK_WHOLE_SIZE  不相等，pname:offset 和 pname:size 必须: 指定已经映射的内存  pname:memory 之中的一段区间。
+  * 若 pname:size 和 ename:VK_WHOLE_SIZE 相等， pname:offset 必须: 和已经映射的内存的区间完全相同。
+  * pname:offset 必须: 是 sname:VkPhysicalDeviceLimits::pname:nonCoherentAtomSize 的倍数
+  * 若 pname:size和 ename:VK_WHOLE_SIZE 不相等，pname:size 必须: 是 sname:VkPhysicalDeviceLimits::pname:nonCoherentAtomSize 的倍数。
 ****
 
 include::../validity/structs/VkMappedMemoryRange.txt[]

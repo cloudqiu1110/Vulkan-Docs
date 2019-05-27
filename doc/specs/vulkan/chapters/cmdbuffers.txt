@@ -291,11 +291,10 @@ include::../api/protos/vkResetCommandBuffer.txt[]
 include::../api/enums/VkCommandBufferResetFlagBits.txt[]
 --
 +
-If pname:flags includes ename:VK_COMMAND_BUFFER_RESET_RELEASE_RESOURCES_BIT,
-then most or all memory resources currently owned by the command buffer
-should: be returned to the parent command pool.
-If this flag is not set, then the command buffer may: hold onto memory
-resources and reuse them when recording commands.
+若 pname:flags 包含 ename:VK_COMMAND_BUFFER_RESET_RELEASE_RESOURCES_BIT，
+那么当前占有大多数或者所有的内存资源的命令缓冲区应该被父命令池返回。
+若没有设置此标志位，那么命令缓冲区可能持有内存资源并在记录命令时重用它们。
+
 
 .正确使用
 ****
@@ -319,10 +318,8 @@ include::../api/protos/vkFreeCommandBuffers.txt[]
 
 .正确使用
 ****
-  * All elements of pname:pCommandBuffers must: not be pending execution
-  * pname:pCommandBuffers must: be a pointer to an array of
-    pname:commandBufferCount sname:VkCommandBuffer handles, each element of
-    which must: either be a valid handle or `NULL`
+  *  pname:pCommandBuffers 中所有的元素不能是被暂停执行状态。
+  * pname:pCommandBuffers 必须是一个指针，指向 pname:commandBufferCount 个元素的sname:VkCommandBuffer handle数组，每一个元素必须是一个有效的handle或者 `NULL`。
 ****
 
 include::../validity/protos/vkFreeCommandBuffers.txt[]
@@ -344,20 +341,12 @@ include::../api/protos/vkBeginCommandBuffer.txt[]
 
 .正确使用
 ****
-  * pname:commandBuffer must: not be in the recording state
-  * pname:commandBuffer must: not currently be pending execution
-  * If pname:commandBuffer was allocated from a sname:VkCommandPool which
-    did not have the ename:VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT
-    flag set, pname:commandBuffer must: be in the initial state
-  * If pname:commandBuffer is a secondary command buffer, the
-    pname:pInheritanceInfo member of pname:pBeginInfo must: be a valid
-    sname:VkCommandBufferInheritanceInfo structure
-  * If pname:commandBuffer is a secondary command buffer and either the
-    pname:occlusionQueryEnable member of the pname:pInheritanceInfo member
-    of pname:pBeginInfo is ename:VK_FALSE, or the precise occlusion queries
-    feature is not enabled, the pname:queryFlags member of the
-    pname:pInheritanceInfo member pname:pBeginInfo must: not contain
-    ename:VK_QUERY_CONTROL_PRECISE_BIT
+  * pname:commandBuffer 不能处于记录状态。
+  * pname:commandBuffer 当前不能是暂停执行状态。
+  * 若pname:commandBuffer 是从 一个 没有ename:VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT标志位的 sname:VkCommandPool  中分配而来的，pname:commandBuffer必须处于出事状态。
+  * 若 pname:commandBuffer 是一个次级命令缓冲区， pname:pBeginInfo的pname:pInheritanceInfo 成员必须是一个有效的 sname:VkCommandBufferInheritanceInfo 数据结构。
+  * 若 pname:commandBuffer 是一个次级命令缓冲区，或者pname:pBeginInfo的成员pname:pInheritanceInfo的成员pname:occlusionQueryEnable 是ename:VK_FALSE，精确occlusion查询特征没有被启用，
+      那么 pname:pBeginInfo的成员 pname:pInheritanceInfo 的成员 pname:queryFlags，不能包含    ename:VK_QUERY_CONTROL_PRECISE_BIT。
 ****
 
 include::../validity/protos/vkBeginCommandBuffer.txt[]
@@ -530,9 +519,8 @@ buffer must: be reset.
 
 .正确使用
 ****
-  * pname:commandBuffer must: be in the recording state
-  * If pname:commandBuffer is a primary command buffer, there must: not be
-    an active render pass instance
+  * pname:commandBuffer 必须处于记录中状态。
+  * 若 pname:commandBuffer 是一个主命令缓冲区， 那么它不能有一个活跃的render pass实例。
   * All queries made <<queries-operation-active,active>> during the
     recording of pname:commandBuffer must: have been made inactive
 ****
@@ -578,11 +566,8 @@ pname:pSubmits中各批次的任务依出现的顺序执行，但是，完成的
 
 .正确使用
 ****
-  * If pname:fence is not dlink:VK_NULL_HANDLE, pname:fence must: be
-    unsignaled
-  * If pname:fence is not dlink:VK_NULL_HANDLE, pname:fence must: not be
-    associated with any other queue command that has not yet completed
-    execution on that queue
+  * 若 pname:fence 不是 dlink:VK_NULL_HANDLE，那么 pname:fence 必须未被发送过信号。
+  * 若 pname:fence 不是 dlink:VK_NULL_HANDLE，那么pname:fence 不能和任何其他的在队列中未完成执行的队列命令关联上。
   * Any calls to flink:vkCmdSetEvent, flink:vkCmdResetEvent or
     flink:vkCmdWaitEvents that have been recorded into any of the command
     buffer elements of the pname:pCommandBuffers member of any element of

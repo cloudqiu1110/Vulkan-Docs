@@ -11,10 +11,11 @@
 |负责章节
 
 |http://knowthyself.cn[knowthyself] 
-|  1，2，3，4，5，（6），7，8，9，10，12，13
+|  1，2，3，4，5，6，7，8，9，10，11，12，13
 
-|http://blog.csdn.net/liuyizhou95[花粥_95]
-|11
+|
+|
+
 |===
 	
 	如何翻译：
@@ -110,16 +111,15 @@ brackets, e.g. ''[Specification]''.
 [[introduction-terminology]]
 == 术语
 
-The key words *must*, *required*, *shall* *should*, *recommend*, *may*, and
-*optional* in this document are to be interpreted as described in RFC 2119:
+文档中的关键字 *must*, *required*, *shall* *should*, *recommend*, *may*, and
+*optional* 的释义，请参考RFC 2119。
+
 
 http://www.ietf.org/rfc/rfc2119.txt
 
 *must*::
-When used alone, this word, or the term *required*, means that the
-definition is an absolute requirement of the specification.
-When followed by *not* ("`must: not`" ), the phrase means that the
-definition is an absolute prohibition of the specification.
+在此文档中当单独使用*must* ，或者*required*关键字，表示是绝对必须的含义。
+ 
 
 *should*::
 When used alone, this word, or the adjective *recommended*, means that there
