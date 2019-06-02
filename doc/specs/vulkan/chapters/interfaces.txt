@@ -70,19 +70,12 @@
 为了做到接口匹配，没有以code:Component修饰的变量被认为有以 值为0的code:Component 来修饰。
 
 
-Variables or block members declared as structures are considered to match in
-type if and only if the structure members match in type, decoration, number,
-and declaration order.
-Variables or block members declared as arrays are considered to match in
-type only if both declarations specify the same element type and size.
+若数据结构成员在类型、修饰符、数量、声明顺序上是匹配的，变量或者被声明为数据结构的块成员被认为是类型匹配的，
+若声明中元素类型与个数相同，则变量或者声明为数组的块成员被认为是匹配的。
 
-Tessellation control shader per-vertex output variables and blocks, and
-tessellation control, tessellation evaluation, and geometry shader
-per-vertex input variables and blocks are required to be declared as arrays,
-with each element representing input or output values for a single vertex of
-a multi-vertex primitive.
-For the purposes of interface matching, the outermost array dimension of
-such variables and blocks is ignored.
+细分控制着色器逐顶点输出变量与块，细分控制、细分求值、几何着色器的逐顶点输入变量与块要求必须被声明为数组，其每一个元素表示输入或者输出值是一个顶点或者多顶点的图元。
+为了接口匹配，变量或者块最外层的数组维度被忽略了。
+
 
 At an interface between two non-fragment shader stages, the built-in
 interface block must: match exactly, as described above.
@@ -110,21 +103,15 @@ ignored.
 
 
 [[interfaces-iointerfaces-locations]]
-=== Location Assignment
+=== Location 指配
 
-This section describes how many locations are consumed by a given type.
-As mentioned above, geometry shader inputs, tessellation control shader
-inputs and outputs, and tessellation evaluation inputs all have an
-additional level of arrayness relative to other shader inputs and outputs.
-This outer array level is removed from the type before considering how many
-locations the type consumes.
+本节描述一个给定的类型会消耗多少locations。
+如前所述，几何着色器输入、细分控制着色器输入与输出、细分求值的输入，如其他着色器的输入输出相比，都带有一些额外的数组信息。
+在计算输出数组类型消耗多少个location之前，输出中数组中数组信息已经被抹除。
 
-The code:Location value specifies an interface slot comprised of a 32-bit
-four-component vector conveyed between stages.
-The code:Component specifies
-<<interfaces-iointerfaces-components,components>> within these vector
-locations.
-Only types with widths of 32 or 64 are supported in shader interfaces.
+code:Location 值指定了一个接口槽，其由一个32位的四分量数组组成，在不同的阶段中传送。
+code:Component 指定了在这些数组中<<interfaces-iointerfaces-components, 分量>>。
+着色器接口只支持位宽32或者64bit的类型。
 
 Inputs and outputs of the following types consume a single interface
 location:

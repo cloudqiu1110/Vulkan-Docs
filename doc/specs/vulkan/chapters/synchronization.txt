@@ -971,7 +971,7 @@ empty.
 
 
 [[synchronization-semaphores-waiting]]
-=== 等待信号量 & Unsignaling
+=== 等待信号量 & 取消激发
 
 When a batch is submitted to a queue via a <<devsandqueues-submission, queue
 submission>>, and it includes semaphores to be waited on, it defines a

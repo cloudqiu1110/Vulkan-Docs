@@ -202,10 +202,9 @@ endif::VK_NV_dedicated_allocation[]
 
 include::../api/protos/vkDestroyBuffer.txt[]
 
-  * pname:device is the logical device that destroys the buffer.
-  * pname:buffer is the buffer to destroy.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
+  * pname:device 是销毁缓冲区的逻辑设备。
+  * pname:buffer 是需要被销毁的缓冲区。
+  * pname:pAllocator 控制CPU端内存分配，如 <<memory-allocation, 内存分配 >> 一章详述。
 
 .Valid Usage
 ****
@@ -246,8 +245,7 @@ include::../api/protos/vkCreateBufferView.txt[]
 
   * pname:device 是创建给缓冲区视图的逻辑设备。
   * pname:pCreateInfo 是一个指向 sname:VkBufferViewCreateInfo类型实例的指针，包含用来创建缓冲区对象的参数。
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
+  * pname:pAllocator 控制CPU端内存分配，如 <<memory-allocation, 内存分配 >> 一章详述。
   * pname:pView points to a sname:VkBufferView handle in which the resulting
     buffer view object is returned.
 
@@ -262,7 +260,7 @@ include::../api/structs/VkBufferViewCreateInfo.txt[]
   * pname:sType 是数据结构的类型。
   * pname:pNext is `NULL` or a pointer to an extension-specific structure.
   * pname:flags 被保留使用。
-  * pname:buffer is a sname:VkBuffer on which the view will be created.
+  * pname:buffer 是视图创建所在的 sname:VkBuffer。
   * pname:format is a elink:VkFormat describing the format of the data
     elements in the buffer.
   * pname:offset is an offset in bytes from the base address of the buffer.
@@ -317,8 +315,7 @@ include::../api/protos/vkDestroyBufferView.txt[]
 
   * pname:device is the logical device that destroys the buffer view.
   * pname:bufferView is the buffer view to destroy.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
+  * pname:pAllocator 控制CPU端内存分配，如 <<memory-allocation, 内存分配 >> 一章详述。
 
 .Valid Usage
 ****
@@ -354,13 +351,9 @@ include::../api/handles/VkImage.txt[]
 include::../api/protos/vkCreateImage.txt[]
 
   * pname:device 是创建图像的逻辑设备。
-  * pname:pCreateInfo is a pointer to an instance of the
-    sname:VkImageCreateInfo structure containing parameters to be used to
-    create the image.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
-  * pname:pImage points to a sname:VkImage handle in which the resulting
-    image object is returned.
+  * pname:pCreateInfo 是一个指针，指向一个 sname:VkImageCreateInfo 数据结构实例，它包含了创建图像所需的信息。
+  * pname:pAllocator 控制CPU端内存分配，如 <<memory-allocation, 内存分配 >> 一章详述。
+  * pname:pImage 指向已创建并返回的 sname:VkImage handle。
 
 .Valid Usage
 ****
@@ -997,8 +990,7 @@ include::../api/protos/vkDestroyImage.txt[]
 
   * pname:device 是拥有需被销毁图像的逻辑设备。
   * pname:image 是需被销毁的图像。
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
+  * pname:pAllocator 控制CPU端内存分配，如 <<memory-allocation, 内存分配 >> 一章详述。
 
 .Valid Usage
 ****
@@ -1197,12 +1189,9 @@ include::../api/enums/VkImageViewType.txt[]
 
 include::../api/protos/vkCreateImageView.txt[]
 
-  * pname:device is the logical device that creates the image view.
-  * pname:pCreateInfo is a pointer to an instance of the
-    sname:VkImageViewCreateInfo structure containing parameters to be used
-    to create the image view.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
+  * pname:device 是创建图像视图的逻辑设备。
+  * pname:pCreateInfo 是一个指针，指向一个 sname:VkImageViewCreateInfo 数据结构实例，它包含了创建图像视图所需的信息。
+  * pname:pAllocator 控制CPU端内存分配，如 <<memory-allocation, 内存分配 >> 一章详述。
   * pname:pView points to a sname:VkImageView handle in which the resulting
     image view object is returned.
 
@@ -1693,10 +1682,9 @@ include::../validity/structs/VkComponentMapping.txt[]
 
 include::../api/protos/vkDestroyImageView.txt[]
 
-  * pname:device is the logical device that destroys the image view.
-  * pname:imageView is the image view to destroy.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
+  * pname:device 是销毁图像视图的逻辑设备。
+  * pname:imageView 是需要被销毁的图像视图。
+  * pname:pAllocator 控制CPU端内存分配，如 <<memory-allocation, 内存分配 >> 一章详述。
 
 .Valid Usage
 ****
