@@ -335,12 +335,10 @@ Vulkan实现可能并不支持为了每个同步操作在每个管线阶段进�
 
 某些管线阶段只在支持特定操作集合的队列中可以使用。
 下表陈列了，每个管线阶段标志位，以及队列必须支持的队列兼容性标志。
-When multiple flags are enumerated in the second column of the table, it
-means that the pipeline stage is supported on the queue if it supports any
-of the listed capability flags.
-For further details on queue capabilities see
-<<devsandqueues-physical-device-enumeration,Physical Device Enumeration>>
-and <<devsandqueues-queues,Queues>>.
+当表格的第二列出现了多个标志位，这表示管线阶段被带有其中任意一个标志位的队列所支持，
+向获知有关队列兼容性的更多详细信息，请参考
+<<devsandqueues-physical-device-enumeration, 物理设备枚举 >>
+和 <<devsandqueues-queues, 队列>>.
 
 [[synchronization-pipeline-stages-supported]]
 .Supported pipeline stage flags
@@ -460,7 +458,7 @@ includes accesses via the access types specified in that mask.
 
 // refBegin VkAccessFlagBits Bitmask specifying memory access types that will participate in a memory dependency
 
-Access types that can be set in an access mask include:
+可以被设置的访问类型包含如下：
 
 [[synchronization-access-flags]]
 include::../api/enums/VkAccessFlagBits.txt[]
@@ -581,43 +579,29 @@ endif::VK_NVX_device_generated_commands[]
 [[synchronization-framebuffer-regions]]
 === Framebuffer Region Dependencies
 
-<<synchronization-pipeline-stages, Pipeline stages>> that operate on, or
-with respect to, the framebuffer are collectively the _framebuffer-space_
-pipeline stages.
-These stages are:
+就<<synchronization-pipeline-stages, 管线阶段>> 所操作的缓冲区而言，都是  _framebuffer-space_pipeline 阶段。
+这些阶段如下：
 
   * ename:VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT
   * ename:VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT
   * ename:VK_PIPELINE_STAGE_LATE_FRAGMENT_TESTS_BIT
   * ename:VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT
 
-For these pipeline stages, an execution or memory dependency from the first
-set of operations to the second set can: either be a single
-_framebuffer-global_ dependency, or split into multiple _framebuffer-local_
-dependencies.
-A dependency with non-framebuffer-space pipeline stages is neither
-framebuffer-global nor framebuffer-local.
+对于这些管现阶段而言，从操作的第一个set到第二个set可以是单 _framebuffer-global_ 依赖，也可以被拆分成多个  _framebuffer-local_ 依赖。
 
-A _framebuffer region_ is a set of sample (x, y, layer, sample) coordinates
-that is a subset of the entire framebuffer.
+带有non-framebuffer-space 管现阶段的依赖，既不 framebuffer-global ，也不 framebuffer-local。
 
-A single framebuffer-local dependency guarantees that only for a single
-framebuffer region, the first set of operations and availability operations
-happen-before visibility operations and the second set of operations.
-No ordering guarantees are made between framebuffer regions for a
-framebuffer-local dependency.
+一个 _framebuffer region_ 是一个 sample (x, y, layer, sample) 坐标的集合，是整个缓冲区的一个子集。
 
-A framebuffer-global dependency guarantees that the first set of operations
-for all framebuffer regions happens-before the second set of operations for
-any framebuffer region.
+一个单 framebuffer-local 依赖，保证对于单个缓冲区区域，操作的第一个set与 可用性操作再 可见性操作、操作的第二个set之前发生。
+对于一个framebuffer-local 依赖，不保证 缓冲区区域之间的顺序。
+
+一个framebuffer-global 依赖，保证对所有缓冲区区域的操作的第一个set 在对任何缓冲区区域的第二个set 之前发生。
 
 .注意
 [NOTE]
 ====
-Since fragment invocations are not specified to run in any particular
-groupings, the size of a framebuffer region is implementation-dependent, not
-known to the application, and must: be assumed to be no larger than a single
-sample.
+因为 fragment调用并没有在任何分组中被指定运行，帧缓冲区区域的大小取决于Vulkan实现，应用程序并不知道，而且，必须认为比单个sample要大。
 ====
 
 If a synchronization command includes a pname:dependencyFlags parameter, and
@@ -648,16 +632,11 @@ cache, breaking any potential locality optimizations.
 [[synchronization-implicit]]
 == 隐式同步保障
 
-A small number of implicit ordering guarantees are provided by Vulkan,
-ensuring that the order in which commands are submitted is meaningful, and
-avoiding unnecessary complexity in common operations.
+Vulkan支持少量的隐式顺序保证，确保命令提交的顺序是有意义的，且在常规的操作中避免不必要的复杂性。
 
 [[synchronization-submission-order]]
-_Submission order_ is a fundamental ordering in Vulkan, giving meaning to
-the order in which <<fundamentals-queueoperation-command-types, action and
-synchronization commands>> are recorded and submitted to a single queue.
-Explicit and implicit ordering guarantees between commands in Vulkan all
-work on the premise that this ordering is meaningful.
+_Submission order_ 是Vulkan中基础的排序，对于记录并提交到单个队列的 <<fundamentals-queueoperation-command-types, action and
+synchronization commands>> 的顺序是有意义的。显式的或者隐式的排序保证了，在Vulakn中以此为前提的不同命令之间所有工作，这种排序都是有意义的。
 
 Submission order for any given set of commands is based on the order in
 which they were recorded to command buffers and then submitted.
@@ -713,16 +692,12 @@ command.
 
 // refBegin VkFence Opaque handle to a fence object
 
-Fences are a synchronization primitive that can: be used to insert a
-dependency from a queue to the host.
-Fences have two states - signaled and unsignaled.
-A fence can: be signaled as part of the execution of a
-<<devsandqueues-submission, queue submission>> command.
-Fences can: be unsignaled on the host with flink:vkResetFences.
-Fences can: be waited on by the host with the flink:vkWaitForFences command,
-and the current state can: be queried with flink:vkGetFenceStatus.
+栅栏是同步原语，可以用来在CPU端队列上插入一个依赖。栅栏由两个状态：激发的、未激发的。一个栅栏可以被当作<<devsandqueues-submission, 队列提交 >> 命令
+执行的一部分从而被激发。
+栅栏可以在CPU端被  flink:vkResetFences 设置为 未激发状态。
+栅栏可以在CPU端让 flink:vkWaitForFences 命令等待，且当前的状态可以通过 flink:vkGetFenceStatus 查询。 
 
-Fences are represented by sname:VkFence handles:
+栅栏 可以使用如下  sname:VkFence  handle表示：
 
 include::../api/handles/VkFence.txt[]
 
@@ -734,14 +709,10 @@ To create a fence, call:
 
 include::../api/protos/vkCreateFence.txt[]
 
-  * pname:device is the logical device that creates the fence.
-  * pname:pCreateInfo is a pointer to an instance of the
-    sname:VkFenceCreateInfo structure which contains information about how
-    the fence is to be created.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
-  * pname:pFence points to a handle in which the resulting fence object is
-    returned.
+  * pname:device 是创建栅栏的逻辑设备。
+  * pname:pCreateInfo 是一个指针，指向一个  sname:VkFenceCreateInfo 数据结构的实例，它包含如何创建栅栏的信息。
+  * pname:pAllocator 控制CPU端内存分配，如  <<memory-allocation, 内存分配>> 一章详述。
+  * pname:pFence 指向一个handle，它包含被创建并返回的栅栏对象。
 
 include::../validity/protos/vkCreateFence.txt[]
 
@@ -773,26 +744,22 @@ include::../validity/structs/VkFenceCreateInfo.txt[]
 
 include::../api/protos/vkDestroyFence.txt[]
 
-  * pname:device is the logical device that destroys the fence.
-  * pname:fence is the handle of the fence to destroy.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
+  * pname:device 是销毁栅栏对象的逻辑设备。
+  * pname:fence 是需要被销毁的栅栏的handle。
+  * pname:pAllocator 控制CPU端内存分配，如 <<memory-allocation, 内存分配>> 一章详述。
 
 .正确使用
 ****
-  * All <<devsandqueues-submission, queue submission>> commands that refer
-    to pname:fence must: have completed execution
-  * If sname:VkAllocationCallbacks were provided when pname:fence was
-    created, a compatible set of callbacks must: be provided here
-  * If no sname:VkAllocationCallbacks were provided when pname:fence was
-    created, pname:pAllocator must: be `NULL`
+  * 所有指向 pname:fence的 <<devsandqueues-submission, 队列提交 >> 命令 必须已经完成执行力。
+  * 若 sname:VkAllocationCallbacks 在创建栅栏是被提供，那么在此时需要提供一套兼容的回调函数。
+  * 若在创建栅栏时没有提供 sname:VkAllocationCallbacks，那么这个 pname:pAllocator 必须: 是 `NULL`
 ****
 
 include::../validity/protos/vkDestroyFence.txt[]
 
 // refBegin vkGetFenceStatus Return the status of a fence
 
-To query the status of a fence from the host, call:
+可调用如下命令来查询CPU端栅栏的状态：
 
 include::../api/protos/vkGetFenceStatus.txt[]
 
@@ -810,101 +777,70 @@ with the following return codes:
 | ename:VK_NOT_READY | The fence specified by pname:fence is unsignaled.
 |====
 
-If a <<devsandqueues-submission, queue submission>> command is pending
-execution, then the value returned by this command may: immediately be out
-of date.
+若一个 <<devsandqueues-submission, 队列提交 >> 命令被暂停执行，那么这个命令的返回值可能会立即过期。
 
 include::../validity/protos/vkGetFenceStatus.txt[]
 
 [[synchronization-fences-unsignaling]]
 // refBegin vkResetFences Resets one or more fence objects
 
-To set the state of fences to unsignaled from the host, call:
+可调用如下命令，在CPU端设置栅栏的状态为非激发：
 
 include::../api/protos/vkResetFences.txt[]
 
-  * pname:device is the logical device that owns the fences.
-  * pname:fenceCount is the number of fences to reset.
-  * pname:pFences is a pointer to an array of fence handles to reset.
+  * pname:device 是拥有栅栏的逻辑设备。
+  * pname:fenceCount 是需要被重置的栅栏数量。
+  * pname:pFences 是一个指针，指向一个需要被重置的栅栏的数组。 
 
-When flink:vkResetFences is executed on the host, it defines a _fence
-unsignal operation_ for each fence, which resets the fence to the unsignaled
-state.
+当 flink:vkResetFences 在CPU端被执行，它为每一个栅栏定义了一个 _fence unsignal operation_，它把栅栏设置为非激发状态。
 
-If any member of pname:pFences is already in the unsignaled state when
-flink:vkResetFences is executed, then flink:vkResetFences has no effect on
-that fence.
+若在flink:vkResetFences执行时，pname:pFences数组中任何一个已经处于非激发状态，那么flink:vkResetFences 将对于该栅栏没有效果。
 
 .正确使用
 ****
-  * Any given element of pname:pFences must: not currently be associated
-    with any queue command that has not yet completed execution on that
-    queue
+  * pname:pFences数组中任何元素当前都不能和任何在队列上未执行完成的队列命令关联。
 ****
 
 include::../validity/protos/vkResetFences.txt[]
 
 [[synchronization-fences-signaling]]
-When a fence is submitted to a queue as part of a
-<<devsandqueues-submission, queue submission>> command, it defines a memory
-dependency on the batches that were submitted as part of that command, and
-defines a _fence signal operation_ which sets the fence to the signaled
-state.
+当一个栅栏被当作 <<devsandqueues-submission, 队列提交>> 命令的一部分，提交到队列时，它在被当作该命令的一部分的批量任务上定义了一个内存依赖，
+且定义了一个 _fence signal operation_，该operation设置栅栏为激发状态。
 
-The first <<synchronization-dependencies-scopes, synchronization scope>>
-includes every batch submitted in the same <<devsandqueues-submission, queue
-submission>> command.
-Fence signal operations that are defined by flink:vkQueueSubmit additionally
-include in the first synchronization scope all previous queue submissions to
-the same queue via flink:vkQueueSubmit.
+第一个<<synchronization-dependencies-scopes, 同步范围>>包含同一个 <<devsandqueues-submission, queue
+submission>> 内提交的批量任务。
+通过 flink:vkQueueSubmit 定义的栅栏激发操作此外还包含在第一个同步范围内 通过flink:vkQueueSubmit提交到同一个队列的之前的队列提交。
 
-The second <<synchronization-dependencies-scopes, synchronization scope>>
-only includes the fence signal operation.
+第二个<<synchronization-dependencies-scopes, 同步范围>>只包含栅栏激发操作。
 
-The first <<synchronization-dependencies-access-scopes, access scope>>
-includes all memory access performed by the device.
+第一个<<synchronization-dependencies-access-scopes,  访问范围>>包含此设备操纵的所有内存访问。
 
-The second <<synchronization-dependencies-access-scopes, access scope>> is
-empty.
+第二个 <<synchronization-dependencies-access-scopes, 访问范围>> 是空的。
 
 // refBegin vkWaitForFences Wait for one or more fences to become signaled
 
-To wait for one or more fences to enter the signaled state on the host,
-call:
+在CPU端，可调用如下命令来等待一个或者多个栅栏来进入激发状态：
 
 include::../api/protos/vkWaitForFences.txt[]
 
-  * pname:device is the logical device that owns the fences.
-  * pname:fenceCount is the number of fences to wait on.
-  * pname:pFences is a pointer to an array of pname:fenceCount fence
-    handles.
-  * pname:waitAll is the condition that must: be satisfied to successfully
-    unblock the wait.
-    If pname:waitAll is ename:VK_TRUE, then the condition is that all fences
-    in pname:pFences are signaled.
-    Otherwise, the condition is that at least one fence in pname:pFences is
-    signaled.
-  * pname:timeout is the timeout period in units of nanoseconds.
-    pname:timeout is adjusted to the closest value allowed by the
-    implementation-dependent timeout accuracy, which may: be substantially
-    longer than one nanosecond, and may: be longer than the requested
-    period.
+  * pname:device 是拥有栅栏的逻辑设备。
+  * pname:fenceCount 是需要等待的栅栏的数量。
+  * pname:pFences 是指针，指向 pname:fenceCount 个栅栏的handle的数组。    
+  * pname:waitAll 是接触等待必须要满足的条件。
+	 若pname:waitAll 是 ename:VK_TRUE，那么条件就是pname:pFences中所有的栅栏都是激发状态的。
+	 否则，条件就是pname:pFences中至少一个栅栏是激发状态的。
+  * pname:timeout 是过期时间，单位为纳秒。pname:timeout 被调整为Vulkan实现所允许的精确度下最接近的值，故可能比一纳秒也大很多，
+     所以，真实过期时间比给定的时间要长。  
 
-If the condition is satisfied when fname:vkWaitForFences is called, then
-fname:vkWaitForFences returns immediately.
-If the condition is not satisfied at the time fname:vkWaitForFences is
-called, then fname:vkWaitForFences will block and wait up to pname:timeout
-nanoseconds for the condition to become satisfied.
+若调用 fname:vkWaitForFences时，条件都满足了，那么fname:vkWaitForFences 直接立刻返回。
+若调用 fname:vkWaitForFences时，条件没有被满足，那么fname:vkWaitForFences 将阻塞，并且等待pname:timeout 纳秒，以检测条件是否被满足。
 
-If pname:timeout is zero, then fname:vkWaitForFences does not wait, but
-simply returns the current state of the fences.
-ename:VK_TIMEOUT will be returned in this case if the condition is not
-satisfied, even though no actual wait was performed.
 
-If the specified timeout period expires before the condition is satisfied,
-fname:vkWaitForFences returns ename:VK_TIMEOUT.
-If the condition is satisfied before pname:timeout nanoseconds has expired,
-fname:vkWaitForFences returns ename:VK_SUCCESS.
+若 pname:timeout 为0，那么 fname:vkWaitForFences 不等待，但是将返回栅栏当前的状态。
+若条件不满足，将返回ename:VK_TIMEOUT，即使实际上并没有执行等待。
+
+若条件被满足之前指定的timeout 时间过期，fname:vkWaitForFences 将返回 ename:VK_TIMEOUT。
+若在 pname:timeout纳秒过期之前条件已经满足，fname:vkWaitForFences 将返回 ename:VK_SUCCESS。
 
 include::../validity/protos/vkWaitForFences.txt[]
 
@@ -947,16 +883,12 @@ endif::VK_EXT_display_control[]
 
 // refBegin VkSemaphore Opaque handle to a semaphore object
 
-Semaphores are a synchronization primitive that can: be used to insert a
-dependency between batches submitted to queues.
-Semaphores have two states - signaled and unsignaled.
-The state of a semaphore can: be signaled after execution of a batch of
-commands is completed.
-A batch can: wait for a semaphore to become signaled before it begins
-execution, and the semaphore is also unsignaled before the batch begins
-execution.
+信号量是同步原语，可用来在提交到队列的批量任务之间插入依赖。
+信号量有两种状态：激发的、未激发的。
+当批量命令执行完成后，信号量可以被激发。
+批量任务在真正执行前，可以等待信号量被激发，且信号量在批量任务开始执行时是未激发的。
 
-Semaphores are represented by sname:VkSemaphore handles:
+信号量可以使用 sname:VkSemaphore handle表示:
 
 include::../api/handles/VkSemaphore.txt[]
 
@@ -968,16 +900,12 @@ To create a semaphore, call:
 
 include::../api/protos/vkCreateSemaphore.txt[]
 
-  * pname:device is the logical device that creates the semaphore.
-  * pname:pCreateInfo is a pointer to an instance of the
-    sname:VkSemaphoreCreateInfo structure which contains information about
-    how the semaphore is to be created.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
-  * pname:pSemaphore points to a handle in which the resulting semaphore
-    object is returned.
+  * pname:device 是创建信号量的逻辑设备。
+  * pname:pCreateInfo 是一个指针，指向一个 sname:VkSemaphoreCreateInfo 数据结构实例，它包含如何创建信号量的信息。    
+  * pname:pAllocator 控制CPU端内存分配，如 <<memory-allocation, 内存分配 >> 一章详述。
+  * pname:pSemaphore 指向被返回的信号量对象的handle。
 
-When created, the semaphore is in the unsignaled state.
+当创建好后，信号量处于未激发状态。
 
 include::../validity/protos/vkCreateSemaphore.txt[]
 
@@ -995,14 +923,13 @@ include::../validity/structs/VkSemaphoreCreateInfo.txt[]
 
 // refBegin vkDestroySemaphore Destroy a semaphore object
 
-To destroy a semaphore, call:
+可调用如下命令来销毁信号量：
 
 include::../api/protos/vkDestroySemaphore.txt[]
 
-  * pname:device is the logical device that destroys the semaphore.
-  * pname:semaphore is the handle of the semaphore to destroy.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
+  * pname:device 是销毁信号量的逻辑设备。
+  * pname:semaphore 是需要被销毁的信号量的handle。
+  * pname:pAllocator 控制CPU端内存分配，如 <<memory-allocation, 内存分配 >> 一章详述。
 
 .正确使用
 ****
@@ -1144,18 +1071,13 @@ endif::VK_KHR_swapchain[]
 
 // refBegin VkEvent Opaque handle to a event object
 
-Events are a synchronization primitive that can: be used to insert a
-fine-grained dependency between commands submitted to the same queue, or
-between the host and a queue.
-Events have two states - signaled and unsignaled.
-An application can: signal an event, or unsignal it, on either the host or
-the device.
-A device can: wait for an event to become signaled before executing further
-operations.
-No command exists to wait for an event to become signaled on the host, but
-the current state of an event can: be queried.
+事件是它同步原语， 可用于在提交到同一个队列的不同命令之间，或者在CPU端与队列之间，插入高度优化的依赖。
+事件有两种状态：激发的、未激发的。
+应用程序可以在CPU端或者设备端激发一个事件，或者取消激发状态。
+设备可在进一步执行其他操作之前等待事件直至其变为激发被激发。
+在CPU端没有命令等待事件变被激发，事件的当前状态也是可以被查询。
 
-Events are represented by sname:VkEvent handles:
+使用sname:VkEvent handle表示事件:
 
 include::../api/handles/VkEvent.txt[]
 
@@ -1167,16 +1089,12 @@ To create an event, call:
 
 include::../api/protos/vkCreateEvent.txt[]
 
-  * pname:device is the logical device that creates the event.
-  * pname:pCreateInfo is a pointer to an instance of the
-    sname:VkEventCreateInfo structure which contains information about how
-    the event is to be created.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
-  * pname:pEvent points to a handle in which the resulting event object is
-    returned.
+  * pname:device 是创建事件的逻辑设备。
+  * pname:pCreateInfo 是一个指针，指向一个 sname:VkEventCreateInfo 数据结构实例，它包含了创建事件所需的信息。
+  * pname:pAllocator 控制CPU端内存分配，如 <<memory-allocation, 内存分配 >> 一章详述。
+  * pname:pEvent 指向被创建的事件对象的handle。
 
-When created, the event object is in the unsignaled state.
+创建完成后，事件对象处于未激发状态。
 
 include::../validity/protos/vkCreateEvent.txt[]
 
@@ -1198,10 +1116,9 @@ To destroy an event, call:
 
 include::../api/protos/vkDestroyEvent.txt[]
 
-  * pname:device is the logical device that destroys the event.
-  * pname:event is the handle of the event to destroy.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
+  * pname:device 是销毁事件的逻辑设备。
+  * pname:event 是需要被销毁的事件。
+  * pname:pAllocator 控制CPU端内存分配，如 <<memory-allocation, 内存分配 >> 一章详述。
 
 .正确使用
 ****
@@ -1217,12 +1134,12 @@ include::../validity/protos/vkDestroyEvent.txt[]
 
 // refBegin vkGetEventStatus Retrieve the status of an event object
 
-To query the state of an event from the host, call:
+可在CU端使用如下命令来查询事件的状态：
 
 include::../api/protos/vkGetEventStatus.txt[]
 
-  * pname:device is the logical device that owns the event.
-  * pname:event is the handle of the event to query.
+  * pname:device 是拥有该事件的逻辑设备。
+  * pname:event 是需要被查询的事件handle。
 
 Upon success, fname:vkGetEventStatus returns the state of the event object
 with the following return codes:
@@ -1250,12 +1167,12 @@ include::../validity/protos/vkGetEventStatus.txt[]
 [[synchronization-events-signaling-host]]
 // refBegin vkSetEvent Set an event to signaled state
 
-To set the state of an event to signaled from the host, call:
+可通过如下命令，在CPU端来设置事件的状态为 激发状态：
 
 include::../api/protos/vkSetEvent.txt[]
 
-  * pname:device is the logical device that owns the event.
-  * pname:event is the event to set.
+  * pname:device 是拥有该事件的逻辑设备。
+  * pname:event 是需要被设置的事件。
 
 When flink:vkSetEvent is executed on the host, it defines an _event signal
 operation_ which sets the event to the signaled state.
@@ -1269,19 +1186,16 @@ include::../validity/protos/vkSetEvent.txt[]
 [[synchronization-events-unsignaling-host]]
 // refBegin vkResetEvent Reset an event to non-signaled state
 
-To set the state of an event to unsignaled from the host, call:
+可通过如下命令，在CPU端来设置事件的状态为 未激发状态：
 
 include::../api/protos/vkResetEvent.txt[]
 
-  * pname:device is the logical device that owns the event.
-  * pname:event is the event to reset.
+  * pname:device 是拥有该事件的逻辑设备。
+  * pname:event 是需要被重置的事件。
 
-When flink:vkResetEvent is executed on the host, it defines an _event
-unsignal operation_ which resets the event to the unsignaled state.
+当在CPU端执行 flink:vkResetEvent 时，它定义了一个 _event unsignal operation_ ，它会把事件重置为非激发状态。
+若在执行 flink:vkResetEvent时，pname:event 已经处于非激发状态，那么 flink:vkResetEvent没有任何效果，不会导致事件取消激发操作。
 
-If pname:event is already in the unsignaled state when flink:vkResetEvent is
-executed, then flink:vkResetEvent has no effect, and no event unsignal
-operation occurs.
 
 .正确使用
 ****
@@ -1291,24 +1205,20 @@ operation occurs.
 
 include::../validity/protos/vkResetEvent.txt[]
 
-
-The state of an event can: also be updated on the device by commands
-inserted in command buffers.
+在GPU端，也可通过如下的被插入到命令缓冲区的命令，来设置事件的状态:
 
 [[synchronization-events-signaling-device]]
 // refBegin vkCmdSetEvent Set an event object to signaled state
 
-To set the state of an event to signaled from a device, call:
+可使用如下命令在GPU端 来激发事件：
 
 include::../api/protos/vkCmdSetEvent.txt[]
 
-  * pname:commandBuffer is the command buffer into which the command is
-    recorded.
-  * pname:event is the event that will be signaled.
-  * pname:stageMask specifies the <<synchronization-pipeline-stages,source
-    stage mask>> used to determine when the pname:event is signaled.
+  * pname:commandBuffer 是命令被记录所在的命令缓冲区。
+  * pname:event 是将被激发的事件。
+  * pname:stageMask 指定了 用来决定何时激发 pname:event 的 <<synchronization-pipeline-stages,源阶段掩码>>。
 
-When flink:vkCmdSetEvent is submitted to a queue, it defines an execution
+当flink:vkCmdSetEvent 被提交到队列，它在命令定义了一个执行依赖， submitted to a queue, it defines an execution
 dependency on commands that were submitted before it, and defines an event
 signal operation which sets the event to the signaled state.
 
@@ -1322,9 +1232,8 @@ mask>> specified by pname:stageMask.
 The second <<synchronization-dependencies-scopes, synchronization scope>>
 includes only the event signal operation.
 
-If pname:event is already in the signaled state when flink:vkCmdSetEvent is
-executed on the device, then flink:vkCmdSetEvent has no effect, no event
-signal operation occurs, and no execution dependency is generated.
+若在GPU执行 flink:vkCmdSetEvent 时， pname:event 已经处于激发状态，那么flink:vkCmdSetEvent 没有任何作用，将不会导致任何事件激发操作，
+不会生成执行依赖。
 
 .正确使用
 ****
@@ -1343,15 +1252,14 @@ include::../validity/protos/vkCmdSetEvent.txt[]
 [[synchronization-events-unsignaling-device]]
 // refBegin vkCmdResetEvent Reset an event object to non-signaled state
 
-To set the state of an event to unsignaled from a device, call:
+
+可使用如下命令在GPU端 设置事件为未激发状态：
 
 include::../api/protos/vkCmdResetEvent.txt[]
 
-  * pname:commandBuffer is the command buffer into which the command is
-    recorded.
-  * pname:event is the event that will be unsignaled.
-  * pname:stageMask specifies the <<synchronization-pipeline-stages,source
-    stage mask>> used to determine when the pname:event is unsignaled.
+  * pname:commandBuffer 是命令被记录所在的命令缓冲区。
+  * pname:event 是需被被设置为为激发状态的事件。
+  * pname:stageMask 指定了 用来决定何时取消激发 pname:event 的 <<synchronization-pipeline-stages,源阶段掩码>>。
 
 When flink:vkCmdResetEvent is submitted to a queue, it defines an execution
 dependency on commands that were submitted before it, and defines an event
@@ -1395,8 +1303,7 @@ call:
 [[synchronization-events-waiting-device]]
 include::../api/protos/vkCmdWaitEvents.txt[]
 
-  * pname:commandBuffer is the command buffer into which the command is
-    recorded.
+  * pname:commandBuffer是命令被记录所在的命令缓冲区。
   * pname:eventCount is the length of the pname:pEvents array.
   * pname:pEvents is an array of event object handles to wait on.
   * pname:srcStageMask is the <<synchronization-pipeline-stages, source
@@ -1532,22 +1439,17 @@ include::../validity/protos/vkCmdWaitEvents.txt[]
 [[synchronization-pipeline-barriers]]
 == 管线屏障
 
-flink:vkCmdPipelineBarrier is a synchronization command that inserts a
-dependency between commands submitted to the same queue, or between commands
-in the same subpass.
+flink:vkCmdPipelineBarrier 是一个同步命令，它在提交到同一个队列的不同命令之间插入一个依赖，或者在同一个subpass内的不同命令之间插入一个依赖。
 
 // refBegin vkCmdPipelineBarrier Insert a memory dependency
 
-To record a pipeline barrier, call:
+可调用如下命令来记录一个管线屏障：
 
 include::../api/protos/vkCmdPipelineBarrier.txt[]
 
-  * pname:commandBuffer is the command buffer into which the command is
-    recorded.
-  * pname:srcStageMask defines a <<synchronization-pipeline-stages-masks,
-    source stage mask>>.
-  * pname:dstStageMask defines a <<synchronization-pipeline-stages-masks,
-    destination stage mask>>.
+  * pname:commandBuffer 是命令被记录所在的命令缓冲区。
+  * pname:srcStageMask 定义了一个 <<synchronization-pipeline-stages-masks, 源阶段掩码>>。
+  * pname:dstStageMask 定义了一个 <<synchronization-pipeline-stages-masks, 目标阶段掩码>>。
   * pname:dependencyFlags is a bitmask of elink:VkDependencyFlagBits.
     The bits that can: be included in pname:dependencyFlags are:
 +
@@ -2126,7 +2028,7 @@ after a release or acquire operation.
 
 
 [[synchronization-wait-idle]]
-== 等待空操作（Wait Idle Operations）
+== 等待空闲操作
 
 // refBegin vkQueueWaitIdle Wait for a queue to become idle
 
@@ -2135,7 +2037,7 @@ given queue, call:
 
 include::../api/protos/vkQueueWaitIdle.txt[]
 
-  * pname:queue is the queue on which to wait.
+  * pname:queue 是等待行为所在的队列。
 
 fname:vkQueueWaitIdle is equivalent to submitting a fence to a queue and
 waiting with an infinite timeout for that fence to signal.
@@ -2149,7 +2051,7 @@ all queues on a given logical device, call:
 
 include::../api/protos/vkDeviceWaitIdle.txt[]
 
-  * pname:device is the logical device to idle.
+  * pname:device 是需要闲置的逻辑设备。
 
 fname:vkDeviceWaitIdle is equivalent to calling fname:vkQueueWaitIdle for
 all queues owned by pname:device.
@@ -2158,7 +2060,7 @@ include::../validity/protos/vkDeviceWaitIdle.txt[]
 
 
 [[synchronization-submission-host-writes]]
-== Host Write Ordering Guarantees
+== CPU端写入顺序保证
 
 When batches of command buffers are submitted to a queue via
 flink:vkQueueSubmit, it defines a memory dependency with prior host
