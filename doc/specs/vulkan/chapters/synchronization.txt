@@ -394,7 +394,7 @@ Logically earlier/later stages are not included when defining the
 The order of pipeline stages depends on the particular pipeline; graphics,
 compute, transfer or host.
 
-For the graphics pipeline, the following stages occur in this order:
+对于图形管线，如下阶段按顺序发生：
 
   * ename:VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT
   * ename:VK_PIPELINE_STAGE_DRAW_INDIRECT_BIT
@@ -409,21 +409,20 @@ For the graphics pipeline, the following stages occur in this order:
   * ename:VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT
   * ename:VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT
 
-For the compute pipeline, the following stages occur in this order:
+对于计算管线，如下阶段按顺序发生：
 
   * ename:VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT
   * ename:VK_PIPELINE_STAGE_DRAW_INDIRECT_BIT
   * ename:VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT
   * ename:VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT
 
-For the transfer pipeline, the following stages occur in this order:
+对于转换管线，如下阶段按顺序发生：
 
   * ename:VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT
   * ename:VK_PIPELINE_STAGE_TRANSFER_BIT
   * ename:VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT
 
-For host operations, only one pipeline stage occurs, so no order is
-guaranteed:
+对于CPU端操作，只会有一个阶段会发生，所以不需要保证顺序：
 
   * ename:VK_PIPELINE_STAGE_HOST_BIT
 
@@ -449,10 +448,10 @@ Each access type corresponds to a bit flag in slink:VkAccessFlagBits.
 Some synchronization commands take sets of access types as parameters to
 define the <<synchronization-dependencies-access-scopes, access scopes>> of
 a memory dependency.
-If a synchronization command includes a source access mask, its first
+If a synchronization command includes a 源访问掩码, its first
 <<synchronization-dependencies-access-scopes, access scope>> only includes
 accesses via the access types specified in that mask.
-Similarly, if a synchronization command includes a destination access mask,
+Similarly, if a synchronization command includes a 目标访问掩码,
 its second <<synchronization-dependencies-access-scopes, access scope>> only
 includes accesses via the access types specified in that mask.
 
@@ -516,7 +515,7 @@ include::../api/enums/VkAccessFlagBits.txt[]
     These entities include the Vulkan device and host, but may: also include
     entities external to the Vulkan device or otherwise not part of the core
     Vulkan pipeline.
-    When included in a destination access mask, makes all available writes
+    When included in a 目标访问掩码, makes all available writes
     visible to all future read accesses on entities known to the Vulkan
     device.
   * ename:VK_ACCESS_MEMORY_WRITE_BIT: Write access via non-specific
@@ -524,9 +523,9 @@ include::../api/enums/VkAccessFlagBits.txt[]
     These entities include the Vulkan device and host, but may: also include
     entities external to the Vulkan device or otherwise not part of the core
     Vulkan pipeline.
-    When included in a source access mask, all writes that are performed by
+    When included in a 源访问掩码, all writes that are performed by
     entities known to the Vulkan device are made available.
-    When included in a destination access mask, makes all available writes
+    When included in a 目标访问掩码, makes all available writes
     visible to all future write accesses on entities known to the Vulkan
     device.
 ifdef::VK_NVX_device_generated_commands[]
@@ -537,7 +536,7 @@ ifdef::VK_NVX_device_generated_commands[]
 endif::VK_NVX_device_generated_commands[]
 
 Certain access types are only performed by a subset of pipeline stages.
-Any synchronization command that takes both stage masks and access masks
+Any synchronization command that takes both stage masks and 访问掩码
 uses both to define the <<synchronization-dependencies-access-scopes, access
 scopes>> - only the specified access types performed by the specified stages
 are included in the access scope.
@@ -1112,7 +1111,7 @@ include::../validity/structs/VkEventCreateInfo.txt[]
 
 // refBegin vkDestroyEvent Destroy an event object
 
-To destroy an event, call:
+调用如下命令来销毁事件：
 
 include::../api/protos/vkDestroyEvent.txt[]
 
@@ -1174,12 +1173,9 @@ include::../api/protos/vkSetEvent.txt[]
   * pname:device 是拥有该事件的逻辑设备。
   * pname:event 是需要被设置的事件。
 
-When flink:vkSetEvent is executed on the host, it defines an _event signal
-operation_ which sets the event to the signaled state.
+当 flink:vkSetEvent 在CPU端执行是，它定义了一个  _event signal operation_ ，此操作设置事件为已激发状态。
 
-If pname:event is already in the signaled state when flink:vkSetEvent is
-executed, then flink:vkSetEvent has no effect, and no event signal operation
-occurs.
+ 在 flink:vkSetEvent 被执行时，若 pname:event 已经处于激发状态，那么 flink:vkSetEvent 没有任何效果，不会导致事件激发操作。
 
 include::../validity/protos/vkSetEvent.txt[]
 
@@ -1218,9 +1214,7 @@ include::../api/protos/vkCmdSetEvent.txt[]
   * pname:event 是将被激发的事件。
   * pname:stageMask 指定了 用来决定何时激发 pname:event 的 <<synchronization-pipeline-stages,源阶段掩码>>。
 
-当flink:vkCmdSetEvent 被提交到队列，它在命令定义了一个执行依赖， submitted to a queue, it defines an execution
-dependency on commands that were submitted before it, and defines an event
-signal operation which sets the event to the signaled state.
+当flink:vkCmdSetEvent 被提交到队列，它在被提交到队列的命令上 定义了一个执行依赖， 且定义了一个时间激发操作，将设置时间为已激发状态。
 
 The first <<synchronization-dependencies-scopes, synchronization scope>>
 includes every command previously submitted to the same queue, including
@@ -1238,10 +1232,10 @@ includes only the event signal operation.
 .正确使用
 ****
   * pname:stageMask must: not include ename:VK_PIPELINE_STAGE_HOST_BIT
-  * If the <<features-features-geometryShader,geometry shaders>> feature is
+  * If the <<features-features-geometryShader, 几何着色器>> feature is
     not enabled, pname:stageMask must: not contain
     ename:VK_PIPELINE_STAGE_GEOMETRY_SHADER_BIT
-  * If the <<features-features-tessellationShader,tessellation shaders>>
+  * If the <<features-features-tessellationShader, 细分着色器>>
     feature is not enabled, pname:stageMask must: not contain
     ename:VK_PIPELINE_STAGE_TESSELLATION_CONTROL_SHADER_BIT or
     ename:VK_PIPELINE_STAGE_TESSELLATION_EVALUATION_SHADER_BIT
@@ -1282,10 +1276,10 @@ event unsignal operation occurs, and no execution dependency is generated.
 .正确使用
 ****
   * pname:stageMask must: not include ename:VK_PIPELINE_STAGE_HOST_BIT
-  * If the <<features-features-geometryShader,geometry shaders>> feature is
+  * If the <<features-features-geometryShader, 几何着色器>> feature is
     not enabled, pname:stageMask must: not contain
     ename:VK_PIPELINE_STAGE_GEOMETRY_SHADER_BIT
-  * If the <<features-features-tessellationShader,tessellation shaders>>
+  * If the <<features-features-tessellationShader, 细分着色器>>
     feature is not enabled, pname:stageMask must: not contain
     ename:VK_PIPELINE_STAGE_TESSELLATION_CONTROL_SHADER_BIT or
     ename:VK_PIPELINE_STAGE_TESSELLATION_EVALUATION_SHADER_BIT
@@ -1297,15 +1291,14 @@ include::../validity/protos/vkCmdResetEvent.txt[]
 
 // refBegin vkCmdWaitEvents Wait for one or more events and insert a set of memory
 
-To wait for one or more events to enter the signaled state on a device,
-call:
+可调用如下命令来在一个设备上等待一个或者多个事件进入激发状态：
 
 [[synchronization-events-waiting-device]]
 include::../api/protos/vkCmdWaitEvents.txt[]
 
   * pname:commandBuffer是命令被记录所在的命令缓冲区。
-  * pname:eventCount is the length of the pname:pEvents array.
-  * pname:pEvents is an array of event object handles to wait on.
+  * pname:eventCount 是数组pname:pEvents array的长度。
+  * pname:pEvents 是需要被等待的事件对象handle的数组。
   * pname:srcStageMask is the <<synchronization-pipeline-stages, source
     stage mask>>
   * pname:dstStageMask is the <<synchronization-pipeline-stages, destination
@@ -1323,8 +1316,7 @@ include::../api/protos/vkCmdWaitEvents.txt[]
   * pname:pImageMemoryBarriers is a pointer to an array of
     slink:VkImageMemoryBarrier structures.
 
-When fname:vkCmdWaitEvents is submitted to a queue, it defines a memory
-dependency between prior event signal operations, and subsequent commands.
+当 fname:vkCmdWaitEvents 被提交到队列，它在之前的事件激发操作与稍后的命令之间 定义了一个内存依赖。 
 
 The first synchronization scope only includes event signal operations that
 operate on members of pname:pEvents, and the operations that happened-before
@@ -1394,17 +1386,17 @@ semaphore).
     parameter used in previous calls to fname:vkCmdSetEvent with any of the
     members of pname:pEvents and ename:VK_PIPELINE_STAGE_HOST_BIT if any of
     the members of pname:pEvents was set using fname:vkSetEvent
-  * If the <<features-features-geometryShader,geometry shaders>> feature is
+  * If the <<features-features-geometryShader, 几何着色器>> feature is
     not enabled, pname:srcStageMask must: not contain
     ename:VK_PIPELINE_STAGE_GEOMETRY_SHADER_BIT
-  * If the <<features-features-geometryShader,geometry shaders>> feature is
+  * If the <<features-features-geometryShader, 几何着色器>> feature is
     not enabled, pname:dstStageMask must: not contain
     ename:VK_PIPELINE_STAGE_GEOMETRY_SHADER_BIT
-  * If the <<features-features-tessellationShader,tessellation shaders>>
+  * If the <<features-features-tessellationShader,  细分着色器>>
     feature is not enabled, pname:srcStageMask must: not contain
     ename:VK_PIPELINE_STAGE_TESSELLATION_CONTROL_SHADER_BIT or
     ename:VK_PIPELINE_STAGE_TESSELLATION_EVALUATION_SHADER_BIT
-  * If the <<features-features-tessellationShader,tessellation shaders>>
+  * If the <<features-features-tessellationShader, 细分着色器>>
     feature is not enabled, pname:dstStageMask must: not contain
     ename:VK_PIPELINE_STAGE_TESSELLATION_CONTROL_SHADER_BIT or
     ename:VK_PIPELINE_STAGE_TESSELLATION_EVALUATION_SHADER_BIT
@@ -1460,22 +1452,14 @@ include::../api/enums/VkDependencyFlagBits.txt[]
   ** ename:VK_DEPENDENCY_BY_REGION_BIT signifies that dependencies will be
      <<synchronization-framebuffer-regions, framebuffer-local>>.
 
-  * pname:memoryBarrierCount is the length of the pname:pMemoryBarriers
-    array.
-  * pname:pMemoryBarriers is a pointer to an array of slink:VkMemoryBarrier
-    structures.
-  * pname:bufferMemoryBarrierCount is the length of the
-    pname:pBufferMemoryBarriers array.
-  * pname:pBufferMemoryBarriers is a pointer to an array of
-    slink:VkBufferMemoryBarrier structures.
-  * pname:imageMemoryBarrierCount is the length of the
-    pname:pImageMemoryBarriers array.
-  * pname:pImageMemoryBarriers is a pointer to an array of
-    slink:VkImageMemoryBarrier structures.
+  * pname:memoryBarrierCount 是数组 pname:pMemoryBarriers的长度。
+  * pname:pMemoryBarriers 是一个指针，指向一个slink:VkMemoryBarrier 数据类型的数组。
+  * pname:bufferMemoryBarrierCount 是数组 pname:pBufferMemoryBarriers 的长度。
+  * pname:pBufferMemoryBarriers 是一个指针，指向一个 slink:VkBufferMemoryBarrier 数据类型的数组。
+  * pname:imageMemoryBarrierCount 是数组 pname:pImageMemoryBarriers 的长度。
+  * pname:pImageMemoryBarriers 是一个指针，指向一个slink:VkImageMemoryBarrier 数据类型的数组。
 
-When flink:vkCmdPipelineBarrier is submitted to a queue, it defines a memory
-dependency between commands that were submitted before it, and those
-submitted after it.
+当 flink:vkCmdPipelineBarrier 被提交到队列，它在命令被提交到队列之前与之后的命令之间 定义了一个内存依赖。
 
 If flink:vkCmdPipelineBarrier was recorded outside a render pass instance,
 the first <<synchronization-dependencies-scopes, synchronization scope>>
@@ -1531,25 +1515,14 @@ framebuffer-space>> pipeline stages is
 
 .正确使用
 ****
-  * If the <<features-features-geometryShader,geometry shaders>> feature is
-    not enabled, pname:srcStageMask must: not contain
-    ename:VK_PIPELINE_STAGE_GEOMETRY_SHADER_BIT
-  * If the <<features-features-geometryShader,geometry shaders>> feature is
-    not enabled, pname:dstStageMask must: not contain
-    ename:VK_PIPELINE_STAGE_GEOMETRY_SHADER_BIT
-  * If the <<features-features-tessellationShader,tessellation shaders>>
-    feature is not enabled, pname:srcStageMask must: not contain
-    ename:VK_PIPELINE_STAGE_TESSELLATION_CONTROL_SHADER_BIT or
+  * 若  <<features-features-geometryShader, 几何着色器>> 特性没有被启用，pname:srcStageMask 必须: 不能包含 ename:VK_PIPELINE_STAGE_GEOMETRY_SHADER_BIT
+  * 若 <<features-features-geometryShader,几何着色器>> 特性没有被启用， pname:dstStageMask 必须: 不能包含 ename:VK_PIPELINE_STAGE_GEOMETRY_SHADER_BIT
+  * 若 <<features-features-tessellationShader,  细分着色器>> 特性没有被启用，pname:srcStageMask必须: 不能包含 ename:VK_PIPELINE_STAGE_TESSELLATION_CONTROL_SHADER_BIT或者
     ename:VK_PIPELINE_STAGE_TESSELLATION_EVALUATION_SHADER_BIT
-  * If the <<features-features-tessellationShader,tessellation shaders>>
-    feature is not enabled, pname:dstStageMask must: not contain
-    ename:VK_PIPELINE_STAGE_TESSELLATION_CONTROL_SHADER_BIT or
+  * 若 <<features-features-tessellationShader,  细分着色器>>特性没有被启用，pname:dstStageMask 必须: 不能包含 ename:VK_PIPELINE_STAGE_TESSELLATION_CONTROL_SHADER_BIT 或者
     ename:VK_PIPELINE_STAGE_TESSELLATION_EVALUATION_SHADER_BIT
-  * If fname:vkCmdPipelineBarrier is called within a render pass instance,
-    the render pass must: have been created with a sname:VkSubpassDependency
-    instance in pname:pDependencies that expresses a dependency from the
-    current subpass to itself.
-    Additionally:
+  * 若 fname:vkCmdPipelineBarrier 在一个render pass实例内被调用， 此 render pass 在创建时必须: 与当前subpass自身存在一个 sname:VkSubpassDependency 
+    另外:
   ** pname:srcStageMask must: contain a subset of the bit values in the
      pname:srcStageMask member of that instance of sname:VkSubpassDependency
   ** pname:dstStageMask must: contain a subset of the bit values in the
@@ -1637,7 +1610,7 @@ ename:VK_DEPENDENCY_BY_REGION_BIT.
 
 A fname:vkCmdPipelineBarrier command inside a render pass instance must: be
 a _subset_ of one of the self-dependencies of the subpass it is used in,
-meaning that the stage masks and access masks must: each include only a
+meaning that the stage masks and 访问掩码 must: each include only a
 subset of the bits of the corresponding mask in that self-dependency.
 If the self-dependency has ename:VK_DEPENDENCY_BY_REGION_BIT set, then so
 must: the pipeline barrier.
@@ -1680,18 +1653,15 @@ include::../api/structs/VkMemoryBarrier.txt[]
 
   * pname:sType 是数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
-  * pname:srcAccessMask defines a <<synchronization-access-masks, source
-    access mask>>.
-  * pname:dstAccessMask defines a <<synchronization-access-masks,
-    destination access mask>>.
+  * pname:srcAccessMask 定义了一个 <<synchronization-access-masks, 源访问掩码>>.
+  * pname:dstAccessMask 定义了一个<<synchronization-access-masks, 目标访问掩码>>.
 
 The first <<synchronization-dependencies-access-scopes, access scope>> is
 limited to access types in the <<synchronization-access-masks, source access
 mask>> specified by pname:srcAccessMask.
 
 The second <<synchronization-dependencies-access-scopes, access scope>> is
-limited to access types in the <<synchronization-access-masks, destination
-access mask>> specified by pname:dstAccessMask.
+limited to access types in the <<synchronization-access-masks, 目标访问掩码>> specified by pname:dstAccessMask.
 
 include::../validity/structs/VkMemoryBarrier.txt[]
 
@@ -1717,10 +1687,8 @@ include::../api/structs/VkBufferMemoryBarrier.txt[]
 
   * pname:sType 是数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
-  * pname:srcAccessMask defines a <<synchronization-access-masks, source
-    access mask>>.
-  * pname:dstAccessMask defines a <<synchronization-access-masks,
-    destination access mask>>.
+  * pname:srcAccessMask 定义了一个 <<synchronization-access-masks, 源访问掩码>>.
+  * pname:dstAccessMask 定义了一个<<synchronization-access-masks, 目标访问掩码>>.
   * pname:srcQueueFamilyIndex is the source queue family for a
     <<synchronization-queue-transfers, queue family ownership transfer>>.
   * pname:dstQueueFamilyIndex is the destination queue family for a
@@ -1736,7 +1704,7 @@ include::../api/structs/VkBufferMemoryBarrier.txt[]
 
 The first <<synchronization-dependencies-access-scopes, access scope>> is
 limited to access to memory through the specified buffer range, via access
-types in the <<synchronization-access-masks, source access mask>> specified
+types in the <<synchronization-access-masks, 源访问掩码>> specified
 by pname:srcAccessMask.
 If pname:srcAccessMask includes ename:VK_ACCESS_HOST_WRITE_BIT, memory
 writes performed by that access type are also made visible, as that access
@@ -1744,7 +1712,7 @@ type is not performed through a resource.
 
 The second <<synchronization-dependencies-access-scopes, access scope>> is
 limited to access to memory through the specified buffer range, via access
-types in the <<synchronization-access-masks, destination access mask>>
+types in the <<synchronization-access-masks, 目标访问掩码>>
 specified by pname:dstAccessMask.
 If pname:dstAccessMask includes ename:VK_ACCESS_HOST_WRITE_BIT or
 ename:VK_ACCESS_HOST_READ_BIT, available memory writes are also made visible
@@ -1809,10 +1777,8 @@ include::../api/structs/VkImageMemoryBarrier.txt[]
 
   * pname:sType 是数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
-  * pname:srcAccessMask defines a <<synchronization-access-masks, source
-    access mask>>.
-  * pname:dstAccessMask defines a <<synchronization-access-masks,
-    destination access mask>>.
+  * pname:srcAccessMask  定义了一个 <<synchronization-access-masks, 源访问掩码>>.
+  * pname:dstAccessMask  定义了一个<<synchronization-access-masks, 目标访问掩码>>.
   * pname:oldLayout is the old layout in an
     <<synchronization-image-layout-transitions, image layout transition>>.
   * pname:newLayout is the new layout in an
@@ -1827,7 +1793,7 @@ include::../api/structs/VkImageMemoryBarrier.txt[]
 
 The first <<synchronization-dependencies-access-scopes, access scope>> is
 limited to access to memory through the specified image subresource range,
-via access types in the <<synchronization-access-masks, source access mask>>
+via access types in the <<synchronization-access-masks, 源访问掩码>>
 specified by pname:srcAccessMask.
 If pname:srcAccessMask includes ename:VK_ACCESS_HOST_WRITE_BIT, memory
 writes performed by that access type are also made visible, as that access
@@ -1982,7 +1948,7 @@ The acquire operation happens-before the visibility operation.
 .注意
 [NOTE]
 ====
-Whilst it is not invalid to provide destination or source access masks for
+Whilst it is not invalid to provide destination or 源访问掩码 for
 memory barriers used for release or acquire operations, respectively, they
 have no practical effect.
 Access after a release operation has undefined results, and so visibility
