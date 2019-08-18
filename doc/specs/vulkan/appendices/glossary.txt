@@ -8,22 +8,17 @@
 [glossary]
 = 术语表
 
-The terms defined in this section are used consistently throughout this
-Specification and may be used with or without capitalization.
+本节定义的术语在本文档中通篇使用，可能全小写或者大写字母开头。
 
-Accessible (Descriptor Binding)::
-    A descriptor binding is accessible to a shader stage if that stage is
-    included in the pname:stageFlags of the descriptor binding.
-    Descriptors using that binding can: only be used by stages in which they
-    are accessible.
+Accessible (Descriptor Binding)  [可访问性]::
+    若着色器阶段被包含在绑定描述符的pname:stageFlags中，一个绑定描述符对于该着色器阶段可访问。使用该绑定的描述符只能在能够访问它们的阶段中使用。
 
 Acquire Operation (Resource)::
     An operation that acquires ownership of an image subresource or buffer
     range.
 
-Adjacent Vertex::
-    A vertex in an adjacency primitive topology that is not part of a given
-    primitive, but is accessible in geometry shaders.
+Adjacent Vertex  [相邻顶点]::
+    一个顶点，属于相邻的图元，而非指定的图元本身，顶点可以在几何着色器中访问到。
 
 Aliased Range (Memory)::
     A range of a device memory allocation that is bound to multiple
