@@ -71,68 +71,51 @@ layout (set=M, binding=N) uniform sampler2D variableNameArray[I];
 == 描述符类型
 如下几个小节简单讲解Vulkan支持的各种描述符类型。
 每一小节定义了一种描述符类型，每一种类型在着色器语言和SPIR-V中都有详细讲解。
-Each section defines a descriptor type, and each descriptor type has a
-manifestation in the shading language and SPIR-V as well as in descriptor
-sets.
-There is mostly a one-to-one correspondence between descriptor types and
-classes of opaque types in the shading language, where the opaque types in
-the shading language must: refer to a descriptor in the pipeline layout of
-the corresponding descriptor type.
-But there is an exception to this rule as described in
-<<descriptorsets-combinedimagesampler,Combined Image Sampler>>.
+描述符类型和着色器语言中不透明类型的类别大多数情况下是一对一的，着色器语言中不透明类型必须指代
+对应描述符类型的管线布局中的一个描述符。
+但是，对于此规则，如下情形是一个例外
+<<descriptorsets-combinedimagesampler, Combined Image Sampler>>。
 
 
 [[descriptorsets-storageimage]]
 === Storage Image
 
-A _storage image_ (ename:VK_DESCRIPTOR_TYPE_STORAGE_IMAGE) is a descriptor
-type that is used for load, store, and atomic operations on image memory
-from within shaders bound to pipelines.
+一个 _storage image_ (ename:VK_DESCRIPTOR_TYPE_STORAGE_IMAGE) 是一种描述符类型，
+用于绑定到管线的着色器内部 对图像的装载、存储和原子操作。 
 
-Loads from storage images do not use samplers and are unfiltered and do not
-support coordinate wrapping or clamping.
-Loads are supported in all shader stages for image formats which report
-support for the
-<<features-formats-properties,ename:VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT>>
-feature bit via flink:vkGetPhysicalDeviceFormatProperties.
+从 storage images 中装载并不会使用采样器，且是unfiltered，并不支持
+坐标折叠与截断。
+flink:vkGetPhysicalDeviceFormatProperties 指定的 <<features-formats-properties,ename:VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT>>
+支持的图像格式都能在所有的着色器阶段中载入。
 
-Stores to storage images are supported in compute shaders for image formats
-which report support for the ename:VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT
-feature.
+ename:VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT 格式图像可以在计算着色器中 存储到 storage images 。
 
-Storage images also support atomic operations in compute shaders for image
-formats which report support for the
+
 <<features-formats-properties,ename:VK_FORMAT_FEATURE_STORAGE_IMAGE_ATOMIC_BIT>>
-feature.
+格式的图像可以支持在计算着色器中进行原子操作。
 
-Load and store operations on storage images can: only be done on images in
-ename:VK_IMAGE_LAYOUT_GENERAL layout.
+storage images 上的载入与存储操作，只能在
+ename:VK_IMAGE_LAYOUT_GENERAL 布局的图像上进行。
 
-When the <<features-features-fragmentStoresAndAtomics,
-pname:fragmentStoresAndAtomics>> feature is enabled, stores and atomic
-operations are also supported for storage images in fragment shaders with
-the same set of image formats as supported in compute shaders.
-When the <<features-features-vertexPipelineStoresAndAtomics,
-pname:vertexPipelineStoresAndAtomics>> feature is enabled, stores and atomic
-operations are also supported in vertex, tessellation, and geometry shaders
-with the same set of image formats as supported in compute shaders.
+当<<features-features-fragmentStoresAndAtomics,
+pname:fragmentStoresAndAtomics>> 特征被启用，那么就可支持 对同一集合的图像格式的storage images 在
+片元着色器阶段内执行 存储和原子操作。
+当 <<features-features-vertexPipelineStoresAndAtomics, pname:vertexPipelineStoresAndAtomics>> 特征被启用时，
+那么对 计算着色器阶段受支持的图像格式，同样也支持在顶点、细分、几何着色器阶段进行 存储和原子操作。
 
-Storage image declarations must: specify the image format in the shader if
-the variable is used for atomic operations.
 
-If the <<features-features-shaderStorageImageReadWithoutFormat,
-pname:shaderStorageImageReadWithoutFormat>> feature is not enabled, storage
-image declarations must: specify the image format in the shader if the
-variable is used for load operations.
+在着色器内，若变量被用于原子操作，Storage image 声明必须指定图像格式。 
 
-If the <<features-features-shaderStorageImageWriteWithoutFormat,
-pname:shaderStorageImageWriteWithoutFormat>> feature is not enabled, storage
-image declarations must: specify the image format in the shader if the
-variable is used for store operations.
+若 <<features-features-shaderStorageImageReadWithoutFormat,
+pname:shaderStorageImageReadWithoutFormat>> 特征没有被启用，在着色器内，若变量被用于载入操作， storage
+image 声明必须指定图像格式。
 
-Storage images are declared in GLSL shader source using uniform code:image
-variables of the appropriate dimensionality as well as a format layout
-qualifier (if necessary):
+若 <<features-features-shaderStorageImageWriteWithoutFormat,
+pname:shaderStorageImageWriteWithoutFormat>> 特征没有被启用，在着色器内，若变量被用于存储操作，
+ storage image 声明必须指定图像格式。
+
+
+Storage images 在GLSL着色器源代码中使用 uniform code:image 声明一个变量为合适的维度，同样与指定格式布局描述:
 
 .GLSL example
 [source,glsl]
@@ -160,7 +143,7 @@ layout (set=m, binding=n, r32f) uniform image2D myStorageImage;
 
 
 [[descriptorsets-sampler]]
-=== Sampler
+=== 采样器
 A _sampler_ (ename:VK_DESCRIPTOR_TYPE_SAMPLER) represents a set of
 parameters which control address calculations, filtering behavior, and other
 properties, that can: be used to perform filtered loads from _sampled

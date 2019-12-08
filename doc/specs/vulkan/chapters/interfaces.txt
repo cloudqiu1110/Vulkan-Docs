@@ -12,7 +12,7 @@
   * <<interfaces-inputattachment, 片元输入附件接口>>
   * <<interfaces-resources, 着色器资源接口>>
 
-接口定义使用下列SPIR-V 修饰符：  
+接口定义使用下列SPIR-V 修饰符：
 
   * code:DescriptorSet 和 code:Binding
   * code:Location, code:Component, and code:Index
@@ -77,29 +77,20 @@
 为了接口匹配，变量或者块最外层的数组维度被忽略了。
 
 
-At an interface between two non-fragment shader stages, the built-in
-interface block must: match exactly, as described above.
-At an interface involving the fragment shader inputs, the presence or
-absence of any built-in output does not affect the interface matching.
+在两个非片元着色器接口之间，内置的接口block必须准确匹配，如上所述。
+在涉及到片元着色器输入的接口之间，缺少内置的输出对于接口匹配都不会造成影响。
 
-At an interface between two shader stages, the user-defined variable
-interface must: match exactly, as described above.
+在两个着色器阶段接口之间，用户自定义的接口必须准确匹配，如上所述。
 
-Any input value to a shader stage is well-defined as long as the preceding
-stages writes to a matching output, as described above.
+对于着色器阶段的任何输入值，只要在前一个阶段写入到匹配的输出中，这个输入值就是良好定义的，如上所述。
 
-Additionally, scalar and vector inputs are well-defined if there is a
-corresponding output satisfying all of the following conditions:
+另外，标量和向量输入，如果对应输入符合一下条件，那么它们就是良好定义的：
 
-  * the input and output match exactly in decoration,
-  * the output is a vector with the same basic type and has at least as many
-    components as the input, and
-  * the common component type of the input and output is 32-bit integer or
-    floating-point (64-bit component types are excluded).
+  * 输入与输出变量在修饰符上准确匹配。
+  * 输出是一个vector，其元素类型是基础类型，且和输入便俩个的成员个数相同，且
+  * 输入与输出变量的共同的成员类型 是32-bit 的整型或者浮点型（64-bit元素类型被排除在外）。
 
-In this case, the components of the input will be taken from the first
-components of the output, and any extra components of the output will be
-ignored.
+在此种情形下，输入变量的元素将会从输出的第一个元素中获取，输出中 另外的元素将会被忽略。
 
 
 [[interfaces-iointerfaces-locations]]
@@ -116,10 +107,10 @@ code:Component 指定了在这些数组中<<interfaces-iointerfaces-components, 
 Inputs and outputs of the following types consume a single interface
 location:
 
-  * 32-bit scalar and vector types, and
-  * 64-bit scalar and 2-component vector types.
+  * 32-bit 标量与向量类型，与
+  * 64-bit 标量和2元素向量类型。
 
-64-bit three- and four-component vectors consume two consecutive locations.
+64-bit 三- 和 四- 成员向量消耗两个连续location。
 
 If a declared input or output is an array of size _n_ and each element takes
 _m_ locations, it will be assigned _m_ {times} _n_ consecutive locations
@@ -213,37 +204,26 @@ a scalar or vector.
 
 
 [[interfaces-vertexinput]]
-== Vertex Input Interface
+== 顶点输入接口
 
-When the vertex stage is present in a pipeline, the vertex shader input
-variables form an interface with the vertex input attributes.
-The vertex shader input variables are matched by the code:Location and
-code:Component decorations to the vertex input attributes specified in the
-pname:pVertexInputState member of the slink:VkGraphicsPipelineCreateInfo
-structure.
+当管线中有顶点阶段时，顶点着色器输入变量就顶点输入属性形成了一个接口，
+顶点着色器输入变量通过 code:Location 和 code:Component 修饰符 来匹配 由slink:VkGraphicsPipelineCreateInfo数据结构的成员pname:pVertexInputState 顶点输入属性。
+带有code:Input存储class的修饰符 的 code:OpEntryPoint列出的顶点着色器输入变量 形成了 顶点输入接口。
+这些变量必须通过code:Location修饰符唯一确定，且可以通过code:Component 修饰符唯一确定。
 
-The vertex shader input variables listed by code:OpEntryPoint with the
-code:Input storage class form the _vertex input interface_.
-These variables must: be identified with a code:Location decoration and can:
-also be identified with a code:Component decoration.
+为了接口匹配，没有code:Component修饰的变量被认为带有一个值为0 的 code:Component修饰。
 
-For the purposes of interface matching: variables declared without a
-code:Component decoration are considered to have a code:Component decoration
-of zero.
-The number of available vertex input locations is given by the
-pname:maxVertexInputAttributes member of the sname:VkPhysicalDeviceLimits
-structure.
+可用的顶点输入location 是通过 sname:VkPhysicalDeviceLimits数据结构的 pname:maxVertexInputAttributes 成员指定的。
 
-See <<fxvertex-attrib-location>> for details.
 
-All vertex shader inputs declared as above must: have a corresponding
-attribute and binding in the pipeline.
+参考 <<fxvertex-attrib-location>> 以获取更加详细的信息。
 
+上述的所有的着色器输入必须在管线中与对应的属性和绑定。
 
 [[interfaces-fragmentoutput]]
-== Fragment Output Interface
+== 片元输出接口
 
-When the fragment stage is present in a pipeline, the fragment shader
+当管线中存在片元着色阶段，片元着色器输出形成了一个接口。When the fragment stage is present in a pipeline, the fragment shader
 outputs form an interface with the output attachments of the current
 subpass.
 The fragment shader output variables are matched by the code:Location and
