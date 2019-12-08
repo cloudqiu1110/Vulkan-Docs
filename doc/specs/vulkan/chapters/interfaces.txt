@@ -76,15 +76,12 @@
 细分控制着色器逐顶点输出变量与块，细分控制、细分求值、几何着色器的逐顶点输入变量与块要求必须被声明为数组，其每一个元素表示输入或者输出值是一个顶点或者多顶点的图元。
 为了接口匹配，变量或者块最外层的数组维度被忽略了。
 
+在两个非片元着色器阶段的接口，内置的接口block 必须严格匹配，如上所述。
+在涉及到片元着色器输入的接口，内置的输出变量的出现或者缺席并不影响接口匹配。
 
-At an interface between two non-fragment shader stages, the built-in
-interface block must: match exactly, as described above.
-At an interface involving the fragment shader inputs, the presence or
-absence of any built-in output does not affect the interface matching.
+在两个着色器阶段之间的接口，用户自定义的变量接口必须严格匹配，如上所述。
 
-At an interface between two shader stages, the user-defined variable
-interface must: match exactly, as described above.
-
+在
 Any input value to a shader stage is well-defined as long as the preceding
 stages writes to a matching output, as described above.
 

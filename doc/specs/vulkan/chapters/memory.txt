@@ -176,29 +176,16 @@ ename:VK_SYSTEM_ALLOCATION_SCOPE_CACHE时，内存的存活范围就是被创建
 
   * 若分配的内存生存周期限定于一个命令之内，内存分配器将使用  ename:VK_SYSTEM_ALLOCATION_SCOPE_COMMAND。
    若创建的、或者被操控的对象有对应的内存分配器，那么将使用该特定的内存分配器，否则若 父 sname:VkDevice 有内存分配器，便使用此内存分配器，否则便使用父 sname:VkInstance 拥有的内存分配器。
-  * 若
-  If an allocation is associated with an object of type
-    sname:VkPipelineCache, the allocator will use the
-    ename:VK_SYSTEM_ALLOCATION_SCOPE_CACHE allocation scope.
-    The most specific allocator available is used (pipeline cache, else
-    device, else instance).
-    Else,
-  * If an allocation is scoped to the lifetime of an object, that object is
-    being created or manipulated by the command, and that object's type is
-    not sname:VkDevice or sname:VkInstance, the allocator will use an
-    allocation scope of ename:VK_SYSTEM_ALLOCATION_SCOPE_OBJECT.
-    The most specific allocator available is used (object, else device, else
-    instance).
-    Else,
-  * If an allocation is scoped to the lifetime of a device, the allocator
-    will use an allocation scope of ename:VK_SYSTEM_ALLOCATION_SCOPE_DEVICE.
-    The most specific allocator available is used (device, else instance).
-    Else,
-  * If the allocation is scoped to the lifetime of an instance and the
-    instance has an allocator, its allocator will be used with an allocation
-    scope of ename:VK_SYSTEM_ALLOCATION_SCOPE_INSTANCE.
-  * Otherwise an implementation will allocate memory through an alternative
-    mechanism that is unspecified.
+  * 若分配的内存与一个sname:VkPipelineCache 类型对象关联，内存分配器将使用 ename:VK_SYSTEM_ALLOCATION_SCOPE_CACHE 分配周期。
+	最明确的内存分配器将会被使用（管线缓存、设备、实例）。否则，    
+  * 若被分配的内存的生命周期跟随一个对象，该对象被该命令所创建或者操纵，对象类型不是 sname:VkDevice、sname:VkInstance，
+	内存分配器将使用 ename:VK_SYSTEM_ALLOCATION_SCOPE_OBJECT 分配周期。
+	最明确的内存分配器将会被使用（对象、设备、实例）。否则，   
+  * 若被分配的内存的生命周期跟随一个设备的生命周期，内存分配器将使用 ename:VK_SYSTEM_ALLOCATION_SCOPE_DEVICE。
+	最明确的内存分配器将会被使用（设备、实例）。否则，    
+  * 若被分配的内存的生命周期跟随一个实例的生命周期，且这个实例有一个内存分配器，那么他的内存分配器将使用
+	ename:VK_SYSTEM_ALLOCATION_SCOPE_INSTANCE 分配周期。
+  * 否则，Vulkan事项将 使用未指定的一种替代策略来分配内存。
 
 // refEnd VkSystemAllocationScope VkAllocationCallbacks
 
@@ -228,26 +215,21 @@ Vulkan实现不应该同时调用这些回调函数。如果需要保持同步�
 它们依赖的回掉函数和任何数据结构都必须在与之关联的对象生命周期内都保持有效。
 
 若给ftext:vkCreate*提供一个内存分配器，则必须要给对应的ftext:vkDestroy*命令提供一个兼容匹配的内存分配器。
-若用pname:pfnAllocation or pname:pfnReallocation分配而来的内存都可以被pname:pfnReallocation or pname:pfnFree释放掉，那么两个sname:VkAllocationCallbacks 数据结构必须兼容。
-An allocator must: not be provided to a ftext:vkDestroy* command if an
-allocator was not provided to the corresponding ftext:vkCreate* command.
+若用pname:pfnAllocation or pname:pfnReallocation分配而来的内存都可以被pname:pfnReallocation or pname:pfnFree释放掉，
+那么两个sname:VkAllocationCallbacks 数据结构必须兼容。
+若没有给  ftext:vkCreate* 命令提供内存分配器，那么就不能给对应的 ftext:vkDestroy* 命令提供一个内存分配器。
 
-If a non-`NULL` allocator is used, the pname:pfnAllocation,
-pname:pfnReallocation and pname:pfnFree members must: be non-`NULL` and
-point to valid implementations of the callbacks.
-An application can: choose to not provide informational callbacks by setting
-both pname:pfnInternalAllocation and pname:pfnInternalFree to `NULL`.
-pname:pfnInternalAllocation and pname:pfnInternalFree must: either both be
-`NULL` or both be non-`NULL`.
+若一个 非空 分配器被使用了，那么 pname:pfnAllocation，pname:pfnReallocation 和 pname:pfnFree 成员必须也是非空，
+且指向一个有效的Vulkan实现规定的callback函数。
+应用程序可以选择 设置 pname:pfnInternalAllocation 和 pname:pfnInternalFree为 `NULL` 而不提供callback函数。
+pname:pfnInternalAllocation 和 pname:pfnInternalFree 必须俱为 `NULL` 或者俱为 non-`NULL`。
 
-If pname:pfnAllocation or pname:pfnReallocation fail, the implementation
-may: fail object creation and/or generate an
-ename:VK_ERROR_OUT_OF_HOST_MEMORY error, as appropriate.
+若pname:pfnAllocation 或者 pname:pfnReallocation 失败，Vulkan实现可能创建对象失败，产生一个
+ename:VK_ERROR_OUT_OF_HOST_MEMORY 错误.
 
 内存分配回调函数不能调用任何Vulkan命令。
 
-The following sets of rules define when an implementation is permitted to
-call the allocator callbacks.
+如下规则集合定义了Vulkan实现何时被允许调用内存分配器回掉函数。
 
 pname:pfnAllocation 或者 pname:pfnReallocation 可能在一下情形中被调用：
 
@@ -364,32 +346,19 @@ sname:VkPhysicalDeviceMemoryProperties 类型数据结构描述了多个 _memory
   * ename:VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT |
     ename:VK_MEMORY_PROPERTY_LAZILY_ALLOCATED_BIT
 
-There must: be at least one memory type with both the
-ename:VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT and
-ename:VK_MEMORY_PROPERTY_HOST_COHERENT_BIT bits set in its
-pname:propertyFlags.
-There must: be at least one memory type with the
-ename:VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT bit set in its
-pname:propertyFlags.
+一定存在至少一种内存类型，ename:VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT 和
+ename:VK_MEMORY_PROPERTY_HOST_COHERENT_BIT 标志位都在 pname:propertyFlags中。
+一定存在至少一种内存类型，ename:VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT 标志位在 pname:propertyFlags中。
 
-The memory types are sorted according to a preorder which serves to aid in
-easily selecting an appropriate memory type.
-Given two memory types X and Y, the preorder defines [eq]#X {leq} Y# if:
+内存类型根据预定义的顺序被排序了，预定义的顺序有助于更容易选择合适的内存类型。
+假设被给定两种内存类型 X与Y，若满足如下，预定义的顺序是  [eq]#X {leq} Y# :
 
-  * the memory property bits set for X are a strict subset of the memory
-    property bits set for Y.
-    Or,
-  * the memory property bits set for X are the same as the memory property
-    bits set for Y, and X uses a memory heap with greater or equal
-    performance (as determined in an implementation-specific manner).
+  * X的内存属性标志位必须严格是 Y 的内存属性标志位的子集。或者，    
+  * X的内存属性标志位和Y 的内存属性标志位完全相同，且X 使用的内存堆大于等于Y的性能。（取决于Vulkan实现特定的方式）。  
 
-Memory types are ordered in the list such that X is assigned a lesser
-pname:memoryTypeIndex than Y if [eq]#(X {leq} Y) {land} {lnot} (Y {leq} X)#
-according to the preorder.
-Note that the list of all allowed memory property flag combinations above
-satisfies this preorder, but other orders would as well.
-The goal of this ordering is to enable applications to use a simple search
-loop in selecting the proper memory type, along the lines of:
+内存类型被排序，若按照前序， [eq]#(X {leq} Y) {land} {lnot} (Y {leq} X)#，  X的pname:memoryTypeIndex 小于等于 Y。
+注意，上述的 允许的内存属性标志位结合方式的列表满足此前序，但是，其他顺序也是可以的。
+此排序的目的是让应用程序使用一种简单的方式来遍历合适的内存类型，形式类似于如下：
 
 [source,c++]
 ---------------------------------------------------
@@ -414,16 +383,11 @@ if (memoryType == -1)
     memoryType = FindProperties(memoryRequirements.memoryTypeBits, requiredProperties);
 ---------------------------------------------------
 
-The loop will find the first supported memory type that has all bits
-requested in code:properties set.
-If there is no exact match, it will find a closest match (i.e. a memory type
-with the fewest additional bits set), which has some additional bits set but
-which are not detrimental to the behaviors requested by code:properties.
-The application can: first search for the optimal properties, e.g. a memory
-type that is device-local or supports coherent cached accesses, as
-appropriate for the intended usage, and if such a memory type is not present
-can: fallback to searching for a less optimal but guaranteed set of
-properties such as "0" or "host-visible and coherent".
+此循环将会找到被支持的内存类型，它符合 code:properties 中所有的标志位。
+若不存在匹配，将寻找最接近匹配（即，内存类型其他的标志位最少），它有其他的标志位，但是并不能决定 code:properties
+要求的行为方式。
+应用程序可首先寻找最优的属性，如内存类型是device-local或者支持缓存一致性，尽量接近目标使用方式，若此种内存类型
+无法找到，将退而求其次的寻找次优解，但仍保证诸如  "0" 或者  "host-visible and coherent"的属性。
 
 include::../validity/structs/VkPhysicalDeviceMemoryProperties.txt[]
 
@@ -463,18 +427,14 @@ sname:VkMemoryHeap 类型数据结构定义如下：
 include::../api/structs/VkMemoryHeap.txt[]
 
   * pname:size 是堆中总内存的大小，以字节为单位。
-  * pname:flags 是描述堆 a bitmask of attribute flags for the heap.
-    The bits specified in pname:flags are:
+  * pname:flags 是描述堆的属性标志位的掩码。可用bit 如下：    
 +
 --
 // refBegin VkMemoryHeapFlagBits Bitmask specifying attribute flags for a heap
 include::../api/enums/VkMemoryHeapFlagBits.txt[]
 --
-  ** if pname:flags contains ename:VK_MEMORY_HEAP_DEVICE_LOCAL_BIT, it means
-     the heap corresponds to device local memory.
-     Device local memory may: have different performance characteristics
-     than host local memory, and may: support different memory property
-     flags.
+  ** 若pname:flags 包含 ename:VK_MEMORY_HEAP_DEVICE_LOCAL_BIT，它意味着堆内存对应着 device local 内存。
+     Device local 内存可能与  host local 内存的性能特征有所不同，且支持不同的内存属性标志位。     
 
 include::../validity/structs/VkMemoryHeap.txt[]
 
@@ -586,10 +546,8 @@ include::../api/structs/VkMemoryAllocateInfo.txt[]
 
 .正确使用
 ****
-  * pname:allocationSize must: be less than or equal to the amount of memory
-    available to the sname:VkMemoryHeap specified by pname:memoryTypeIndex
-    and the calling command's sname:VkDevice
-  * pname:allocationSize must: be greater than `0`
+  * pname:allocationSize 必须 小于等于   pname:memoryTypeIndex 和调用命令的sname:VkDevice 指定的sname:VkMemoryHeap 的 可用内存总量，
+  * pname:allocationSize 必须大于  `0`
 ****
 
 include::../validity/structs/VkMemoryAllocateInfo.txt[]
@@ -598,10 +556,8 @@ ifdef::VK_NV_dedicated_allocation[]
 
 // refBegin VkDedicatedAllocationMemoryAllocateInfoNV Specify a dedicated memory allocation resource
 
-If the pname:pNext list includes a
-sname:VkDedicatedAllocationMemoryAllocateInfoNV structure, then that
-structure includes a handle of the sole buffer or image resource that the
-memory can: be bound to.
+若 pname:pNext 列表包含一个 sname:VkDedicatedAllocationMemoryAllocateInfoNV 数据结构，那么该数据结构包含一个
+内存可绑定的 单buffer或图像资源 的 handle。
 
 sname:VkDedicatedAllocationMemoryAllocateInfoNV 类型数据结构定义如下：
 
@@ -609,15 +565,12 @@ include::../api/structs/VkDedicatedAllocationMemoryAllocateInfoNV.txt[]
 
   * pname:sType 是数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
-  * pname:image is sname:VK_NULL_HANDLE or a handle of an image which this
-    memory will be bound to.
-  * pname:buffer is sname:VK_NULL_HANDLE or a handle of a buffer which this
-    memory will be bound to.
+  * pname:image 是 sname:VK_NULL_HANDLE 或者一个图像的handle，此内存绑定的对象。
+  * pname:buffer 是 sname:VK_NULL_HANDLE 或者一个缓冲区的handle，此内存绑定的对象。
 
 .正确使用
 ****
-  * At least one of pname:image and pname:buffer must: be
-    sname:VK_NULL_HANDLE
+  *至少一个pname:image 和 pname:buffer 必须是 sname:VK_NULL_HANDLE
   * If pname:image is not sname:VK_NULL_HANDLE, the image must: have been
     created with
     sname:VkDedicatedAllocationImageCreateInfoNV::pname:dedicatedAllocation
@@ -663,15 +616,11 @@ include::../api/protos/vkFreeMemory.txt[]
   * pname:pAllocator 控制了CPU端内存分配，如 <<memory-allocation, Memory Allocation>> 一章所述。
 
 在释放内存对象之前，应用程序必须确保内存对象不再被设备使用（如被命令缓冲区排队执行）。
-The memory can: remain bound to images or buffers at the time the memory
-object is freed, but any further use of them (on host or device) for
-anything other than destroying those objects will result in undefined
-behavior.
-If there are still any bound images or buffers, the memory may: not be
-immediately released by the implementation, but must: be released by the
-time all bound images and buffers have been destroyed.
-Once memory is released, it is returned to the heap from which it was
-allocated.
+在内存对象被释放时，内存仍绑定在图像或者缓冲区上，但是（在CPU或者设备端）进一步使用它们将造成这些对象被破坏，
+导致未知结果。
+若仍存在绑定的图像或者缓冲区，内存将不会被Vulkan实现立即释放，但是，在绑定的图像或者缓冲区被销毁时，
+内存会被立即释放。
+一旦内存被释放，它将被送还给heap，
 
 关于内存对象如何绑定到图像、缓冲区，在<<resources-association, Resource Memory Association>> 一节中有详细描述。.
 
@@ -703,13 +652,10 @@ include::../api/protos/vkMapMemory.txt[]
 
   * pname:device 是拥有内存对象的逻辑设备。
   * pname:memory 是将要被映射的sname:VkDeviceMemory 对象。
-  * pname:offset is a zero-based byte offset from the beginning of the
-    memory object.
-  * pname:size is the size of the memory range to map, or
-    ename:VK_WHOLE_SIZE to map from pname:offset to the end of the
-    allocation.
+  * pname:offset 是一个从内存对象的起始的 从0开始的字节offset。
+  * pname:size 是需要映射的内存区间的大小，或者值为 ename:VK_WHOLE_SIZE时表示 从  pname:offset 到分配的内存结尾的全部映射。
   * pname:flags 被保留。
-  * pname:ppData points to a pointer in which is returned a host-accessible
+  * pname:ppData 指向一个指针，指向 to a pointer in which is returned a host-accessible
     pointer to the beginning of the mapped range.
     This pointer minus pname:offset must: be aligned to at least
     sname:VkPhysicalDeviceLimits::pname:minMemoryMapAlignment.
@@ -729,21 +675,12 @@ fname:VkUnmapMemory.
 ====
 
 [[memory-device-hostaccess-hazards]]
-fname:vkMapMemory does not check whether the device memory is currently in
-use before returning the host-accessible pointer.
-The application must: guarantee that any previously submitted command that
-writes to this range has completed before the host reads from or writes to
-that range, and that any previously submitted command that reads from that
-range has completed before the host writes to that region (see
-<<synchronization-submission-host-writes, here>> for details on fulfilling
-such a guarantee).
-If the device memory was allocated without the
-ename:VK_MEMORY_PROPERTY_HOST_COHERENT_BIT set, these guarantees must: be
-made for an extended range: the application must: round down the start of
-the range to the nearest multiple of
-sname:VkPhysicalDeviceLimits::pname:nonCoherentAtomSize, and round the end
-of the range up to the nearest multiple of
-sname:VkPhysicalDeviceLimits::pname:nonCoherentAtomSize.
+fname:vkMapMemory 并不在返回一个host端可访问的指针之前检查设备内存当前是否正在使用中。
+应用程序必须保证之前提交的任何命令（会向该区间写入的命令）已经在host端读取或者写入完成，且任何之前被提交的命令（从该区间读取内容的命令）
+在host端写入之前已经完成。 (参看 <<synchronization-submission-host-writes, 这里>> 获取更详细的信息).
+若分配设备内存时未带有 ename:VK_MEMORY_PROPERTY_HOST_COHERENT_BIT 标志位，必须提供这些保证，应用程序必须从
+区间的起始到最邻近的多个 sname:VkPhysicalDeviceLimits::pname:nonCoherentAtomSize聚集在一起，保证从区间的尾部到最邻近的多个
+sname:VkPhysicalDeviceLimits::pname:nonCoherentAtomSize 聚集在一起。
 
 While a range of device memory is mapped for host access, the application is
 responsible for synchronizing both device and host access to that memory
@@ -761,13 +698,10 @@ to maintaining memory access ordering.
 .正确使用
 ****
   * pname:memory 必须未被映射过
-  * pname:offset must: be less than the size of pname:memory
-  * If pname:size is not equal to ename:VK_WHOLE_SIZE, pname:size must: be
-    greater than `0`
-  * If pname:size is not equal to ename:VK_WHOLE_SIZE, pname:size must: be
-    less than or equal to the size of the pname:memory minus pname:offset
-  * pname:memory must: have been created with a memory type that reports
-    ename:VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT
+  * pname:offset 必须要被 pname:memory 的大小要小
+  * 若 pname:size 不等于  ename:VK_WHOLE_SIZE， pname:size 必须大于 `0`
+  * 若 pname:size 不等于 ename:VK_WHOLE_SIZE，pname:size 必须小于等于  pname:memory 减去 pname:offset的结果的大小
+  * pname:memory 必须在创建时带有 内存类型 ename:VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT
 ****
 
 include::../validity/protos/vkMapMemory.txt[]
