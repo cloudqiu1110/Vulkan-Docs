@@ -61,7 +61,7 @@ _subpass依赖_ 描述了subpass之间的<<synchronization-dependencies, 执行�
 
 
 [[renderpass-creation]]
-== 创建Render Pass  
+== 创建Render Pass
 
 // refBegin vkCreateRenderPass Create a new render pass object
 
@@ -87,7 +87,7 @@ include::../api/structs/VkRenderPassCreateInfo.txt[]
   * pname:flags 被保留。
   * pname:attachmentCount 是render pass使用的附件的个数，或者为0，表示无附件。附件可以从0开始索引，如 [0,pname:attachmentCount)。
   * pname:pAttachments 指向了一个 大小为pname:attachmentCount，元素类型为slink:VkAttachmentDescription 的数组，描述了附件的属性，或当pname:attachmentCount 为0时值为`NULL`。
-  * pname:subpassCount 是将要为render pass创建的subpass数量。subpass可以从0开始索引，如 [0,pname:subpassCount)。一个render pass必须拥有一个subpass。    
+  * pname:subpassCount 是将要为render pass创建的subpass数量。subpass可以从0开始索引，如 [0,pname:subpassCount)。一个render pass必须拥有一个subpass。
   * pname:pSubpasses 指向了一个大小为pname:subpassCount，元素类型为slink:VkSubpassDescription 的数组，描述了subpass的属性。
   * pname:dependencyCount 是不同对subpass之间依赖的个数，或者为0表示没有依赖。
   * pname:pDependencies 指向了一个大小为pname:dependencyCount ，元素类型为 slink:VkSubpassDependency 的数组，描述了不同对subpass之间的依赖关系，
@@ -95,11 +95,8 @@ include::../api/structs/VkRenderPassCreateInfo.txt[]
 
 .正确使用
 ****
-  * If any two subpasses operate on attachments with overlapping ranges of
-    the same sname:VkDeviceMemory object, and at least one subpass writes to
-    that area of sname:VkDeviceMemory, a subpass dependency must: be
-    included (either directly or via some intermediate subpasses) between
-    them
+  * 若任何两个subpass 在一个sname:VkDeviceMemory 对象的多个有重叠区域的附件上进行操作，至少一个subpass向 sname:VkDeviceMemory的区域写入，那么在它们之间必须引入一个
+      subpass依赖。
   * If the pname:attachment member of any element of
     pname:pInputAttachments, pname:pColorAttachments,
     pname:pResolveAttachments or pname:pDepthStencilAttachment, or the
@@ -273,7 +270,7 @@ endif::editing-notes[]
   * Attachments using views of distinct image subresources which are bound
     to overlapping memory ranges.
 
-[NOTE]	
+[NOTE]
 .注意
 ====
 Render passes必须包含任意操作在同一个subpass依赖链的两个subpass之间的subpass依赖（），若这些subpass中至少有一个向这些别名中的一个写入，
@@ -281,17 +278,10 @@ Render passes必须包含任意操作在同一个subpass依赖链的两个subpas
 若这些别名是不同图像子资源的不同视图并在内存中有重叠，这些依赖不能包含ename:VK_DEPENDENCY_BY_REGION_BIT。
 ====
 
-Multiple attachments that alias the same memory must: not be used in a
-single subpass.
-A given attachment index must: not be used multiple times in a single
-subpass, with one exception: two subpass attachments can: use the same
-attachment index if at least one use is as an input attachment and neither
-use is as a resolve or preserve attachment.
-In other words, the same view can: be used simultaneously as an input and
-color or depth/stencil attachment, but must: not be used as multiple color
-or depth/stencil attachments nor as resolve or preserve attachments.
-The precise set of valid scenarios is described in more detail
-<<renderpass-feedbackloop, below>>.
+为同一份内存起别名的多个附件，必须不能在同一个subpass中使用。
+一个给定的附件索引在单个subpass中 不能被多次使用，除了如下例外：两个subpass附件，若至少一个被用作输入附件，且两个都未被当作resolve或preserve附件使用，那么它们可以使用同一个附件索引。
+也就是说，同一视图可以被同时当作输入、颜色或者深度/模版 附件，但是，不能被当作多个颜色或者深度/模版附件，亦不能被当作resolve或preserve附件。
+详细的使用场景 <<renderpass-feedbackloop, 如下>>所述。
 
 If a set of attachments alias each other, then all except the first to be
 used in the render pass must: use an pname:initialLayout of
@@ -801,7 +791,7 @@ include::../api/handles/VkFramebuffer.txt[]
 include::../api/protos/vkCreateFramebuffer.txt[]
 
   * pname:device 是创建帧缓冲区的逻辑设备。
-  * pname:pCreateInfo 指向了一个slink:VkFramebufferCreateInfo 数据结构，它描述了创建帧缓冲区的附加信息。    
+  * pname:pCreateInfo 指向了一个slink:VkFramebufferCreateInfo 数据结构，它描述了创建帧缓冲区的附加信息。
   * pname:pAllocator控制了CPU端内存分配，如 <<memory-allocation, Memory Allocation>> 一章所描述。
   * pname:pFramebuffer 指向了一个 sname:VkFramebuffer handle，它接收生成的帧缓冲区对象。
 
@@ -923,7 +913,7 @@ include::../validity/protos/vkDestroyFramebuffer.txt[]
 include::../api/protos/vkCmdBeginRenderPass.txt[]
 
   * pname:commandBuffer 是记录命令的命令缓冲区。
-  * pname:pRenderPassBegin 是一个指针，指向了一个slink:VkRenderPassBeginInfo实例（下有定义），它指明了要开启的render pass，和实例使用的帧缓冲区。    
+  * pname:pRenderPassBegin 是一个指针，指向了一个slink:VkRenderPassBeginInfo实例（下有定义），它指明了要开启的render pass，和实例使用的帧缓冲区。
   * pname:contents 指定了第一个subpass中的命令是如何提供的，需为以下值之一：
 +
 --
@@ -1018,7 +1008,7 @@ include::../api/structs/VkRenderPassBeginInfo.txt[]
   * pname:framebuffer 是包含被用于render pass的附件的帧缓冲区。
   * pname:renderArea 是被render pass实例影响的渲染区域，下方有详细描述。
   * pname:clearValueCount  pname:pClearValues 数组中元素的个数。
-  * pname:pClearValues 是一个 slink:VkClearValue 类型的数组，包含了每一个附件需要清除的值，如果附件使用了 
+  * pname:pClearValues 是一个 slink:VkClearValue 类型的数组，包含了每一个附件需要清除的值，如果附件使用了
      ename:VK_ATTACHMENT_LOAD_OP_CLEAR 的pname:loadOp值，或者附件拥有深度/挡板格式并使用ename:VK_ATTACHMENT_LOAD_OP_CLEAR
 	 的 pname:stencilLoadOp值。只有对应的呗清除了附件的元素才能被使用。pname:pClearValues中其他的元素被忽略。
 
@@ -1060,7 +1050,7 @@ include::../api/protos/vkGetRenderAreaGranularity.txt[]
   * pname:device 是拥有该render pass的逻辑设备。
   * pname:renderPass 是 render pass 的handle。
   * pname:pGranularity 指向一个slink:VkExtent2D 数据结构，它接受返回的粒度。
-  
+
 The conditions leading to an optimal pname:renderArea are:
 
   * the pname:offset.x member in pname:renderArea is a multiple of the
@@ -1130,7 +1120,7 @@ include::../validity/protos/vkCmdNextSubpass.txt[]
 include::../api/protos/vkCmdEndRenderPass.txt[]
 
   * pname:commandBuffer 是将结束当前render pass实例的命令缓冲区。
-  
+
 Ending a render pass instance performs any multisample resolve operations on
 the final subpass.
 
@@ -1141,4 +1131,3 @@ the final subpass.
 ****
 
 include::../validity/protos/vkCmdEndRenderPass.txt[]
-

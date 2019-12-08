@@ -655,10 +655,8 @@ include::../api/protos/vkMapMemory.txt[]
   * pname:offset 是一个从内存对象的起始的 从0开始的字节offset。
   * pname:size 是需要映射的内存区间的大小，或者值为 ename:VK_WHOLE_SIZE时表示 从  pname:offset 到分配的内存结尾的全部映射。
   * pname:flags 被保留。
-  * pname:ppData 指向一个指针，指向 to a pointer in which is returned a host-accessible
-    pointer to the beginning of the mapped range.
-    This pointer minus pname:offset must: be aligned to at least
-    sname:VkPhysicalDeviceLimits::pname:minMemoryMapAlignment.
+  * pname:ppData 指向一个 被返回的 host-accessible指向 被映射的区间指针。
+	这个指针 减去  pname:offset 必须被按照     sname:VkPhysicalDeviceLimits::pname:minMemoryMapAlignment 对齐。
 
 若调用  fname:vkMapMemory对已映射过的内存对象再次映射，则是应用程序的错误。
 
@@ -682,17 +680,14 @@ fname:vkMapMemory 并不在返回一个host端可访问的指针之前检查设�
 区间的起始到最邻近的多个 sname:VkPhysicalDeviceLimits::pname:nonCoherentAtomSize聚集在一起，保证从区间的尾部到最邻近的多个
 sname:VkPhysicalDeviceLimits::pname:nonCoherentAtomSize 聚集在一起。
 
-While a range of device memory is mapped for host access, the application is
-responsible for synchronizing both device and host access to that memory
-range.
+当一块区域的设备内存被映射到主机端可访问，应用程序需要负责同步该区间的内存访问。
+
 
 [NOTE]
 .注意
 ====
-It is important for the application developer to become meticulously
-familiar with all of the mechanisms described in the chapter on
-<<synchronization, Synchronization and Cache Control>> as they are crucial
-to maintaining memory access ordering.
+应用程序开发者需要对本章<<synchronization, Synchronization and Cache Control>> 描述的机制相当熟悉，
+这对于维持按序访问内存来说极其重要。
 ====
 
 .正确使用
@@ -706,16 +701,15 @@ to maintaining memory access ordering.
 
 include::../validity/protos/vkMapMemory.txt[]
 
-Two commands are provided to enable applications to work with non-coherent
-memory allocations: fname:vkFlushMappedMemoryRanges and
-fname:vkInvalidateMappedMemoryRanges.
+为了应用程序可以与非一致性内存分配一起工作，有两个命令可以使用：
+fname:vkFlushMappedMemoryRanges 和
+fname:vkInvalidateMappedMemoryRanges。
 
 [NOTE]
 .注意
 ====
 若创建内存对象时带有ename:VK_MEMORY_PROPERTY_HOST_COHERENT_BIT 参数，
 fname:vkFlushMappedMemoryRanges 和 fname:vkInvalidateMappedMemoryRanges 是没有必要的，且可能会有性能损失。
-unnecessary and may: have performance cost.
 ====
 
 // refBegin vkFlushMappedMemoryRanges Flush mapped memory ranges
@@ -728,33 +722,27 @@ include::../api/protos/vkFlushMappedMemoryRanges.txt[]
   * pname:memoryRangeCount 是 pname:pMemoryRanges 数组的长度。
   * pname:pMemoryRanges 是一个指向 slink:VkMappedMemoryRange 类型数组的指针，描述了需要刷新的内存区域。
 
-fname:vkFlushMappedMemoryRanges must: be used to guarantee that host writes
-to non-coherent memory are visible to the device.
-It must: be called after the host writes to non-coherent memory have
-completed and before command buffers that will read or write any of those
-memory locations are submitted to a queue.
+fname:vkFlushMappedMemoryRanges 必须用于保证host端写入到非一致性内存的内容对于 device可见。
+只能在host端写入到非一致性内存之后，且在会读取或写入这些内存的命令缓冲区被提交到队列之前，才可以被调用。
 
 [NOTE]
 .注意
 ====
-Unmapping non-coherent memory does not implicitly flush the mapped memory,
-and host writes that have not been flushed may: not ever be visible to the
-device.
+取消非一致性内存映射并不意味着刷新被映射的内存，
+没有被刷新的 host端写入的内容 可能对device不可见。
 ====
 
 include::../validity/protos/vkFlushMappedMemoryRanges.txt[]
 
 // refBegin vkInvalidateMappedMemoryRanges Invalidate ranges of mapped memory objects
 
-To invalidate ranges of non-coherent memory from the host caches, call:
+可调用如下函数从host端cache使 非一致性内存无效：
 
 include::../api/protos/vkInvalidateMappedMemoryRanges.txt[]
 
   * pname:device 是拥有内存范围的逻辑设备。 
   * pname:memoryRangeCount 是 pname:pMemoryRanges 数组的长度。
-  * pname:pMemoryRanges is a pointer to an array of
-    slink:VkMappedMemoryRange structures describing the memory ranges to
-    invalidate.
+  * pname:pMemoryRanges 是一个指针，指向一个 slink:VkMappedMemoryRange 数据结构的数组，描述了需要无效化的内存区间。
 
 fname:vkInvalidateMappedMemoryRanges must: be used to guarantee that device
 writes to non-coherent memory are visible to the host.
@@ -782,11 +770,10 @@ include::../api/structs/VkMappedMemoryRange.txt[]
 
   * pname:sType 是数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
-  * pname:memory is the memory object to which this range belongs.
-  * pname:offset 是 the zero-based byte offset from the beginning of the memory object.
-  * pname:size is either the size of range, or ename:VK_WHOLE_SIZE to affect
-    the range from pname:offset to the end of the current mapping of the
-    allocation.
+  * pname:memory 是这个区间所在的内存对象。
+  * pname:offset 是一个从内存对象的起始位置开始的，从0开始的偏移量。
+  * pname:size 要么是区间的大小，要么是 影响到
+    从 pname:offset 到当前映射到分配的内存结束的区间的  ename:VK_WHOLE_SIZE 。
 
 .正确使用
 ****
@@ -831,13 +818,12 @@ on the host.
 
 // refBegin vkUnmapMemory Unmap a previously mapped memory object
 
-To unmap a memory object once host access to it is no longer needed by the
-application, call:
+应用程序若不在需要从host端访问内存对象，可调用如下命令来取消映射：
 
 include::../api/protos/vkUnmapMemory.txt[]
 
   * pname:device 是拥有内存的逻辑设备。
-  * pname:memory is the memory object to be unmapped.
+  * pname:memory 是将要被取消映射的内存对象。
 
 .正确使用
 ****
@@ -868,22 +854,19 @@ implementations to never allocate memory for such attachments.
 
 // refBegin vkGetDeviceMemoryCommitment Query the current commitment for a VkDeviceMemory
 
-To determine the amount of lazily-allocated memory that is currently
-committed for a memory object, call:
+为了查询当前给一个内存对象提交的延迟分配的内存量，可调用：
 
 include::../api/protos/vkGetDeviceMemoryCommitment.txt[]
 
   * pname:device 是拥有内存的逻辑设备。
   * pname:memory 是被查询的内存对象。
-  * pname:pCommittedMemoryInBytes is a pointer to a basetype:VkDeviceSize
-    value in which the number of bytes currently committed is returned, on
-    success.
+  * pname:pCommittedMemoryInBytes 是一个指针，指向一个  basetype:VkDeviceSize，
+	若成功返回，其记录了当前被提交的字节数。
+    
 
 Vulkan实现也许会在任何时刻更新提交的内存，所以这个查询返回的值可能是过期的。
 
-The implementation guarantees to allocate any committed memory from the
-heapIndex indicated by the memory type that the memory object was created
-with.
+Vulkan实现保证 从内存对象被创建带有的内存类型指示的heapIndex 分配被提交的内存。
 
 .正确使用
 ****
