@@ -52,11 +52,9 @@ sname:VkBufferCreateInfo 数据结构定义如下：
 include::../api/structs/VkBufferCreateInfo.txt[]
 
   * pname:sType 是这个数据结构的类型。
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
-  * pname:flags is a bitmask describing additional parameters of the buffer.
-    See elink:VkBufferCreateFlagBits below for a description of the
-    supported bits.
-  * pname:size is the size in bytes of the buffer to be created.
+  * pname:pNext 是 `NULL` 或者一个  extension-specific 数据结构的指针。
+  * pname:flags 是一个位掩码，描述了缓冲区的附加参数。参看下方受支持的 elink:VkBufferCreateFlagBits 描述。
+  * pname:size 是将被创建的缓冲区的字节数。
   * pname:usage is a bitmask describing the allowed usages of the buffer.
     See elink:VkBufferUsageFlagBits below for a description of the supported
     bits.
@@ -178,8 +176,8 @@ The sname:VkDedicatedAllocationBufferCreateInfoNV structure is defined as:
 
 include::../api/structs/VkDedicatedAllocationBufferCreateInfoNV.txt[]
 
-  * pname:sType is the type of this structure.
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
+  * pname:sType 是这个数据结构的类型。
+  * pname:pNext 是 `NULL` 或者一个指向 拓展特定的数据结构的指针。
   * pname:dedicatedAllocation indicates whether the buffer will have a
     dedicated allocation bound to it.
 
@@ -258,36 +256,27 @@ sname:VkBufferViewCreateInfo 类型定义如下：
 include::../api/structs/VkBufferViewCreateInfo.txt[]
 
   * pname:sType 是数据结构的类型。
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
+  * pname:pNext 是 `NULL` 或者一个指向 拓展特定的数据结构的指针。
   * pname:flags 被保留使用。
   * pname:buffer 是视图创建所在的 sname:VkBuffer。
-  * pname:format is a elink:VkFormat describing the format of the data
-    elements in the buffer.
-  * pname:offset is an offset in bytes from the base address of the buffer.
-    Accesses to the buffer view from shaders use addressing that is relative
-    to this starting offset.
-  * pname:range is a size in bytes of the buffer view.
-    If pname:range is equal to ename:VK_WHOLE_SIZE, the range from
-    pname:offset to the end of the buffer is used.
-    If ename:VK_WHOLE_SIZE is used and the remaining size of the buffer is
-    not a multiple of the element size of pname:format, then the nearest
-    smaller multiple is used.
+  * pname:format 是一个 elink:VkFormat，描述了缓冲区中数据元素的格式。
+  * pname:offset 是一个偏移值，字节单位，从缓冲区的基础地址开始。着色器中访问缓冲区视图的地址都是对于起始偏移值的相对值。    
+  * pname:range 是缓冲区视图的字节大小。
+	若 pname:range 等于 ename:VK_WHOLE_SIZE, 从  pname:offset 开始到缓冲区结束的区间就被使用。
+    若 ename:VK_WHOLE_SIZE 被使用，且缓冲区剩余的大小并不是 pname:format格式的元素的大小的倍数，
+	那么就会使用最接近的较小的倍数。
 
 .Valid Usage
 ****
-  * pname:offset must: be less than the size of pname:buffer
-  * pname:offset must: be a multiple of
-    sname:VkPhysicalDeviceLimits::pname:minTexelBufferOffsetAlignment
-  * If pname:range is not equal to ename:VK_WHOLE_SIZE:
-  ** pname:range must: be greater than `0`
-  ** pname:range must: be a multiple of the element size of pname:format
-  ** pname:range divided by the element size of pname:format, must: be less
-     than or equal to
+  * pname:offset 必须: 小于 pname:buffer的大小
+  * pname:offset 必须: 是 sname:VkPhysicalDeviceLimits::pname:minTexelBufferOffsetAlignment的倍数。
+  * 若 pname:range 不等于 ename:VK_WHOLE_SIZE:
+  ** pname:range 必须: 大于 `0`
+  ** pname:range 必须: 是  pname:format格式元素大小的整数倍。
+  ** pname:range 除以 pname:format格式元素的大小， 必须小于等于
      sname:VkPhysicalDeviceLimits::pname:maxTexelBufferElements
-  ** the sum of pname:offset and pname:range must: be less than or equal to
-     the size of pname:buffer
-  * pname:buffer must: have been created with a pname:usage value containing
-    at least one of ename:VK_BUFFER_USAGE_UNIFORM_TEXEL_BUFFER_BIT or
+  **  pname:offset 与 pname:range 之和，必须: 小于等于 pname:buffer的大小
+  * pname:buffer 必须: 在被创建时 pname:usage 值包含至少一个  ename:VK_BUFFER_USAGE_UNIFORM_TEXEL_BUFFER_BIT 或者
     ename:VK_BUFFER_USAGE_STORAGE_TEXEL_BUFFER_BIT
   * If pname:buffer was created with pname:usage containing
     ename:VK_BUFFER_USAGE_UNIFORM_TEXEL_BUFFER_BIT, pname:format must: be
@@ -313,8 +302,8 @@ include::../validity/structs/VkBufferViewCreateInfo.txt[]
 
 include::../api/protos/vkDestroyBufferView.txt[]
 
-  * pname:device is the logical device that destroys the buffer view.
-  * pname:bufferView is the buffer view to destroy.
+  * pname:device 是销毁缓冲区视图的逻辑设备。
+  * pname:bufferView 需要被销毁的缓冲区视图。
   * pname:pAllocator 控制CPU端内存分配，如 <<memory-allocation, 内存分配 >> 一章详述。
 
 .Valid Usage
@@ -373,10 +362,8 @@ sname:VkImageCreateInfo 类型数据结构定义如下：
 include::../api/structs/VkImageCreateInfo.txt[]
 
   * pname:sType 是数据结构的类型。
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
-  * pname:flags is a bitmask describing additional parameters of the image.
-    See elink:VkImageCreateFlagBits below for a description of the supported
-    bits.
+  * pname:pNext 是 `NULL` 或者一个指向 拓展特定的数据结构的指针。
+  * pname:flags 是一个位掩码，描述了图像的附加参数。参考 如下elink:VkImageCreateFlagBits 关于受支持的bit描述。
   * pname:imageType is a elink:VkImageType specifying the basic
     dimensionality of the image, as described below.
     Layers in array textures do not count as a dimension for the purposes of
@@ -699,18 +686,16 @@ ifdef::VK_NV_dedicated_allocation[]
 
 // refBegin VkDedicatedAllocationImageCreateInfoNV Specify that an image is bound to a dedicated memory resource
 
-若 pname:pNext 列表包含一个sname:VkDedicatedAllocationImageCreateInfoNV 数据结构，那么该数据结构包含一个控制开关，控制图像是否使用为它专门分配的, then that structure
-includes an enable controlling whether the image will have a dedicated
-memory allocation bound to it.
+若 pname:pNext 列表包含一个sname:VkDedicatedAllocationImageCreateInfoNV 数据结构，那么该数据结构包含一个控制开关，控制图像是否使用为它专门分配的内存。
 
-The sname:VkDedicatedAllocationImageCreateInfoNV structure is defined as:
+
+ sname:VkDedicatedAllocationImageCreateInfoNV 数据结构定义如下：
 
 include::../api/structs/VkDedicatedAllocationImageCreateInfoNV.txt[]
 
-  * pname:sType is the type of this structure.
-  * pname:pNext is `NULL` or a pointer to an extension-specific structure.
-  * pname:dedicatedAllocation indicates whether the image will have a
-    dedicated allocation bound to it.
+  * pname:sType是这个数据结构的类型。
+  * pname:pNext 是 `NULL` 或者一个指向 拓展特定的数据结构的指针。
+  * pname:dedicatedAllocation 表示图像是否将拥有专用的绑定的内存。
 
 [NOTE]
 .注意
@@ -899,10 +884,9 @@ sname:VkImageSubresource 数据结构定义如下：
 
 include::../api/structs/VkImageSubresource.txt[]
 
-  * pname:aspectMask is a elink:VkImageAspectFlags selecting the image
-    _aspect_.
+  * pname:aspectMask 是一个 elink:VkImageAspectFlags ，筛选图像的 _aspect_。
   * pname:mipLevel 选择了mipmap层级。
-  * pname:arrayLayer 选择了array layer.
+  * pname:arrayLayer 选择了array layer。
 
 .Valid Usage
 ****
@@ -2055,18 +2039,13 @@ structures.
 [[resources-memory-aliasing]]
 == 内存别名
 
-A range of a sname:VkDeviceMemory allocation is _aliased_ if it is bound to
-multiple resources simultaneously, via flink:vkBindImageMemory,
-flink:vkBindBufferMemory, or via <<sparsememory-resource-binding,sparse
-memory bindings>>.
-A memory range aliased between two images or two buffers is defined to be
-the intersection of the memory ranges bound to the two resources.
-A memory range aliased between two resources where one is a buffer or a
-linear image, and the other is an optimal image, is defined to be the
-intersection of the memory ranges bound to the two resources, where each
-range is first padded to be aligned to the pname:bufferImageGranularity.
-Applications can: alias memory, but use of multiple aliases is subject to
-several constraints.
+sname:VkDeviceMemory 内存的一段区间可以被称为 _aliased_（被别名），若它通过 flink:vkBindImageMemory，
+flink:vkBindBufferMemory，或者通过<<sparsememory-resource-binding,稀疏内存绑定>>，被同时绑定到多个资源上。
+在两个图像或者两个缓冲区之间的 一段别名内存区间，其定义是：在绑定到两个资源上的内存的一段内存区间。
+在两个资源之间（一个是缓冲区或者线性图像，另一个是优化图像）的 一个内存区间别名，其他定义是 绑定到两个资源的内存区间的
+相交区域。每个区间首先被填补并按照pname:bufferImageGranularity 对齐。
+应用程序可以给内存起别名，但是使用多个别名需要遵循多个限制条件。
+
 
 [NOTE]
 .注意
@@ -2074,38 +2053,24 @@ several constraints.
 如果一些大型的资源被用于不连续的阶段，内存别名可以有效的减少应用程序中设备内存使用痕迹。
 ====
 
-When an opaque, non-ename:VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT image is
-bound to an aliased range, all image subresources of the image _overlap_ the
-range.
-When a linear image is bound to an aliased range, the image subresources
-that (according to the image's advertised layout) include bytes from the
-aliased range overlap the range.
-When a ename:VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT image has sparse image
-blocks bound to an aliased range, only image subresources including those
-sparse image blocks overlap the range, and when the memory bound to the
-image's mip tail overlaps an aliased range all image subresources in the mip
-tail overlap the range.
+当一个不透明，非 ename:VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT 图像被绑定到一个别名区间，图像所有的
+图像子资源 在区间上重叠。
+当一个线性图像被绑定到一个别名区间，包含 别名区间的图像子资源（遵顼图像被建议的布局方式）将重叠该区域。
+当一个 ename:VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT 图像有稀疏图像块被绑定一个别名区间上，
+只有包含这些稀疏图像块的图像子资源会重叠该区间，且当内存被绑定到图像的mip tail与别名区间重叠时，mip tail中的图像子资源
+将重叠该区间。
 
-Buffers, and linear image subresources in either the
-ename:VK_IMAGE_LAYOUT_PREINITIALIZED or ename:VK_IMAGE_LAYOUT_GENERAL
-layouts, are _host-accessible subresources_.
-That is, the host has a well-defined addressing scheme to interpret the
-contents, and thus the layout of the data in memory can: be consistently
-interpreted across aliases if each of those aliases is a host-accessible
-subresource.
-Opaque images and linear image subresources in other layouts are not
-host-accessible.
+在
+ename:VK_IMAGE_LAYOUT_PREINITIALIZED 或者 ename:VK_IMAGE_LAYOUT_GENERAL
+布局的缓冲区，线性图像子资源，都是  _host-accessible subresources_。
+亦即，只有host端能够正确的寻址，并解释其内容，故若这些别名时是host-accessible 子资源，内存中数据的布局可以通过别名被一致性的解释。
+其他布局下的不透明图像和图像子资源，不是host-accessible。
 
-If two aliases are both host-accessible, then they interpret the contents of
-the memory in consistent ways, and data written to one alias can: be read by
-the other alias.
+若两个别名都是both host-accessible，那么它们使用一致的方式去解读内存的内容，且写入到别名内的数据可以被另外一个别名读取。
 
-If either of two aliases is not host-accessible, then the aliases interpret
-the contents of the memory differently, and writes via one alias make the
-contents of memory partially or completely undefined to the other alias.
-If the first alias is a host-accessible subresource, then the bytes affected
-are those written by the memory operations according to its addressing
-scheme.
+
+若两个别名都不是host-accessible，那么别名依不同的方式解读内存的内容，通过一个别名写入的内容对于另外一个别名来说也是部分或全未定义的。
+若第一个别名是 host-accessible 子资源，那么受影响的字节，是那些通过它的寻址方式内存操作写入的部分。
 If the first alias is not host-accessible, then the bytes affected are those
 overlapped by the image subresources that were written.
 If the second alias is a host-accessible subresource, the affected bytes
