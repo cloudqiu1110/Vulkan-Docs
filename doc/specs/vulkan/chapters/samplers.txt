@@ -36,8 +36,7 @@ include::../api/structs/VkSamplerCreateInfo.txt[]
   * pname:sType 是数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:flags 被保留。
-  * pname:magFilter is the magnification filter to apply to lookups, and is
-    of type:
+  * pname:magFilter 时用于查找的缩放filter，类型为：
 +
 --
 // refBegin VkFilter Specify filters used for texture lookups
@@ -61,10 +60,9 @@ include::../api/enums/VkSamplerMipmapMode.txt[]
 	在 <<textures-texel-anisotropic-filtering, Texel Anisotropic Filtering>>一节中讲解，其值为 ename:VK_FALSE 时则不开启。
   * pname:maxAnisotropy is the anisotropy value clamp.
   * pname:compareEnable 为 ename:VK_TRUE 时开启查找阶段与参考值进行比对的功能，为 ename:VK_FALSE 时则不开启。
-  ** Note: Some implementations will default to shader state if this member
-     does not match.
+  ** Note: 一些Vulkan实现里，若这个数字不匹配，那么将使用默认着色器状态。
   * pname:compareOp 是将应用的在过滤前获取数据的函数，在 <<textures-depth-compare-operation, Depth Compare Operation>> 一节中讲解。
-    See elink:VkCompareOp.
+    参看 elink:VkCompareOp。
   * pname:minLod 和 pname:maxLod 是用来包裹计算出来的 level-of-detail 值，在 <<textures-level-of-detail-operation, Level-of-Detail Operation>>
     一节中有讲解。
     pname:maxLod 必须要大于等于  pname:minLod。
@@ -75,16 +73,10 @@ include::../api/enums/VkSamplerMipmapMode.txt[]
 include::../api/enums/VkBorderColor.txt[]
 --
 +
-  * [[samplers-unnormalizedCoordinates]] pname:unnormalizedCoordinates
-    controls whether to use unnormalized or normalized texel coordinates to
-    address texels of the image.
-    When set to ename:VK_TRUE, the range of the image coordinates used to
-    lookup the texel is in the range of zero to the image dimensions for x,
-    y and z.
-    When set to ename:VK_FALSE the range of image coordinates is zero to
-    one.
-    When pname:unnormalizedCoordinates is ename:VK_TRUE, samplers have the
-    following requirements:
+  * [[samplers-unnormalizedCoordinates]] pname:unnormalizedCoordinates 控制是否使用未归一化或归一化的纹素坐标来在图像内寻址纹素。
+	当设置为ename:VK_TRUE时， 用于寻找纹素的图像坐标区间在0和图像维度x、y和z之内。
+	当设置为 ename:VK_FALSE时，图像坐标的区间是 0 和 1。
+	当 pname:unnormalizedCoordinates 是 ename:VK_TRUE时，采样器需符合如下要求：
   ** pname:minFilter 和 pname:magFilter 必须相等。
   ** pname:mipmapMode 必须为 ename:VK_SAMPLER_MIPMAP_MODE_NEAREST.
   ** pname:minLod 和 pname:maxLod 必须为0。
@@ -105,20 +97,14 @@ include::../api/enums/VkBorderColor.txt[]
 ==================
 pname:magFilter的值 ename:VK_FILTER_NEAREST 和 ename:VK_FILTER_LINEAR直接对应为 code:GL_NEAREST 和code:GL_LINEAR 放大过滤器。
 pname:minFilter 和 pname:mipmapMode 联合起来对应着 OpenGL 缩小过滤器 code:GL_minFilter_MIPMAP_mipmapMode
-(e.g. pname:minFilter of ename:VK_FILTER_LINEAR and pname:mipmapMode of
-ename:VK_SAMPLER_MIPMAP_MODE_NEAREST correspond to
-code:GL_LINEAR_MIPMAP_NEAREST).
+(e.g. pname:minFilter of ename:VK_FILTER_LINEAR and pname:mipmapMode of ename:VK_SAMPLER_MIPMAP_MODE_NEAREST correspond to code:GL_LINEAR_MIPMAP_NEAREST)。
 
-There are no Vulkan filter modes that directly correspond to OpenGL
-minification filters of code:GL_LINEAR or code:GL_NEAREST, but they can: be
-emulated using ename:VK_SAMPLER_MIPMAP_MODE_NEAREST, pname:minLod = 0, and
-pname:maxLod = 0.25, and using pname:minFilter = ename:VK_FILTER_LINEAR or
-pname:minFilter = ename:VK_FILTER_NEAREST, respectively.
+Vulkan filter模式并不能直接和 OpenGL code:GL_LINEAR 或 code:GL_NEAREST的 缩小 filters直接对应起来，但是，它们可以用 ename:VK_SAMPLER_MIPMAP_MODE_NEAREST, pname:minLod = 0, 和
+pname:maxLod = 0.25, 和 使用 pname:minFilter = ename:VK_FILTER_LINEAR 或者
+pname:minFilter = ename:VK_FILTER_NEAREST，相对应的来模拟。
 
-Note that using a pname:maxLod of zero would cause
-<<textures-texel-filtering,magnification>> to always be performed, and the
-pname:magFilter to always be used.
-This is valid, just not an exact match for OpenGL behavior.
+注意，使用 pname:maxLod 为0时，会导致 <<textures-texel-filtering, 放大>> 总是会被执行，且 pname:magFilter 总是被使用。
+这是有效的，这是与OpenGL行为不严格一致的地方。
 Clamping the maximum LOD to 0.25 allows the [eq]#{lambda}# value to be
 non-zero and minification to be performed, while still always rounding down
 to the base level.
@@ -138,10 +124,8 @@ include::../api/enums/VkSamplerAddressMode.txt[]
   * ename:VK_SAMPLER_ADDRESS_MODE_MIRRORED_REPEAT 表明将使用镜像重复铺排模式。
   * ename:VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE 表明将使用边缘展开模式（clamp to edge）。
   * ename:VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER 表明将使用边界展开模式( clamp to border）。
-  * ename:VK_SAMPLER_ADDRESS_MODE_MIRROR_CLAMP_TO_EDGE indicates that the
-    mirror clamp to edge wrap mode will be used.
-    This is only valid if the +VK_KHR_mirror_clamp_to_edge+ extension is
-    enabled.
+  * ename:VK_SAMPLER_ADDRESS_MODE_MIRROR_CLAMP_TO_EDGE 表示镜像clamp到边缘 包围模式将会被使用。
+	若 +VK_KHR_mirror_clamp_to_edge+ 拓展被启用时，这一点才有效。
 
 一个设备上可以同时创建的采样器个数最大值依赖于硬件设备，通过sname:VkPhysicalDeviceLimits数据结构的
 <<features-limits-maxSamplerAllocationCount,pname:maxSamplerAllocationCount>>成员来指定。
