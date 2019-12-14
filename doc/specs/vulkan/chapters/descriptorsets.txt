@@ -144,13 +144,11 @@ layout (set=m, binding=n, r32f) uniform image2D myStorageImage;
 
 [[descriptorsets-sampler]]
 === 采样器
-A _sampler_ (ename:VK_DESCRIPTOR_TYPE_SAMPLER) represents a set of
-parameters which control address calculations, filtering behavior, and other
-properties, that can: be used to perform filtered loads from _sampled
-images_ (see <<descriptorsets-sampledimage, Sampled Image>>).
+一个 _sampler_ (ename:VK_DESCRIPTOR_TYPE_SAMPLER) 代表一系列的参数，它控制了寻址计算，过滤行为，和其他的属性，
+这可以被用于执行从一个 采样过的图像 进行过滤加载(参考 <<descriptorsets-sampledimage, 采样的图像>>)。
 
-Samplers are declared in GLSL shader source using uniform code:sampler
-variables, where the sampler type has no associated texture dimensionality:
+采样器时在GLSL着色器代码中使用 uniform code:sampler 来声明的变量，采样器类型并没有关联的纹理维度：
+
 
 .GLSL Example
 [source,glsl]
@@ -177,19 +175,15 @@ layout (set=m, binding=n) uniform sampler mySampler;
 
 
 [[descriptorsets-sampledimage]]
-=== Sampled Image
+=== 采样的图像
 
-A _sampled image_ (ename:VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE) can: be used
-(usually in conjunction with a sampler) to retrieve sampled image data.
-Shaders use a sampled image handle and a sampler handle to sample data,
-where the image handle generally defines the shape and format of the memory
-and the sampler generally defines how coordinate addressing is performed.
-The same sampler can: be used to sample from multiple images, and it is
-possible to sample from the same sampled image with multiple samplers, each
-containing a different set of sampling parameters.
+一个 _采样的图像_ (ename:VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE) 可以: 被用于从采样过的图像数据中提取数据
+（通常联合使用一个采样器）。 着色器使用一个采样的图像handle，与 一个采样器handle来采样数据，图像handle通常定义里内存的
+形状和格式，采样器通常定义了如何进行坐标系寻址。
+同一个采样器可以被用于对多个图像，且可以使用多个采样器对同一个采样的图像进行采样，每一个都包含不同的采样参数。
 
-Sampled images are declared in GLSL shader source using uniform code:texture
-variables of the appropriate dimensionality:
+采样的图像在GLSL着色器源代码中使用uniform code:texture 变量来声明，有合适维度：
+
 
 .GLSL example
 [source,glsl]
@@ -217,11 +211,10 @@ layout (set=m, binding=n) uniform texture2D mySampledImage;
 
 
 [[descriptorsets-combinedimagesampler]]
-=== Combined Image Sampler
+=== 联合图像采样器
 
-A _combined image sampler_ (ename:VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER)
-represents a sampled image along with a set of sampling parameters.
-It is logically considered a sampled image and a sampler bound together.
+一个 _combined image sampler_ (ename:VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER)
+代表一个采样的图像，且带有一些采样参数。在逻辑上，他被认为是一个采样的图像，且绑定了一个采样器。
 
 [NOTE]
 .注意
@@ -307,17 +300,14 @@ layout (set=m, binding=n) uniform samplerBuffer myUniformTexelBuffer;
 
 
 [[descriptorsets-storagetexelbuffer]]
-=== Storage Texel Buffer
+=== 仓库纹素缓冲区
 
-A _storage texel buffer_ (ename:VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER)
-represents a tightly packed array of homogeneous formatted data that is
-stored in a buffer and is made accessible to shaders.
-Storage texel buffers differ from uniform texel buffers in that they support
-stores and atomic operations in shaders, may: support a different maximum
-length, and may: have different performance characteristics.
+一个 _storage texel buffer_ (ename:VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER)
+代表一个紧致压缩的同构格式数据数组，被存储在一个缓冲区，且着色器可访问。
+仓库纹素缓冲区与 统一纹素缓冲区不同点在于它们支持存储和 着色器内原子操作，也支持不同的最大长度，亦可有不同的性能特征。
 
-Storage texel buffers are declared in GLSL shader source using uniform
-code:imageBuffer variables:
+在GLSL源代码中，可使用统一code:imageBuffer变量来声明 仓储纹素缓冲区：
+
 
 .GLSL example
 [source,glsl]
@@ -345,15 +335,13 @@ layout (set=m, binding=n, r32f) uniform imageBuffer myStorageTexelBuffer;
 
 
 [[descriptorsets-uniformbuffer]]
-=== Uniform Buffer
+=== 统一缓冲区
 
-A _uniform buffer_ (ename:VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER) is a region of
-structured storage that is made accessible for read-only access to shaders.
-It is typically used to store medium sized arrays of constants such as
-shader parameters, matrices and other related data.
+一个 _uniform buffer_ (ename:VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER) 是一个结构化的存储区域，
+对于着色器程序而言只能够只读访问。
+它通常被用来初春中等字节大小的常量述祖，例如着色器参数，矩阵，其他相关的数据。
 
-Uniform buffers are declared in GLSL shader source using the uniform storage
-qualifier and block syntax:
+可在GLSL着色器源代码中使用 统一存储描述符和block语法来声明 统一缓冲区：
 
 .GLSL example
 [source,glsl]
@@ -393,17 +381,14 @@ layout (set=m, binding=n) uniform myUniformBuffer
 
 
 [[descriptorsets-storagebuffer]]
-=== Storage Buffer
+=== 存储缓冲区
 
-A _storage buffer_ (ename:VK_DESCRIPTOR_TYPE_STORAGE_BUFFER) is a region of
-structured storage that supports both read and write access for shaders.
-In addition to general read and write operations, some members of storage
-buffers can: be used as the target of atomic operations.
-In general, atomic operations are only supported on members that have
-unsigned integer formats.
+一个 _storage buffer_ (ename:VK_DESCRIPTOR_TYPE_STORAGE_BUFFER) 是一个结构化存储的区域，
+他支持着色器的读写访问。
+除了常规读写操作，存储缓冲区的一些成员可被用于原子操作的对象。
+总的来说，原子操作通常只支持有无符号整型格式的成员。
 
-Storage buffers are declared in GLSL shader source using buffer storage
-qualifier and block syntax:
+可在GLSL着色器源代码中使用缓冲区存储描述符和block语法来声明存储缓冲区：
 
 .GLSL example
 [source,glsl]
@@ -441,54 +426,44 @@ layout (set=m, binding=n) buffer myStorageBuffer
 
 
 [[descriptorsets-uniformbufferdynamic]]
-=== Dynamic Uniform Buffer
+=== 动态统一缓冲区
 
-A _dynamic uniform buffer_ (ename:VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC)
-differs from a uniform buffer only in how its address and length are
-specified.
-Uniform buffers bind a buffer address and length that is specified in the
-descriptor set update by a buffer handle, offset and range (see
-<<descriptorsets-updates, Descriptor Set Updates>>).
-With dynamic uniform buffers the buffer handle, offset and range specified
-in the descriptor set define the base address and length.
-The dynamic offset which is relative to this base address is taken from the
-pname:pDynamicOffsets parameter to flink:vkCmdBindDescriptorSets (see
-<<descriptorsets-binding, Descriptor Set Binding>>).
-The address used for a dynamic uniform buffer is the sum of the buffer base
-address and the relative offset.
-The length is unmodified and remains the range as specified in the
-descriptor update.
-The shader syntax is identical for uniform buffers and dynamic uniform
-buffers.
+一个 _dynamic uniform buffer_ (ename:VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC)
+与统一缓冲区的唯一区别在于它的地址与长度是如何被指定的。
+统一缓冲区与一个缓冲区地址绑定，长度在描述符集合更新的缓冲区handle、偏移与区间来指定(参考
+<<descriptorsets-updates, Descriptor Set Updates>>)。
+使用动态统一缓冲区指定缓冲区句柄、偏移量和范围 在描述符集中定义基本地址和长度。
+相对于这个基础地址的动态偏移是从pname:pDynamicOffsets 参数取出到 flink:vkCmdBindDescriptorSets (参考
+<<descriptorsets-binding, Descriptor Set Binding>>)。
+用于动态统一缓冲区的地址是缓冲区base 地址和相对偏移之和。
+长度未被改变，且保持区间为描述符更新中指定的大小。
+动态缓冲区着色器语法和统一缓冲区一样。
+
 
 
 [[descriptorsets-storagebufferdynamic]]
-=== Dynamic Storage Buffer
+=== 动态仓储缓冲区
 
-A _dynamic storage buffer_ (ename:VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC)
-differs from a storage buffer only in how its address and length are
-specified.
-The difference is identical to the difference between uniform buffers and
-dynamic uniform buffers (see <<descriptorsets-uniformbufferdynamic, Dynamic
+一个 _dynamic storage buffer_ (ename:VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC)
+与仓储缓冲区的唯一不同点是它的地址与长度是如何被指定的。
+不同之处和统一缓冲区与动态缓冲区之间的差别是一样的(参考 <<descriptorsets-uniformbufferdynamic, Dynamic
 Uniform Buffer>>).
-The shader syntax is identical for storage buffers and dynamic storage
-buffers.
+动态仓储缓冲区着色器语法和仓储缓冲区的一样。
+
 
 
 [[descriptorsets-inputattachment]]
-=== Input Attachment
+=== 输入附件
 
-An _input attachment_ (ename:VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT) is an
-image view that can: be used for pixel local load operations from within
-fragment shaders bound to pipelines.
-Loads from input attachments are unfiltered.
-All image formats that are supported for color attachments
-(ename:VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT) or depth/stencil attachments
-(ename:VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT) for a given image
-tiling mode are also supported for input attachments.
+一个 _input attachment_ (ename:VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT) 是一个图像时图，可以被用于
+绑定到管线的片元着色器内像素局部载入操作。 
+从输入附件中载入的内容是unfiltered。
+对于一个给定图像的tiling模式 的颜色附件(ename:VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT)或者深度/stencil
+(ename:VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT) 
+ 附件支持的所有图像格式 都为输入附件所支持。
 
-In the shader, input attachments must: be decorated with their input
-attachment index in addition to descriptor set and binding numbers.
+在着色器内，除了描述符集合和绑定数量，输入附件必须 被它们的输入附件所引所描述。
+
 
 .GLSL example
 [source,glsl]
@@ -517,33 +492,25 @@ layout (input_attachment_index=i, set=m, binding=n) uniform subpassInput myInput
 
 
 [[descriptorsets-sets]]
-== Descriptor Sets
+== 描述符集合
 
-Descriptors are grouped together into descriptor set objects.
-A descriptor set object is an opaque object that contains storage for a set
-of descriptors, where the types and number of descriptors is defined by a
-descriptor set layout.
-The layout object may: be used to define the association of each descriptor
-binding with memory or other hardware resources.
-The layout is used both for determining the resources that need to be
-associated with the descriptor set, and determining the interface between
-shader stages and shader resources.
+多个描述符被分组进入一个描述符集合对象中。一个描述符集合对象是一个不透明对象，包含一个描述符集合的存储
+，类型和描述符的数量由一个描述符集合布局所定义。
+布局对象也许会被用于定义每一个描述符与内存或者其他硬件资源绑定的关联信息。
+布局被用于决定被关联到描述符集合的资源，且决定着色器资源与着色器阶段直接的接口。
 
 
 [[descriptorsets-setlayout]]
-=== Descriptor Set Layout
+=== 描述符集合布局
+
 
 // refBegin VkDescriptorSetLayout Opaque handle to a descriptor set layout object
 
-A descriptor set layout object is defined by an array of zero or more
-descriptor bindings.
-Each individual descriptor binding is specified by a descriptor type, a
-count (array size) of the number of descriptors in the binding, a set of
-shader stages that can: access the binding, and (if using immutable
-samplers) an array of sampler descriptors.
+一个描述符集合布局对象是通过一个描述符绑定的数组来定义的。
+每一个描述符绑定都有一个指定的描述符类型，绑定之中的描述符数量（数组元素个数），可访问到绑定的着色器阶段的集合，
+和一个采样器描述符数组（若使用不可变采样器的话）。
 
-Descriptor set layout objects are represented by sname:VkDescriptorSetLayout
-handles:
+描述符集合布局对象通过 sname:VkDescriptorSetLayout 类型handle 来定义：
 
 include::../api/handles/VkDescriptorSetLayout.txt[]
 
@@ -551,40 +518,36 @@ include::../api/handles/VkDescriptorSetLayout.txt[]
 
 // refBegin vkCreateDescriptorSetLayout Create a new descriptor set layout
 
-To create descriptor set layout objects, call:
+想要创建描述符集合对象，可调用：
 
 include::../api/protos/vkCreateDescriptorSetLayout.txt[]
 
-  * pname:device is the logical device that creates the descriptor set
-    layout.
-  * pname:pCreateInfo is a pointer to an instance of the
-    slink:VkDescriptorSetLayoutCreateInfo structure specifying the state of
-    the descriptor set layout object.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
-  * pname:pSetLayout points to a sname:VkDescriptorSetLayout handle in which
-    the resulting descriptor set layout object is returned.
+  * pname:device 是创建描述符集合对象布局的逻辑设备。
+  * pname:pCreateInfo 是一个指针，指向一个
+    slink:VkDescriptorSetLayoutCreateInfo 数据结构实例，指定了描述符集合布局对象的状态。
+  * pname:pAllocator 控制CPU端内存分配，如<<memory-allocation, Memory Allocation>> 一章所述。
+  * pname:pSetLayout 指向一个 sname:VkDescriptorSetLayout handle，它存储被生成的描述符集合布局对象。
+
 
 include::../validity/protos/vkCreateDescriptorSetLayout.txt[]
 
 // refBegin VkDescriptorSetLayoutCreateInfo Structure specifying parameters of a newly created descriptor set layout
 
-Information about the descriptor set layout is passed in an instance of the
-sname:VkDescriptorSetLayoutCreateInfo structure:
+关于描述符集合布局的信息是包含在一个sname:VkDescriptorSetLayoutCreateInfo数据结构实例中被传递的。
 
 include::../api/structs/VkDescriptorSetLayoutCreateInfo.txt[]
 
   * pname:sType 是数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:flags 被保留。
-  * pname:bindingCount is the number of elements in pname:pBindings.
-  * pname:pBindings is a pointer to an array of
-    slink:VkDescriptorSetLayoutBinding structures.
+  * pname:bindingCount 是 pname:pBindings 中元素的个数。
+  * pname:pBindings 是一个指针，指向一个元素类型为
+    slink:VkDescriptorSetLayoutBinding的数组。
 
 .正确使用
 ****
-  * The slink:VkDescriptorSetLayoutBinding::pname:binding members of the
-    elements of the pname:pBindings array must: each have different values.
+  * pname:pBindings 数组的slink:VkDescriptorSetLayoutBinding::pname:binding 成员必须
+每一个都有不同的值。
 ****
 
 include::../validity/structs/VkDescriptorSetLayoutCreateInfo.txt[]
@@ -657,13 +620,12 @@ avoid wasted memory.
 
 .正确使用
 ****
-  * If pname:descriptorType is ename:VK_DESCRIPTOR_TYPE_SAMPLER or
-    ename:VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, and
-    pname:descriptorCount is not `0` and pname:pImmutableSamplers is not
-    `NULL`, pname:pImmutableSamplers must: be a pointer to an array of
-    pname:descriptorCount valid sname:VkSampler handles
-  * If pname:descriptorCount is not `0`, pname:stageFlags must: be a valid
-    combination of elink:VkShaderStageFlagBits values
+  * 若 pname:descriptorType 是 ename:VK_DESCRIPTOR_TYPE_SAMPLER 或者
+    ename:VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER，且
+    pname:descriptorCount 不为 `0` 、 pname:pImmutableSamplers 不为
+    `NULL`, pname:pImmutableSamplers 必须: 是一个指向
+    pname:descriptorCount 个有效 sname:VkSampler handles的数组的指针。
+  * 若 pname:descriptorCount 不为 `0`, pname:stageFlags 必须: 是一个有效的elink:VkShaderStageFlagBits 类型值。
 ****
 
 include::../validity/structs/VkDescriptorSetLayoutBinding.txt[]
@@ -812,23 +774,19 @@ myResult = vkCreateDescriptorSetLayout(
 
 // refBegin vkDestroyDescriptorSetLayout Destroy a descriptor set layout object
 
-To destroy a descriptor set layout, call:
+想要销毁描述符集合布局，可调用：
 
 include::../api/protos/vkDestroyDescriptorSetLayout.txt[]
 
-  * pname:device is the logical device that destroys the descriptor set
-    layout.
-  * pname:descriptorSetLayout is the descriptor set layout to destroy.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
+  * pname:device 是销毁描述符集合布局的逻辑设备。
+  * pname:descriptorSetLayout 是需要被销毁的描述符集合布局。
+  * pname:pAllocator 控制CPU端内存分配，如 <<memory-allocation, Memory Allocation>> 一章所述。
 
 .正确使用
 ****
-  * If sname:VkAllocationCallbacks were provided when
-    pname:descriptorSetLayout was created, a compatible set of callbacks
-    must: be provided here
-  * If no sname:VkAllocationCallbacks were provided when
-    pname:descriptorSetLayout was created, pname:pAllocator must: be `NULL`
+  * 若在创建pname:descriptorSetLayout 是提供了 sname:VkAllocationCallbacks，那么也必须在此处
+    提供兼容的callbacks。
+  * 若在创建pname:descriptorSetLayout时没有提供  sname:VkAllocationCallbacks，那么pname:pAllocator 必须: 为 `NULL`
 ****
 
 include::../validity/protos/vkDestroyDescriptorSetLayout.txt[]
@@ -858,18 +816,14 @@ include::../api/handles/VkPipelineLayout.txt[]
 
 // refBegin vkCreatePipelineLayout Creates a new pipeline layout object
 
-To create a pipeline layout, call:
+欲创建管线布局，可调用：
 
 include::../api/protos/vkCreatePipelineLayout.txt[]
 
-  * pname:device is the logical device that creates the pipeline layout.
-  * pname:pCreateInfo is a pointer to an instance of the
-    slink:VkPipelineLayoutCreateInfo structure specifying the state of the
-    pipeline layout object.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
-  * pname:pPipelineLayout points to a sname:VkPipelineLayout handle in which
-    the resulting pipeline layout object is returned.
+  * pname:device 是创建管线布局的逻辑设备。
+  * pname:pCreateInfo 是一个指针，指向 slink:VkPipelineLayoutCreateInfo 数据结构实例，其指定来管线布局对象的状态。
+  * pname:pAllocator 控制CPU端内存分配，如 <<memory-allocation, Memory Allocation>> 一章所述。
+  * pname:pPipelineLayout 指向一个 sname:VkPipelineLayout handl，它是生成并被返回的管线布局对象。
 
 include::../validity/protos/vkCreatePipelineLayout.txt[]
 
@@ -882,17 +836,11 @@ include::../api/structs/VkPipelineLayoutCreateInfo.txt[]
   * pname:sType 是数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:flags 被保留。
-  * pname:setLayoutCount is the number of descriptor sets included in the
-    pipeline layout.
-  * pname:pSetLayouts is a pointer to an array of
-    sname:VkDescriptorSetLayout objects.
-  * pname:pushConstantRangeCount is the number of push constant ranges
-    included in the pipeline layout.
-  * pname:pPushConstantRanges is a pointer to an array of
-    sname:VkPushConstantRange structures defining a set of push constant
-    ranges for use in a single pipeline layout.
-    In addition to descriptor set layouts, a pipeline layout also describes
-    how many push constants can: be accessed by each stage of the pipeline.
+  * pname:setLayoutCount 是包含在管线布局中的描述符集合的个数。
+  * pname:pSetLayouts 是一个指针，指向sname:VkDescriptorSetLayout 类型的数组。
+  * pname:pushConstantRangeCount 是包含在管线布局中的push constants区间的个数。
+  * pname:pPushConstantRanges 是一个指针，指向    sname:VkPushConstantRange 类型数组，定一个了一个集合的push constants区间，
+	被用于单个管线布局。除了描述符集合布局，一个管线布局也表述了管线的每个阶段可访问到的push constatns数量。
 +
 [NOTE]
 .注意
@@ -903,14 +851,10 @@ pipelines that is expected to outperform memory-backed resource updates.
 
 .正确使用
 ****
-  * pname:setLayoutCount must: be less than or equal to
-    sname:VkPhysicalDeviceLimits::pname:maxBoundDescriptorSets
-  * The total number of descriptors of the type
-    ename:VK_DESCRIPTOR_TYPE_SAMPLER and
-    ename:VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER accessible to any given
-    shader stage across all elements of pname:pSetLayouts must: be less than
-    or equal to
-    sname:VkPhysicalDeviceLimits::pname:maxPerStageDescriptorSamplers
+  * pname:setLayoutCount 必须: 小于等于 sname:VkPhysicalDeviceLimits::pname:maxBoundDescriptorSets
+  * 可被pname:pSetLayouts 之中 任意着色器阶段访问的
+    ename:VK_DESCRIPTOR_TYPE_SAMPLER 和
+    ename:VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER 类型的描述符的总个数， 必须: 小于等于 sname:VkPhysicalDeviceLimits::pname:maxPerStageDescriptorSamplers
   * The total number of descriptors of the type
     ename:VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER and
     ename:VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC accessible to any given
@@ -961,26 +905,22 @@ include::../api/structs/VkPushConstantRange.txt[]
 
 .正确使用
 ****
-  * pname:offset must: be less than
-    sname:VkPhysicalDeviceLimits::pname:maxPushConstantsSize
-  * pname:offset must: be a multiple of `4`
-  * pname:size must: be greater than `0`
-  * pname:size must: be a multiple of `4`
-  * pname:size must: be less than or equal to
-    sname:VkPhysicalDeviceLimits::pname:maxPushConstantsSize minus
-    pname:offset
+  * pname:offset 必须: 小于 sname:VkPhysicalDeviceLimits::pname:maxPushConstantsSize
+  * pname:offset 必须: 是`4`的倍数
+  * pname:size 必须: 大于`0`
+  * pname:size 必须: 是`4`的倍数
+  * pname:size 必须: 小于等于
+    sname:VkPhysicalDeviceLimits::pname:maxPushConstantsSize 减去
+    pname:offset之差
 ****
 
 include::../validity/structs/VkPushConstantRange.txt[]
 
-Once created, pipeline layouts are used as part of pipeline creation (see
-<<pipelines, Pipelines>>), as part of binding descriptor sets (see
-<<descriptorsets-binding, Descriptor Set Binding>>), and as part of setting
-push constants (see <<descriptorsets-push-constants, Push Constant
-Updates>>).
-Pipeline creation accepts a pipeline layout as input, and the layout may: be
-used to map (set, binding, arrayElement) tuples to hardware resources or
-memory locations within a descriptor set.
+一旦被创建，管线布局被用于管线创建的一部分 (see
+<<pipelines, Pipelines>>), 作为描述符集合绑定的一部分 (see
+<<descriptorsets-binding, Descriptor Set Binding>>), 而且作为设置push 常量的一部分
+(see <<descriptorsets-push-constants, Push Constant Updates>>)。
+管线创建接受一个管线布局作为输入，且布局可能被用于映射（集合、绑定、数组元素）tuples到硬件资源或者一个描述符集合的内存地址上。
 The assignment of hardware resources depends only on the bindings defined in
 the descriptor sets that comprise the pipeline layout, and not on any shader
 source.
@@ -1044,32 +984,28 @@ that can: be used in any pipeline stage as described in
 
 // refBegin vkDestroyPipelineLayout Destroy a pipeline layout object
 
-To destroy a pipeline layout, call:
+与销毁管线布局，可调用：
 
 include::../api/protos/vkDestroyPipelineLayout.txt[]
 
-  * pname:device is the logical device that destroys the pipeline layout.
-  * pname:pipelineLayout is the pipeline layout to destroy.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
+  * pname:device 是销毁管线布局的逻辑设备。
+  * pname:pipelineLayout 是需要被销毁的管线布局。
+  * pname:pAllocator 控制CPU端内存分配，如    <<memory-allocation, Memory Allocation>> 一章所述。
 
 .正确使用
 ****
-  * If sname:VkAllocationCallbacks were provided when pname:pipelineLayout
-    was created, a compatible set of callbacks must: be provided here
-  * If no sname:VkAllocationCallbacks were provided when
-    pname:pipelineLayout was created, pname:pAllocator must: be `NULL`
+  * 若创建pname:pipelineLayout时提供了 sname:VkAllocationCallbacks，那么在此处必须提供兼容的callbacks。
+  * 创建pname:pipelineLayout时没有提供 sname:VkAllocationCallbacks，那么 pname:pAllocator 必须: 为 `NULL`
 ****
 
 include::../validity/protos/vkDestroyPipelineLayout.txt[]
 
 
 [[descriptorsets-compatibility]]
-==== Pipeline Layout Compatibility
+==== 管线布局兼容性
 
-Two pipeline layouts are defined to be "`compatible for
-<<descriptorsets-push-constants, push constants>>`" if they were created
-with identical push constant ranges.
+若两个管线布局被创建时，带有的push constants 区间完全一致，那么它们就被定义为 "`compatible for
+<<descriptorsets-push-constants, push constants>>`"。
 Two pipeline layouts are defined to be "`compatible for set N`" if they were
 created with _identically defined_ descriptor set layouts for sets zero
 through N, and if they were created with identical push constant ranges.
@@ -1160,7 +1096,7 @@ myResult = vkCreatePipelineLayout(
 
 
 [[descriptorsets-allocation]]
-=== Allocation of Descriptor Sets
+=== 描述符集合的分配
 
 // refBegin VkDescriptorPool Opaque handle to a descriptor pool object
 
@@ -1178,23 +1114,19 @@ include::../api/handles/VkDescriptorPool.txt[]
 
 // refBegin vkCreateDescriptorPool Creates a descriptor pool object
 
-To create a descriptor pool object, call:
+与创建描述符池对对象，可调用：
 
 include::../api/protos/vkCreateDescriptorPool.txt[]
 
-  * pname:device is the logical device that creates the descriptor pool.
-  * pname:pCreateInfo is a pointer to an instance of the
-    slink:VkDescriptorPoolCreateInfo structure specifying the state of the
-    descriptor pool object.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
-  * pname:pDescriptorPool points to a sname:VkDescriptorPool handle in which
-    the resulting descriptor pool object is returned.
+  * pname:device 是创建描述符池的逻辑设备。
+  * pname:pCreateInfo 是一个指针，指向一个 slink:VkDescriptorPoolCreateInfo 数据结构实例，指定了描述符池对象的状态。
+  * pname:pAllocator 控制CPU端内存分配，如    <<memory-allocation, Memory Allocation>> 一章所述。
+  * pname:pDescriptorPool 指向一个 sname:VkDescriptorPool handle，它是生成并被返回的描述符池对象。
 
 pname:pAllocator controls host memory allocation as described in the
 <<memory-allocation, Memory Allocation>> chapter.
 
-The created descriptor pool is returned in pname:pDescriptorPool.
+被创建的描述符池通过 pname:pDescriptorPool 返回。
 
 include::../validity/protos/vkCreateDescriptorPool.txt[]
 
@@ -1207,8 +1139,7 @@ include::../api/structs/VkDescriptorPoolCreateInfo.txt[]
 
   * pname:sType 是数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
-  * pname:flags specifies certain supported operations on the pool.
-    Bits which can: be set include:
+  * pname:flags 指定了池上支持的某些操作。Bit位如下：
 +
 --
 // refBegin VkDescriptorPoolCreateFlagBits Bitmask specifying certain supported operations on a descriptor pool
@@ -1260,7 +1191,7 @@ allocations.
 
 .正确使用
 ****
-  * pname:maxSets must: be greater than `0`
+  * pname:maxSets 必须: 大于 `0`
 ****
 
 include::../validity/structs/VkDescriptorPoolCreateInfo.txt[]
@@ -1271,32 +1202,28 @@ sname:VkDescriptorPoolSize 类型数据结构定义如下：
 
 include::../api/structs/VkDescriptorPoolSize.txt[]
 
-  * pname:type is the type of descriptor.
-  * pname:descriptorCount is the number of descriptors of that type to
-    allocate.
+  * pname:type 是描述符的类型。
+  * pname:descriptorCount 是需要分配的类型的描述符的个数。
 
 .正确使用
 ****
-  * pname:descriptorCount must: be greater than `0`
+  * pname:descriptorCount 必须: 大于 `0`
 ****
 
 include::../validity/structs/VkDescriptorPoolSize.txt[]
 
 // refBegin vkDestroyDescriptorPool Destroy a descriptor pool object
 
-To destroy a descriptor pool, call:
+欲销毁一个描述符池，可调用：
 
 include::../api/protos/vkDestroyDescriptorPool.txt[]
 
-  * pname:device is the logical device that destroys the descriptor pool.
-  * pname:descriptorPool is the descriptor pool to destroy.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
+  * pname:device 是销毁描述符池的逻辑设备。
+  * pname:descriptorPool 是需要被销毁的描述符池。
+  * pname:pAllocator 控制CPU端内存分配，如 <<memory-allocation, Memory Allocation>> 一章所述。
 
-When a pool is destroyed, all descriptor sets allocated from the pool are
-implicitly freed and become invalid.
-Descriptor sets allocated from a given pool do not need to be freed before
-destroying that descriptor pool.
+当一个pool被销毁后，从它分配而来的描述符集合都隐式的变得无效了。
+从一个指定的池中分配而来的描述符集合，并不需要在描述符池销毁之前被释放。
 
 .正确使用
 ****
@@ -1321,14 +1248,12 @@ include::../api/handles/VkDescriptorSet.txt[]
 
 // refBegin vkAllocateDescriptorSets Allocate one or more descriptor sets
 
-To allocate descriptor sets from a descriptor pool, call:
+欲从描述符池中分配描述符集合，可调用：
 
 include::../api/protos/vkAllocateDescriptorSets.txt[]
 
-  * pname:device is the logical device that owns the descriptor pool.
-  * pname:pAllocateInfo is a pointer to an instance of the
-    slink:VkDescriptorSetAllocateInfo structure describing parameters of the
-    allocation.
+  * pname:device 是拥有描述符池的逻辑设备。
+  * pname:pAllocateInfo 是一个指针，指向一个    slink:VkDescriptorSetAllocateInfo 实例，描述了分配的参数。
   * pname:pDescriptorSets is a pointer to an array of sname:VkDescriptorSet
     handles in which the resulting descriptor set objects are returned.
     The array must: be at least the length specified by the
@@ -1413,7 +1338,7 @@ include::../validity/structs/VkDescriptorSetAllocateInfo.txt[]
 
 // refBegin vkFreeDescriptorSets Free one or more descriptor sets
 
-To free allocated descriptor sets, call:
+与释放被分配的描述符集合，可调用：
 
 include::../api/protos/vkFreeDescriptorSets.txt[]
 
@@ -1450,8 +1375,8 @@ rather than freeing individual descriptor sets, call:
 
 include::../api/protos/vkResetDescriptorPool.txt[]
 
-  * pname:device is the logical device that owns the descriptor pool.
-  * pname:descriptorPool is the descriptor pool to be reset.
+  * pname:device 书拥有描述符池的逻辑设备。
+  * pname:descriptorPool 是需要被重置的描述符池。
   * pname:flags 被保留。
 
 Resetting a descriptor pool recycles all of the resources from all of the
@@ -1468,27 +1393,23 @@ include::../validity/protos/vkResetDescriptorPool.txt[]
 
 
 [[descriptorsets-updates]]
-=== Descriptor Set Updates
+=== 描述符集合更新
 
 // refBegin vkUpdateDescriptorSets Update the contents of a descriptor set object
 
 Once allocated, descriptor sets can: be updated with a combination of write
 and copy operations.
-To update descriptor sets, call:
+欲更新描述符集合，可调用：
 
 include::../api/protos/vkUpdateDescriptorSets.txt[]
 
-  * pname:device is the logical device that updates the descriptor sets.
-  * pname:descriptorWriteCount is the number of elements in the
-    pname:pDescriptorWrites array.
-  * pname:pDescriptorWrites is a pointer to an array of
-    slink:VkWriteDescriptorSet structures describing the descriptor sets to
-    write to.
-  * pname:descriptorCopyCount is the number of elements in the
-    pname:pDescriptorCopies array.
-  * pname:pDescriptorCopies is a pointer to an array of
-    slink:VkCopyDescriptorSet structures describing the descriptor sets to
-    copy between.
+  * pname:device 是更新描述符集合的逻辑设备。
+  * pname:descriptorWriteCount 是    pname:pDescriptorWrites 数组中元素的个数。
+  * pname:pDescriptorWrites 是一个指针，指向一个
+    slink:VkWriteDescriptorSet 类型数组，描述了将被写入的描述符集合。
+  * pname:descriptorCopyCount 是 pname:pDescriptorCopies 数组中元素个数.
+  * pname:pDescriptorCopies 是一个指针，窒息那个一个    slink:VkCopyDescriptorSet 类型数组，描述了将要复制的
+	描述符集合。
 
 The operations described by pname:pDescriptorWrites are performed first,
 followed by the operations described by pname:pDescriptorCopies.
@@ -1911,7 +1832,7 @@ The values of push constants are undefined at the start of a command buffer.
 
 // refBegin vkCmdPushConstants Update the values of push constants
 
-To update push constants, call:
+欲更新push constants，可调用：
 
 include::../api/protos/vkCmdPushConstants.txt[]
 
