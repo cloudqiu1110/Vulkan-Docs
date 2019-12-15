@@ -219,9 +219,7 @@ layout (set=m, binding=n) uniform texture2D mySampledImage;
 [NOTE]
 .注意
 ====
-On some implementations, it may: be more efficient to sample from an image
-using a combination of sampler and sampled image that are stored together in
-the descriptor set in a combined descriptor.
+在一些Vulkan实现上，可能: 使用采样器与采样的图像结合的方式从图像中采样可能更高效，采样器与采样的图像存储在联合的描述中的描述符集合。
 ====
 
 Combined image samplers are declared in GLSL shader source using uniform
@@ -263,16 +261,12 @@ image variable is used due to it originating from a combined descriptor.
 
 
 [[descriptorsets-uniformtexelbuffer]]
-=== Uniform Texel Buffer
+=== 统一纹素缓冲区
 
-A _uniform texel buffer_ (ename:VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER)
-represents a tightly packed array of homogeneous formatted data that is
-stored in a buffer and is made accessible to shaders.
-Uniform texel buffers are read-only.
+一个 _uniform texel buffer_ (ename:VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER)
+代表一个紧致压缩的同构格式数据的数组，存储在一个缓冲区，且可被着色器访问。统一纹素缓冲区是只读的。
 
-Uniform texel buffers are declared in GLSL shader source using uniform
-code:samplerBuffer variables:
-
+可在GLSL源代码中使用 统一code:samplerBuffer变量  声明统一纹素缓冲区：
 .GLSL example
 [source,glsl]
 ---------------------------------------------------
@@ -797,18 +791,13 @@ include::../validity/protos/vkDestroyDescriptorSetLayout.txt[]
 
 // refBegin VkPipelineLayout Opaque handle to a pipeline layout object
 
-Access to descriptor sets from a pipeline is accomplished through a
-_pipeline layout_.
-Zero or more descriptor set layouts and zero or more push constant ranges
-are combined to form a pipeline layout object which describes the complete
-set of resources that can: be accessed by a pipeline.
-The pipeline layout represents a sequence of descriptor sets with each
-having a specific layout.
-This sequence of layouts is used to determine the interface between shader
-stages and shader resources.
-Each pipeline is created using a pipeline layout.
+从管线中访问描述符集合是通过 _pipeline layout_ 实现的。
+零个或者多个描述符集合布局，零个或者多个push constant 区间被联合形成一个管线布局对象，它描述了可以被管线访问的资源的完整集合。
+管线布局可表示连续的描述符集合，每一个都有指定的布局。
+布局的序列用于决定着色器阶段之间的接口和着色器资源。
+每一个管线是通过管线布局创建的。
 
-Pipeline layout objects are represented by sname:VkPipelineLayout handles:
+管线布局对象可使用 sname:VkPipelineLayout handle表示:
 
 include::../api/handles/VkPipelineLayout.txt[]
 
@@ -845,8 +834,7 @@ include::../api/structs/VkPipelineLayoutCreateInfo.txt[]
 [NOTE]
 .注意
 ====
-Push constants represent a high speed path to modify constant data in
-pipelines that is expected to outperform memory-backed resource updates.
+Push constants 可表示修改管线内常量数据的高速通道，此方式设计目标就应该比基于内存的资源更新更高效率。
 ====
 
 .正确使用
@@ -855,33 +843,24 @@ pipelines that is expected to outperform memory-backed resource updates.
   * 可被pname:pSetLayouts 之中 任意着色器阶段访问的
     ename:VK_DESCRIPTOR_TYPE_SAMPLER 和
     ename:VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER 类型的描述符的总个数， 必须: 小于等于 sname:VkPhysicalDeviceLimits::pname:maxPerStageDescriptorSamplers
-  * The total number of descriptors of the type
-    ename:VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER and
-    ename:VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC accessible to any given
-    shader stage across all elements of pname:pSetLayouts must: be less than
-    or equal to
+  * 可以被任何指定的 跨跃pname:pSetLayouts所有元素的 着色器阶段访问的
+    ename:VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER 和
+    ename:VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC类型的描述符的总数，必须小于等于
     sname:VkPhysicalDeviceLimits::pname:maxPerStageDescriptorUniformBuffers
-  * The total number of descriptors of the type
-    ename:VK_DESCRIPTOR_TYPE_STORAGE_BUFFER and
-    ename:VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC accessible to any given
-    shader stage across all elements of pname:pSetLayouts must: be less than
-    or equal to
+  * 可以被任何指定的 跨跃pname:pSetLayouts所有元素的 着色器阶段访问的
+    ename:VK_DESCRIPTOR_TYPE_STORAGE_BUFFER 和
+    ename:VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC 类型的描述符的总数，必须小于等于
     sname:VkPhysicalDeviceLimits::pname:maxPerStageDescriptorStorageBuffers
-  * The total number of descriptors of the type
+  * 可以被任何指定的 跨跃pname:pSetLayouts所有元素的 着色器阶段访问的
     ename:VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,
-    ename:VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, and
-    ename:VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER accessible to any given
-    shader stage across all elements of pname:pSetLayouts must: be less than
-    or equal to
+    ename:VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 和
+    ename:VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER 类型的描述符的总数，必须小于等于
     sname:VkPhysicalDeviceLimits::pname:maxPerStageDescriptorSampledImages
-  * The total number of descriptors of the type
-    ename:VK_DESCRIPTOR_TYPE_STORAGE_IMAGE, and
-    ename:VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER accessible to any given
-    shader stage across all elements of pname:pSetLayouts must: be less than
-    or equal to
+  * 可以被任何指定的 跨跃pname:pSetLayouts所有元素的 着色器阶段访问的
+    ename:VK_DESCRIPTOR_TYPE_STORAGE_IMAGE, 和
+    ename:VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER 类型的描述符的总数，必须小于等于
     sname:VkPhysicalDeviceLimits::pname:maxPerStageDescriptorStorageImages
-  * Any two elements of pname:pPushConstantRanges must: not include the same
-    stage in pname:stageFlags
+  * pname:pPushConstantRanges 的任意两个元素 不能: 包含相同的 pname:stageFlags 阶段。
 ****
 
 include::../validity/structs/VkPipelineLayoutCreateInfo.txt[]
@@ -892,16 +871,10 @@ sname:VkPushConstantRange 类型数据结构定义如下：
 
 include::../api/structs/VkPushConstantRange.txt[]
 
-  * pname:stageFlags is a set of stage flags describing the shader stages
-    that will access a range of push constants.
-    If a particular stage is not included in the range, then accessing
-    members of that range of push constants from the corresponding shader
-    stage will result in undefined data being read.
-  * pname:offset and pname:size are the start offset and size, respectively,
-    consumed by the range.
-    Both pname:offset and pname:size are in units of bytes and must: be a
-    multiple of 4.
-    The layout of the push constant variables is specified in the shader.
+  * pname:stageFlags 是一些阶段flags的集合，描述了将访问push constants的着色器阶段。若区间没有包含一个特定的阶段，那么
+    从对应着色器阶段 访问该区间的数字 将会导致读出未定义的数据。
+  * pname:offset 和 pname:size 各自是起始偏移和大小，描述该区间。
+    pname:offset 和 pname:size 都是字节大小，且必须是 4 的倍数。push constants变量的布局在着色器中被指定。
 
 .正确使用
 ****
@@ -916,14 +889,11 @@ include::../api/structs/VkPushConstantRange.txt[]
 
 include::../validity/structs/VkPushConstantRange.txt[]
 
-一旦被创建，管线布局被用于管线创建的一部分 (see
-<<pipelines, Pipelines>>), 作为描述符集合绑定的一部分 (see
+一旦被创建，管线布局被用于管线创建的一部分 (参考<<pipelines, Pipelines>>), 作为描述符集合绑定的一部分 (参考
 <<descriptorsets-binding, Descriptor Set Binding>>), 而且作为设置push 常量的一部分
-(see <<descriptorsets-push-constants, Push Constant Updates>>)。
+(参考 <<descriptorsets-push-constants, Push Constant Updates>>)。
 管线创建接受一个管线布局作为输入，且布局可能被用于映射（集合、绑定、数组元素）tuples到硬件资源或者一个描述符集合的内存地址上。
-The assignment of hardware resources depends only on the bindings defined in
-the descriptor sets that comprise the pipeline layout, and not on any shader
-source.
+硬件资源的管理只依赖于绑定，在组成管线布局的描述符集合中定义，且不依赖于任何着色器资源。
 
 [[descriptorsets-pipelinelayout-consistency]]
 All resource variables <<shaders-staticuse,statically used>> in all shaders
@@ -1051,9 +1021,8 @@ invalidated will need to be updated and the remainder of the descriptor set
 bindings will remain in place.
 ====
 
-The maximum number of descriptor sets that can: be bound to a pipeline
-layout is queried from physical device properties (see
-pname:maxBoundDescriptorSets in <<features-limits, Limits>>).
+可以绑定到管线布局的描述符集合的最大数量来自物理硬件的属性
+(参考 pname:maxBoundDescriptorSets in <<features-limits, Limits>>).
 
 .API example
 [source,c++]
@@ -1132,8 +1101,8 @@ include::../validity/protos/vkCreateDescriptorPool.txt[]
 
 // refBegin VkDescriptorPoolCreateInfo Structure specifying parameters of a newly created descriptor pool
 
-Additional information about the pool is passed in an instance of the
-sname:VkDescriptorPoolCreateInfo structure:
+关于池的其他信息通过一个
+sname:VkDescriptorPoolCreateInfo 数据结构实例 传入:
 
 include::../api/structs/VkDescriptorPoolCreateInfo.txt[]
 
@@ -1239,8 +1208,7 @@ include::../validity/protos/vkDestroyDescriptorPool.txt[]
 
 // refBegin VkDescriptorSet Opaque handle to a descriptor set object
 
-Descriptor sets are allocated from descriptor pool objects, and are
-represented by sname:VkDescriptorSet handles:
+描述符集合从描述符池中分配而来，使用sname:VkDescriptorSet handle表示:
 
 include::../api/handles/VkDescriptorSet.txt[]
 
@@ -1254,32 +1222,22 @@ include::../api/protos/vkAllocateDescriptorSets.txt[]
 
   * pname:device 是拥有描述符池的逻辑设备。
   * pname:pAllocateInfo 是一个指针，指向一个    slink:VkDescriptorSetAllocateInfo 实例，描述了分配的参数。
-  * pname:pDescriptorSets is a pointer to an array of sname:VkDescriptorSet
-    handles in which the resulting descriptor set objects are returned.
-    The array must: be at least the length specified by the
-    pname:descriptorSetCount member of pname:pAllocateInfo.
+  * pname:pDescriptorSets 是一个指针，指向 sname:VkDescriptorSet类型的数组，保存被生成并返回的描述符集合对象。
+    这个数组的最小个数必须是 pname:pAllocateInfo的    pname:descriptorSetCount 成员指定的大小。
 
-The allocated descriptor sets are returned in pname:pDescriptorSets.
 
-When a descriptor set is allocated, the initial state is largely
-uninitialized and all descriptors are undefined.
-However, the descriptor set can: be bound in a command buffer without
-causing errors or exceptions.
-All entries that are statically used by a pipeline in a drawing or
-dispatching command must: have been populated before the descriptor set is
-bound for use by that command.
-Entries that are not statically used by a pipeline can: have uninitialized
-descriptors or descriptors of resources that have been destroyed, and
-executing a draw or dispatch with such a descriptor set bound does not cause
-undefined behavior.
-This means applications need not populate unused entries with dummy
-descriptors.
+被分配的描述符集合通过 pname:pDescriptorSets 返回。
 
-If an allocation fails due to fragmentation, an indeterminate error is
-returned with an unspecified error code.
-Any returned error other than ename:VK_ERROR_FRAGMENTED_POOL does not imply
-its usual meaning: applications should: assume that the allocation failed
-due to fragmentation, and create a new descriptor pool.
+当已分配了一个描述符集合，其初始状态很大可能是未厨师还的，所有的描述符是未定义的。
+然而，描述符集合可以被绑定到命令缓冲区，而不会导致任何错误或异常。
+被一个绘制或者dispatching命令的管线使用时，每个数组元素必须在绑定并被该命令使用之前，已经被实际填充数据。
+没有被管线静态使用的数组元素可以有未初始化的描述符或者  已经被销毁了的资源的描述符，且使用这样的描述符集合绑定
+来 执行绘制或者dispatch命令并不会导致未定义行为。
+这表示，应用程序不需要使用假数据填充未使用的数组元素。
+
+若应用程序在fragmentation失败了，会使用未指定的错误码来表示 返回了一个不确定的错误。
+非ename:VK_ERROR_FRAGMENTED_POOL 的其他任意错误码并不意味着它实际的含义：
+应用程序应该假设因为fragmentation 分配失败了，且创建了一个新的描述符池。
 
 ifdef::VK_KHR_maintenance1[]
 If the allocation fails due to no more space in the descriptor pool, and not
@@ -1320,18 +1278,15 @@ include::../api/structs/VkDescriptorSetAllocateInfo.txt[]
 
   * pname:sType 是数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
-  * pname:descriptorPool is the pool which the sets will be allocated from.
-  * pname:descriptorSetCount determines the number of descriptor sets to be
-    allocated from the pool.
-  * pname:pSetLayouts is an array of descriptor set layouts, with each
-    member specifying how the corresponding descriptor set is allocated.
+  * pname:descriptorPool 是描述符集合从这个pool分配而来的。
+  * pname:descriptorSetCount 决定了需要从pool中分配的描述符集合的数量。
+  * pname:pSetLayouts 是一个描述符集合布局的数组，每一个数字指定了对应的描述符集合如何被分配。
+
 
 .正确使用
 ****
-  * pname:descriptorSetCount must: not be greater than the number of sets
-    that are currently available for allocation in pname:descriptorPool
-  * pname:descriptorPool must: have enough free descriptor capacity
-    remaining to allocate the descriptor sets of the specified layouts
+  * pname:descriptorSetCount 不能: 大于集合pname:descriptorPool 中可用于分配的数量
+  * pname:descriptorPool 必须: 有足够的剩余量，可分配指定布局的描述符集合。
 ****
 
 include::../validity/structs/VkDescriptorSetAllocateInfo.txt[]
@@ -1342,16 +1297,12 @@ include::../validity/structs/VkDescriptorSetAllocateInfo.txt[]
 
 include::../api/protos/vkFreeDescriptorSets.txt[]
 
-  * pname:device is the logical device that owns the descriptor pool.
-  * pname:descriptorPool is the descriptor pool from which the descriptor
-    sets were allocated.
-  * pname:descriptorSetCount is the number of elements in the
-    pname:pDescriptorSets array.
-  * pname:pDescriptorSets is an array of handles to sname:VkDescriptorSet
-    objects.
+  * pname:device 是拥有描述符池的逻辑设备。
+  * pname:descriptorPool 是分配描述符集合的描述符池。
+  * pname:descriptorSetCount 是 pname:pDescriptorSets 数组中元素的个数。
+  * pname:pDescriptorSets 是一个 sname:VkDescriptorSet handle 对象数组。
 
-After a successful call to fname:vkFreeDescriptorSets, all descriptor sets
-in pname:pDescriptorSets are invalid.
+调用fname:vkFreeDescriptorSets成功后， pname:pDescriptorSets 中所有的描述符集合都是无效的。
 
 .正确使用
 ****
@@ -1370,8 +1321,7 @@ include::../validity/protos/vkFreeDescriptorSets.txt[]
 
 // refBegin vkResetDescriptorPool Resets a descriptor pool object
 
-To return all descriptor sets allocated from a given pool to the pool,
-rather than freeing individual descriptor sets, call:
+欲把从指定池中分配而来的所有描述符集合返回给该池，而非释放单个描述符集合，可调用：
 
 include::../api/protos/vkResetDescriptorPool.txt[]
 
@@ -1379,9 +1329,7 @@ include::../api/protos/vkResetDescriptorPool.txt[]
   * pname:descriptorPool 是需要被重置的描述符池。
   * pname:flags 被保留。
 
-Resetting a descriptor pool recycles all of the resources from all of the
-descriptor sets allocated from the descriptor pool back to the descriptor
-pool, and the descriptor sets are implicitly freed.
+重置一个描述符池将回收所有之前从之分配出去的描述符集合，回收到描述符集合，且描述符集合被隐式释放。
 
 .正确使用
 ****
@@ -1397,8 +1345,7 @@ include::../validity/protos/vkResetDescriptorPool.txt[]
 
 // refBegin vkUpdateDescriptorSets Update the contents of a descriptor set object
 
-Once allocated, descriptor sets can: be updated with a combination of write
-and copy operations.
+一旦分配好了，描述符集合可以被写入欲复制操作的组合所更新。
 欲更新描述符集合，可调用：
 
 include::../api/protos/vkUpdateDescriptorSets.txt[]
@@ -1408,7 +1355,7 @@ include::../api/protos/vkUpdateDescriptorSets.txt[]
   * pname:pDescriptorWrites 是一个指针，指向一个
     slink:VkWriteDescriptorSet 类型数组，描述了将被写入的描述符集合。
   * pname:descriptorCopyCount 是 pname:pDescriptorCopies 数组中元素个数.
-  * pname:pDescriptorCopies 是一个指针，窒息那个一个    slink:VkCopyDescriptorSet 类型数组，描述了将要复制的
+  * pname:pDescriptorCopies 是一个指针，指向一个    slink:VkCopyDescriptorSet 类型数组，描述了将要复制的
 	描述符集合。
 
 The operations described by pname:pDescriptorWrites are performed first,
@@ -1416,13 +1363,11 @@ followed by the operations described by pname:pDescriptorCopies.
 Within each array, the operations are performed in the order they appear in
 the array.
 
-Each element in the pname:pDescriptorWrites array describes an operation
-updating the descriptor set using descriptors for resources specified in the
-structure.
+pname:pDescriptorWrites 数组中每一个元素描述了一个操作，该操作使用数据结构中指定的资源 更新了描述符集合。
 
-Each element in the pname:pDescriptorCopies array is a
-slink:VkCopyDescriptorSet structure describing an operation copying
-descriptors between sets.
+
+pname:pDescriptorCopies 数组中每一个元素是一个
+slink:VkCopyDescriptorSet 数据结构，描述了两个集合之间的复制描述符操作。
 
 include::../validity/protos/vkUpdateDescriptorSets.txt[]
 
@@ -1434,26 +1379,18 @@ include::../api/structs/VkWriteDescriptorSet.txt[]
 
   * pname:sType 是数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
-  * pname:dstSet is the destination descriptor set to update.
-  * pname:dstBinding is the descriptor binding within that set.
-  * pname:dstArrayElement is the starting element in that array.
-  * pname:descriptorCount is the number of descriptors to update (the number
-    of elements in pname:pImageInfo, pname:pBufferInfo, or
-    pname:pTexelBufferView).
-  * pname:descriptorType is a elink:VkDescriptorType specifying the type of
-    each descriptor in pname:pImageInfo, pname:pBufferInfo, or
-    pname:pTexelBufferView, as described below.
-    It must: be the same type as that specified in
-    sname:VkDescriptorSetLayoutBinding for pname:dstSet at pname:dstBinding.
-    The type of the descriptor also controls which array the descriptors are
-    taken from.
-  * pname:pImageInfo points to an array of slink:VkDescriptorImageInfo
-    structures or is ignored, as described below.
-  * pname:pBufferInfo points to an array of slink:VkDescriptorBufferInfo
-    structures or is ignored, as described below.
-  * pname:pTexelBufferView points to an array of slink:VkBufferView handles
-    as described in the <<resources-buffer-views,Buffer Views>> section or
-    is ignored, as described below.
+  * pname:dstSet 是需要被更新的目标描述符集合。
+  * pname:dstBinding 是该集合内的描述符绑定。
+  * pname:dstArrayElement 是该数组的起始元素。
+  * pname:descriptorCount 是需要被更新的描述符个数 ( pname:pImageInfo, pname:pBufferInfo, 或者 
+    pname:pTexelBufferView 的元素个数).
+  * pname:descriptorType 是一个 elink:VkDescriptorType，指定了pname:pImageInfo, pname:pBufferInfo, 或者
+    pname:pTexelBufferView之中每一个描述符的类型，如下所述。它 必须: 与 
+    在 pname:dstBinding的pname:dstSet 为 sname:VkDescriptorSetLayoutBinding中指定的类型 相同。
+    描述的类型也控制了从哪个数组中取出描述符。
+  * pname:pImageInfo 指向一个slink:VkDescriptorImageInfo数组，或者被忽略，如下描述。
+  * pname:pBufferInfo 指向一个 slink:VkDescriptorBufferInfo数组，或者被忽略，如下描述。
+  * pname:pTexelBufferView 指向一个  slink:VkBufferView handle数组，如 <<resources-buffer-views,Buffer Views>> 小节所述，或者被忽略，如下描述。
 
 Only one of pname:pImageInfo, pname:pBufferInfo, or pname:pTexelBufferView
 members is used according to the descriptor type specified in the
@@ -1478,8 +1415,7 @@ use immutable samplers or must: all not use immutable samplers.
   * pname:dstBinding must: be less than or equal to the maximum value of
     pname:binding of all slink:VkDescriptorSetLayoutBinding structures
     specified when pname:dstSet's descriptor set layout was created
-  * pname:dstBinding must: be a binding with a non-zero
-    pname:descriptorCount
+  * pname:dstBinding 必须: 被绑定一个非 0的 pname:descriptorCount
   * pname:descriptorType must: match the type of pname:dstBinding within
     pname:dstSet
   * The sum of pname:dstArrayElement and pname:descriptorCount must: be less
@@ -1573,27 +1509,24 @@ values:
 
 include::../api/enums/VkDescriptorType.txt[]
 
-If pname:descriptorType is ename:VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER,
+若 pname:descriptorType 是 ename:VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER,
 ename:VK_DESCRIPTOR_TYPE_STORAGE_BUFFER,
-ename:VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC, or
-ename:VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC, the elements of the
-slink:VkWriteDescriptorSet::pname:pBufferInfo array of
-slink:VkDescriptorBufferInfo structures will be used to update the
-descriptors, and other arrays will be ignored.
+ename:VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC, 或者
+ename:VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC类型, 
+slink:VkDescriptorBufferInfo 数据结构的 slink:VkWriteDescriptorSet::pname:pBufferInfo 数组的元素将会被用于更新描述符
+，其他的数组将被忽略。
 
-If pname:descriptorType is ename:VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER or
-ename:VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER, the
-slink:VkWriteDescriptorSet::pname:pTexelBufferView array will be used to
-update the descriptors, and other arrays will be ignored.
+若pname:descriptorType 是 ename:VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER 或者
+ename:VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER类型，
+slink:VkWriteDescriptorSet::pname:pTexelBufferView 数组将被用于更新描述符，其他的数组将被忽略。
 
-If pname:descriptorType is ename:VK_DESCRIPTOR_TYPE_SAMPLER,
+若 pname:descriptorType 是 ename:VK_DESCRIPTOR_TYPE_SAMPLER,
 ename:VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,
 ename:VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE,
-ename:VK_DESCRIPTOR_TYPE_STORAGE_IMAGE, or
-ename:VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT, the elements of the
-slink:VkWriteDescriptorSet::pname:pImageInfo array of
-slink:VkDescriptorImageInfo structures will be used to update the
-descriptors, and other arrays will be ignored.
+ename:VK_DESCRIPTOR_TYPE_STORAGE_IMAGE, 或
+ename:VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT类型， 
+slink:VkDescriptorImageInfo 数据结构的 slink:VkWriteDescriptorSet::pname:pImageInfo 数组的元素将被用于
+更新描述符，其他的数组将被忽略。
 
 // refEnd VkDescriptorType
 
@@ -1603,13 +1536,10 @@ sname:VkDescriptorBufferInfo 类型数据结构定义如下：
 
 include::../api/structs/VkDescriptorBufferInfo.txt[]
 
-  * pname:buffer is the buffer resource.
-  * pname:offset is the offset in bytes from the start of pname:buffer.
-    Access to buffer memory via this descriptor uses addressing that is
-    relative to this starting offset.
-  * pname:range is the size in bytes that is used for this descriptor
-    update, or ename:VK_WHOLE_SIZE to use the range from pname:offset to the
-    end of the buffer.
+  * pname:buffer 是缓冲区资源。、
+  * pname:offset 是 从pname:buffer的起始位置的偏移子节量。
+    通过这个描述符访问缓冲区内存，会使用相对于起始偏移的地址。
+  * pname:range 是用于此次描述符更新的字节大小，或者为ename:VK_WHOLE_SIZE时，将使用  pname:offset 到缓冲区结束的区间。
 +
 --
 [NOTE]
@@ -1632,11 +1562,9 @@ pname:range is the static size used for all dynamic offsets.
 
 .正确使用
 ****
-  * pname:offset must: be less than the size of pname:buffer
-  * If pname:range is not equal to ename:VK_WHOLE_SIZE, pname:range must: be
-    greater than `0`
-  * If pname:range is not equal to ename:VK_WHOLE_SIZE, pname:range must: be
-    less than or equal to the size of pname:buffer minus pname:offset
+  * pname:offset 必须: 小于 pname:buffer
+  * 若 pname:range 不等于 ename:VK_WHOLE_SIZE， pname:range 必须: 大于 `0`
+  * 若 pname:range 不等于 ename:VK_WHOLE_SIZE，pname:range 必须: 小于等于  pname:buffer 减去 pname:offset之差。
 ****
 
 include::../validity/structs/VkDescriptorBufferInfo.txt[]
@@ -1647,25 +1575,20 @@ sname:VkDescriptorImageInfo 类型数据结构定义如下：
 
 include::../api/structs/VkDescriptorImageInfo.txt[]
 
-  * pname:sampler is a sampler handle, and is used in descriptor updates for
-    types ename:VK_DESCRIPTOR_TYPE_SAMPLER and
-    ename:VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER if the binding being
-    updated does not use immutable samplers.
-  * pname:imageView is an image view handle, and is used in descriptor
-    updates for types ename:VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE,
-    ename:VK_DESCRIPTOR_TYPE_STORAGE_IMAGE,
-    ename:VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, and
-    ename:VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT.
-  * pname:imageLayout is the layout that the image will be in at the time
-    this descriptor is accessed.
-    pname:imageLayout is used in descriptor updates for types
+  * pname:sampler 是一个采样器handle， 若正在被更新的绑定并不使用 不可变的采样器，在
+    ename:VK_DESCRIPTOR_TYPE_SAMPLER 和 ename:VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER 类型的描述符更新中被使用。
+  * pname:imageView 是一个图像视图handle, 在ename:VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE，
+    ename:VK_DESCRIPTOR_TYPE_STORAGE_IMAGE，
+    ename:VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 和
+    ename:VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT 类型的描述符更新中使用。
+  * pname:imageLayout 是描述符被访问时图像所处于的布局。
+    pname:imageLayout 在
     ename:VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE,
     ename:VK_DESCRIPTOR_TYPE_STORAGE_IMAGE,
-    ename:VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, and
-    ename:VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT.
+    ename:VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 和
+    ename:VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT 类型的描述符更新中被使用。
 
-Members of sname:VkDescriptorImageInfo that are not used in an update (as
-described above) are ignored.
+一次更新中没有使用的 sname:VkDescriptorImageInfo的成员将被忽略。(如上所述) .
 
 include::../validity/structs/VkDescriptorImageInfo.txt[]
 
@@ -1677,65 +1600,45 @@ include::../api/structs/VkCopyDescriptorSet.txt[]
 
   * pname:sType 是数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
-  * pname:srcSet, pname:srcBinding, and pname:srcArrayElement are the source
-    set, binding, and array element, respectively.
-  * pname:dstSet, pname:dstBinding, and pname:dstArrayElement are the
-    destination set, binding, and array element, respectively.
-  * pname:descriptorCount is the number of descriptors to copy from the
-    source to destination.
-    If pname:descriptorCount is greater than the number of remaining array
-    elements in the source or destination binding, those affect consecutive
-    bindings in a manner similar to slink:VkWriteDescriptorSet above.
+  * pname:srcSet, pname:srcBinding, 和 pname:srcArrayElement 各自是源集合、绑定与数组元素。
+  * pname:dstSet, pname:dstBinding, 和 pname:dstArrayElement 各自是目标集合、绑定与数组元素。
+  * pname:descriptorCount 是需要从源复制到目标的描述符个数。
+    若 pname:descriptorCount 大于源或者目标绑定中的剩余的数组元素数量，它们影响连续的绑定，类似于上面 slink:VkWriteDescriptorSet的方式。
 
 .正确使用
 ****
-  * pname:srcBinding must: be a valid binding within pname:srcSet
-  * The sum of pname:srcArrayElement and pname:descriptorCount must: be less
-    than or equal to the number of array elements in the descriptor set
-    binding specified by pname:srcBinding, and all applicable consecutive
-    bindings, as described by <<descriptorsets-updates-consecutive>>
-  * pname:dstBinding must: be a valid binding within pname:dstSet
-  * The sum of pname:dstArrayElement and pname:descriptorCount must: be less
-    than or equal to the number of array elements in the descriptor set
-    binding specified by pname:dstBinding, and all applicable consecutive
-    bindings, as described by <<descriptorsets-updates-consecutive>>
-  * If pname:srcSet is equal to pname:dstSet, then the source and
-    destination ranges of descriptors must: not overlap, where the ranges
-    may: include array elements from consecutive bindings as described by
-    <<descriptorsets-updates-consecutive>>
+  * pname:srcBinding 必须: 是pname:srcSet之内的一个有效的绑定
+  * pname:srcArrayElement 和 pname:descriptorCount之和 必须: 小于等于pname:srcBinding指定的、应用程序中所有连续的绑定指定的描述符集合绑定中数组元素个数，
+    如<<descriptorsets-updates-consecutive>>小节所描述。
+  * pname:dstBinding 必须: pname:dstSet之内的一个有效绑定
+  * pname:dstArrayElement 和 pname:descriptorCount之和 必须: 小于等于pname:dstBinding指定的，应用程序中所有连续的绑定指定的 描述符集合绑定
+    的数组元素个数。如<<descriptorsets-updates-consecutive>>一节所描述。
+  * 若 pname:srcSet 等于 pname:dstSet, 那么描述符的目标与源区间不能重叠，区间可能包括<<descriptorsets-updates-consecutive>>
+    所描述的连续绑定的任何数组元素。
+    
 ****
 
 include::../validity/structs/VkCopyDescriptorSet.txt[]
 
 
 [[descriptorsets-binding]]
-=== Descriptor Set Binding
+=== 描述符集合绑定
 
 // refBegin vkCmdBindDescriptorSets Binds descriptor sets to a command buffer
 
-To bind one or more descriptor sets to a command buffer, call:
+欲绑定一个或者多个描述符集合到命令缓冲区，可调用：
 
 include::../api/protos/vkCmdBindDescriptorSets.txt[]
 
-  * pname:commandBuffer is the command buffer that the descriptor sets will
-    be bound to.
-  * pname:pipelineBindPoint is a elink:VkPipelineBindPoint indicating
-    whether the descriptors will be used by graphics pipelines or compute
-    pipelines.
-    There is a separate set of bind points for each of graphics and compute,
-    so binding one does not disturb the other.
-  * pname:layout is a sname:VkPipelineLayout object used to program the
-    bindings.
-  * pname:firstSet is the set number of the first descriptor set to be
-    bound.
-  * pname:descriptorSetCount is the number of elements in the
-    pname:pDescriptorSets array.
-  * pname:pDescriptorSets is an array of handles to sname:VkDescriptorSet
-    objects describing the descriptor sets to write to.
-  * pname:dynamicOffsetCount is the number of dynamic offsets in the
-    pname:pDynamicOffsets array.
-  * pname:pDynamicOffsets is a pointer to an array of code:uint32_t values
-    specifying dynamic offsets.
+  * pname:commandBuffer 描述符集合将被绑定到的命令缓冲区。
+  * pname:pipelineBindPoint 是一个 elink:VkPipelineBindPoint，表明描述符被图形还是计算管线所使用。
+    对于每一个图形和计算管线，都有独立的绑定点，所以绑定一个并不会影响其他的。
+  * pname:layout 是一个 sname:VkPipelineLayout 对象，被用于规划该绑定。
+  * pname:firstSet 是需要被绑定的第一个描述符集合的数量。
+  * pname:descriptorSetCount 是 pname:pDescriptorSets 数组的元素数量。
+  * pname:pDescriptorSets 是一个 sname:VkDescriptorSet handle 数组，这些对象描述了将被写入的描述符集合。
+  * pname:dynamicOffsetCount 是 pname:pDynamicOffsets 数组中动态偏移的大小。
+  * pname:pDynamicOffsets 是一个指针，指向一个元素类型为code:uint32_t 的数组，元素值指定了动态偏移。
 
 fname:vkCmdBindDescriptorSets causes the sets numbered [pname:firstSet..
 pname:firstSet+pname:descriptorSetCount-1] to use the bindings stored in
@@ -1851,15 +1754,15 @@ include::../api/protos/vkCmdPushConstants.txt[]
 
 .正确使用
 ****
-  * pname:stageFlags must: match exactly the shader stages used in
-    pname:layout for the range specified by pname:offset and pname:size
-  * pname:offset must: be a multiple of `4`
-  * pname:size must: be a multiple of `4`
-  * pname:offset must: be less than
+  * pname:stageFlags 必须: 与
+    pname:layout 中用到的着色器阶段 在pname:offset 和 pname:size 指定的区间上完全一致。
+  * pname:offset 必须: 是 `4`的倍数
+  * pname:size 必须: 是 `4`的倍数
+  * pname:offset 必须: 小于
     sname:VkPhysicalDeviceLimits::pname:maxPushConstantsSize
-  * pname:size must: be less than or equal to
-    sname:VkPhysicalDeviceLimits::pname:maxPushConstantsSize minus
-    pname:offset
+  * pname:size 必须: 小于等于
+    sname:VkPhysicalDeviceLimits::pname:maxPushConstantsSize 减去
+    pname:offset之差
 ****
 
 include::../validity/protos/vkCmdPushConstants.txt[]
