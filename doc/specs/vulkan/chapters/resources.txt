@@ -36,10 +36,8 @@ include::../api/protos/vkCreateBuffer.txt[]
 
 .Valid Usage
 ****
-  * If the pname:flags member of pname:pCreateInfo includes
-    ename:VK_BUFFER_CREATE_SPARSE_BINDING_BIT, creating this sname:VkBuffer
-    must: not cause the total required sparse memory for all currently valid
-    sparse resources on the device to exceed
+  * 若 pname:pCreateInfo 的成员pname:flags 包含 ename:VK_BUFFER_CREATE_SPARSE_BINDING_BIT，创建这个 sname:VkBuffer
+	不能导致在设备上当前有效的稀疏资源总体需求的稀疏内存  超过
     sname:VkPhysicalDeviceLimits::pname:sparseAddressSpaceSize
 ****
 
@@ -55,20 +53,17 @@ include::../api/structs/VkBufferCreateInfo.txt[]
   * pname:pNext 是 `NULL` 或者一个  extension-specific 数据结构的指针。
   * pname:flags 是一个位掩码，描述了缓冲区的附加参数。参看下方受支持的 elink:VkBufferCreateFlagBits 描述。
   * pname:size 是将被创建的缓冲区的字节数。
-  * pname:usage is a bitmask describing the allowed usages of the buffer.
-    See elink:VkBufferUsageFlagBits below for a description of the supported
-    bits.
+  * pname:usage  是一个 bitmask，描述了缓冲区被允许的使用方式。
+    参考 如下 elink:VkBufferUsageFlagBits 受支持的bit。
   * pname:sharingMode is the sharing mode of the buffer when it will be
     accessed by multiple queue families, see elink:VkSharingMode in the
     <<resources-sharing,Resource Sharing>> section below for supported
     values.
-  * pname:queueFamilyIndexCount is the number of entries in the
-    pname:pQueueFamilyIndices array.
-  * pname:pQueueFamilyIndices is a list of queue families that will access
-    this buffer (ignored if pname:sharingMode is not
-    ename:VK_SHARING_MODE_CONCURRENT).
+  * pname:queueFamilyIndexCount 是 pname:pQueueFamilyIndices 数组中的元素个数。
+  * pname:pQueueFamilyIndices 是一些队列族，它们将访问这个缓冲区 (ignored if pname:sharingMode is not
+    ename:VK_SHARING_MODE_CONCURRENT)。
 
-Bits which can: be set in pname:usage are:
+pname:usage 中可以设置的bit如下：
 
 // refBegin VkBufferUsageFlagBits Bitmask specifying allowed usage of a buffer
 include::../api/enums/VkBufferUsageFlagBits.txt[]
@@ -113,28 +108,20 @@ ifdef::VK_NVX_device_generated_commands[]
     pname:sequencesIndexBuffer member of sname:VkCmdProcessCommandsInfoNVX
 endif::VK_NVX_device_generated_commands[]
 
-Any combination of bits can: be specified for pname:usage, but at least one
-of the bits must: be set in order to create a valid buffer.
+任何bit的组合 可以: 指定 pname:usage，但是至少其中一个必须被设置用于创建一个有效的缓冲区。
 
-Bits which can: be set in pname:flags are:
+ pname:flags可以被设置的bit如下：
 
 // refBegin VkBufferCreateFlagBits Bitmask specifying additional parameters of a buffer
 include::../api/enums/VkBufferCreateFlagBits.txt[]
 
-These bits have the following meanings:
+这些bit的意义如下：
 
-  * ename:VK_BUFFER_CREATE_SPARSE_BINDING_BIT indicates that the buffer will
-    be backed using sparse memory binding.
-  * ename:VK_BUFFER_CREATE_SPARSE_RESIDENCY_BIT indicates that the buffer
-    can: be partially backed using sparse memory binding.
-    Buffers created with this flag must: also be created with the
-    ename:VK_BUFFER_CREATE_SPARSE_BINDING_BIT flag.
-  * ename:VK_BUFFER_CREATE_SPARSE_ALIASED_BIT indicates that the buffer will
-    be backed using sparse memory binding with memory ranges that might also
-    simultaneously be backing another buffer (or another portion of the same
-    buffer).
-    Buffers created with this flag must: also be created with the
-    ename:VK_BUFFER_CREATE_SPARSE_BINDING_BIT flag.
+  * ename:VK_BUFFER_CREATE_SPARSE_BINDING_BIT 表示缓冲区将使用稀疏内存绑定来实现。    
+  * ename:VK_BUFFER_CREATE_SPARSE_RESIDENCY_BIT 表示缓冲区可以部分使用稀疏内存绑定实现。使用此flag创建的缓冲区也可以通过
+     ename:VK_BUFFER_CREATE_SPARSE_BINDING_BIT flag来创建。
+  * ename:VK_BUFFER_CREATE_SPARSE_ALIASED_BIT 表示缓冲区将使用稀疏内存绑定来实现，内存区间可能也同时存储其他缓冲区的内容
+     或者同一个缓冲区的其他部分。使用此flag创建的缓冲区也可以使用 ename:VK_BUFFER_CREATE_SPARSE_BINDING_BIT flag来创建。
 
 参看 <<sparsememory-sparseresourcefeatures,Sparse Resource Features>> 和 <<features-features,Physical Device Features>> 来
 获取设备支持的稀疏内存特性的其他细节。
@@ -142,23 +129,20 @@ These bits have the following meanings:
 .Valid Usage
 ****
   * pname:size 必须: 比 `0` 要大
-  * If pname:sharingMode is ename:VK_SHARING_MODE_CONCURRENT,
-    pname:pQueueFamilyIndices must: be a pointer to an array of
-    pname:queueFamilyIndexCount basetype:uint32_t values
-  * If pname:sharingMode is ename:VK_SHARING_MODE_CONCURRENT,
-    pname:queueFamilyIndexCount must: be greater than `1`
-  * If the <<features-features-sparseBinding,sparse bindings>> feature is
-    not enabled, pname:flags must: not contain
+  * 若 pname:sharingMode 是 ename:VK_SHARING_MODE_CONCURRENT，
+    pname:pQueueFamilyIndices 必须: 是一个指针，指向一个类型为basetype:uint32_t 的 pname:queueFamilyIndexCount  值。
+  * 若 pname:sharingMode 是 ename:VK_SHARING_MODE_CONCURRENT，
+    pname:queueFamilyIndexCount 必须: 大于`1`
+  * 若<<features-features-sparseBinding,sparse bindings>> 特征没有被启用，pname:flags 不能: 包含
     ename:VK_BUFFER_CREATE_SPARSE_BINDING_BIT
-  * If the <<features-features-sparseResidencyBuffer,sparse buffer
-    residency>> feature is not enabled, pname:flags must: not contain
+  * 若 <<features-features-sparseResidencyBuffer,sparse buffer
+    residency>> 特征没有被启用， pname:flags 不能: 包含
     ename:VK_BUFFER_CREATE_SPARSE_RESIDENCY_BIT
-  * If the <<features-features-sparseResidencyAliased,sparse aliased
-    residency>> feature is not enabled, pname:flags must: not contain
+  * 若 <<features-features-sparseResidencyAliased,sparse aliased
+    residency>> 特征没有被启用，pname:flags 不能: 包含
     ename:VK_BUFFER_CREATE_SPARSE_ALIASED_BIT
-  * If pname:flags contains ename:VK_BUFFER_CREATE_SPARSE_RESIDENCY_BIT or
-    ename:VK_BUFFER_CREATE_SPARSE_ALIASED_BIT, it must: also contain
-    ename:VK_BUFFER_CREATE_SPARSE_BINDING_BIT
+  * 若 pname:flags 包含 ename:VK_BUFFER_CREATE_SPARSE_RESIDENCY_BIT 或者
+    ename:VK_BUFFER_CREATE_SPARSE_ALIASED_BIT，它 必须: 也包含 ename:VK_BUFFER_CREATE_SPARSE_BINDING_BIT
 ****
 
 include::../validity/structs/VkBufferCreateInfo.txt[]
@@ -167,26 +151,23 @@ ifdef::VK_NV_dedicated_allocation[]
 
 // refBegin VkDedicatedAllocationBufferCreateInfoNV Specify that a buffer is bound to a dedicated memory resource
 
-If the pname:pNext list includes a
-sname:VkDedicatedAllocationBufferCreateInfoNV structure, then that structure
-includes an enable controlling whether the buffer will have a dedicated
-memory allocation bound to it.
+若pname:pNext 列表包含一个sname:VkDedicatedAllocationBufferCreateInfoNV 数据结构，那么该数据结构包含一个使用控制开关，
+控制缓冲区是否将有专用的内存绑定给它。
 
-The sname:VkDedicatedAllocationBufferCreateInfoNV structure is defined as:
+sname:VkDedicatedAllocationBufferCreateInfoNV 数据结构定义如下：
 
 include::../api/structs/VkDedicatedAllocationBufferCreateInfoNV.txt[]
 
   * pname:sType 是这个数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向 拓展特定的数据结构的指针。
-  * pname:dedicatedAllocation indicates whether the buffer will have a
-    dedicated allocation bound to it.
+  * pname:dedicatedAllocation 表示缓冲区是否将有专门分配的内存绑定到它。
 
 .Valid Usage
 ****
-  * If pname:dedicatedAllocation is ename:VK_TRUE,
-    sname:VkBufferCreateInfo::pname:flags must: not include
+  * 若 pname:dedicatedAllocation 为 ename:VK_TRUE，
+    sname:VkBufferCreateInfo::pname:flags 不能: 包含
     ename:VK_BUFFER_CREATE_SPARSE_BINDING_BIT,
-    ename:VK_BUFFER_CREATE_SPARSE_RESIDENCY_BIT, or
+    ename:VK_BUFFER_CREATE_SPARSE_RESIDENCY_BIT, 或者
     ename:VK_BUFFER_CREATE_SPARSE_ALIASED_BIT
 ****
 
@@ -206,12 +187,9 @@ include::../api/protos/vkDestroyBuffer.txt[]
 
 .Valid Usage
 ****
-  * All submitted commands that refer to pname:buffer, either directly or
-    via a sname:VkBufferView, must: have completed execution
-  * If sname:VkAllocationCallbacks were provided when pname:buffer was
-    created, a compatible set of callbacks must: be provided here
-  * If no sname:VkAllocationCallbacks were provided when pname:buffer was
-    created, pname:pAllocator must: be `NULL`
+  * 所有涉及到 pname:buffer的被提交的命令，要么直接，要么通过 sname:VkBufferView，必须: 已经完成了执行。
+  * 若创建pname:buffer 时，提供了 sname:VkAllocationCallbacks，那么此处必须提供兼容的 callbacks 。
+  * 若创建pname:buffer 时， 没有提供 sname:VkAllocationCallbacks，那么 pname:pAllocator 必须: 为 `NULL`
 ****
 
 include::../validity/protos/vkDestroyBuffer.txt[]
@@ -244,8 +222,7 @@ include::../api/protos/vkCreateBufferView.txt[]
   * pname:device 是创建给缓冲区视图的逻辑设备。
   * pname:pCreateInfo 是一个指向 sname:VkBufferViewCreateInfo类型实例的指针，包含用来创建缓冲区对象的参数。
   * pname:pAllocator 控制CPU端内存分配，如 <<memory-allocation, 内存分配 >> 一章详述。
-  * pname:pView points to a sname:VkBufferView handle in which the resulting
-    buffer view object is returned.
+  * pname:pView 指向一个 sname:VkBufferView handle，它就是生成并被返回的缓冲区视图对象。
 
 include::../validity/protos/vkCreateBufferView.txt[]
 
@@ -278,20 +255,15 @@ include::../api/structs/VkBufferViewCreateInfo.txt[]
   **  pname:offset 与 pname:range 之和，必须: 小于等于 pname:buffer的大小
   * pname:buffer 必须: 在被创建时 pname:usage 值包含至少一个  ename:VK_BUFFER_USAGE_UNIFORM_TEXEL_BUFFER_BIT 或者
     ename:VK_BUFFER_USAGE_STORAGE_TEXEL_BUFFER_BIT
-  * If pname:buffer was created with pname:usage containing
-    ename:VK_BUFFER_USAGE_UNIFORM_TEXEL_BUFFER_BIT, pname:format must: be
-    supported for uniform texel buffers, as specified by the
-    ename:VK_FORMAT_FEATURE_UNIFORM_TEXEL_BUFFER_BIT flag in
-    sname:VkFormatProperties::pname:bufferFeatures returned by
-    fname:vkGetPhysicalDeviceFormatProperties
-  * If pname:buffer was created with pname:usage containing
-    ename:VK_BUFFER_USAGE_STORAGE_TEXEL_BUFFER_BIT, pname:format must: be
-    supported for storage texel buffers, as specified by the
-    ename:VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT flag in
-    sname:VkFormatProperties::pname:bufferFeatures returned by
-    fname:vkGetPhysicalDeviceFormatProperties
-  * If pname:buffer is non-sparse then it must: be bound completely and
-    contiguously to a single sname:VkDeviceMemory object
+  * 若创建 pname:buffer 时 pname:usage 包含
+    ename:VK_BUFFER_USAGE_UNIFORM_TEXEL_BUFFER_BIT， pname:format 必须: 被统一纹素缓冲区所支持， 如被
+    ename:VK_FORMAT_FEATURE_UNIFORM_TEXEL_BUFFER_BIT flag所指定，该flag在
+    fname:vkGetPhysicalDeviceFormatProperties返回的sname:VkFormatProperties::pname:bufferFeatures中。
+  * 若创建 pname:buffer时，pname:usage 包含
+    ename:VK_BUFFER_USAGE_STORAGE_TEXEL_BUFFER_BIT， pname:format 必须: 受统一纹素缓冲区所支持，如被    
+    ename:VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT flag 所指定，该flag在
+     fname:vkGetPhysicalDeviceFormatProperties返回的sname:VkFormatProperties::pname:bufferFeatures 中。   
+  * 若 pname:buffer 是非稀疏的，那么它  必须: 被完全且连续的绑定到单个sname:VkDeviceMemory 对象。
 ****
 
 include::../validity/structs/VkBufferViewCreateInfo.txt[]
@@ -308,12 +280,9 @@ include::../api/protos/vkDestroyBufferView.txt[]
 
 .Valid Usage
 ****
-  * All submitted commands that refer to pname:bufferView must: have
-    completed execution
-  * If sname:VkAllocationCallbacks were provided when pname:bufferView was
-    created, a compatible set of callbacks must: be provided here
-  * If no sname:VkAllocationCallbacks were provided when pname:bufferView
-    was created, pname:pAllocator must: be `NULL`
+  * 所有涉及到name:bufferView的被提交的命令，必须: 已经完成执行。
+  * 若创建pname:bufferView 时，提供了 sname:VkAllocationCallbacks，那么此处必须提供兼容的 callbacks 。    
+  * 若创建pname:bufferView 时，没有提供 sname:VkAllocationCallbacks，那么 pname:pAllocator 必须: 为 `NULL`。 
 ****
 
 include::../validity/protos/vkDestroyBufferView.txt[]
@@ -346,11 +315,9 @@ include::../api/protos/vkCreateImage.txt[]
 
 .Valid Usage
 ****
-  * If the pname:flags member of pname:pCreateInfo includes
-    ename:VK_IMAGE_CREATE_SPARSE_BINDING_BIT, creating this sname:VkImage
-    must: not cause the total required sparse memory for all currently valid
-    sparse resources on the device to exceed
-    sname:VkPhysicalDeviceLimits::pname:sparseAddressSpaceSize
+  * 若 pname:pCreateInfo的成员pname:flags 包含
+    ename:VK_IMAGE_CREATE_SPARSE_BINDING_BIT，创建这个sname:VkImage 不能导致当前有效稀疏资源
+	在总体需求的稀疏内存超过 sname:VkPhysicalDeviceLimits::pname:sparseAddressSpaceSize
 ****
 
 include::../validity/protos/vkCreateImage.txt[]
@@ -364,39 +331,24 @@ include::../api/structs/VkImageCreateInfo.txt[]
   * pname:sType 是数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向 拓展特定的数据结构的指针。
   * pname:flags 是一个位掩码，描述了图像的附加参数。参考 如下elink:VkImageCreateFlagBits 关于受支持的bit描述。
-  * pname:imageType is a elink:VkImageType specifying the basic
-    dimensionality of the image, as described below.
-    Layers in array textures do not count as a dimension for the purposes of
-    the image type.
-  * pname:format is a elink:VkFormat describing the format and type of the
-    data elements that will be contained in the image.
-  * pname:extent is a slink:VkExtent3D describing the number of data
-    elements in each dimension of the base level.
-  * pname:mipLevels describes the number of levels of detail available for
-    minified sampling of the image.
-  * pname:arrayLayers is the number of layers in the image.
-  * pname:samples is the number of sub-data element samples in the image as
-    defined in elink:VkSampleCountFlagBits.
-    See <<primsrast-multisampling,Multisampling>>.
-  * pname:tiling is a elink:VkImageTiling specifying the tiling arrangement
-    of the data elements in memory, as described below.
-  * pname:usage is a bitmask describing the intended usage of the image.
-    See elink:VkImageUsageFlagBits below for a description of the supported
-    bits.
-  * pname:sharingMode is the sharing mode of the image when it will be
-    accessed by multiple queue families, and must: be one of the values
-    described for elink:VkSharingMode in the <<resources-sharing,Resource
-    Sharing>> section below.
-  * pname:queueFamilyIndexCount is the number of entries in the
-    pname:pQueueFamilyIndices array.
-  * pname:pQueueFamilyIndices is a list of queue families that will access
-    this image (ignored if pname:sharingMode is not
-    ename:VK_SHARING_MODE_CONCURRENT).
-  * pname:initialLayout selects the initial elink:VkImageLayout state of all
-    image subresources of the image.
-    See <<resources-image-layouts,Image Layouts>>.
-    pname:initialLayout must: be ename:VK_IMAGE_LAYOUT_UNDEFINED or
-    ename:VK_IMAGE_LAYOUT_PREINITIALIZED.
+  * pname:imageType 是一个 elink:VkImageType，指定了图像的基础维度，如下所描述。数组纹理的层次作为图像类别时并不能算作维度    
+  * pname:format  是一个 elink:VkFormat ，描述了数据元素的格式与类型，数据包含在图像中。
+  * pname:extent 是一个slink:VkExtent3D，描述了基础层次中每一个维度的元素的个数。
+  * pname:mipLevels 描述了图向下采样的细节层次的个数。
+  * pname:arrayLayers 是图像中的层数。
+  * pname:samples 是图像中sub-data 元素采样的个数，其在elink:VkSampleCountFlagBits 中被定义。
+    参考<<primsrast-multisampling,Multisampling>>。
+  * pname:tiling是一个 elink:VkImageTiling，指定了内存中数据元素的tiling组织方式，如下所描述。
+  * pname:usage 是一个 bitmask，描述图像的目标使用方式。参考如下的 elink:VkImageUsageFlagBits 支持的bit。
+  * pname:sharingMode 是当多个队列族的访问时图像的共享模式， 且 必须: 是下一节的 <<resources-sharing,Resource
+    Sharing>> 的elink:VkSharingMode 描述的值之一。
+  * pname:queueFamilyIndexCount 是    pname:pQueueFamilyIndices 数组元素的个数。
+  * pname:pQueueFamilyIndices 是一个队列族的列表，该队列族将访问此图像 (ignored if pname:sharingMode is not
+    ename:VK_SHARING_MODE_CONCURRENT)。
+  * pname:initialLayout 选择  此图像的所有图像子资源的  初始 elink:VkImageLayout 状态。
+    参看 <<resources-image-layouts,Image Layouts>>。
+    pname:initialLayout 必须: 是 ename:VK_IMAGE_LAYOUT_UNDEFINED 或者
+    ename:VK_IMAGE_LAYOUT_PREINITIALIZED。
 
 使用pname:tiling值为ename:VK_IMAGE_TILING_LINEAR 创建的图像，比使用pname:tiling值为ename:VK_IMAGE_TILING_OPTIMAL创建的图像由更多的限制。
 使用 ename:VK_IMAGE_TILING_LINEAR 创建的图像可能不被支持，除非其他参数满足如下限制：
@@ -420,72 +372,65 @@ include::../api/structs/VkImageCreateInfo.txt[]
 
 .Valid Usage
 ****
-  * The combination of pname:format, pname:type, pname:tiling, pname:usage,
-    and pname:flags must: be supported, as indicated by a VK_SUCCESS return
-    value from fname:vkGetPhysicalDeviceImageFormatProperties invoked with
-    the same values passed to the corresponding parameters.
-  * If pname:sharingMode is ename:VK_SHARING_MODE_CONCURRENT,
-    pname:pQueueFamilyIndices must: be a pointer to an array of
-    pname:queueFamilyIndexCount basetype:uint32_t values
-  * If pname:sharingMode is ename:VK_SHARING_MODE_CONCURRENT,
-    pname:queueFamilyIndexCount must: be greater than `1`
-  * pname:format must: not be ename:VK_FORMAT_UNDEFINED
-  * The pname:width, pname:height, and pname:depth members of pname:extent
-    must: all be greater than `0`
-  * pname:mipLevels must: be greater than `0`
-  * pname:arrayLayers must: be greater than `0`
-  * If pname:flags contains ename:VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT,
-    pname:imageType must be ename:VK_IMAGE_TYPE_2D
+  * pname:format， pname:type，pname:tiling，pname:usage，和pname:flags 的组合 必须: 被支持，	
+	若把对应的值传递到相对应的参数里，并调用fname:vkGetPhysicalDeviceImageFormatProperties ，其返回值为VK_SUCCESS 可表明支持。
+  * 若 pname:sharingMode 是 ename:VK_SHARING_MODE_CONCURRENT，
+    pname:pQueueFamilyIndices 必须: 是一个指向 a pointer to an array of元素类型为basetype:uint32_t ，元素个数为
+	pname:queueFamilyIndexCount 的数组的指针。    
+  * 若 pname:sharingMode 是 ename:VK_SHARING_MODE_CONCURRENT，
+    pname:queueFamilyIndexCount 必须: 大于 `1`
+  * pname:format 不能: 是 ename:VK_FORMAT_UNDEFINED
+  *  pname:extent的成员pname:width, pname:height, 和 pname:depth  不能: 全大于`0`
+  * pname:mipLevels 必须: 大于 `0`
+  * pname:arrayLayers 必须: 大于 `0`
+  * 若 pname:flags 包含 ename:VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT，
+    pname:imageType 必须是 ename:VK_IMAGE_TYPE_2D
 ifdef::VK_KHR_maintenance1[]
   * If pname:flags contains
     ename:VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT_KHR, pname:imageType must
     be ename:VK_IMAGE_TYPE_3D
 endif::VK_KHR_maintenance1[]
-  * If pname:imageType is ename:VK_IMAGE_TYPE_1D, pname:extent.width must:
-    be less than or equal to
-    sname:VkPhysicalDeviceLimits::pname:maxImageDimension1D, or
+  * 若 pname:imageType 是 ename:VK_IMAGE_TYPE_1D，pname:extent.width 必须:
+    小于等于
+    sname:VkPhysicalDeviceLimits::pname:maxImageDimension1D 或者
     sname:VkImageFormatProperties::pname:maxExtent.width (as returned by
     fname:vkGetPhysicalDeviceImageFormatProperties with pname:format,
     pname:type, pname:tiling, pname:usage, and pname:flags equal to those in
-    this structure) - whichever is higher
-  * If pname:imageType is ename:VK_IMAGE_TYPE_2D and pname:flags does not
-    contain ename:VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT, pname:extent.width
-    and pname:extent.height must: be less than or equal to
-    sname:VkPhysicalDeviceLimits::pname:maxImageDimension2D, or
+    this structure) - 与值大的比较。
+  * 若 pname:imageType 是 ename:VK_IMAGE_TYPE_2D 且 pname:flags 不包含
+    ename:VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT，pname:extent.width
+    和 pname:extent.height 必须: 小于等于
+    sname:VkPhysicalDeviceLimits::pname:maxImageDimension2D, 或者
     sname:VkImageFormatProperties::pname:maxExtent.width/height (as returned
     by fname:vkGetPhysicalDeviceImageFormatProperties with pname:format,
     pname:type, pname:tiling, pname:usage, and pname:flags equal to those in
-    this structure) - whichever is higher
-  * If pname:imageType is ename:VK_IMAGE_TYPE_2D and pname:flags contains
-    ename:VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT, pname:extent.width and
-    pname:extent.height must: be less than or equal to
-    sname:VkPhysicalDeviceLimits::pname:maxImageDimensionCube, or
+    this structure) - 与值大的比较。
+  * 若 pname:imageType 是 ename:VK_IMAGE_TYPE_2D 且 pname:flags 包含
+    ename:VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT，pname:extent.width 且
+    pname:extent.height 必须: 小于等于
+    sname:VkPhysicalDeviceLimits::pname:maxImageDimensionCube, 或者
     sname:VkImageFormatProperties::pname:maxExtent.width/height (as returned
     by fname:vkGetPhysicalDeviceImageFormatProperties with pname:format,
     pname:type, pname:tiling, pname:usage, and pname:flags equal to those in
-    this structure) - whichever is higher
-  * If pname:imageType is ename:VK_IMAGE_TYPE_2D and pname:flags contains
-    ename:VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT, pname:extent.width and
-    pname:extent.height must: be equal and pname:arrayLayers must: be
-    greater than or equal to 6
-  * If pname:imageType is ename:VK_IMAGE_TYPE_3D, pname:extent.width,
-    pname:extent.height and pname:extent.depth must: be less than or equal
-    to sname:VkPhysicalDeviceLimits::pname:maxImageDimension3D, or
+    this structure) - 与值大的比较。
+  * 若 pname:imageType 是 ename:VK_IMAGE_TYPE_2D 且 pname:flags 包含
+    ename:VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT， pname:extent.width 且
+    pname:extent.height 必须: 相等 且 pname:arrayLayers 必须: 大于等于 6
+  * 若 pname:imageType 是 ename:VK_IMAGE_TYPE_3D，pname:extent.width,
+    pname:extent.height 且 pname:extent.depth 必须: 小于等于 sname:VkPhysicalDeviceLimits::pname:maxImageDimension3D, 或者
     sname:VkImageFormatProperties::pname:maxExtent.width/height/depth (as
     returned by fname:vkGetPhysicalDeviceImageFormatProperties with
     pname:format, pname:type, pname:tiling, pname:usage, and pname:flags
-    equal to those in this structure) - whichever is higher
-  * If pname:imageType is ename:VK_IMAGE_TYPE_1D, both pname:extent.height
-    and pname:extent.depth must: be `1`
-  * If pname:imageType is ename:VK_IMAGE_TYPE_2D, pname:extent.depth must:
-    be `1`
-  * pname:mipLevels must: be less than or equal to
+    equal to those in this structure) - 与值大的比较。
+  * 若 pname:imageType 是 ename:VK_IMAGE_TYPE_1D，  pname:extent.height
+    和 pname:extent.depth 都 必须: 等于`1`
+  * 若 pname:imageType 是 ename:VK_IMAGE_TYPE_2D， pname:extent.depth 必须: 等于 `1`
+  * pname:mipLevels 必须: 小于等于
     [eq]#{lfloor}log~2~(max(pname:extent.width, pname:extent.height,
     pname:extent.depth)){rfloor} + 1#.
-  * If any of pname:extent.width, pname:extent.height, or pname:extent.depth
-    are greater than the equivalently named members of
-    sname:VkPhysicalDeviceLimits::pname:maxImageDimension3D, pname:mipLevels
-    must: be less than or equal to
+  * 若 pname:extent.width, pname:extent.height, 或者 pname:extent.depth 之中任意一个大于	  
+    sname:VkPhysicalDeviceLimits::pname:maxImageDimension3D 中对等的名字的成员的数量， pname:mipLevels
+    必须: 小于等于
     sname:VkImageFormatProperties::pname:maxMipLevels (as returned by
     fname:vkGetPhysicalDeviceImageFormatProperties with pname:format,
     pname:type, pname:tiling, pname:usage, and pname:flags equal to those in
@@ -495,8 +440,7 @@ endif::VK_KHR_maintenance1[]
     fname:vkGetPhysicalDeviceImageFormatProperties with pname:format,
     pname:type, pname:tiling, pname:usage, and pname:flags equal to those in
     this structure)
-  * If pname:imageType is ename:VK_IMAGE_TYPE_3D, pname:arrayLayers must: be
-    `1`.
+  * 若 pname:imageType 是 ename:VK_IMAGE_TYPE_3D， pname:arrayLayers 必须: 等于    `1`.
   * If pname:samples is not ename:VK_SAMPLE_COUNT_1_BIT, pname:imageType
     must: be ename:VK_IMAGE_TYPE_2D, pname:flags must: not contain
     ename:VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT, pname:tiling must: be
@@ -706,10 +650,10 @@ other large images may: improve performance on some devices.
 
 .Valid Usage
 ****
-  * If pname:dedicatedAllocation is ename:VK_TRUE,
-    sname:VkImageCreateInfo::pname:flags must: not include
-    ename:VK_IMAGE_CREATE_SPARSE_BINDING_BIT,
-    ename:VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT, or
+  * 若 pname:dedicatedAllocation 为 ename:VK_TRUE，
+    sname:VkImageCreateInfo::pname:flags 不能: 包括
+    ename:VK_IMAGE_CREATE_SPARSE_BINDING_BIT，
+    ename:VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT，或者
     ename:VK_IMAGE_CREATE_SPARSE_ALIASED_BIT
 ****
 
@@ -721,9 +665,8 @@ ifdef::VK_NV_external_memory[]
 
 // refBegin VkExternalMemoryImageCreateInfoNV Specify that an image may be backed by external memory
 
-If the pname:pNext list includes a sname:VkExternalMemoryImageCreateInfoNV
-structure, then that structure defines a set of external memory handle types
-that may: be used as backing store for the image.
+若pname:pNext 列表包括一个 sname:VkExternalMemoryImageCreateInfoNV 数据结构，那么该数据结构定义了一些外部内存handle类型，
+它们可用于存储图像。
 
 sname:VkExternalMemoryImageCreateInfoNV 类型数据结构定义如下：
 
@@ -731,12 +674,9 @@ include::../api/structs/VkExternalMemoryImageCreateInfoNV.txt[]
 
   * pname:sType 是这个数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
-  * pname:handleTypes is a bitmask of
-    elink:VkExternalMemoryHandleTypeFlagBitsNV specifying one or more
-    external memory handle types.
-    The types must: all be compatible with each other and the other image
-    creation parameters, as reported by
-    flink:vkGetPhysicalDeviceExternalImageFormatPropertiesNV.
+  * pname:handleTypes 是一个 
+    elink:VkExternalMemoryHandleTypeFlagBitsNV 类型的 位掩码，指定了一个或多个外部内存handle类型。
+	这些类型必须相互兼容，且其他图像创建参数相兼容，参数如 flink:vkGetPhysicalDeviceExternalImageFormatPropertiesNV 去取出的那样。    
 
 include::../validity/structs/VkExternalMemoryImageCreateInfoNV.txt[]
 
@@ -751,16 +691,11 @@ include::../api/enums/VkImageUsageFlagBits.txt[]
 
 These bits have the following meanings:
 
-  * ename:VK_IMAGE_USAGE_TRANSFER_SRC_BIT indicates that the image can: be
-    used as the source of a transfer command.
-  * ename:VK_IMAGE_USAGE_TRANSFER_DST_BIT indicates that the image can: be
-    used as the destination of a transfer command.
-  * ename:VK_IMAGE_USAGE_SAMPLED_BIT indicates that the image can: be used
-    to create a sname:VkImageView suitable for occupying a
-    sname:VkDescriptorSet slot either of type
-    ename:VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE or
-    ename:VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, and be sampled by a
-    shader.
+  * ename:VK_IMAGE_USAGE_TRANSFER_SRC_BIT 表示图像 可以: 被用作 转移命令的源。
+  * ename:VK_IMAGE_USAGE_TRANSFER_DST_BIT 表示图像 可以: 被用作 转移命令的目标。
+  * ename:VK_IMAGE_USAGE_SAMPLED_BIT 表示图像 可以: 被用于创建 适于占用
+      ename:VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE 或
+    ename:VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER类型，且可被着色器采样的sname:VkDescriptorSet槽的 sname:VkImageView 。
   * ename:VK_IMAGE_USAGE_STORAGE_BIT indicates that the image can: be used
     to create a sname:VkImageView suitable for occupying a
     sname:VkDescriptorSet slot of type
@@ -794,14 +729,12 @@ Bits which can: be set include:
 
 include::../api/enums/VkImageCreateFlagBits.txt[]
 
-These bits have the following meanings:
+这些bit的含义如下：
 
-  * ename:VK_IMAGE_CREATE_SPARSE_BINDING_BIT indicates that the image will
-    be backed using sparse memory binding.
-  * ename:VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT indicates that the image can:
-    be partially backed using sparse memory binding.
-    Images created with this flag must: also be created with the
-    ename:VK_IMAGE_CREATE_SPARSE_BINDING_BIT flag.
+  * ename:VK_IMAGE_CREATE_SPARSE_BINDING_BIT 表示图像将使用稀疏内存绑定来存储。
+  * ename:VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT 表示图像可部分的使用稀疏内存绑定来存储。
+	 使用此flog创建的图像也可以使用
+    ename:VK_IMAGE_CREATE_SPARSE_BINDING_BIT flag创建。
   * ename:VK_IMAGE_CREATE_SPARSE_ALIASED_BIT indicates that the image will
     be backed using sparse memory binding with memory ranges that might also
     simultaneously be backing another image (or another portion of the same
@@ -834,7 +767,7 @@ ename:VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT 就不能被设置了。
 
 include::../api/enums/VkImageType.txt[]
 
-These values specify one-, two-, or three-dimensional images, respectively.
+这些值各自指定了一维-，二维-或者三维- 图像。
 
 // refEnd VkImageType
 
@@ -860,20 +793,15 @@ include::../api/protos/vkGetImageSubresourceLayout.txt[]
 
   * pname:device 是拥有该图像的逻辑设备。
   * pname:image 被查询布局的图像。
-  * pname:pSubresource is a pointer to a slink:VkImageSubresource structure
-    selecting a specific image for the image subresource.
-  * pname:pLayout points to a slink:VkSubresourceLayout structure in which
-    the layout is returned.
+  * pname:pSubresource 是一个指向 slink:VkImageSubresource 数据结构的指针，为图像子资源选择了指定的图像。    
+  * pname:pLayout 指向一个 slink:VkSubresourceLayout 数据结构，存储被返回的布局。
 
-flink:vkGetImageSubresourceLayout is invariant for the lifetime of a single
-image.
+flink:vkGetImageSubresourceLayout 对于单个图像的生命周期来说是不变的。
 
 .Valid Usage
 ****
-  * pname:image must: have been created with pname:tiling equal to
-    ename:VK_IMAGE_TILING_LINEAR
-  * The pname:aspectMask member of pname:pSubresource must: only have a
-    single bit set
+  * pname:image 必须: 是使用 pname:tiling 为  ename:VK_IMAGE_TILING_LINEAR的参数创建的。
+  * pname:pSubresource的pname:aspectMask 成员 必须: 只能让其一个bit 被设置。
 ****
 
 include::../validity/protos/vkGetImageSubresourceLayout.txt[]
@@ -890,10 +818,8 @@ include::../api/structs/VkImageSubresource.txt[]
 
 .Valid Usage
 ****
-  * pname:mipLevel must: be less than the pname:mipLevels specified in
-    slink:VkImageCreateInfo when the image was created
-  * pname:arrayLayer must: be less than the pname:arrayLayers specified in
-    slink:VkImageCreateInfo when the image was created
+  * pname:mipLevel 必须: 小于 pname:mipLevels，由图像被创建时的slink:VkImageCreateInfo 所指定。
+  * pname:arrayLayer 必须: 小于 pname:arrayLayers，由图像被创建时的  slink:VkImageCreateInfo 所指定。
 ****
 
 include::../validity/structs/VkImageSubresource.txt[]
@@ -2060,8 +1986,7 @@ flink:vkBindBufferMemory，或者通过<<sparsememory-resource-binding,稀疏内
 只有包含这些稀疏图像块的图像子资源会重叠该区间，且当内存被绑定到图像的mip tail与别名区间重叠时，mip tail中的图像子资源
 将重叠该区间。
 
-在
-ename:VK_IMAGE_LAYOUT_PREINITIALIZED 或者 ename:VK_IMAGE_LAYOUT_GENERAL
+在ename:VK_IMAGE_LAYOUT_PREINITIALIZED 或者 ename:VK_IMAGE_LAYOUT_GENERAL 
 布局的缓冲区，线性图像子资源，都是  _host-accessible subresources_。
 亦即，只有host端能够正确的寻址，并解释其内容，故若这些别名时是host-accessible 子资源，内存中数据的布局可以通过别名被一致性的解释。
 其他布局下的不透明图像和图像子资源，不是host-accessible。
