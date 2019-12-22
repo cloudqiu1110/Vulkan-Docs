@@ -68,21 +68,16 @@ pname:usage 中可以设置的bit如下：
 // refBegin VkBufferUsageFlagBits Bitmask specifying allowed usage of a buffer
 include::../api/enums/VkBufferUsageFlagBits.txt[]
 
-  * ename:VK_BUFFER_USAGE_TRANSFER_SRC_BIT indicates that the buffer can: be
-    used as the source of a _transfer command_ (see the definition of
-    <<synchronization-pipeline-stages-transfer,
-    ename:VK_PIPELINE_STAGE_TRANSFER_BIT>>).
-  * ename:VK_BUFFER_USAGE_TRANSFER_DST_BIT indicates that the buffer can: be
-    used as the destination of a transfer command.
-  * ename:VK_BUFFER_USAGE_UNIFORM_TEXEL_BUFFER_BIT indicates that the buffer
-    can: be used to create a sname:VkBufferView suitable for occupying a
-    sname:VkDescriptorSet slot of type
-    ename:VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER.
-  * ename:VK_BUFFER_USAGE_STORAGE_TEXEL_BUFFER_BIT indicates that the buffer
-    can: be used to create a sname:VkBufferView suitable for occupying a
-    sname:VkDescriptorSet slot of type
-    ename:VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER.
-  * ename:VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT indicates that the buffer can:
+  * ename:VK_BUFFER_USAGE_TRANSFER_SRC_BIT 表明缓冲区可以被用作  _transfer command_ 的源 
+   (参看 <<synchronization-pipeline-stages-transfer,
+    ename:VK_PIPELINE_STAGE_TRANSFER_BIT>>的定义).
+  * ename:VK_BUFFER_USAGE_TRANSFER_DST_BIT 表明缓冲区可以被用作  转移名利的目标。    
+  * ename:VK_BUFFER_USAGE_UNIFORM_TEXEL_BUFFER_BIT 表明缓冲区可以被用于创建一个 sname:VkBufferView，其适于
+    占用一个 ename:VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER类型的
+    sname:VkDescriptorSet槽。   
+  * ename:VK_BUFFER_USAGE_STORAGE_TEXEL_BUFFER_BIT  表明缓冲区可以被用于创建一个 sname:VkBufferView，其适于
+    占用一个ename:VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER类型的  sname:VkDescriptorSet槽。    
+  * ename:VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT 表明缓冲区可以被用
     be used in a sname:VkDescriptorBufferInfo suitable for occupying a
     sname:VkDescriptorSet slot either of type
     ename:VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER or
