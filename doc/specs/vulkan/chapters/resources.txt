@@ -55,10 +55,8 @@ include::../api/structs/VkBufferCreateInfo.txt[]
   * pname:size 是将被创建的缓冲区的字节数。
   * pname:usage  是一个 bitmask，描述了缓冲区被允许的使用方式。
     参考 如下 elink:VkBufferUsageFlagBits 受支持的bit。
-  * pname:sharingMode is the sharing mode of the buffer when it will be
-    accessed by multiple queue families, see elink:VkSharingMode in the
-    <<resources-sharing,Resource Sharing>> section below for supported
-    values.
+  * pname:sharingMode 是缓冲区被多个队列族访问时的共享模式，参考
+    <<resources-sharing,Resource Sharing>> 小节中 elink:VkSharingMode 给出的受支持的值。
   * pname:queueFamilyIndexCount 是 pname:pQueueFamilyIndices 数组中的元素个数。
   * pname:pQueueFamilyIndices 是一些队列族，它们将访问这个缓冲区 (ignored if pname:sharingMode is not
     ename:VK_SHARING_MODE_CONCURRENT)。
@@ -77,25 +75,18 @@ include::../api/enums/VkBufferUsageFlagBits.txt[]
     sname:VkDescriptorSet槽。   
   * ename:VK_BUFFER_USAGE_STORAGE_TEXEL_BUFFER_BIT  表明缓冲区可以被用于创建一个 sname:VkBufferView，其适于
     占用一个ename:VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER类型的  sname:VkDescriptorSet槽。    
-  * ename:VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT 表明缓冲区可以被用
-    be used in a sname:VkDescriptorBufferInfo suitable for occupying a
-    sname:VkDescriptorSet slot either of type
-    ename:VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER or
-    ename:VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC.
-  * ename:VK_BUFFER_USAGE_STORAGE_BUFFER_BIT indicates that the buffer can:
-    be used in a sname:VkDescriptorBufferInfo suitable for occupying a
-    sname:VkDescriptorSet slot either of type
-    ename:VK_DESCRIPTOR_TYPE_STORAGE_BUFFER or
-    ename:VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC.
-  * ename:VK_BUFFER_USAGE_INDEX_BUFFER_BIT indicates that the buffer is
-    suitable for passing as the pname:buffer parameter to
+  * ename:VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT 表明缓冲区可以被用在一个 sname:VkDescriptorBufferInfo中 ，其适于占用一个
+    类型为    ename:VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER 或者
+    ename:VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC的  sname:VkDescriptorSet 槽 。
+  * ename:VK_BUFFER_USAGE_STORAGE_BUFFER_BIT 表明缓冲区可以被用于sname:VkDescriptorBufferInfo中，其适于占用一个类型为 
+    ename:VK_DESCRIPTOR_TYPE_STORAGE_BUFFER 或者
+    ename:VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC sname:VkDescriptorSet  槽。
+  * ename:VK_BUFFER_USAGE_INDEX_BUFFER_BIT 表明此缓冲区适于被用作参数传递给
     fname:vkCmdBindIndexBuffer.
-  * ename:VK_BUFFER_USAGE_VERTEX_BUFFER_BIT indicates that the buffer is
-    suitable for passing as an element of the pname:pBuffers array to
+  * ename:VK_BUFFER_USAGE_VERTEX_BUFFER_BIT 表明此缓冲区适于被当作 pname:pBuffers 数组的一个元素 传递给
     fname:vkCmdBindVertexBuffers.
-  * ename:VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT indicates that the buffer is
-    suitable for passing as the pname:buffer parameter to
-    fname:vkCmdDrawIndirect, fname:vkCmdDrawIndexedIndirect, or
+  * ename:VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT 表明此缓冲区适于被当作 pname:buffer 参数被传递给
+    fname:vkCmdDrawIndirect, fname:vkCmdDrawIndexedIndirect, 或者
     fname:vkCmdDispatchIndirect.
 ifdef::VK_NVX_device_generated_commands[]
     It is also suitable for passing as the pname:buffer member of
@@ -430,7 +421,7 @@ endif::VK_KHR_maintenance1[]
     fname:vkGetPhysicalDeviceImageFormatProperties with pname:format,
     pname:type, pname:tiling, pname:usage, and pname:flags equal to those in
     this structure)
-  * pname:arrayLayers must: be less than or equal to
+  * pname:arrayLayers 必须: be less than or equal to
     sname:VkImageFormatProperties::pname:maxArrayLayers (as returned by
     fname:vkGetPhysicalDeviceImageFormatProperties with pname:format,
     pname:type, pname:tiling, pname:usage, and pname:flags equal to those in
@@ -1533,14 +1524,10 @@ sname:VkComponentMapping 类型数据结构定义如下：
 
 include::../api/structs/VkComponentMapping.txt[]
 
-  * pname:r determines the component value placed in the R component of the
-    output vector.
-  * pname:g determines the component value placed in the G component of the
-    output vector.
-  * pname:b determines the component value placed in the B component of the
-    output vector.
-  * pname:a determines the component value placed in the A component of the
-    output vector.
+  * pname:r 决定了输出向量中R成员的值。
+  * pname:g 决定了输出向量中G成员的值。
+  * pname:b 决定了输出向量中B成员的值。
+  * pname:a 决定了输出向量中A成员的值。
 
 pname:r, pname:g, pname:b, and pname:a 其一的值都是如下的一个:
 
@@ -1593,12 +1580,9 @@ include::../api/protos/vkDestroyImageView.txt[]
 
 .Valid Usage
 ****
-  * All submitted commands that refer to pname:imageView must: have
-    completed execution
-  * If sname:VkAllocationCallbacks were provided when pname:imageView was
-    created, a compatible set of callbacks must: be provided here
-  * If no sname:VkAllocationCallbacks were provided when pname:imageView was
-    created, pname:pAllocator must: be `NULL`
+  * 所有指向pname:imageView 的被提交的命令 必须已经完成执行。
+  * 若当创建 pname:imageView 时提供了 sname:VkAllocationCallbacks，那么此处必须提供兼容的回调函数。
+  * 若当创建  pname:imageView时没有提供sname:VkAllocationCallbacks ，那么此处 pname:pAllocator 必须为 `NULL`
 ****
 
 include::../validity/protos/vkDestroyImageView.txt[]
@@ -1617,9 +1601,9 @@ include::../validity/protos/vkDestroyImageView.txt[]
 
 在资源被当作参数传递到以下任何一个操作之前，非稀疏资源必须完全并连续的绑定到一个sname:VkDeviceMemory 对象：
 
-  * creating image or buffer views
-  * updating descriptor sets
-  * recording commands in a command buffer
+  * 创建图像或者缓冲区视图
+  * 更新描述符集合
+  * 在命令缓冲区中记录命令
 
 一旦绑定了，内存绑定在资源的生命周期内就是不变的。
 
@@ -1738,11 +1722,9 @@ include::../api/protos/vkBindBufferMemory.txt[]
   * pname:device 是拥有该缓冲区和内存的逻辑设备。
   * pname:buffer 是缓冲区。
   * pname:memory 是一个 sname:VkDeviceMemory 类型对象，描述了需附着的设备内存。
-  * pname:memoryOffset is the start offset of the region of pname:memory
-    which is to be bound to the buffer.
-    The number of bytes returned in the
-    sname:VkMemoryRequirements::pname:size member in pname:memory, starting
-    from pname:memoryOffset bytes, will be bound to the specified buffer.
+  * pname:memoryOffset 是  pname:memory区域的起始偏移，该内存被绑定到缓冲区上。    
+    被返回的pname:memory的成员sname:VkMemoryRequirements::pname:size 带有的字节数，从pname:memoryOffset 开始的字节数，
+	将被绑定到特定的缓冲区。
 
 .Valid Usage
 ****
@@ -1991,14 +1973,9 @@ flink:vkBindBufferMemory，或者通过<<sparsememory-resource-binding,稀疏内
 
 若两个别名都不是host-accessible，那么别名依不同的方式解读内存的内容，通过一个别名写入的内容对于另外一个别名来说也是部分或全未定义的。
 若第一个别名是 host-accessible 子资源，那么受影响的字节，是那些通过它的寻址方式内存操作写入的部分。
-If the first alias is not host-accessible, then the bytes affected are those
-overlapped by the image subresources that were written.
-If the second alias is a host-accessible subresource, the affected bytes
-become undefined.
-If the second alias is a not host-accessible, all sparse image blocks (for
-sparse partially-resident images) or all image subresources (for non-sparse
-image and fully resident sparse images) that overlap the affected bytes
-become undefined.
+若第一个别名不能被主机端访问，那么被影响的字节是那些被写入的图像子资源重叠的部分。
+若第二个别名是不能被主机端访问的子资源，那么被影响的字节将变得未定义。
+若第二个别名不能被主机端访问，所有的稀疏图像块（为稀疏部分驻留图像）或者所有的图像子资源（为非稀疏图像和全驻留稀疏图像）重叠的字节将变得未定义。
 
 If any image subresources are made undefined due to writes to an alias, then
 each of those image subresources must: have its layout transitioned from
@@ -2015,13 +1992,10 @@ interpret memory consistently or not.
 If buffer or image memory barriers are used, the scope of the barrier must:
 contain the entire range and/or set of image subresources that overlap.
 
-If two aliasing image views are used in the same framebuffer, then the
-render pass must: declare the attachments using the
-<<renderpass-aliasing,ename:VK_ATTACHMENT_DESCRIPTION_MAY_ALIAS_BIT>>, and
-follow the other rules listed in that section.
+若在同一个缓冲区中使用两个别名图像视图，那么render pass 必须使用 <<renderpass-aliasing,ename:VK_ATTACHMENT_DESCRIPTION_MAY_ALIAS_BIT>>
+声明附件，且必须符合该节中其他的规则。
 
-Access to resources which alias memory from shaders using variables
-decorated with code:Coherent are not automatically coherent with each other.
+在着色器中使用 code:Coherent修饰的变量来访问别名内存的资源，将不会自动保持一致性。
 
 [NOTE]
 .注意
