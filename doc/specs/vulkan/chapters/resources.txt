@@ -89,8 +89,8 @@ include::../api/enums/VkBufferUsageFlagBits.txt[]
     fname:vkCmdDrawIndirect, fname:vkCmdDrawIndexedIndirect, 或者
     fname:vkCmdDispatchIndirect.
 ifdef::VK_NVX_device_generated_commands[]
-    It is also suitable for passing as the pname:buffer member of
-    sname:VkIndirectCommandsTokenNVX, or pname:sequencesCountBuffer or
+    It is也 suitable for passing as the pname:buffer member of
+    sname:VkIndirectCommandsTokenNVX,或 pname:sequencesCountBuffer或
     pname:sequencesIndexBuffer member of sname:VkCmdProcessCommandsInfoNVX
 endif::VK_NVX_device_generated_commands[]
 
@@ -372,7 +372,7 @@ include::../api/structs/VkImageCreateInfo.txt[]
   * 若 pname:flags 包含 ename:VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT，
     pname:imageType 必须是 ename:VK_IMAGE_TYPE_2D
 ifdef::VK_KHR_maintenance1[]
-  * If pname:flags contains
+  * 若pname:flags包含s
     ename:VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT_KHR, pname:imageType must
     be ename:VK_IMAGE_TYPE_3D
 endif::VK_KHR_maintenance1[]
@@ -381,7 +381,7 @@ endif::VK_KHR_maintenance1[]
     sname:VkPhysicalDeviceLimits::pname:maxImageDimension1D 或者
     sname:VkImageFormatProperties::pname:maxExtent.width (as returned by
     fname:vkGetPhysicalDeviceImageFormatProperties with pname:format,
-    pname:type, pname:tiling, pname:usage, and pname:flags equal to those in
+    pname:type, pname:tiling, pname:usage, and pname:flags 等于 those in
     this structure) - 与值大的比较。
   * 若 pname:imageType 是 ename:VK_IMAGE_TYPE_2D 且 pname:flags 不包含
     ename:VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT，pname:extent.width
@@ -389,7 +389,7 @@ endif::VK_KHR_maintenance1[]
     sname:VkPhysicalDeviceLimits::pname:maxImageDimension2D, 或者
     sname:VkImageFormatProperties::pname:maxExtent.width/height (as returned
     by fname:vkGetPhysicalDeviceImageFormatProperties with pname:format,
-    pname:type, pname:tiling, pname:usage, and pname:flags equal to those in
+    pname:type, pname:tiling, pname:usage, and pname:flags 等于 those in
     this structure) - 与值大的比较。
   * 若 pname:imageType 是 ename:VK_IMAGE_TYPE_2D 且 pname:flags 包含
     ename:VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT，pname:extent.width 且
@@ -397,7 +397,7 @@ endif::VK_KHR_maintenance1[]
     sname:VkPhysicalDeviceLimits::pname:maxImageDimensionCube, 或者
     sname:VkImageFormatProperties::pname:maxExtent.width/height (as returned
     by fname:vkGetPhysicalDeviceImageFormatProperties with pname:format,
-    pname:type, pname:tiling, pname:usage, and pname:flags equal to those in
+    pname:type, pname:tiling, pname:usage, and pname:flags 等于 those in
     this structure) - 与值大的比较。
   * 若 pname:imageType 是 ename:VK_IMAGE_TYPE_2D 且 pname:flags 包含
     ename:VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT， pname:extent.width 且
@@ -407,7 +407,7 @@ endif::VK_KHR_maintenance1[]
     sname:VkImageFormatProperties::pname:maxExtent.width/height/depth (as
     returned by fname:vkGetPhysicalDeviceImageFormatProperties with
     pname:format, pname:type, pname:tiling, pname:usage, and pname:flags
-    equal to those in this structure) - 与值大的比较。
+    等于 those in this structure) - 与值大的比较。
   * 若 pname:imageType 是 ename:VK_IMAGE_TYPE_1D，  pname:extent.height
     和 pname:extent.depth 都 必须: 等于`1`
   * 若 pname:imageType 是 ename:VK_IMAGE_TYPE_2D， pname:extent.depth 必须: 等于 `1`
@@ -419,46 +419,45 @@ endif::VK_KHR_maintenance1[]
     必须: 小于等于
     sname:VkImageFormatProperties::pname:maxMipLevels (as returned by
     fname:vkGetPhysicalDeviceImageFormatProperties with pname:format,
-    pname:type, pname:tiling, pname:usage, and pname:flags equal to those in
+    pname:type, pname:tiling, pname:usage, and pname:flags 等于 those in
     this structure)
-  * pname:arrayLayers 必须: be less than or equal to
-    sname:VkImageFormatProperties::pname:maxArrayLayers (as returned by
+  * pname:arrayLayers 必须小于等于 sname:VkImageFormatProperties::pname:maxArrayLayers (as returned by
     fname:vkGetPhysicalDeviceImageFormatProperties with pname:format,
-    pname:type, pname:tiling, pname:usage, and pname:flags equal to those in
+    pname:type, pname:tiling, pname:usage, and pname:flags 等于 those in
     this structure)
   * 若 pname:imageType 是 ename:VK_IMAGE_TYPE_3D， pname:arrayLayers 必须: 等于    `1`.
-  * If pname:samples is not ename:VK_SAMPLE_COUNT_1_BIT, pname:imageType
-    must: be ename:VK_IMAGE_TYPE_2D, pname:flags must: not contain
-    ename:VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT, pname:tiling must: be
-    ename:VK_IMAGE_TILING_OPTIMAL, and pname:mipLevels must: be equal to `1`
-  * If pname:usage includes ename:VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT,
+  * 若pname:samples 不是 ename:VK_SAMPLE_COUNT_1_BIT, pname:imageType
+    必须 是 ename:VK_IMAGE_TYPE_2D, pname:flags 必须不能包含
+    ename:VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT, pname:tiling 必须 be
+    ename:VK_IMAGE_TILING_OPTIMAL, and pname:mipLevels 必须 be 等于 `1`
+  * 若pname:usage 包含 ename:VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT,
     then bits other than ename:VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT,
     ename:VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, and
-    ename:VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT must: not be set
-  * If pname:usage includes ename:VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT,
+    ename:VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT 必须 not be set
+  * 若pname:usage 包含 ename:VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT,
     ename:VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
-    ename:VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT, or
-    ename:VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT, pname:extent.width must: be
-    less than or equal to
+    ename:VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT,或
+    ename:VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT, pname:extent.width 必须 be
+   小于或 等于
     sname:VkPhysicalDeviceLimits::pname:maxFramebufferWidth
-  * If pname:usage includes ename:VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT,
+  * 若pname:usage 包含 ename:VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT,
     ename:VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
-    ename:VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT, or
-    ename:VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT, pname:extent.height must: be
-    less than or equal to
+    ename:VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT,或
+    ename:VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT, pname:extent.height 必须 be
+   小于或 等于
     sname:VkPhysicalDeviceLimits::pname:maxFramebufferHeight
-  * If pname:usage includes ename:VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT,
-    pname:usage must: also contain at least one of
+  * 若pname:usage 包含 ename:VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT,
+    pname:usage 必须也包含至少 
     ename:VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT,
-    ename:VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, or
-    ename:VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT.
-  * pname:samples must: be a bit value that is set in
-    sname:VkImageFormatProperties::pname:sampleCounts returned by
-    fname:vkGetPhysicalDeviceImageFormatProperties with pname:format,
-    pname:type, pname:tiling, pname:usage, and pname:flags equal to those in
-    this structure
-  * If the <<features-features-textureCompressionETC2,ETC2 texture
-    compression>> feature is not enabled, pname:format must: not be
+    ename:VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,或
+    ename:VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT中的一个。
+  * pname:samples 必须是一个bit value，被设置到
+    sname:VkImageFormatProperties::pname:sampleCounts，该数值可通过
+    以等于此数据集结构中的 pname:format,
+    pname:type, pname:tiling, pname:usage, and pname:flags  参数来调用
+	   fname:vkGetPhysicalDeviceImageFormatProperties 返回。    
+  * 若 <<features-features-textureCompressionETC2, ETC2 texture
+    compression>> 特征没有被启用，pname:format 必须不能是
     ename:VK_FORMAT_ETC2_R8G8B8_UNORM_BLOCK,
     ename:VK_FORMAT_ETC2_R8G8B8_SRGB_BLOCK,
     ename:VK_FORMAT_ETC2_R8G8B8A1_UNORM_BLOCK,
@@ -467,10 +466,10 @@ endif::VK_KHR_maintenance1[]
     ename:VK_FORMAT_ETC2_R8G8B8A8_SRGB_BLOCK,
     ename:VK_FORMAT_EAC_R11_UNORM_BLOCK,
     ename:VK_FORMAT_EAC_R11_SNORM_BLOCK,
-    ename:VK_FORMAT_EAC_R11G11_UNORM_BLOCK, or
+    ename:VK_FORMAT_EAC_R11G11_UNORM_BLOCK,或
     ename:VK_FORMAT_EAC_R11G11_SNORM_BLOCK
-  * If the <<features-features-textureCompressionASTC_LDR,ASTC LDR texture
-    compression>> feature is not enabled, pname:format must: not be
+  * 若<<features-features-textureCompressionASTC_LDR,ASTC LDR texture
+    compression>> 特征没有被启用，pname:format 必须不能是
     ename:VK_FORMAT_ASTC_4x4_UNORM_BLOCK,
     ename:VK_FORMAT_ASTC_4x4_SRGB_BLOCK,
     ename:VK_FORMAT_ASTC_5x4_UNORM_BLOCK,
@@ -497,10 +496,10 @@ endif::VK_KHR_maintenance1[]
     ename:VK_FORMAT_ASTC_10x10_SRGB_BLOCK,
     ename:VK_FORMAT_ASTC_12x10_UNORM_BLOCK,
     ename:VK_FORMAT_ASTC_12x10_SRGB_BLOCK,
-    ename:VK_FORMAT_ASTC_12x12_UNORM_BLOCK, or
+    ename:VK_FORMAT_ASTC_12x12_UNORM_BLOCK,或
     ename:VK_FORMAT_ASTC_12x12_SRGB_BLOCK
-  * If the <<features-features-textureCompressionBC,BC texture compression>>
-    feature is not enabled, pname:format must: not be
+  * 若 <<features-features-textureCompressionBC,BC texture compression>>
+    特征没有被启用，pname:format 必须不能是
     ename:VK_FORMAT_BC1_RGB_UNORM_BLOCK, ename:VK_FORMAT_BC1_RGB_SRGB_BLOCK,
     ename:VK_FORMAT_BC1_RGBA_UNORM_BLOCK,
     ename:VK_FORMAT_BC1_RGBA_SRGB_BLOCK, ename:VK_FORMAT_BC2_UNORM_BLOCK,
@@ -508,105 +507,100 @@ endif::VK_KHR_maintenance1[]
     ename:VK_FORMAT_BC3_SRGB_BLOCK, ename:VK_FORMAT_BC4_UNORM_BLOCK,
     ename:VK_FORMAT_BC4_SNORM_BLOCK, ename:VK_FORMAT_BC5_UNORM_BLOCK,
     ename:VK_FORMAT_BC5_SNORM_BLOCK, ename:VK_FORMAT_BC6H_UFLOAT_BLOCK,
-    ename:VK_FORMAT_BC6H_SFLOAT_BLOCK, ename:VK_FORMAT_BC7_UNORM_BLOCK, or
+    ename:VK_FORMAT_BC6H_SFLOAT_BLOCK, ename:VK_FORMAT_BC7_UNORM_BLOCK,或
     ename:VK_FORMAT_BC7_SRGB_BLOCK
-  * If the <<features-features-shaderStorageImageMultisample,multisampled
-    storage images>> feature is not enabled, and pname:usage contains
-    ename:VK_IMAGE_USAGE_STORAGE_BIT, pname:samples must: be
+  * 若<<features-features-shaderStorageImageMultisample,multisampled
+    storage images>> 特征没有被启用，且pname:usage包含
+    ename:VK_IMAGE_USAGE_STORAGE_BIT, pname:samples 必须是
     ename:VK_SAMPLE_COUNT_1_BIT
-  * If the <<features-features-sparseBinding,sparse bindings>> feature is
-    not enabled, pname:flags must: not contain
+  * 若<<features-features-sparseBinding,sparse bindings>> 特征没有被启用，pname:flags 必须 不能包含
     ename:VK_IMAGE_CREATE_SPARSE_BINDING_BIT
-  * If pname:imageType is ename:VK_IMAGE_TYPE_1D, pname:flags must: not
-    contain ename:VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT
-  * If the <<features-features-sparseResidencyImage2D,sparse residency for
-    2D images>> feature is not enabled, and pname:imageType is
-    ename:VK_IMAGE_TYPE_2D, pname:flags must: not contain
+  * 若pname:imageType is ename:VK_IMAGE_TYPE_1D, pname:flags 必须 不能
+   包含 ename:VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT
+  * 若 <<features-features-sparseResidencyImage2D,sparse residency for
+    2D images>>特征没有被启用， 且 pname:imageType 是
+    ename:VK_IMAGE_TYPE_2D, pname:flags 必须 不能包含
     ename:VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT
-  * If the <<features-features-sparseResidencyImage3D,sparse residency for
-    3D images>> feature is not enabled, and pname:imageType is
-    ename:VK_IMAGE_TYPE_3D, pname:flags must: not contain
+  * 若<<features-features-sparseResidencyImage3D,sparse residency for
+    3D images>>特征没有被启用， 且 pname:imageType is
+    ename:VK_IMAGE_TYPE_3D, pname:flags 必须不能包含
     ename:VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT
-  * If the <<features-features-sparseResidency2Samples,sparse residency for
-    images with 2 samples>> feature is not enabled, pname:imageType is
-    ename:VK_IMAGE_TYPE_2D, and pname:samples is
-    ename:VK_SAMPLE_COUNT_2_BIT, pname:flags must: not contain
+  * 若the <<features-features-sparseResidency2Samples,sparse residency for
+    images with 2 samples>>特征没有被启用， pname:imageType 是
+    ename:VK_IMAGE_TYPE_2D, 且 pname:samples  是
+    ename:VK_SAMPLE_COUNT_2_BIT, pname:flags 必须 不能包含
     ename:VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT
-  * If the <<features-features-sparseResidency4Samples,sparse residency for
-    images with 4 samples>> feature is not enabled, pname:imageType is
-    ename:VK_IMAGE_TYPE_2D, and pname:samples is
-    ename:VK_SAMPLE_COUNT_4_BIT, pname:flags must: not contain
+  * 若<<features-features-sparseResidency4Samples,sparse residency for
+    images with 4 samples>>特征没有被启用， pname:imageType  是
+    ename:VK_IMAGE_TYPE_2D, 且 pname:samples  是
+    ename:VK_SAMPLE_COUNT_4_BIT, pname:flags 必须 不能包含
     ename:VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT
-  * If the <<features-features-sparseResidency8Samples,sparse residency for
-    images with 8 samples>> feature is not enabled, pname:imageType is
-    ename:VK_IMAGE_TYPE_2D, and pname:samples is
-    ename:VK_SAMPLE_COUNT_8_BIT, pname:flags must: not contain
+  * 若 <<features-features-sparseResidency8Samples,sparse residency for
+    images with 8 samples>>特征没有被启用， pname:imageType  是
+    ename:VK_IMAGE_TYPE_2D, 且 pname:samples  是
+    ename:VK_SAMPLE_COUNT_8_BIT, pname:flags 必须 不能包含
     ename:VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT
-  * If the <<features-features-sparseResidency16Samples,sparse residency for
-    images with 16 samples>> feature is not enabled, pname:imageType is
-    ename:VK_IMAGE_TYPE_2D, and pname:samples is
-    ename:VK_SAMPLE_COUNT_16_BIT, pname:flags must: not contain
+  * 若<<features-features-sparseResidency16Samples,sparse residency for
+    images with 16 samples>>特征没有被启用， pname:imageType  是
+    ename:VK_IMAGE_TYPE_2D, 且 pname:samples  是
+    ename:VK_SAMPLE_COUNT_16_BIT, pname:flags 必须 不能包含
     ename:VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT
-  * If pname:tiling is ename:VK_IMAGE_TILING_LINEAR, pname:format must: be a
-    format that has at least one supported feature bit present in the value
-    of sname:VkFormatProperties::pname:linearTilingFeatures returned by
-    fname:vkGetPhysicalDeviceFormatProperties with the same value of
-    pname:format
-  * If pname:tiling is ename:VK_IMAGE_TILING_LINEAR, and
+  * 若pname:tiling is ename:VK_IMAGE_TILING_LINEAR, pname:format 必须是一个     
+    sname:VkFormatProperties::pname:linearTilingFeatures数据中的一个特征bit的格式，该数据是通过以pname:format相同值为参数 调用
+    fname:vkGetPhysicalDeviceFormatProperties获取的。    
+  * 若pname:tiling is ename:VK_IMAGE_TILING_LINEAR, 和
     sname:VkFormatProperties::pname:linearTilingFeatures (as returned by
     fname:vkGetPhysicalDeviceFormatProperties with the same value of
-    pname:format) does not include
-    ename:VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT, pname:usage must: not contain
+    pname:format) 不包含
+    ename:VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT, pname:usage 必须不能包含
     ename:VK_IMAGE_USAGE_SAMPLED_BIT
-  * If pname:tiling is ename:VK_IMAGE_TILING_LINEAR, and
+  * 若pname:tiling is ename:VK_IMAGE_TILING_LINEAR, 和
     sname:VkFormatProperties::pname:linearTilingFeatures (as returned by
     fname:vkGetPhysicalDeviceFormatProperties with the same value of
-    pname:format) does not include
-    ename:VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT, pname:usage must: not contain
+    pname:format) 不包含
+    ename:VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT, pname:usage 必须不能包含
     ename:VK_IMAGE_USAGE_STORAGE_BIT
-  * If pname:tiling is ename:VK_IMAGE_TILING_LINEAR, and
+  * 若pname:tiling is ename:VK_IMAGE_TILING_LINEAR, 和
     sname:VkFormatProperties::pname:linearTilingFeatures (as returned by
     fname:vkGetPhysicalDeviceFormatProperties with the same value of
-    pname:format) does not include
-    ename:VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT, pname:usage must: not
-    contain ename:VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT
-  * If pname:tiling is ename:VK_IMAGE_TILING_LINEAR, and
+    pname:format) 不包含
+    ename:VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT, pname:usage 必须不能
+   包含 ename:VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT
+  * 若pname:tiling is ename:VK_IMAGE_TILING_LINEAR, 和
     sname:VkFormatProperties::pname:linearTilingFeatures (as returned by
     fname:vkGetPhysicalDeviceFormatProperties with the same value of
-    pname:format) does not include
+    pname:format) 不包含
     ename:VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT, pname:usage must:
-    not contain ename:VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT
-  * If pname:tiling is ename:VK_IMAGE_TILING_OPTIMAL, pname:format must: be
-    a format that has at least one supported feature bit present in the
-    value of sname:VkFormatProperties::pname:optimalTilingFeatures returned
-    by fname:vkGetPhysicalDeviceFormatProperties with the same value of
-    pname:format
-  * If pname:tiling is ename:VK_IMAGE_TILING_OPTIMAL, and
+    not包含 ename:VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT
+  * 若pname:tiling 是 ename:VK_IMAGE_TILING_OPTIMAL, pname:format 必须 是    
+    value of sname:VkFormatProperties::pname:optimalTilingFeatures 其中一个受支持的特征bit的格式 ，该数据是通过以pname:format相同值为参数 调用
+    fname:vkGetPhysicalDeviceFormatProperties  获取的。  
+  * 若pname:tiling 是 ename:VK_IMAGE_TILING_OPTIMAL, 且
     sname:VkFormatProperties::pname:optimalTilingFeatures (as returned by
     fname:vkGetPhysicalDeviceFormatProperties with the same value of
-    pname:format) does not include
-    ename:VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT, pname:usage must: not contain
+    pname:format) 不包含
+    ename:VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT, pname:usage 必须不能包含
     ename:VK_IMAGE_USAGE_SAMPLED_BIT
-  * If pname:tiling is ename:VK_IMAGE_TILING_OPTIMAL, and
+  * 若pname:tiling 是 ename:VK_IMAGE_TILING_OPTIMAL, 且
     sname:VkFormatProperties::pname:optimalTilingFeatures (as returned by
     fname:vkGetPhysicalDeviceFormatProperties with the same value of
-    pname:format) does not include
-    ename:VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT, pname:usage must: not contain
+    pname:format) 不包含
+    ename:VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT, pname:usage 必须不能包含
     ename:VK_IMAGE_USAGE_STORAGE_BIT
-  * If pname:tiling is ename:VK_IMAGE_TILING_OPTIMAL, and
+  * 若pname:tiling 是 ename:VK_IMAGE_TILING_OPTIMAL, 且
     sname:VkFormatProperties::pname:optimalTilingFeatures (as returned by
     fname:vkGetPhysicalDeviceFormatProperties with the same value of
-    pname:format) does not include
-    ename:VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT, pname:usage must: not
-    contain ename:VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT
-  * If pname:tiling is ename:VK_IMAGE_TILING_OPTIMAL, and
+    pname:format) 不包含
+    ename:VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT, pname:usage 必须不能
+   包含 ename:VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT
+  * 若pname:tiling 是 ename:VK_IMAGE_TILING_OPTIMAL, 且
     sname:VkFormatProperties::pname:optimalTilingFeatures (as returned by
     fname:vkGetPhysicalDeviceFormatProperties with the same value of
-    pname:format) does not include
-    ename:VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT, pname:usage must:
-    not contain ename:VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT
-  * If pname:flags contains ename:VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT or
-    ename:VK_IMAGE_CREATE_SPARSE_ALIASED_BIT, it must: also contain
+    pname:format) 不包含
+    ename:VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT, pname:usage 不能
+	包含 ename:VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT
+  * 若pname:flags包含 ename:VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT或
+    ename:VK_IMAGE_CREATE_SPARSE_ALIASED_BIT, 它必须也包含
     ename:VK_IMAGE_CREATE_SPARSE_BINDING_BIT
 ****
 
@@ -630,8 +624,7 @@ include::../api/structs/VkDedicatedAllocationImageCreateInfoNV.txt[]
 [NOTE]
 .注意
 ====
-Using a dedicated allocation for color and depth/stencil attachments or
-other large images may: improve performance on some devices.
+在一些设备上使用为颜色、depth/stencil附件或 其他大图像 专用分配的内存将会提升性能。
 ====
 
 .Valid Usage
@@ -675,43 +668,34 @@ endif::VK_NV_external_memory[]
 
 include::../api/enums/VkImageUsageFlagBits.txt[]
 
-These bits have the following meanings:
+这些bit 有如下的意义：
 
-  * ename:VK_IMAGE_USAGE_TRANSFER_SRC_BIT 表示图像 可以: 被用作 转移命令的源。
-  * ename:VK_IMAGE_USAGE_TRANSFER_DST_BIT 表示图像 可以: 被用作 转移命令的目标。
-  * ename:VK_IMAGE_USAGE_SAMPLED_BIT 表示图像 可以: 被用于创建 适于占用
+  * ename:VK_IMAGE_USAGE_TRANSFER_SRC_BIT 表示图像 可以 被用作 转移命令的源。
+  * ename:VK_IMAGE_USAGE_TRANSFER_DST_BIT 表示图像 可以 被用作 转移命令的目标。
+  * ename:VK_IMAGE_USAGE_SAMPLED_BIT 表示图像 可以 被用于创建 适于占用
       ename:VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE 或
     ename:VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER类型，且可被着色器采样的sname:VkDescriptorSet槽的 sname:VkImageView 。
-  * ename:VK_IMAGE_USAGE_STORAGE_BIT indicates that the image can: be used
-    to create a sname:VkImageView suitable for occupying a
-    sname:VkDescriptorSet slot of type
-    ename:VK_DESCRIPTOR_TYPE_STORAGE_IMAGE.
-  * ename:VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT indicates that the image can:
-    be used to create a sname:VkImageView suitable for use as a color or
-    resolve attachment in a sname:VkFramebuffer.
-  * ename:VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT indicates that the
-    image can: be used to create a sname:VkImageView suitable for use as a
-    depth/stencil attachment in a sname:VkFramebuffer.
-  * ename:VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT indicates that the memory
-    bound to this image will have been allocated with the
-    ename:VK_MEMORY_PROPERTY_LAZILY_ALLOCATED_BIT (see <<memory>> for more
-    detail).
-    This bit can: be set for any image that can: be used to create a
-    sname:VkImageView suitable for use as a color, resolve, depth/stencil,
-    or input attachment.
-  * ename:VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT indicates that the image can:
-    be used to create a sname:VkImageView suitable for occupying
-    sname:VkDescriptorSet slot of type
-    ename:VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT; be read from a shader as an
-    input attachment; and be used as an input attachment in a framebuffer.
+  * ename:VK_IMAGE_USAGE_STORAGE_BIT 表示 图像可以被用于创建适于占用
+    ename:VK_DESCRIPTOR_TYPE_STORAGE_IMAGE类型的 sname:VkDescriptorSet 槽。
+  * ename:VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT表示 该图像可以
+   被用于创建  sname:VkImageView，其适于被用作 sname:VkFramebuffer中的 一个颜色 或  resolve 附件。
+  * ename:VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT表示 该图像可以被用于创建 sname:VkImageView，
+    其适于被用作sname:VkFramebuffer中的 depth/stencil 附件。 
+  * ename:VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT表示 绑定到此图像的内存使用    
+    ename:VK_MEMORY_PROPERTY_LAZILY_ALLOCATED_BIT (参考 <<memory>> 获取详细内容) 标志位被创建的。
+    这个bit可以 设置给任何图像，该图像必须可以被用于创建 一个适于用作颜色、resolve、depth/stencil 或 输入附件。    
+  * ename:VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT表示 that该图像可以
+   被用于创建 一个 sname:VkImageView，其适于占用一个
+    ename:VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT 类型的 sname:VkDescriptorSet 槽; 
+	可从着色器中作为 输入附件 被读取；且可在缓冲区中被用作一个输入附件。
 
 // refEnd VkImageUsageFlagBits
 
 // refBegin VkImageCreateFlagBits Bitmask specifying additional parameters of an image
 
-Additional parameters of an image are specified by
-slink:VkImageCreateInfo::pname:flags.
-Bits which can: be set include:
+图像的其他参数可以通过
+slink:VkImageCreateInfo::pname:flags  指定。
+可以设置的 Bits 包括:
 
 include::../api/enums/VkImageCreateFlagBits.txt[]
 
@@ -721,22 +705,15 @@ include::../api/enums/VkImageCreateFlagBits.txt[]
   * ename:VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT 表示图像可部分的使用稀疏内存绑定来存储。
 	 使用此flog创建的图像也可以使用
     ename:VK_IMAGE_CREATE_SPARSE_BINDING_BIT flag创建。
-  * ename:VK_IMAGE_CREATE_SPARSE_ALIASED_BIT indicates that the image will
-    be backed using sparse memory binding with memory ranges that might also
-    simultaneously be backing another image (or another portion of the same
-    image).
-    Images created with this flag must: also be created with the
-    ename:VK_IMAGE_CREATE_SPARSE_BINDING_BIT flag
-  * ename:VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT indicates that the image can:
-    be used to create a sname:VkImageView with a different format from the
-    image.
-  * ename:VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT indicates that the image can:
-    be used to create a sname:VkImageView of type
-    ename:VK_IMAGE_VIEW_TYPE_CUBE or ename:VK_IMAGE_VIEW_TYPE_CUBE_ARRAY.
+  * ename:VK_IMAGE_CREATE_SPARSE_ALIASED_BIT表示 该图像 将使用稀疏内存绑定来存储，内存区间可能同时存储其他图像（或者同一图像的其他部分）。
+    带有此flag被创建的图像 必须也带有 ename:VK_IMAGE_CREATE_SPARSE_BINDING_BIT 标志位。
+  * ename:VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT表示 该图像可以
+   被用于创建与此图像格式不同的格式的 sname:VkImageView。
+  * ename:VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT表示 该图像可以
+   被用于创建 ename:VK_IMAGE_VIEW_TYPE_CUBE或 ename:VK_IMAGE_VIEW_TYPE_CUBE_ARRAY类型的sname:VkImageView 。
 ifdef::VK_KHR_maintenance1[]
-  * ename:VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT_KHR indicates that the
-    image can: be used to create a sname:VkImageView of type
-    ename:VK_IMAGE_VIEW_TYPE_2D or ename:VK_IMAGE_VIEW_TYPE_2D_ARRAY.
+  * ename:VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT_KHR表示该图像可以被用于创建 
+    ename:VK_IMAGE_VIEW_TYPE_2D或 ename:VK_IMAGE_VIEW_TYPE_2D_ARRAY类型的 sname:VkImageView。
 endif::VK_KHR_maintenance1[]
 
 如果ename:VK_IMAGE_CREATE_SPARSE_BINDING_BIT, ename:VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT, 或者 ename:VK_IMAGE_CREATE_SPARSE_ALIASED_BIT 之一被设置过了，
@@ -760,14 +737,14 @@ include::../api/enums/VkImageType.txt[]
 // refBegin VkImageTiling Specifies the tiling arrangement of data in an image
 
 The tiling arrangement of data elements in an image is specified by
-slink:VkImageCreateInfo::pname:tiling, which must: be one of the values
+slink:VkImageCreateInfo::pname:tiling, which 必须 be one of the values
 
 include::../api/enums/VkImageTiling.txt[]
 
 ename:VK_IMAGE_TILING_OPTIMAL specifies optimal tiling (texels are laid out
 in an implementation-dependent arrangement, for more optimal memory access),
 and ename:VK_IMAGE_TILING_LINEAR specifies linear tiling (texels are laid
-out in memory in row-major order, possibly with some padding on each row).
+out in memory in row-major或der, possibly with some padding on each row).
 
 // refEnd VkImageTiling
 
@@ -812,36 +789,23 @@ include::../validity/structs/VkImageSubresource.txt[]
 
 // refBegin VkSubresourceLayout Structure specifying subresource layout
 
-Information about the layout of the image subresource is returned in a
-sname:VkSubresourceLayout structure:
+该图像子资源的布局的信息 被封装在sname:VkSubresourceLayout 数据结构中被返回：
 
 include::../api/structs/VkSubresourceLayout.txt[]
 
-  * pname:offset is the byte offset from the start of the image where the
-    image subresource begins.
-  * pname:size is the size in bytes of the image subresource.
-    pname:size includes any extra memory that is required based on
-    pname:rowPitch.
-  * pname:rowPitch describes the number of bytes between each row of texels
-    in an image.
-  * pname:arrayPitch describes the number of bytes between each array layer
-    of an image.
-  * pname:depthPitch describes the number of bytes between each slice of 3D
-    image.
+  * pname:offset 是该图像子资源起始的偏移字节数。
+  * pname:size  该图像子资源的字节大小。
+    pname:size 包含 要求基于pname:rowPitch的 任何 额外内存。
+  * pname:rowPitch 描述了一个图像内每行纹素的字节数。
+  * pname:arrayPitch 描述了一个图像内每个array layer 的字节数。 
+  * pname:depthPitch 描述了3D图像的每个切分的字节数。
 
-For images created with linear tiling, pname:rowPitch, pname:arrayPitch and
-pname:depthPitch describe the layout of the image subresource in linear
-memory.
-For uncompressed formats, pname:rowPitch is the number of bytes between
-texels with the same x coordinate in adjacent rows (y coordinates differ by
-one).
-pname:arrayPitch is the number of bytes between texels with the same x and y
-coordinate in adjacent array layers of the image (array layer values differ
-by one).
-pname:depthPitch is the number of bytes between texels with the same x and y
-coordinate in adjacent slices of a 3D image (z coordinates differ by one).
-Expressed as an addressing formula, the starting byte of a texel in the
-image subresource has address:
+对于线性排列创建的图像，pname:rowPitch, pname:arrayPitch 和
+pname:depthPitch 描述 该图像子资源再线性内存中的布局。
+对于未压缩的格式， pname:rowPitch 是相邻行（y坐标相差1）之间相同x坐标的纹素之间的字节数。
+pname:arrayPitch 是该图像的相邻array layer 的同x、y坐标纹素之间的字节数。
+pname:depthPitch 是3D图像相邻切片（z坐标相差1）内同x、y坐标之间纹素之间的字节数。
+通过一个寻址表达式来表示，一个图像子资源的纹素的起始字节 地址为：
 
 [source,c]
 ---------------------------------------------------
@@ -849,12 +813,9 @@ image subresource has address:
 address(x,y,z,layer) = layer*arrayPitch + z*depthPitch + y*rowPitch + x*elementSize + offset
 ---------------------------------------------------
 
-For compressed formats, the pname:rowPitch is the number of bytes between
-compressed texel blocks in adjacent rows.
-pname:arrayPitch is the number of bytes between compressed texel blocks in
-adjacent array layers.
-pname:depthPitch is the number of bytes between compressed texel blocks in
-adjacent slices of a 3D image.
+对于压缩格式，pname:rowPitch 是相邻行的压缩的纹素块的字节数。 
+pname:arrayPitch 是相邻array layers的压缩纹素块之间的字节数。
+pname:depthPitch 是相邻的3D图像的切片的压缩纹素块之间的字节数。
 
 [source,c]
 ---------------------------------------------------
@@ -865,10 +826,10 @@ address(x,y,z,layer) = layer*arrayPitch + z*depthPitch + y*rowPitch + x*compress
 pname:arrayPitch is undefined for images that were not created as arrays.
 pname:depthPitch is defined only for 3D images.
 
-For color formats, the pname:aspectMask member of sname:VkImageSubresource
-must: be ename:VK_IMAGE_ASPECT_COLOR_BIT.
-For depth/stencil formats, pname:aspectMask must: be either
-ename:VK_IMAGE_ASPECT_DEPTH_BIT or ename:VK_IMAGE_ASPECT_STENCIL_BIT.
+对于颜色格式， sname:VkImageSubresource的pname:aspectMask 成员
+必须 是 ename:VK_IMAGE_ASPECT_COLOR_BIT.
+对于depth/stencil 格式，pname:aspectMask 必须是
+ename:VK_IMAGE_ASPECT_DEPTH_BIT或 ename:VK_IMAGE_ASPECT_STENCIL_BIT 二者其一。
 On implementations that store depth and stencil aspects separately, querying
 each of these image subresource layouts will return a different pname:offset
 and pname:size representing the region of memory used for that aspect.
@@ -890,12 +851,9 @@ include::../api/protos/vkDestroyImage.txt[]
 
 .Valid Usage
 ****
-  * All submitted commands that refer to pname:image, either directly or via
-    a sname:VkImageView, must: have completed execution
-  * If sname:VkAllocationCallbacks were provided when pname:image was
-    created, a compatible set of callbacks must: be provided here
-  * If no sname:VkAllocationCallbacks were provided when pname:image was
-    created, pname:pAllocator must: be `NULL`
+  * 所有直接或 通过一个sname:VkImageView引用pname:image的已提交的命令，必须已经完成执行。
+  * 若创建图像时 提供了sname:VkAllocationCallbacks，那么在此处必须提供兼容的回调。
+  * 若创建图像时没有提供sname:VkAllocationCallbacks，那么pname:pAllocator 必须为 `NULL`
 ****
 
 include::../validity/protos/vkDestroyImage.txt[]
@@ -909,14 +867,14 @@ include::../validity/protos/vkDestroyImage.txt[]
 每一个布局都有限制条件，如使用该布局可对图像子资源做何种操作。
 Applications have control over which layout each image subresource uses, and
 can: transition an image subresource from one layout to another.
-Transitions can: happen with an image memory barrier, included as part of a
-fname:vkCmdPipelineBarrier or a fname:vkCmdWaitEvents command buffer command
-(see <<synchronization-image-memory-barriers>>), or as part of a subpass
+Transitions可以 happen with an image memory barrier, included as part of a
+fname:vkCmdPipelineBarrier或 a fname:vkCmdWaitEvents command buffer command
+(see <<synchronization-image-memory-barriers>>),或 as part of a subpass
 dependency within a render pass (see sname:VkSubpassDependency).
 The image layout state is per-image subresource, and separate image
-subresources of the same image can: be in different layouts at the same time
+subresources of the same image可以 be in different layouts at the same time
 with one exception - depth and stencil aspects of a given image subresource
-must: always be in the same layout.
+必须 always be in the same layout.
 
 [NOTE]
 .注意
@@ -927,32 +885,26 @@ For example, an image with a layout of
 ename:VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL may: provide optimal
 performance for use as a color attachment, but be unsupported for use in
 transfer commands.
-Applications can: transition an image subresource from one layout to another
-in order to achieve optimal performance when the image subresource is used
+Applications可以 transition an image subresource from one layout to another
+in或der to achieve optimal performance when该图像 subresource is used
 for multiple kinds of operations.
 After initialization, applications need not use any layout other than the
 general layout, though this may: produce suboptimal performance on some
 implementations.
 ====
 
-Upon creation, all image subresources of an image are initially in the same
-layout, where that layout is selected by the
-sname:VkImageCreateInfo::pname:initialLayout member.
-The pname:initialLayout must: be either ename:VK_IMAGE_LAYOUT_UNDEFINED or
-ename:VK_IMAGE_LAYOUT_PREINITIALIZED.
-If it is ename:VK_IMAGE_LAYOUT_PREINITIALIZED, then the image data can: be
-preinitialized by the host while using this layout, and the transition away
-from this layout will preserve that data.
-If it is ename:VK_IMAGE_LAYOUT_UNDEFINED, then the contents of the data are
-considered to be undefined, and the transition away from this layout is not
-guaranteed to preserve that data.
-For either of these initial layouts, any image subresources must: be
-transitioned to another layout before they are accessed by the device.
+创建完成后，一个图像的所有图像子资源初始状态都处于相同的布局，该布局由
+sname:VkImageCreateInfo::pname:initialLayout 成员选择。
+pname:initialLayout 必须 为 ename:VK_IMAGE_LAYOUT_UNDEFINED或
+ename:VK_IMAGE_LAYOUT_PREINITIALIZED 二者其一。
+若为 ename:VK_IMAGE_LAYOUT_PREINITIALIZED, 那么该图像数据可以被host使用该布局预初始化，且布局转换可以保持数据。
+若为 ename:VK_IMAGE_LAYOUT_UNDEFINED, 那么数据的内容被认为是未定义的，布局转换并不保证保持原有数据。
+对于这任一初始布局，任何图像子资源 必须在device 访问它们之前转换到另一个布局。
 
 Host access to image memory is only well-defined for images created with
 ename:VK_IMAGE_TILING_LINEAR tiling and for image subresources of those
 images which are currently in either the
-ename:VK_IMAGE_LAYOUT_PREINITIALIZED or ename:VK_IMAGE_LAYOUT_GENERAL
+ename:VK_IMAGE_LAYOUT_PREINITIALIZED或 ename:VK_IMAGE_LAYOUT_GENERAL
 layout.
 Calling flink:vkGetImageSubresourceLayout for a linear image returns a
 subresource layout mapping that is valid for either of those image layouts.
@@ -965,91 +917,51 @@ include::../api/enums/VkImageLayout.txt[]
 
 The type(s) of device access supported by each layout are:
 
-  * ename:VK_IMAGE_LAYOUT_UNDEFINED: Supports no device access.
-    This layout must: only be used as the pname:initialLayout member of
-    sname:VkImageCreateInfo or sname:VkAttachmentDescription, or as the
-    pname:oldLayout in an image transition.
-    When transitioning out of this layout, the contents of the memory are
-    not guaranteed to be preserved.
-  * ename:VK_IMAGE_LAYOUT_PREINITIALIZED: Supports no device access.
-    This layout must: only be used as the pname:initialLayout member of
-    sname:VkImageCreateInfo or sname:VkAttachmentDescription, or as the
-    pname:oldLayout in an image transition.
-    When transitioning out of this layout, the contents of the memory are
-    preserved.
-    This layout is intended to be used as the initial layout for an image
-    whose contents are written by the host, and hence the data can: be
-    written to memory immediately, without first executing a layout
-    transition.
-    Currently, ename:VK_IMAGE_LAYOUT_PREINITIALIZED is only useful with
-    ename:VK_IMAGE_TILING_LINEAR images because there is not a standard
-    layout defined for ename:VK_IMAGE_TILING_OPTIMAL images.
-  * ename:VK_IMAGE_LAYOUT_GENERAL: Supports all types of device access.
-  * ename:VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL: must: only be used as a
-    color or resolve attachment in a sname:VkFramebuffer.
-    This layout is valid only for image subresources of images created with
-    the ename:VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT usage bit enabled.
-  * ename:VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL: must: only be
-    used as a depth/stencil attachment in a sname:VkFramebuffer.
-    This layout is valid only for image subresources of images created with
-    the ename:VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT usage bit enabled.
-  * ename:VK_IMAGE_LAYOUT_DEPTH_STENCIL_READ_ONLY_OPTIMAL: must: only be
-    used as a read-only depth/stencil attachment in a sname:VkFramebuffer
-    and/or as a read-only image in a shader (which can: be read as a sampled
-    image, combined image/sampler and/or input attachment).
-    This layout is valid only for image subresources of images created with
-    the ename:VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT usage bit enabled.
-    Only image subresources of images created with
-    ename:VK_IMAGE_USAGE_SAMPLED_BIT can: be used as sampled image or
-    combined image/sampler in a shader.
-    Similarly, only image subresources of images created with
-    ename:VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT can: be used as input
-    attachments.
-  * ename:VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL: must: only be used as a
-    read-only image in a shader (which can: be read as a sampled image,
-    combined image/sampler and/or input attachment).
-    This layout is valid only for image subresources of images created with
-    the ename:VK_IMAGE_USAGE_SAMPLED_BIT or
-    ename:VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT usage bit enabled.
-  * ename:VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL: must: only be used as a
-    source image of a transfer command (see the definition of
-    <<synchronization-pipeline-stages-transfer,
-    ename:VK_PIPELINE_STAGE_TRANSFER_BIT>>).
-    This layout is valid only for image subresources of images created with
-    the ename:VK_IMAGE_USAGE_TRANSFER_SRC_BIT usage bit enabled.
-  * ename:VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL: must: only be used as a
-    destination image of a transfer command.
-    This layout is valid only for image subresources of images created with
-    the ename:VK_IMAGE_USAGE_TRANSFER_DST_BIT usage bit enabled.
+  * ename:VK_IMAGE_LAYOUT_UNDEFINED: 不支持设备访问。此布局 必须 仅被用作
+    sname:VkImageCreateInfo或 sname:VkAttachmentDescription的pname:initialLayout成员，或用于图像转换的 pname:oldLayout。
+	当从此布局转换为其他布局时，内存的内容不被保证保留。    
+  * ename:VK_IMAGE_LAYOUT_PREINITIALIZED: 不支持设备访问。
+    此布局必须 仅被用于 
+    sname:VkImageCreateInfo或 sname:VkAttachmentDescription的pname:initialLayout 成员，或用于图像转换的pname:oldLayout 。
+	当从此布局转换为其他布局时，内存的内容被保证保留。
+    此布局 专门被用于 host端写入的图像，其数据可以被立即写入内存，而不需要先执行布局转换。    
+    当前，ename:VK_IMAGE_LAYOUT_PREINITIALIZED 只对
+    ename:VK_IMAGE_TILING_LINEAR 图像有效，因为并没有为ename:VK_IMAGE_TILING_OPTIMAL 图像定义的标准布局。
+  * ename:VK_IMAGE_LAYOUT_GENERAL: 支持所有类型的设备访问。
+  * ename:VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL: 必须 仅被用于sname:VkFramebuffer中的颜色或 resolve 附件。
+    此布局仅针对 以带有ename:VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT bit位被启用来创建的图像子资源来说有效。
+  * ename:VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL: 必须 仅被用于sname:VkFramebuffer的 depth/stencil 附件。
+    此布局仅针对 以带有 ename:VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT bit位被启用来创建的图像子资源来说有效。
+  * ename:VK_IMAGE_LAYOUT_DEPTH_STENCIL_READ_ONLY_OPTIMAL: 必须 仅被用于sname:VkFramebuffer的只读 depth/stencil 附件，
+     且/或 被用于 着色器中只读的图像 (可以当作采样图像，combined image/sampler and/or 输入附件 被读取).
+	 此布局仅针对 以带有 ename:VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT bit位被启用来创建的图像子资源来说有效。    
+    以ename:VK_IMAGE_USAGE_SAMPLED_BIT 被创建的图像的图像子资源 可以在着色器中 被用作采样图像或combined image/sampler。
+    同样，, only image subresources of images created with
+    以ename:VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT 被创建的图像的图像子资源 可以在着色器中被用作 输入附件。    
+  * ename:VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL: 必须 仅被用作 着色器内只读图像 (可以被当作 采样图像、combined image/sampler 或 输入附件 只读采样)。
+	此布局仅针对 以带有 ename:VK_IMAGE_USAGE_SAMPLED_BIT 或    ename:VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT   bit位被启用来创建的图像子资源来说有效。
+  * ename:VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL: 必须 仅被用作 转移命令的源图像 (参考<<synchronization-pipeline-stages-transfer,  ename:VK_PIPELINE_STAGE_TRANSFER_BIT>>的定义).
+	此布局仅针对 以带有 ename:VK_IMAGE_USAGE_TRANSFER_SRC_BIT bit位被启用来创建的图像子资源来说有效。
+  * ename:VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL: 必须 仅被用作 转移命令的目标图像。
+	此布局仅针对 以带有 ename:VK_IMAGE_USAGE_TRANSFER_DST_BIT bit位被启用来创建的图像子资源来说有效。
 ifdef::VK_KHR_swapchain[]
-  * ename:VK_IMAGE_LAYOUT_PRESENT_SRC_KHR: must: only be used for presenting
+  * ename:VK_IMAGE_LAYOUT_PRESENT_SRC_KHR: 必须 only被用于 for presenting
     a presentable image for display.
-    A swapchain's image must: be transitioned to this layout before calling
-    flink:vkQueuePresentKHR, and must: be transitioned away from this layout
+    A swapchain's image 必须 be transitioned to this layout before calling
+    flink:vkQueuePresentKHR, and 必须 be transitioned away from this layout
     after calling flink:vkAcquireNextImageKHR.
 endif::VK_KHR_swapchain[]
 
-For each mechanism of accessing an image in the API, there is a parameter or
-structure member that controls the image layout used to access the image.
-For transfer commands, this is a parameter to the command (see <<clears>>
-and <<copies>>).
-For use as a framebuffer attachment, this is a member in the substructures
-of the sname:VkRenderPassCreateInfo (see <<renderpass,Render Pass>>).
-For use in a descriptor set, this is a member in the
-sname:VkDescriptorImageInfo structure (see <<descriptorsets-updates>>).
-At the time that any command buffer command accessing an image executes on
-any queue, the layouts of the image subresources that are accessed must: all
-match the layout specified via the API controlling those accesses.
+在API中每种方位图像的机制，都有一个参数 或 数据结构成员 来控制 访问该图像的布局。
+对于转移命令，这是命令的一个参数 (参考 <<clears>> 和 <<copies>>)。
+对于用作 帧缓冲区附件，这是 sname:VkRenderPassCreateInfo 数据结构的一个成员 (参考 <<renderpass,Render Pass>>)。
+对于描述符集合中的使用，这是sname:VkDescriptorImageInfo数据结构的一个成员 (参考 <<descriptorsets-updates>>)。
+在任何队列上 任何命令缓冲区命令访问图像的任何时刻，被访问该图像子资源的布局必须都匹配 API控制访问所指定的布局。
 
-The image layout of each image subresource must: be well-defined at each
-point in the image subresource's lifetime.
-This means that when performing a layout transition on the image
-subresource, the old layout value must: either equal the current layout of
-the image subresource (at the time the transition executes), or else be
-ename:VK_IMAGE_LAYOUT_UNDEFINED (implying that the contents of the image
-subresource need not be preserved).
-The new layout used in a transition must: not be
-ename:VK_IMAGE_LAYOUT_UNDEFINED or ename:VK_IMAGE_LAYOUT_PREINITIALIZED.
+每个图像子资源的图像布局必须在该图像子资源的生命周期的每个时刻都是良好定义的。
+这意味这在 该图像上操作 布局转换，老的布局值必须 等同于当前 图像子资源的布局 (在转换执行过程中), 或者是
+ename:VK_IMAGE_LAYOUT_UNDEFINED ( 意味着该图像子资源的内容不需要被保留)。
+转移中使用的新布局 不能是 ename:VK_IMAGE_LAYOUT_UNDEFINED或 ename:VK_IMAGE_LAYOUT_PREINITIALIZED。
 
 // refEnd VkImageLayout
 
@@ -1070,7 +982,7 @@ include::../api/handles/VkImageView.txt[]
 
 // refBegin VkImageViewType Image view types
 
-The types of image views that can: be created are:
+可以被创建的 图像视图的类型：
 
 include::../api/enums/VkImageViewType.txt[]
 
@@ -1088,8 +1000,7 @@ include::../api/protos/vkCreateImageView.txt[]
   * pname:device 是创建图像视图的逻辑设备。
   * pname:pCreateInfo 是一个指针，指向一个 sname:VkImageViewCreateInfo 数据结构实例，它包含了创建图像视图所需的信息。
   * pname:pAllocator 控制CPU端内存分配，如 <<memory-allocation, 内存分配 >> 一章详述。
-  * pname:pView points to a sname:VkImageView handle in which the resulting
-    image view object is returned.
+  * pname:pView 指向一个 sname:VkImageView handle，它是被返回的新生成的图像视图对象。
 
 图像创建参数的一部分被视图所继承，剩余的参数被包含在pname:pCreateInfo中。
 
@@ -1107,19 +1018,14 @@ include::../api/structs/VkImageViewCreateInfo.txt[]
   * pname:image is a sname:VkImage on which the view will be created.
   * pname:viewType 是图像视图的类型。
   * pname:format 是一个 elink:VkFormat 类型数据，描述了用于结束图像中数据元素的格式和类型。
-  * pname:components specifies a remapping of color components (or of depth
-    or stencil components after they have been converted into color
-    components).
-    See slink:VkComponentMapping.
-  * pname:subresourceRange is a slink:VkImageSubresourceRange selecting the
-    set of mipmap levels and array layers to be accessible to the view.
+  * pname:components 指定了颜色成员(或深度成员，或转换到颜色成员之后的 stencil 成员)重映射。
+    参考 slink:VkComponentMapping。
+  * pname:subresourceRange 是一个 slink:VkImageSubresourceRange，选择来view可访问的mipmap levels和array layers。  
 
-If pname:image was created with the ename:VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT
-flag, pname:format can: be different from the image's format, but if they
-are not equal they must: be _compatible_.
-Image format compatibility is defined in the
-<<features-formats-compatibility-classes,Format Compatibility Classes>>
-section.
+若以ename:VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT 创建 pname:image，pname:format可以与该图像的格式不同， 但是若它们不等同，
+那么它们必须是兼容的。
+图像格式兼容性在 <<features-formats-compatibility-classes,Format Compatibility Classes>>
+小节中定义。
 
 [[resources-image-views-compatibility]]
 .Image and image view parameter compatibility requirements
@@ -1132,7 +1038,7 @@ section.
     pname:depth = ci.pname:extent.depth +
     pname:arrayLayers = ci.pname:arrayLayers +
     pname:samples = ci.pname:samples +
-    where ci is the slink:VkImageCreateInfo used to create pname:image.
+    where ci is the slink:VkImageCreateInfo used创建 pname:image.
   | pname:baseArrayLayer and pname:layerCount are members of the
     pname:subresourceRange member.
 | 1D, 0, 0 |
@@ -1202,7 +1108,7 @@ pname:height = pname:width +
 pname:depth = 1 +
 pname:arrayLayers {geq} 6 +
 pname:samples = 1 +
-pname:flags includes ename:VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT |
+pname:flags 包含 ename:VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT |
 pname:viewType = ename:VK_VIEW_TYPE_CUBE +
 pname:baseArrayLayer {geq} 0 +
 pname:layerCount = 6
@@ -1214,7 +1120,7 @@ pname:depth = 1 +
 _N_ {geq} 1 +
 pname:arrayLayers {geq} 6 {times} _N_ +
 pname:samples = 1 +
-pname:flags includes ename:VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT |
+pname:flags 包含 ename:VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT |
 pname:viewType = ename:VK_VIEW_TYPE_CUBE_ARRAY +
 pname:baseArrayLayer {geq} 0 +
 pname:layerCount = 6 {times} _N_, _N_ {geq} 1
@@ -1236,8 +1142,8 @@ pname:height {geq} 1 +
 pname:depth {geq} 1 +
 pname:arrayLayers = 1 +
 pname:samples = 1 +
-pname:flags includes ename:VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT +
-pname:flags does not include VK_IMAGE_CREATE_SPARSE_BINDING_BIT, VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT, and VK_IMAGE_CREATE_SPARSE_ALIASED_BIT |
+pname:flags 包含 ename:VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT +
+pname:flags 不包含 VK_IMAGE_CREATE_SPARSE_BINDING_BIT, VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT, and VK_IMAGE_CREATE_SPARSE_ALIASED_BIT |
 pname:viewType = ename:VK_VIEW_TYPE_2D +
 pname:levelCount = 1 +
 pname:baseArrayLayer {geq} 0 +
@@ -1249,8 +1155,8 @@ pname:height {geq} 1 +
 pname:depth {geq} 1 +
 pname:arrayLayers = 1 +
 pname:samples = 1 +
-pname:flags includes ename:VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT +
-pname:flags does not include VK_IMAGE_CREATE_SPARSE_BINDING_BIT, VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT, and VK_IMAGE_CREATE_SPARSE_ALIASED_BIT |
+pname:flags 包含 ename:VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT +
+pname:flags 不包含 VK_IMAGE_CREATE_SPARSE_BINDING_BIT, VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT, and VK_IMAGE_CREATE_SPARSE_ALIASED_BIT |
 pname:viewType = ename:VK_VIEW_TYPE_2D_ARRAY +
 pname:levelCount = 1 +
 pname:baseArrayLayer {geq} 0 +
@@ -1260,20 +1166,17 @@ endif::VK_KHR_maintenance1[]
 
 .Valid Usage
 ****
-  * If pname:image was not created with
-    ename:VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT then pname:viewType must: not
-    be ename:VK_IMAGE_VIEW_TYPE_CUBE or ename:VK_IMAGE_VIEW_TYPE_CUBE_ARRAY
-  * If the <<features-features-imageCubeArray,image cubemap arrays>> feature
-    is not enabled, pname:viewType must: not be
+  * 若创建pname:image时没有带有 ename:VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT，那么 pname:viewType 不能是
+     ename:VK_IMAGE_VIEW_TYPE_CUBE或 ename:VK_IMAGE_VIEW_TYPE_CUBE_ARRAY
+  * 若 <<features-features-imageCubeArray,image cubemap arrays>> 特征没有被启用，pname:viewType 不能是
     ename:VK_IMAGE_VIEW_TYPE_CUBE_ARRAY
 ifdef::VK_KHR_maintenance1[]
-  * If pname:image was created with ename:VK_IMAGE_TYPE_3D but without
-    ename:VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT_KHR set then
-    pname:viewType must: not be ename:VK_IMAGE_VIEW_TYPE_2D or
+  * 若创建 pname:image时带有 ename:VK_IMAGE_TYPE_3D 但未带有 ename:VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT_KHR，
+   那么 pname:viewType 不能是 ename:VK_IMAGE_VIEW_TYPE_2D或
     ename:VK_IMAGE_VIEW_TYPE_2D_ARRAY
 endif::VK_KHR_maintenance1[]
-  * If the <<features-features-textureCompressionETC2,ETC2 texture
-    compression>> feature is not enabled, pname:format must: not be
+  * 若 <<features-features-textureCompressionETC2,ETC2 texture
+    compression>>特征没有被启用， pname:format 不能是
     ename:VK_FORMAT_ETC2_R8G8B8_UNORM_BLOCK,
     ename:VK_FORMAT_ETC2_R8G8B8_SRGB_BLOCK,
     ename:VK_FORMAT_ETC2_R8G8B8A1_UNORM_BLOCK,
@@ -1282,10 +1185,10 @@ endif::VK_KHR_maintenance1[]
     ename:VK_FORMAT_ETC2_R8G8B8A8_SRGB_BLOCK,
     ename:VK_FORMAT_EAC_R11_UNORM_BLOCK,
     ename:VK_FORMAT_EAC_R11_SNORM_BLOCK,
-    ename:VK_FORMAT_EAC_R11G11_UNORM_BLOCK, or
+    ename:VK_FORMAT_EAC_R11G11_UNORM_BLOCK,或
     ename:VK_FORMAT_EAC_R11G11_SNORM_BLOCK
-  * If the <<features-features-textureCompressionASTC_LDR,ASTC LDR texture
-    compression>> feature is not enabled, pname:format must: not be
+  * 若<<features-features-textureCompressionASTC_LDR,ASTC LDR texture
+    compression>>特征没有被启用， pname:format 不能是
     ename:VK_FORMAT_ASTC_4x4_UNORM_BLOCK,
     ename:VK_FORMAT_ASTC_4x4_SRGB_BLOCK,
     ename:VK_FORMAT_ASTC_5x4_UNORM_BLOCK,
@@ -1312,10 +1215,10 @@ endif::VK_KHR_maintenance1[]
     ename:VK_FORMAT_ASTC_10x10_SRGB_BLOCK,
     ename:VK_FORMAT_ASTC_12x10_UNORM_BLOCK,
     ename:VK_FORMAT_ASTC_12x10_SRGB_BLOCK,
-    ename:VK_FORMAT_ASTC_12x12_UNORM_BLOCK, or
+    ename:VK_FORMAT_ASTC_12x12_UNORM_BLOCK,或
     ename:VK_FORMAT_ASTC_12x12_SRGB_BLOCK
-  * If the <<features-features-textureCompressionBC,BC texture compression>>
-    feature is not enabled, pname:format must: not be
+  * 若 <<features-features-textureCompressionBC,BC texture compression>>
+   特征没有被启用， pname:format 不能是
     ename:VK_FORMAT_BC1_RGB_UNORM_BLOCK, ename:VK_FORMAT_BC1_RGB_SRGB_BLOCK,
     ename:VK_FORMAT_BC1_RGBA_UNORM_BLOCK,
     ename:VK_FORMAT_BC1_RGBA_SRGB_BLOCK, ename:VK_FORMAT_BC2_UNORM_BLOCK,
@@ -1323,97 +1226,92 @@ endif::VK_KHR_maintenance1[]
     ename:VK_FORMAT_BC3_SRGB_BLOCK, ename:VK_FORMAT_BC4_UNORM_BLOCK,
     ename:VK_FORMAT_BC4_SNORM_BLOCK, ename:VK_FORMAT_BC5_UNORM_BLOCK,
     ename:VK_FORMAT_BC5_SNORM_BLOCK, ename:VK_FORMAT_BC6H_UFLOAT_BLOCK,
-    ename:VK_FORMAT_BC6H_SFLOAT_BLOCK, ename:VK_FORMAT_BC7_UNORM_BLOCK, or
+    ename:VK_FORMAT_BC6H_SFLOAT_BLOCK, ename:VK_FORMAT_BC7_UNORM_BLOCK,或
     ename:VK_FORMAT_BC7_SRGB_BLOCK
-  * If pname:image was created with ename:VK_IMAGE_TILING_LINEAR,
-    pname:format must: be format that has at least one supported feature bit
-    present in the value of
-    sname:VkFormatProperties::pname:linearTilingFeatures returned by
-    fname:vkGetPhysicalDeviceFormatProperties with the same value of
-    pname:format
-  * pname:image must: have been created with a pname:usage value containing
-    at least one of ename:VK_IMAGE_USAGE_SAMPLED_BIT,
+  * 若创建pname:image 时带有 ename:VK_IMAGE_TILING_LINEAR，
+    pname:format 必须是 一种格式，至少有一个受支持的bit 是
+    通过以相同值的pname:format调用fname:vkGetPhysicalDeviceFormatProperties  返回的sname:VkFormatProperties::pname:linearTilingFeatures
+	其中的一个bit值。    
+  * 创建pname:image时 必须让 pname:usage value包含 至少 ename:VK_IMAGE_USAGE_SAMPLED_BIT,
     ename:VK_IMAGE_USAGE_STORAGE_BIT,
     ename:VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT,
-    ename:VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, or
-    ename:VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT
-  * If pname:image was created with ename:VK_IMAGE_TILING_LINEAR and
-    pname:usage containing ename:VK_IMAGE_USAGE_SAMPLED_BIT, pname:format
-    must: be supported for sampled images, as specified by the
-    ename:VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT flag in
-    sname:VkFormatProperties::pname:linearTilingFeatures returned by
-    fname:vkGetPhysicalDeviceFormatProperties with the same value of
-    pname:format
-  * If pname:image was created with ename:VK_IMAGE_TILING_LINEAR and
-    pname:usage containing ename:VK_IMAGE_USAGE_STORAGE_BIT, pname:format
-    must: be supported for storage images, as specified by the
+    ename:VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,或
+    ename:VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT 其中的一个
+  * 若创建pname:image时带有 ename:VK_IMAGE_TILING_LINEAR 且
+    pname:usage包含 ename:VK_IMAGE_USAGE_SAMPLED_BIT, pname:format
+    必须 针对 采样图像支持      
+    通过以相同值的pname:format调用fname:vkGetPhysicalDeviceFormatProperties 返回的sname:VkFormatProperties::pname:linearTilingFeatures 
+    的ename:VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT 指定的值。
+  * 若pname:image was created with ename:VK_IMAGE_TILING_LINEAR and
+    pname:usage包含ing ename:VK_IMAGE_USAGE_STORAGE_BIT, pname:format
+    必须 be supported for storage images, as specified by the
     ename:VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT flag in
     sname:VkFormatProperties::pname:linearTilingFeatures returned by
     fname:vkGetPhysicalDeviceFormatProperties with the same value of
     pname:format
-  * If pname:image was created with ename:VK_IMAGE_TILING_LINEAR and
-    pname:usage containing ename:VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT,
-    pname:format must: be supported for color attachments, as specified by
+  * 若pname:image was created with ename:VK_IMAGE_TILING_LINEAR and
+    pname:usage包含ing ename:VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT,
+    pname:format 必须 be supported for color attachments, as specified by
     the ename:VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT flag in
     sname:VkFormatProperties::pname:linearTilingFeatures returned by
     fname:vkGetPhysicalDeviceFormatProperties with the same value of
     pname:format
-  * If pname:image was created with ename:VK_IMAGE_TILING_LINEAR and
-    pname:usage containing
-    ename:VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, pname:format must: be
+  * 若pname:image was created with ename:VK_IMAGE_TILING_LINEAR and
+    pname:usage包含ing
+    ename:VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, pname:format 必须 be
     supported for depth/stencil attachments, as specified by the
     ename:VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT flag in
     sname:VkFormatProperties::pname:linearTilingFeatures returned by
     fname:vkGetPhysicalDeviceFormatProperties with the same value of
     pname:format
-  * If pname:image was created with ename:VK_IMAGE_TILING_OPTIMAL,
-    pname:format must: be format that has at least one supported feature bit
+  * 若pname:image was created with ename:VK_IMAGE_TILING_OPTIMAL,
+    pname:format 必须 be format that has至少 one supported feature bit
     present in the value of
     sname:VkFormatProperties::pname:optimalTilingFeatures returned by
     fname:vkGetPhysicalDeviceFormatProperties with the same value of
     pname:format
-  * If pname:image was created with ename:VK_IMAGE_TILING_OPTIMAL and
-    pname:usage containing ename:VK_IMAGE_USAGE_SAMPLED_BIT, pname:format
-    must: be supported for sampled images, as specified by the
+  * 若pname:image was created with ename:VK_IMAGE_TILING_OPTIMAL and
+    pname:usage包含ing ename:VK_IMAGE_USAGE_SAMPLED_BIT, pname:format
+    必须 be supported for sampled images, as specified by the
     ename:VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT flag in
     sname:VkFormatProperties::pname:optimalTilingFeatures returned by
     fname:vkGetPhysicalDeviceFormatProperties with the same value of
     pname:format
-  * If pname:image was created with ename:VK_IMAGE_TILING_OPTIMAL and
-    pname:usage containing ename:VK_IMAGE_USAGE_STORAGE_BIT, pname:format
-    must: be supported for storage images, as specified by the
+  * 若pname:image was created with ename:VK_IMAGE_TILING_OPTIMAL and
+    pname:usage包含ing ename:VK_IMAGE_USAGE_STORAGE_BIT, pname:format
+    必须 be supported for storage images, as specified by the
     ename:VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT flag in
     sname:VkFormatProperties::pname:optimalTilingFeatures returned by
     fname:vkGetPhysicalDeviceFormatProperties with the same value of
     pname:format
-  * If pname:image was created with ename:VK_IMAGE_TILING_OPTIMAL and
-    pname:usage containing ename:VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT,
-    pname:format must: be supported for color attachments, as specified by
+  * 若pname:image was created with ename:VK_IMAGE_TILING_OPTIMAL and
+    pname:usage包含ing ename:VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT,
+    pname:format 必须 be supported for color attachments, as specified by
     the ename:VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT flag in
     sname:VkFormatProperties::pname:optimalTilingFeatures returned by
     fname:vkGetPhysicalDeviceFormatProperties with the same value of
     pname:format
-  * If pname:image was created with ename:VK_IMAGE_TILING_OPTIMAL and
-    pname:usage containing
-    ename:VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, pname:format must: be
+  * 若pname:image was created with ename:VK_IMAGE_TILING_OPTIMAL and
+    pname:usage包含ing
+    ename:VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, pname:format 必须 be
     supported for depth/stencil attachments, as specified by the
     ename:VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT flag in
     sname:VkFormatProperties::pname:optimalTilingFeatures returned by
     fname:vkGetPhysicalDeviceFormatProperties with the same value of
     pname:format
-  * pname:subresourceRange must: be a valid image subresource range for
+  * pname:subresourceRange 必须 be a valid image subresource range for
     pname:image (see <<resources-image-views>>)
-  * If pname:image was created with the
-    ename:VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT flag, pname:format must: be
-    compatible with the pname:format used to create pname:image, as defined
+  * 若pname:image was created with the
+    ename:VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT flag, pname:format 必须 be
+    compatible with the pname:format used创建 pname:image, as defined
     in <<features-formats-compatibility-classes,Format Compatibility
     Classes>>
-  * If pname:image was not created with the
-    ename:VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT flag, pname:format must: be
-    identical to the pname:format used to create pname:image
-  * If pname:image is non-sparse then it must: be bound completely and
+  * 若pname:image was not created with the
+    ename:VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT flag, pname:format 必须 be
+    identical to the pname:format used创建 pname:image
+  * 若pname:image is non-sparse then it 必须 be bound completely and
     contiguously to a single sname:VkDeviceMemory object
-  * pname:subResourceRange and pname:viewType must: be compatible with the
+  * pname:subResourceRange and pname:viewType 必须 be compatible with the
     image, as described in the
     <<resources-image-views-compatibility,compatibility table>>
 ****
@@ -1426,7 +1324,7 @@ sname:VkImageSubresourceRange类型数据结构定义如下：
 
 include::../api/structs/VkImageSubresourceRange.txt[]
 
-  * pname:aspectMask is a bitmask indicating which aspect(s) of the image
+  * pname:aspectMask is a bitmask indicating which aspect(s) of该图像
     are included in the view.
     See elink:VkImageAspectFlagBits.
   * pname:baseMipLevel is the first mipmap level accessible to the view.
@@ -1446,8 +1344,8 @@ For cube arrays, each set of six sequential layers is a single cube, so the
 number of cube maps in a cube map array view is _pname:layerCount / 6_, and
 image array layer _pname:baseArrayLayer + i_ is face index _i mod 6_ of cube
 _i / 6_.
-If the number of layers in the view, whether set explicitly in
-pname:layerCount or implied by ename:VK_REMAINING_ARRAY_LAYERS, is not a
+若the number of layers in the view, whether set explicitly in
+pname:layerCount或 implied by ename:VK_REMAINING_ARRAY_LAYERS, is not a
 multiple of 6, behavior when indexing the last cube is undefined.
 
 pname:aspectMask is a bitmask indicating the format being used.
@@ -1456,61 +1354,61 @@ Bits which may: be set include:
 // refBegin VkImageAspectFlagBits Bitmask specifying which aspects of an image are included in a view
 include::../api/enums/VkImageAspectFlagBits.txt[]
 
-The mask must: be only ename:VK_IMAGE_ASPECT_COLOR_BIT,
-ename:VK_IMAGE_ASPECT_DEPTH_BIT or ename:VK_IMAGE_ASPECT_STENCIL_BIT if
-pname:format is a color, depth-only or stencil-only format, respectively.
-If using a depth/stencil format with both depth and stencil components,
-pname:aspectMask must: include at least one of
+The mask 必须 be only ename:VK_IMAGE_ASPECT_COLOR_BIT,
+ename:VK_IMAGE_ASPECT_DEPTH_BIT或 ename:VK_IMAGE_ASPECT_STENCIL_BIT if
+pname:format is a color, depth-only或 stencil-only format, respectively.
+若using a depth/stencil format with both depth and stencil components,
+pname:aspectMask 必须 include至少 one of
 ename:VK_IMAGE_ASPECT_DEPTH_BIT and ename:VK_IMAGE_ASPECT_STENCIL_BIT, and
 can: include both.
 
 When using an imageView of a depth/stencil image to populate a descriptor
-set (e.g. for sampling in the shader, or for use as an input attachment),
-the pname:aspectMask must: only include one bit and selects whether the
-imageView is used for depth reads (i.e. using a floating-point sampler or
-input attachment in the shader) or stencil reads (i.e. using an unsigned
-integer sampler or input attachment in the shader).
+set (e.g. for sampling in the shader,或 for use as an input attachment),
+the pname:aspectMask 必须 only include one bit and selects whether the
+imageView is used for depth reads (i.e. using a floating-point sampler或
+input attachment in the shader)或 stencil reads (i.e. using an unsigned
+integer sampler或 input attachment in the shader).
 When an imageView of a depth/stencil image is used as a depth/stencil
 framebuffer attachment, the pname:aspectMask is ignored and both depth and
 stencil image subresources are used.
 
 The pname:components member is of type slink:VkComponentMapping, and
-describes a remapping from components of the image to components of the
+describes a remapping from components of该图像 to components of the
 vector returned by shader image instructions.
-This remapping must: be identity for storage image descriptors, input
+This remapping 必须 be identity for storage image descriptors, input
 attachment descriptors, and framebuffer attachments.
 
 .Valid Usage
 ****
-  * If pname:levelCount is not ename:VK_REMAINING_MIP_LEVELS,
-    [eq]#pname:levelCount# must: be non-zero and [eq]#(pname:baseMipLevel
-    {plus} pname:levelCount)# must: be less than or equal to the
-    pname:mipLevels specified in slink:VkImageCreateInfo when the image was
+  * 若pname:levelCount is not ename:VK_REMAINING_MIP_LEVELS,
+    [eq]#pname:levelCount# 必须 be non-zero and [eq]#(pname:baseMipLevel
+    {plus} pname:levelCount)# 必须 be小于或 等于 the
+    pname:mipLevels specified in slink:VkImageCreateInfo when该图像 was
     created
 ifndef::VK_KHR_maintenance1[]
-  * If pname:layerCount is not ename:VK_REMAINING_ARRAY_LAYERS,
-    [eq]#pname:layerCount# must: be non-zero and [eq]#(pname:baseArrayLayer
-    + pname:layerCount)# must: be less than or equal to the
-    pname:arrayLayers specified in slink:VkImageCreateInfo when the image
+  * 若pname:layerCount is not ename:VK_REMAINING_ARRAY_LAYERS,
+    [eq]#pname:layerCount# 必须 be non-zero and [eq]#(pname:baseArrayLayer
+    + pname:layerCount)# 必须 be小于或 等于 the
+    pname:arrayLayers specified in slink:VkImageCreateInfo when该图像
     was created
 endif::VK_KHR_maintenance1[]
 ifdef::VK_KHR_maintenance1[]
-  * If the pname:imageType specified in slink:VkImageCreateInfo when the
-    image was created was ename:VK_IMAGE_TYPE_3D and the image view is
+  * 若the pname:imageType specified in slink:VkImageCreateInfo when the
+    image was created was ename:VK_IMAGE_TYPE_3D and该图像 view is
     created with the pname:viewType of slink:VkImageViewCreateInfo set to
-    ename:VK_VIEW_TYPE_2D_ARRAY then pname:layerCount must: be
-    ename:VK_REMAINING_ARRAY_LAYERS, or [eq]#pname:layerCount# must: be
-    non-zero and [eq]#(pname:baseArrayLayer + pname:layerCount)# must: be
-    less than or equal to the pname:extent.depth specified in
-    slink:VkImageCreateInfo when the image was created
-  * If the pname:imageType specified in slink:VkImageCreateInfo when the
-    image was created was not ename:VK_IMAGE_TYPE_3D or the image view is
+    ename:VK_VIEW_TYPE_2D_ARRAY then pname:layerCount 必须 be
+    ename:VK_REMAINING_ARRAY_LAYERS,或 [eq]#pname:layerCount# 必须 be
+    non-zero and [eq]#(pname:baseArrayLayer + pname:layerCount)# 必须 be
+   小于或 等于 the pname:extent.depth specified in
+    slink:VkImageCreateInfo when该图像 was created
+  * 若the pname:imageType specified in slink:VkImageCreateInfo when the
+    image was created was not ename:VK_IMAGE_TYPE_3D或该图像 view is
     not created with the pname:viewType of slink:VkImageViewCreateInfo set
-    to ename:VK_VIEW_TYPE_2D_ARRAY then pname:layerCount must: be
-    ename:VK_REMAINING_ARRAY_LAYERS, or [eq]#pname:layerCount# must: be
-    non-zero and [eq]#(pname:baseArrayLayer + pname:layerCount)# must: be
-    less than or equal to the pname:arrayLayers specified in
-    slink:VkImageCreateInfo when the image was created
+    to ename:VK_VIEW_TYPE_2D_ARRAY then pname:layerCount 必须 be
+    ename:VK_REMAINING_ARRAY_LAYERS,或 [eq]#pname:layerCount# 必须 be
+    non-zero and [eq]#(pname:baseArrayLayer + pname:layerCount)# 必须 be
+   小于或 等于 the pname:arrayLayers specified in
+    slink:VkImageCreateInfo when该图像 was created
 endif::VK_KHR_maintenance1[]
 
 
@@ -1537,19 +1435,19 @@ include::../api/enums/VkComponentSwizzle.txt[]
   * ename:VK_COMPONENT_SWIZZLE_IDENTITY: the component is set to the
     identity swizzle.
   * ename:VK_COMPONENT_SWIZZLE_ZERO: the component is set to zero.
-  * ename:VK_COMPONENT_SWIZZLE_ONE: the component is set to either 1 or 1.0
-    depending on whether the type of the image view format is integer or
+  * ename:VK_COMPONENT_SWIZZLE_ONE: the component is set to either 1或 1.0
+    depending on whether the type of该图像 view format is integer或
     floating-point respectively, as determined by the
     <<features-formats-definition,Format Definition>> section for each
     elink:VkFormat.
   * ename:VK_COMPONENT_SWIZZLE_R: the component is set to the value of the R
-    component of the image.
+    component of该图像.
   * ename:VK_COMPONENT_SWIZZLE_G: the component is set to the value of the G
-    component of the image.
+    component of该图像.
   * ename:VK_COMPONENT_SWIZZLE_B: the component is set to the value of the B
-    component of the image.
+    component of该图像.
   * ename:VK_COMPONENT_SWIZZLE_A: the component is set to the value of the A
-    component of the image.
+    component of该图像.
 
 Setting the identity swizzle on a component is equivalent to setting the
 identity mapping on that component.
@@ -1647,19 +1545,19 @@ include::../validity/structs/VkMemoryRequirements.txt[]
 Vulkan实现保证关于内存限制条件的某些属性通过flink:vkGetBufferMemoryRequirements 和
 flink:vkGetImageMemoryRequirements返回：
 
-  * The pname:memoryTypeBits member always contains at least one bit set.
-  * If pname:buffer is a sname:VkBuffer not created with the
-    ename:VK_BUFFER_CREATE_SPARSE_BINDING_BIT bit set, or if pname:image is
+  * The pname:memoryTypeBits member always包含s至少 one bit set.
+  * 若pname:buffer is a sname:VkBuffer not created with the
+    ename:VK_BUFFER_CREATE_SPARSE_BINDING_BIT bit set,或 if pname:image is
     a sname:VkImage that was created with a ename:VK_IMAGE_TILING_LINEAR
     value in the pname:tiling member of the sname:VkImageCreateInfo
     structure passed to fname:vkCreateImage, then the pname:memoryTypeBits
-    member always contains at least one bit set corresponding to a
+    member always包含s至少 one bit set corresponding to a
     sname:VkMemoryType with a pname:propertyFlags that has both the
     ename:VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT bit and the
     ename:VK_MEMORY_PROPERTY_HOST_COHERENT_BIT bit set.
-    In other words, mappable coherent memory can: always be attached to
+    In other words, mappable coherent memory可以 always be attached to
     these objects.
-  * The pname:memoryTypeBits member always contains at least one bit set
+  * The pname:memoryTypeBits member always包含s至少 one bit set
     corresponding to a sname:VkMemoryType with a pname:propertyFlags that
     has the ename:VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT bit set.
   * The pname:memoryTypeBits member is identical for all sname:VkBuffer
@@ -1669,7 +1567,7 @@ flink:vkGetImageMemoryRequirements返回：
     Further, if code:usage1 and code:usage2 of type elink:VkBufferUsageFlags
     are such that the bits set in code:usage2 are a subset of the bits set
     in code:usage1, and they have the same pname:flags, then the bits set in
-    pname:memoryTypeBits returned for code:usage1 must: be a subset of the
+    pname:memoryTypeBits returned for code:usage1 必须 be a subset of the
     bits set in pname:memoryTypeBits returned for code:usage2, for all
     values of pname:flags.
   * The pname:alignment member is a power of two.
@@ -1691,16 +1589,16 @@ flink:vkGetImageMemoryRequirements返回：
     pname:flags member, and the
     ename:VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT of the pname:usage member
     in the sname:VkImageCreateInfo structure passed to fname:vkCreateImage.
-  * If the memory requirements are for a sname:VkImage, the
-    pname:memoryTypeBits member must: not refer to a sname:VkMemoryType with
+  * 若the memory requirements are for a sname:VkImage, the
+    pname:memoryTypeBits member 必须 not refer to a sname:VkMemoryType with
     a pname:propertyFlags that has the
     ename:VK_MEMORY_PROPERTY_LAZILY_ALLOCATED_BIT bit set if the
     flink:vkGetImageMemoryRequirements::pname:image did not have
     ename:VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT bit set in the pname:usage
     member of the sname:VkImageCreateInfo structure passed to
     fname:vkCreateImage.
-  * If the memory requirements are for a sname:VkBuffer, the
-    pname:memoryTypeBits member must: not refer to a sname:VkMemoryType with
+  * 若the memory requirements are for a sname:VkBuffer, the
+    pname:memoryTypeBits member 必须 not refer to a sname:VkMemoryType with
     a pname:propertyFlags that has the
     ename:VK_MEMORY_PROPERTY_LAZILY_ALLOCATED_BIT bit set.
 +
@@ -1728,44 +1626,44 @@ include::../api/protos/vkBindBufferMemory.txt[]
 
 .Valid Usage
 ****
-  * pname:buffer must: not already be backed by a memory object
-  * pname:buffer must: not have been created with any sparse memory binding
+  * pname:buffer 必须 not already be backed by a memory object
+  * pname:buffer 必须 not have been created with any sparse memory binding
     flags
-  * pname:memoryOffset must: be less than the size of pname:memory
-  * If pname:buffer was created with the
-    ename:VK_BUFFER_USAGE_UNIFORM_TEXEL_BUFFER_BIT or
+  * pname:memoryOffset 必须 be小于 the size of pname:memory
+  * 若pname:buffer was created with the
+    ename:VK_BUFFER_USAGE_UNIFORM_TEXEL_BUFFER_BIT或
     ename:VK_BUFFER_USAGE_STORAGE_TEXEL_BUFFER_BIT, pname:memoryOffset must:
     be a multiple of
     sname:VkPhysicalDeviceLimits::pname:minTexelBufferOffsetAlignment
-  * If pname:buffer was created with the
-    ename:VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, pname:memoryOffset must: be a
+  * 若pname:buffer was created with the
+    ename:VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, pname:memoryOffset 必须 be a
     multiple of
     sname:VkPhysicalDeviceLimits::pname:minUniformBufferOffsetAlignment
-  * If pname:buffer was created with the
-    ename:VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, pname:memoryOffset must: be a
+  * 若pname:buffer was created with the
+    ename:VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, pname:memoryOffset 必须 be a
     multiple of
     sname:VkPhysicalDeviceLimits::pname:minStorageBufferOffsetAlignment
-  * pname:memory must: have been allocated using one of the memory types
+  * pname:memory 必须 have been allocated using one of the memory types
     allowed in the pname:memoryTypeBits member of the
     sname:VkMemoryRequirements structure returned from a call to
     fname:vkGetBufferMemoryRequirements with pname:buffer
-  * pname:memoryOffset must: be an integer multiple of the pname:alignment
+  * pname:memoryOffset 必须 be an integer multiple of the pname:alignment
     member of the sname:VkMemoryRequirements structure returned from a call
     to fname:vkGetBufferMemoryRequirements with pname:buffer
   * The pname:size member of the sname:VkMemoryRequirements structure
     returned from a call to fname:vkGetBufferMemoryRequirements with
-    pname:buffer must: be less than or equal to the size of pname:memory
+    pname:buffer 必须 be小于或 等于 the size of pname:memory
     minus pname:memoryOffset
 ifdef::VK_NV_dedicated_allocation[]
-  * If pname:buffer was created with
+  * 若pname:buffer was created with
     sname:VkDedicatedAllocationBufferCreateInfoNV::pname:dedicatedAllocation
-    equal to ename:VK_TRUE, pname:memory must: have been created with
-    sname:VkDedicatedAllocationMemoryAllocateInfoNV::pname:buffer equal to
-    pname:buffer and pname:memoryOffset must: be zero
-  * If pname:buffer was not created with
+    等于 ename:VK_TRUE, pname:memory 必须 have been created with
+    sname:VkDedicatedAllocationMemoryAllocateInfoNV::pname:buffer 等于
+    pname:buffer and pname:memoryOffset 必须 be zero
+  * 若pname:buffer was not created with
     sname:VkDedicatedAllocationBufferCreateInfoNV::pname:dedicatedAllocation
-    equal to ename:VK_TRUE, pname:memory must: not have been allocated
-    dedicated for a specific buffer or image
+    等于 ename:VK_TRUE, pname:memory 必须 not have been allocated
+    dedicated for a specific buffer或 image
 endif::VK_NV_dedicated_allocation[]
 ****
 
@@ -1781,38 +1679,38 @@ include::../api/protos/vkBindImageMemory.txt[]
   * pname:image 是图像。
   * pname:memory 是一个sname:VkDeviceMemory对象，描述了需被附着的设备内存。
   * pname:memoryOffset is the start offset of the region of pname:memory
-    which is to be bound to the image.
+    which is to be bound to该图像.
     The number of bytes returned in the
     sname:VkMemoryRequirements::pname:size member in pname:memory, starting
     from pname:memoryOffset bytes, will be bound to the specified image.
 
 .Valid Usage
 ****
-  * pname:image must: not already be backed by a memory object
-  * pname:image must: not have been created with any sparse memory binding
+  * pname:image 必须 not already be backed by a memory object
+  * pname:image 必须 not have been created with any sparse memory binding
     flags
-  * pname:memoryOffset must: be less than the size of pname:memory
-  * pname:memory must: have been allocated using one of the memory types
+  * pname:memoryOffset 必须 be小于 the size of pname:memory
+  * pname:memory 必须 have been allocated using one of the memory types
     allowed in the pname:memoryTypeBits member of the
     sname:VkMemoryRequirements structure returned from a call to
     fname:vkGetImageMemoryRequirements with pname:image
-  * pname:memoryOffset must: be an integer multiple of the pname:alignment
+  * pname:memoryOffset 必须 be an integer multiple of the pname:alignment
     member of the sname:VkMemoryRequirements structure returned from a call
     to fname:vkGetImageMemoryRequirements with pname:image
   * The pname:size member of the sname:VkMemoryRequirements structure
     returned from a call to fname:vkGetImageMemoryRequirements with
-    pname:image must: be less than or equal to the size of pname:memory
+    pname:image 必须 be小于或 等于 the size of pname:memory
     minus pname:memoryOffset
 ifdef::VK_NV_dedicated_allocation[]
-  * If pname:image was created with
+  * 若pname:image was created with
     sname:VkDedicatedAllocationImageCreateInfoNV::pname:dedicatedAllocation
-    equal to ename:VK_TRUE, pname:memory must: have been created with
-    sname:VkDedicatedAllocationMemoryAllocateInfoNV::pname:image equal to
-    pname:image and pname:memoryOffset must: be zero
-  * If pname:image was not created with
+    等于 ename:VK_TRUE, pname:memory 必须 have been created with
+    sname:VkDedicatedAllocationMemoryAllocateInfoNV::pname:image 等于
+    pname:image and pname:memoryOffset 必须 be zero
+  * 若pname:image was not created with
     sname:VkDedicatedAllocationImageCreateInfoNV::pname:dedicatedAllocation
-    equal to ename:VK_TRUE, pname:memory must: not have been allocated
-    dedicated for a specific buffer or image
+    等于 ename:VK_TRUE, pname:memory 必须 not have been allocated
+    dedicated for a specific buffer或 image
 endif::VK_NV_dedicated_allocation[]
 ****
 
@@ -1822,14 +1720,14 @@ include::../validity/protos/vkBindImageMemory.txt[]
 .Buffer-Image Granularity
 There is an implementation-dependent limit, pname:bufferImageGranularity,
 which specifies a page-like granularity at which buffer, linear image and
-optimal image resources must: be placed in adjacent memory locations to
+optimal image resources 必须 be placed in adjacent memory locations to
 avoid aliasing.
 Two resources which do not satisfy this granularity requirement are said to
 <<resources-memory-aliasing,alias>>.
 Linear image resource are images created with ename:VK_IMAGE_TILING_LINEAR
 and optimal image resources are those created with
 ename:VK_IMAGE_TILING_OPTIMAL.
-pname:bufferImageGranularity is specified in bytes, and must: be a power of
+pname:bufferImageGranularity is specified in bytes, and 必须 be a power of
 two.
 Implementations which do not require such an additional granularity may:
 report a value of one.
@@ -1845,7 +1743,7 @@ It would have been better named "linearOptimalGranularity".
 
 Given resourceA at the lower memory offset and resourceB at the higher
 memory offset in the same sname:VkDeviceMemory object, where one of the
-resources is a buffer or a linear image and the other is an optimal image,
+resources is a buffer或 a linear image and the other is an optimal image,
 and the following:
 
 [source,c]
@@ -1856,7 +1754,7 @@ resourceB.start     = resourceB.memoryOffset
 resourceB.startPage = resourceB.start & ~(bufferImageGranularity-1)
 ---------------------------------------------------
 
-The following property must: hold:
+The following property 必须 hold:
 
 [source,c]
 ---------------------------------------------------
@@ -1864,19 +1762,19 @@ resourceA.endPage < resourceB.startPage
 ---------------------------------------------------
 
 That is, the end of the first resource (A) and the beginning of the second
-resource (B) must: be on separate "`pages`" of size
+resource (B) 必须 be on separate "`pages`" of size
 pname:bufferImageGranularity.
 pname:bufferImageGranularity may: be different than the physical page size
 of the memory heap.
-This restriction is only needed when a buffer or a linear image is at
-adjacent memory location with an optimal image and both will be used
+This restriction is only needed when a buffer或 a linear image is at
+adjacent memory location with an optimal image and both will被用于
 simultaneously.
-Adjacent buffers' or adjacent images' memory ranges can: be closer than
+Adjacent buffers'或 adjacent images' memory ranges可以 be closer than
 pname:bufferImageGranularity, provided they meet the pname:alignment
 requirement for the objects in question.
 
 Sparse block size in bytes and sparse image and buffer memory alignments
-must: all be multiples of the pname:bufferImageGranularity.
+必须 all be multiples of the pname:bufferImageGranularity.
 Therefore, memory bound to sparse resources naturally satisfies the
 pname:bufferImageGranularity.
 
@@ -1890,11 +1788,11 @@ pname:bufferImageGranularity.
 
 include::../api/enums/VkSharingMode.txt[]
 
-  * ename:VK_SHARING_MODE_EXCLUSIVE specifies that access to any range or
+  * ename:VK_SHARING_MODE_EXCLUSIVE specifies that access to any range或
     image subresource of the object will be exclusive to a single queue
     family at a time.
   * ename:VK_SHARING_MODE_CONCURRENT specifies that concurrent access to any
-    range or image subresource of the object from multiple queue families is
+    range或 image subresource of the object from multiple queue families is
     supported.
 
 [NOTE]
@@ -1904,15 +1802,15 @@ include::../api/enums/VkSharingMode.txt[]
 ====
 
 Ranges of buffers and image subresources of image objects created using
-ename:VK_SHARING_MODE_EXCLUSIVE must: only be accessed by queues in the same
+ename:VK_SHARING_MODE_EXCLUSIVE 必须 only be accessed by queues in the same
 queue family at any given time.
-In order for a different queue family to be able to interpret the memory
-contents of a range or image subresource, the application must: perform a
+In或der for a different queue family to be able to interpret the memory
+contents of a range或 image subresource, the application 必须 perform a
 <<synchronization-queue-transfers,queue family ownership transfer>>.
 
 Upon creation, resources using ename:VK_SHARING_MODE_EXCLUSIVE are not owned
 by any queue family.
-A buffer or image memory barrier is not required to acquire _ownership_ when
+A buffer或 image memory barrier is not required to acquire _ownership_ when
 no queue family owns the resource - it is implicitly acquired upon first use
 within a queue.
 
@@ -1920,18 +1818,18 @@ within a queue.
 .注意
 ====
 Images still require a <<resources-image-layouts, layout transition>> from
-ename:VK_IMAGE_LAYOUT_UNDEFINED or ename:VK_IMAGE_LAYOUT_PREINITIALIZED
+ename:VK_IMAGE_LAYOUT_UNDEFINED或 ename:VK_IMAGE_LAYOUT_PREINITIALIZED
 before being used on the first queue.
 ====
 
-A queue family can: take ownership of an image subresource or buffer range
+A queue family可以 take ownership of an image subresource或 buffer range
 of a resource created with ename:VK_SHARING_MODE_EXCLUSIVE, without an
 ownership transfer, in the same way as for a resource that was just created;
 however, taking ownership in this way has the effect that the contents of
-the image subresource or buffer range are undefined.
+the image subresource或 buffer range are undefined.
 
 Ranges of buffers and image subresources of image objects created using
-ename:VK_SHARING_MODE_CONCURRENT must: only be accessed by queues from the
+ename:VK_SHARING_MODE_CONCURRENT 必须 only be accessed by queues from the
 queue families specified through the pname:queueFamilyIndexCount and
 pname:pQueueFamilyIndices members of the corresponding create info
 structures.
@@ -1977,19 +1875,19 @@ flink:vkBindBufferMemory，或者通过<<sparsememory-resource-binding,稀疏内
 若第二个别名是不能被主机端访问的子资源，那么被影响的字节将变得未定义。
 若第二个别名不能被主机端访问，所有的稀疏图像块（为稀疏部分驻留图像）或者所有的图像子资源（为非稀疏图像和全驻留稀疏图像）重叠的字节将变得未定义。
 
-If any image subresources are made undefined due to writes to an alias, then
-each of those image subresources must: have its layout transitioned from
-ename:VK_IMAGE_LAYOUT_UNDEFINED to a valid layout before it is used, or from
+若any image subresources are made undefined due to writes to an alias, then
+each of those image subresources 必须 have its layout transitioned from
+ename:VK_IMAGE_LAYOUT_UNDEFINED to a valid layout before it is used,或 from
 ename:VK_IMAGE_LAYOUT_PREINITIALIZED if the memory has been written by the
 host.
-If any sparse blocks of a sparse image have been made undefined, then only
-the image subresources containing them must: be transitioned.
+若any sparse blocks of a sparse image have been made undefined, then only
+the image subresources包含ing them 必须 be transitioned.
 
-Use of an overlapping range by two aliases must: be separated by a memory
+Use of an overlapping range by two aliases 必须 be separated by a memory
 dependency using the appropriate <<synchronization-access-types, access
-types>> if at least one of those uses performs writes, whether the aliases
-interpret memory consistently or not.
-If buffer or image memory barriers are used, the scope of the barrier must:
+types>> if至少 one of those uses performs writes, whether the aliases
+interpret memory consistently或 not.
+若buffer或 image memory barriers are used, the scope of the barrier must:
 contain the entire range and/or set of image subresources that overlap.
 
 若在同一个缓冲区中使用两个别名图像视图，那么render pass 必须使用 <<renderpass-aliasing,ename:VK_ATTACHMENT_DESCRIPTION_MAY_ALIAS_BIT>>
