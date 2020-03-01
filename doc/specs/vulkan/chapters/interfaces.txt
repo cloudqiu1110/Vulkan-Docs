@@ -207,7 +207,7 @@ a scalar or vector.
 [[interfaces-vertexinput]]
 == 顶点输入接口
 
-当管线中有顶点阶段时，顶点着色器输入变量就顶点输入属性形成了一个接口，
+当管线有顶点阶段时，顶点着色器输入变量就顶点输入属性形成了一个接口，
 顶点着色器输入变量通过 code:Location 和 code:Component 修饰符 来匹配 由slink:VkGraphicsPipelineCreateInfo数据结构的成员pname:pVertexInputState 顶点输入属性。
 带有code:Input存储class的修饰符 的 code:OpEntryPoint列出的顶点着色器输入变量 形成了 顶点输入接口。
 这些变量必须通过code:Location修饰符唯一确定，且可以通过code:Component 修饰符唯一确定。
@@ -224,33 +224,25 @@ a scalar or vector.
 [[interfaces-fragmentoutput]]
 == 片元输出接口
 
-当管线中存在片元着色阶段，片元着色器输出形成了一个接口。When the fragment stage is present in a pipeline, the fragment shader
-outputs form an interface with the output attachments of the current
-subpass.
-The fragment shader output variables are matched by the code:Location and
-code:Component decorations to the color attachments specified in the
-pname:pColorAttachments array of the slink:VkSubpassDescription structure
-that describes the subpass that the fragment shader is executed in.
+当管线中存在片元着色阶段，片元着色器输出与当前subpass的输出附件之间 形成了一个接口。
+片元着色器输出变量通过code:Location 和code:Component 修饰，与颜色附件匹配，
+颜色附件由slink:VkSubpassDescription 类型的数组指定，
+该数据类型描述了片元着色器执行所在的subpass。
 
-The fragment shader output variables listed by code:OpEntryPoint with the
-code:Output storage class form the _fragment output interface_.
-These variables must: be identified with a code:Location decoration.
-They can: also be identified with a code:Component decoration and/or an
-code:Index decoration.
-For the purposes of interface matching: variables declared without a
-code:Component decoration are considered to have a code:Component decoration
-of zero, and variables declared without an code:Index decoration are
-considered to have an code:Index decoration of zero.
+通过code:Output存储类型修饰，被code:OpEntryPoint 列举的 片元着色器输出变量 形成了 片元输出接口。
+这些变量必须被不同的code:Location所修饰。
+它们也可以被code:Component和code:Index 联合唯一修饰。
+为了接口匹配：没有code:Component 修饰的变量被认为其隐式的 code:Component 为0，
+没有code:Index修饰的变量被认为其有一个隐式的 code:Index，值为0.
 
-A fragment shader output variable identified with a code:Location decoration
-of _i_ is directed to the color attachment indicated by
-pname:pColorAttachments[_i_], after passing through the blending unit as
-described in <<framebuffer-blending>>, if enabled.
-Locations are consumed as described in
-<<interfaces-iointerfaces-locations,Location Assignment>>.
-The number of available fragment output locations is given by the
-pname:maxFragmentOutputAttachments member of the
-sname:VkPhysicalDeviceLimits structure.
+一个片元着色器输出变量有唯一的 code:Location _i_ 修饰，
+颜色附件由pname:pColorAttachments[_i_] 表示，若其被启用了，如<<framebuffer-blending>>中所描述的
+在传递万blending单元之后，将被定向到颜色附件，
+Locations 的情况如
+<<interfaces-iointerfaces-locations,Location Assignment>>所述。
+
+
+可用的片元输出locations数量由sname:VkPhysicalDeviceLimits 数据结构的pname:maxFragmentOutputAttachments 所指定。
 
 Components of the output variables are assigned as described in
 <<interfaces-iointerfaces-components,Component Assignment>>.
@@ -285,22 +277,17 @@ those components.
 
 
 [[interfaces-inputattachment]]
-== Fragment Input Attachment Interface
+== 片元着色器输入附件接口
 
-When a fragment stage is present in a pipeline, the fragment shader subpass
-inputs form an interface with the input attachments of the current subpass.
-The fragment shader subpass input variables are matched by
-code:InputAttachmentIndex decorations to the input attachments specified in
-the pname:pInputAttachments array of the slink:VkSubpassDescription
-structure that describes the subpass that the fragment shader is executed
-in.
+当管线将要执行到片元阶段，片元着色器subpass输入与当前subpass的输入附件之间 形成了一个接口。
+片元着色器subpass输入变量与输入附件之间通过 code:InputAttachmentIndex修饰 匹配一致，
+输入附件由slink:VkSubpassDescription数据类型的数组name:pInputAttachments指定，
+该数据结构描述了片元着色器执行时所在的subpass。
 
-The fragment shader subpass input variables with the code:UniformConstant
-storage class and a decoration of code:InputAttachmentIndex that are
-statically used by code:OpEntryPoint form the _fragment input attachment
-interface_.
-These variables must: be declared with a type of code:OpTypeImage, a
-code:Dim operand of code:SubpassData, and a code:Sampled operand of 2.
+带有code:UniformConstant描述类型，且带有被code:OpEntryPoint 静态使用的一个code:OpEntryPoint的
+片元着色器subpass 输入变量形成了 片元输入附件接口。
+这些变量必须被声明为 code:OpTypeImage 类型，一个code:Dim维的code:SubpassData操作数，
+一个code:Sampled 操作数为2。
 
 A subpass input variable identified with an code:InputAttachmentIndex
 decoration of _i_ reads from the input attachment indicated by
@@ -325,66 +312,53 @@ See <<descriptorsets-inputattachment>> for more details.
 
 
 [[interfaces-resources]]
-== Shader Resource Interface
+== 着色器资源接口
 
-When a shader stage accesses buffer or image resources, as described in the
-<<descriptorsets,Resource Descriptors>> section, the shader resource
-variables must: be matched with the <<descriptorsets-pipelinelayout,pipeline
-layout>> that is provided at pipeline creation time.
+当一个着色器阶段访问缓冲区或者图像资源，如<<descriptorsets,Resource Descriptors>> 一节所述，
+着色器资源变量必须与 <<descriptorsets-pipelinelayout,pipeline layout>> 匹配，该布局在创建管线是被提供。
 
+形成着色器资源接口的 着色器资源的集合 为一个阶段 形成了 着色器资源接口
 The set of shader resources that form the _shader resource interface_ for a
 stage are the variables statically used by code:OpEntryPoint with the
 storage class of code:Uniform, code:UniformConstant, or code:PushConstant.
 For the fragment shader, this includes the <<interfaces-inputattachment,
 fragment input attachment interface>>.
 
-The shader resource interface consists of two sub-interfaces: the push
-constant interface and the descriptor set interface.
+着色器资源接口有两个子接口组成：push constant接口和 描述符集合接口。
 
 
 [[interfaces-resources-pushconst]]
-=== Push Constant Interface
+=== Push Constant 接口
 
-The shader variables defined with a storage class of code:PushConstant that
-are statically used by the shader entry points for the pipeline define the
-_push constant interface_.
-They must: be:
+被code:PushConstant存储类别修饰符（被着色器入口点静态使用）定义的着色器变量  定义了一个 push constant接口。
+它们必须是：
 
-  * typed as code:OpTypeStruct,
-  * identified with a code:Block decoration, and
-  * laid out explicitly using the code:Offset, code:ArrayStride, and
-    code:MatrixStride decorations as specified in
-    <<interfaces-resources-layout,Offset and Stride Assignment>>.
+  * code:OpTypeStruct类型,
+  * 使用code:Block 修饰来唯一确定， 且
+  * 使用code:Offset , code:ArrayStride, 和
+    code:MatrixStride 等修饰来显式布局，如 <<interfaces-resources-layout,Offset and Stride Assignment>>所述。
 
-There must: be no more than one push constant block statically used per
-shader entry point.
+在每个着色器入口点内静态使用的 push constant不能多于一个。
 
-Each variable in a push constant block must: be placed at an code:Offset
-such that the entire constant value is entirely contained within the
-slink:VkPushConstantRange for each code:OpEntryPoint that uses it, and the
-pname:stageFlags for that range must: specify the appropriate
-elink:VkShaderStageFlagBits for that stage.
-The code:Offset decoration for any variable in a push constant block must:
-not cause the space required for that variable to extend outside the range
+在push constant block内的每一个变量必须在放在一个code:Offset处，故针对每个使用 slink:VkPushConstantRange的code:OpEntryPoint
+全部constant值都保存在slink:VkPushConstantRange中，且该区间的 必须为用途指定合适的 elink:VkShaderStageFlagBits 。
+
+push constant块内的任何变量的 code:Offset 修饰符都不能导致 该变量需求的空间超出区间
 [eq]#[0, pname:maxPushConstantsSize)#.
 
-Any variable in a push constant block that is declared as an array must:
-only be accessed with _dynamically uniform_ indices.
+在push constant 块内的任何被声明为数组的变量必须可以被  _dynamically uniform_ 索引访问。
 
 
 [[interfaces-resources-descset]]
-=== Descriptor Set Interface
+=== 描述符集合接口
 
-The _descriptor set interface_ is comprised of the shader variables with the
-storage class of code:Uniform or code:UniformConstant (including the
+描述符集合接口 由 code:Uniform 或 code:UniformConstant (including the
 variables in the <<interfaces-inputattachment,fragment input attachment
-interface>>) that are statically used by the shader entry points for the
-pipeline.
+interface>>) 存储类型修饰的 着色器变量组成， 变量被管线的着色器入口点 静态使用。
 
-These variables must: have code:DescriptorSet and code:Binding decorations
-specified, which are assigned and matched with the
-sname:VkDescriptorSetLayout objects in the pipeline layout as described in
-<<interfaces-resources-setandbinding,DescriptorSet and Binding Assignment>>.
+这些变量必须 由 code:DescriptorSet 和 code:Binding 修饰符指定，
+管线布局中的sname:VkDescriptorSetLayout 对象对其赋值于匹配，管线布局如
+<<interfaces-resources-setandbinding,DescriptorSet and Binding Assignment>>所述。
 
 Variables identified with the code:UniformConstant storage class are used
 only as handles to refer to opaque resources.
