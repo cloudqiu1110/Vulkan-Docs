@@ -105,8 +105,7 @@ code:Location 值指定了一个接口槽，其由一个32位的四分量数组�
 code:Component 指定了在这些数组中<<interfaces-iointerfaces-components, 分量>>。
 着色器接口只支持位宽32或者64bit的类型。
 
-Inputs and outputs of the following types consume a single interface
-location:
+输入、输出中如下类型消耗一个接口 location:
 
   * 32-bit 标量与向量类型，与
   * 64-bit 标量和2元素向量类型。
@@ -177,11 +176,9 @@ in <<interfaces-iointerfaces-limits>>.
 
 
 [[interfaces-iointerfaces-components]]
-=== Component Assignment
+=== 成员赋值
 
-The code:Component decoration allows the code:Location to be more finely
-specified for scalars and vectors, down to the individual components within
-a location that are consumed.
+code:Component 修饰符允许 code:Location 更精细的被指定为标量和向量，精细到location内每个独立分量的消耗。
 The components within a location are 0, 1, 2, and 3.
 A variable or block member starting at component N will consume components
 N, N+1, N+2, ...

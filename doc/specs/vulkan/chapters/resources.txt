@@ -1716,18 +1716,13 @@ include::../api/enums/VkSharingMode.txt[]
 与ename:VK_SHARING_MODE_EXCLUSIVE相比，ename:VK_SHARING_MODE_CONCURRENT 也许会导致访问缓冲区或者图像时效率较低。
 ====
 
-Ranges of buffers and image subresources of image objects created using
-ename:VK_SHARING_MODE_EXCLUSIVE 必须 only be accessed by queues in the same
-queue family at any given time.
-In或der for a different queue family to be able to interpret the memory
-contents of a range或 image subresource, the application 必须 perform a
-<<synchronization-queue-transfers,queue family ownership transfer>>.
+使用 ename:VK_SHARING_MODE_EXCLUSIVE 创建的图像对象
+的图像子资源和缓冲区的区间必须 只能被同一个队列族中的队列在任何时间访问。
+为了让一个不同的队列族可以中断 图像子资源或者区间的内容， 应用程序 必须 执行一个
+<<synchronization-queue-transfers, queue family ownership transfer>>.
 
-Upon creation, resources using ename:VK_SHARING_MODE_EXCLUSIVE are not owned
-by any queue family.
-A buffer或 image memory barrier is not required to acquire _ownership_ when
-no queue family owns the resource - it is implicitly acquired upon first use
-within a queue.
+一旦创建完成，使用  ename:VK_SHARING_MODE_EXCLUSIVE 创建的资源，就不在被任何队列族拥有。
+当没有队列族拥有该资源时，一个缓冲区或内存屏障不被要求 获取 所有权， - 在队列内第一次被使用时就获取来。
 
 [NOTE]
 .注意
@@ -1737,17 +1732,12 @@ ename:VK_IMAGE_LAYOUT_UNDEFINED或 ename:VK_IMAGE_LAYOUT_PREINITIALIZED
 before being used on the first queue.
 ====
 
-A queue family可以 take ownership of an image subresource或 buffer range
-of a resource created with ename:VK_SHARING_MODE_EXCLUSIVE, without an
-ownership transfer, in the same way as for a resource that was just created;
-however, taking ownership in this way has the effect that the contents of
-the image subresource或 buffer range are undefined.
+一个队列族可以 获取 使用 ename:VK_SHARING_MODE_EXCLUSIVE创建的资源的 图像子资源 或 缓冲区区间 的所有权，且不需要所有权转移，
+对于刚创建的资源来说同样如此；然而，以此方式获取所有权 会导致 图形子资源或者缓冲区区间的内容变得未定义。
 
-Ranges of buffers and image subresources of image objects created using
-ename:VK_SHARING_MODE_CONCURRENT 必须 only be accessed by queues from the
-queue families specified through the pname:queueFamilyIndexCount and
-pname:pQueueFamilyIndices members of the corresponding create info
-structures.
+使用 ename:VK_SHARING_MODE_CONCURRENT 创建的 缓冲区的区间和图像对象的图像子资源 必须只能被 对应着创建信息数据结构的
+pname:queueFamilyIndexCount 和 pname:pQueueFamilyIndices 成员 指定的队列族的队列所访问。
+
 
 // refEnd VkSharingMode
 
@@ -1798,7 +1788,7 @@ ename:VK_IMAGE_LAYOUT_PREINITIALIZED 转换到一个有效布局。
 
 两个alias使用一分重叠区间 必须通过使用合适的 <<synchronization-access-types, access
 types>>的内存依赖 来分割，若至少 其中一个使用操作写入，不管alias持续终端内存与否。
-若缓冲区或 图像内存屏障被使用来，屏障的周期必须包含整个区间，和/或 重叠的图像子资源的集合。 
+若缓冲区或 图像内存屏障被使用来，屏障的周期必须包含整个区间，和/或 重叠的图像子资源的集合。
 
 若在同一个缓冲区中使用两个别名图像视图，那么render pass 必须使用 <<renderpass-aliasing,ename:VK_ATTACHMENT_DESCRIPTION_MAY_ALIAS_BIT>>
 声明附件，且必须符合该节中其他的规则。
