@@ -1428,9 +1428,8 @@ include::../validity/structs/VkWriteDescriptorSet.txt[]
 
 // refBegin VkDescriptorType Specifies the type of a descriptor in a descriptor set
 
-The type of descriptors in a descriptor set is specified by
-slink:VkWriteDescriptorSet::pname:descriptorType, which must: be one of the
-values:
+描述符集合中的描述的类型是通过
+slink:VkWriteDescriptorSet::pname:descriptorType指定的，必须是如下值之一：、
 
 include::../api/enums/VkDescriptorType.txt[]
 
@@ -1470,20 +1469,17 @@ include::../api/structs/VkDescriptorBufferInfo.txt[]
 [NOTE]
 .注意
 ====
-When using ename:VK_WHOLE_SIZE, the effective range must: not be larger than
-the maximum range for the descriptor type
-(<<features-limits-maxUniformBufferRange, maxUniformBufferRange>> or
-<<features-limits-maxStorageBufferRange, maxStorageBufferRange>>).
-This means that ename:VK_WHOLE_SIZE is not typically useful in the common
-case where uniform buffer descriptors are suballocated from a buffer that is
-much larger than pname:maxUniformBufferRange.
+当使用ename:VK_WHOLE_SIZE时，有效的区间不能大于描述符类型的最大区间
+(<<features-limits-maxUniformBufferRange, maxUniformBufferRange>> 或
+<<features-limits-maxStorageBufferRange, maxStorageBufferRange>>)。
+这意味着 ename:VK_WHOLE_SIZE 一般情形下不是很有用，当uniform 缓冲区描述符从一个远大于pname:maxUniformBufferRange的缓冲区中分配而来。
 ====
 --
 +
-For ename:VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC and
-ename:VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC descriptor types,
-pname:offset is the base offset from which the dynamic offset is applied and
-pname:range is the static size used for all dynamic offsets.
+对于 ename:VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC 和
+ename:VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC 描述符类型，
+pname:offset 是从 应用动态偏移的起始偏移，
+pname:range 是所有动态偏移使用的静态大小。
 
 .正确使用
 ****
@@ -1565,18 +1561,14 @@ include::../api/protos/vkCmdBindDescriptorSets.txt[]
   * pname:dynamicOffsetCount 是 pname:pDynamicOffsets 数组中动态偏移的大小。
   * pname:pDynamicOffsets 是一个指针，指向一个元素类型为code:uint32_t 的数组，元素值指定了动态偏移。
 
-fname:vkCmdBindDescriptorSets causes the sets numbered [pname:firstSet..
-pname:firstSet+pname:descriptorSetCount-1] to use the bindings stored in
-pname:pDescriptorSets[0..pname:descriptorSetCount-1] for subsequent
-rendering commands (either compute or graphics, according to the
-pname:pipelineBindPoint).
-Any bindings that were previously applied via these sets are no longer
-valid.
+fname:vkCmdBindDescriptorSets 导致序号为 [pname:firstSet..
+pname:firstSet+pname:descriptorSetCount-1] 的集合使用 存储在
+pname:pDescriptorSets[0..pname:descriptorSetCount-1] 的绑定来为接下来的渲染命令服务 (either compute or graphics, according to the
+pname:pipelineBindPoint)。
+之前通过这些集合被应用的绑定不再有效。
 
-Once bound, a descriptor set affects rendering of subsequent graphics or
-compute commands in the command buffer until a different set is bound to the
-same set number, or else until the set is disturbed as described in
-<<descriptorsets-compatibility, Pipeline Layout Compatibility>>.
+一旦完成绑定，一个描述符集合影响命令缓冲区中接下来的图形或计算命令的渲染， 直到一个不同的集合被绑定到同一个集合序号上，
+或者直到集合被干扰，如<<descriptorsets-compatibility, Pipeline Layout Compatibility>>所描述。
 
 A compatible descriptor set must: be bound for all set numbers that any
 shaders in a pipeline access, at the time that a draw or dispatch command is
@@ -1596,28 +1588,18 @@ array, elements are in order.
 pname:dynamicOffsetCount must: equal the total number of dynamic descriptors
 in the sets being bound.
 
-The effective offset used for dynamic uniform and storage buffer bindings is
-the sum of the relative offset taken from pname:pDynamicOffsets, and the
-base address of the buffer plus base offset in the descriptor set.
-The length of the dynamic uniform and storage buffer bindings is the buffer
-range as specified in the descriptor set.
+The effective offset 用于动态uniform和存储缓冲区绑定的有效偏移是 从pname:pDynamicOffsets开始的相对偏移与缓冲区冲的基础地址加上描述符集合的基础地址之和。
+动态uniform与存储缓冲区绑定的长度是缓冲区区间，如描述符集合所指定。
 
-Each of the pname:pDescriptorSets must: be compatible with the pipeline
-layout specified by pname:layout.
-The layout used to program the bindings must: also be compatible with the
-pipeline used in subsequent graphics or compute commands, as defined in the
-<<descriptorsets-compatibility, Pipeline Layout Compatibility>> section.
+pname:pDescriptorSets中每一个必须与pname:layout指定的管线布局相兼容。
+用于规划绑定的布局也必须与用于次序的图形或计算命令的管线相兼容，如
+<<descriptorsets-compatibility, Pipeline Layout Compatibility>> 一节所述。
 
-The descriptor set contents bound by a call to fname:vkCmdBindDescriptorSets
-may: be consumed during host execution of the command, or during shader
-execution of the resulting draws, or any time in between.
-Thus, the contents must: not be altered (overwritten by an update command,
-or freed) between when the command is recorded and when the command
-completes executing on the queue.
-The contents of pname:pDynamicOffsets are consumed immediately during
-execution of fname:vkCmdBindDescriptorSets.
-Once all pending uses have completed, it is legal to update and reuse a
-descriptor set.
+通过调用 fname:vkCmdBindDescriptorSets来绑定的描述集合的内容可能在host端命令执行期间被使用，或者在产生绘制结果的着色器执行期间，
+或者在二者之间。故，其内容不能在记录命令与队列内命令完成执行期间内被更改（被更新命令所覆盖或被释放）
+
+pname:pDynamicOffsets 的内容在 fname:vkCmdBindDescriptorSets执行时被立即消耗。
+一旦所有的未完成命令完成，更新或者重用描述符集合就是合法的。
 
 .正确使用
 ****
@@ -1644,19 +1626,16 @@ include::../validity/protos/vkCmdBindDescriptorSets.txt[]
 
 [[descriptorsets-push-constants]]
 
-As described above in section <<descriptorsets-pipelinelayout, Pipeline
-Layouts>>, the pipeline layout defines shader push constants which are
-updated via Vulkan commands rather than via writes to memory or copy
-commands.
+如上节<<descriptorsets-pipelinelayout, Pipeline
+Layouts>>所描述，管线布局定义了通过vulkan命令而非通过写入内存或者复制命令 来更新着色器push constant。
 
 [NOTE]
 .注意
 ====
-Push constants represent a high speed path to modify constant data in
-pipelines that is expected to outperform memory-backed resource updates.
+Push constants 代表着管线内修改常量数据的高速通道，一般认为，其背后是执行了内存上的资源更新。
 ====
 
-The values of push constants are undefined at the start of a command buffer.
+在一个命令缓冲区的开始，push constant的值是未定义的。
 
 // refBegin vkCmdPushConstants Update the values of push constants
 
@@ -1664,18 +1643,12 @@ The values of push constants are undefined at the start of a command buffer.
 
 include::../api/protos/vkCmdPushConstants.txt[]
 
-  * pname:commandBuffer is the command buffer in which the push constant
-    update will be recorded.
-  * pname:layout is the pipeline layout used to program the push constant
-    updates.
-  * pname:stageFlags is a bitmask of elink:VkShaderStageFlagBits specifying
-    the shader stages that will use the push constants in the updated range.
-  * pname:offset is the start offset of the push constant range to update,
-    in units of bytes.
-  * pname:size is the size of the push constant range to update, in units of
-    bytes.
-  * pname:pValues is an array of pname:size bytes containing the new push
-    constant values.
+  * pname:commandBuffer 是记录 push constant update 的命令缓冲区。
+  * pname:layout 是规划 push constant updates的 管线布局。
+  * pname:stageFlags 是一个 elink:VkShaderStageFlagBits 类型位掩码，指定了在被更新区域使用push constant的 着色器阶段。
+  * pname:offset 是需要更新的push constant区间的起始偏移，以字节为单位。
+  * pname:size 是需要更新的push constant区间的大小， 以字节为单位。
+  * pname:pValues 是一个 pname:size 字节的数组，包含了新的push constant值。
 
 .正确使用
 ****
