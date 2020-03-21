@@ -225,6 +225,7 @@ The input to blending or color attachment writes is undefined for components
 which do not correspond to a fragment shader output.
 
 code:Index为0的片元输出被导向关联的对应code:Location的第一个blending单元输入。
+code:Index为1的输出被导向对应的blending单元输入。
 
 No _component aliasing_ of output variables is allowed, that is there must:
 not be two output variables which have the same location, component, and
