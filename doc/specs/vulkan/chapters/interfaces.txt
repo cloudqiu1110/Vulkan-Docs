@@ -110,51 +110,32 @@ code:Component 指定了在这些数组中<<interfaces-iointerfaces-components, 
   * 32-bit 标量与向量类型，与
   * 64-bit 标量和2元素向量类型。
 
-64-bit 三- 和 四- 成员向量消耗两个连续location。
+64-bit 3- 和 4- 成员向量消耗两个连续location。
 
-If a declared input or output is an array of size _n_ and each element takes
-_m_ locations, it will be assigned _m_ {times} _n_ consecutive locations
-starting with the location specified.
+若一个输入输出声明是大小为 _n_ 的数组，且每个元素占 _m_ 个location，它将被赋予  _m_ {times} _n_ 个连续的location，从指定的location开始。
 
-If the declared input or output is an _n_ {times} _m_ 32- or 64-bit matrix,
-it will be assigned multiple locations starting with the location specified.
-The number of locations assigned for each matrix will be the same as for an
-_n_-element array of _m_-component vectors.
+若一个输入输出声明是一个 _n_ {times} _m_ 的 32- 或 64-bit 矩阵，它将被赋予指定的location起始的多个location。
+每个矩阵所分配的location个数 和 一个 _n_-个数组元素且元素为_m_个成员的数组所消耗的location个数一样。
 
-The layout of a structure type used as an code:Input or code:Output depends
-on whether it is also a code:Block (i.e. has a code:Block decoration).
+code:Input or code:Output 的数据结构类型的布局依赖于它是否是一个code:Block（即，是否有code:Block 修饰符）。
 
-If it is a not a code:Block, then the structure type must: have a
-code:Location decoration.
-Its members are assigned consecutive locations in their declaration order,
-with the first member assigned to the location specified for the structure
-type.
-The members, and their nested types, must: not themselves have code:Location
-decorations.
+若它不是code:Block，那么数据结构类型必须有一个code:Location 修饰符。
+它的成员将依它们被声明的顺序被赋予连续的location，第一个成员被赋予该数据类型所指定的location。
+它的成员，和它们的嵌套类型，不能有code:Location描述符。
 
-If the structure type is a code:Block but without a code:Location, then each
-of its members must: have a code:Location decoration.
-If it is a code:Block with a code:Location decoration, then its members are
-assigned consecutive locations in declaration order, starting from the first
-member which is initially assigned the location specified for the
-code:Block.
-Any member with its own code:Location decoration is assigned that location.
-Each remaining member is assigned the location after the immediately
-preceding member in declaration order.
+若数据结构是一个code:Block，但是没有code:Location描述符，那么它的每个成语必须有一个 code:Location 描述符。
+若它是一个code:Block且带有一个code:Location 描述符，那么它的成员依声明顺序被赋予连续的location，从第一个成员开始，
+第一个成员被赋予该code:Block所指定的location。
+每个带有自己的code:Location的成员都被赋予该location，每个剩余的成员都️依它们声明顺序被立即赋予location。
 
-The locations consumed by block and structure members are determined by
-applying the rules above in a depth-first traversal of the instantiated
-members as though the structure or block member were declared as an input or
-output variable of the same type.
+一个块、数据结构成员消耗的location由应用上述的规则进行深度优先遍历实例化的成员所决定，如同数据结构或块的成员被声明为一个同类型的输入、输出变量。
 
 Any two inputs listed as operands on the same code:OpEntryPoint must: not be
 assigned the same location, either explicitly or implicitly.
 Any two outputs listed as operands on the same code:OpEntryPoint must: not
 be assigned the same location, either explicitly or implicitly.
 
-The number of input and output locations available for a shader input or
-output interface are limited, and dependent on the shader stage as described
-in <<interfaces-iointerfaces-limits>>.
+一个着色器可用的输入与输出location数量是有限制的，取决于着色器阶段，如<<interfaces-iointerfaces-limits>>所述。
 
 
 [[interfaces-iointerfaces-limits]]
@@ -179,24 +160,16 @@ in <<interfaces-iointerfaces-limits>>.
 === 成员赋值
 
 code:Component 修饰符允许 code:Location 更精细的被指定为标量和向量，精细到location内每个独立分量的消耗。
-The components within a location are 0, 1, 2, and 3.
-A variable or block member starting at component N will consume components
-N, N+1, N+2, ...
-up through its size.
-For single precision types, it is invalid if this sequence of components
-gets larger than 3.
-A scalar 64-bit type will consume two of these components in sequence, and a
-two-component 64-bit vector type will consume all four components available
-within a location.
-A three- or four-component 64-bit vector type must: not specify a
-code:Component decoration.
-A three-component 64-bit vector type will consume all four components of the
-first location and components 0 and 1 of the second location.
-This leaves components 2 and 3 available for other component-qualified
-declarations.
+一个location内的分量分别是 are 0, 1, 2, 和 3.
+从分量N开始的一个变量或块成员，将消耗分量N, N+1, N+2, ...，up through its size.
+对于单精度类型，若此分量序列大于3，那么它就是无效的。
+一个标量64位将消耗此序列中两个分量，一个 2-分量的64位数组类型将消耗一个location内可用的四个分量。
+一个 3-分量或4-分量的的64位数组类型不能指定code:Component 修饰符。
+一个 3-分量64-位数组类型将消耗第一个location所有四个分量，且消耗第二个location的分量0和1。
+这导致分量2和3对于其他的分量限定的声明可用。
 
-A scalar or two-component 64-bit data type must: not specify a
-code:Component decoration of 1 or 3.
+一个标量或者两个分量64位数据类型不能指定 code:Component描述1或者3.
+一个code:Component 声明不能对不是标量或者数组类型
 A code:Component decoration must: not be specified for any type that is not
 a scalar or vector.
 
@@ -251,11 +224,7 @@ same underlying type (floating-point or integer).
 The input to blending or color attachment writes is undefined for components
 which do not correspond to a fragment shader output.
 
-Fragment outputs identified with an code:Index of zero are directed to the
-first input of the blending unit associated with the corresponding
-code:Location.
-Outputs identified with an code:Index of one are directed to the second
-input of the corresponding blending unit.
+code:Index为0的片元输出被导向关联的对应code:Location的第一个blending单元输入。
 
 No _component aliasing_ of output variables is allowed, that is there must:
 not be two output variables which have the same location, component, and
@@ -298,14 +267,11 @@ The number of available input attachment indices is given by the
 pname:maxPerStageDescriptorInputAttachments member of the
 sname:VkPhysicalDeviceLimits structure.
 
-Variables identified with the code:InputAttachmentIndex must: only be used
-by a fragment stage.
-The basic data type (floating-point, integer, unsigned integer) of the
-subpass input must: match the basic format of the corresponding input
-attachment, or the values of subpass loads from these variables are
-undefined.
+带有 code:InputAttachmentIndex的变量必须只能在片元阶段被使用。
+subpass 输入的基础的数据类型(floating-point, integer, unsigned integer) 必须与对应的输入附件的基础格式要匹配，
+否则subpass从这些变量中取出的值将是未定义的。
 
-See <<descriptorsets-inputattachment>> for more details.
+参考 <<descriptorsets-inputattachment>> 获取更多细节。
 
 
 [[interfaces-resources]]
@@ -314,12 +280,9 @@ See <<descriptorsets-inputattachment>> for more details.
 当一个着色器阶段访问缓冲区或者图像资源，如<<descriptorsets,Resource Descriptors>> 一节所述，
 着色器资源变量必须与 <<descriptorsets-pipelinelayout,pipeline layout>> 匹配，该布局在创建管线是被提供。
 
-形成着色器资源接口的 着色器资源的集合 为一个阶段 形成了 着色器资源接口
-The set of shader resources that form the _shader resource interface_ for a
-stage are the variables statically used by code:OpEntryPoint with the
-storage class of code:Uniform, code:UniformConstant, or code:PushConstant.
-For the fragment shader, this includes the <<interfaces-inputattachment,
-fragment input attachment interface>>.
+为一个管线阶段 形成了 着色器资源接口 形成着色器资源接口的着色器资源的集合，就是被带有
+storage class of code:Uniform, code:UniformConstant, 或 code:PushConstant的code:OpEntryPoint静态使用的变量。
+对于片元着色器，这包括 <<interfaces-inputattachment, fragment input attachment interface>>。
 
 着色器资源接口有两个子接口组成：push constant接口和 描述符集合接口。
 
@@ -483,7 +446,7 @@ descriptor types.
 
 
 [[interfaces-resources-setandbinding]]
-=== DescriptorSet and Binding Assignment
+=== 描述符集合、绑定赋值
 
 A variable identified with a code:DescriptorSet decoration of [eq]#s# and a
 code:Binding decoration of [eq]#b# indicates that this variable is
@@ -558,7 +521,7 @@ elink:VkShaderStageFlagBits for that stage.
 
 
 [[interfaces-resources-layout]]
-=== Offset and Stride Assignment
+=== 偏移、步长设值
 
 All variables with a storage class of code:PushConstant or code:Uniform
 must: be explicitly laid out using the code:Offset, code:ArrayStride, and
@@ -619,52 +582,36 @@ The *std430 layout* in GLSL satisfies these rules.
 
 
 [[interfaces-builtin-variables]]
-== Built-In Variables
+== 内置变量
 
-Built-in variables are accessed in shaders by declaring a variable decorated
-with a code:BuiltIn decoration.
-The meaning of each code:BuiltIn decoration is as follows.
-In the remainder of this section, the name of a built-in is used
-interchangeably with a term equivalent to a variable decorated with that
-particular built-in.
-Built-ins that represent integer values can: be declared as either signed or
-unsigned 32-bit integers.
+带有code:BuiltIn 修饰符修饰的变量是内置变量，可以在着色器内被访问。
+
+每个 code:BuiltIn 修饰的含义有如下几种：
+此节的剩余部分，内置变量的名称与术语带有内置修饰符的变量等同。
+内置变量中整数类型的可以被声明为有符号或者无符号整数。
 
 ifdef::VK_AMD_shader_explicit_vertex_parameter[]
 code:BaryCoordNoPerspAMD::
 
-The code:BaryCoordNoPerspAMD decoration can: be used to decorate a fragment
-shader input variable.
-This variable will contain the (I,J) pair of the barycentric coordinates
-corresponding to the fragment evaluated using linear interpolation at the
-pixel's center.
-The K coordinate of the barycentric coordinates can: be derived given the
-identity I + J + K = 1.0.
+code:BaryCoordNoPerspAMD 修饰符可以用于修饰片元着色器输入变量。
+此变量将含有 (I,J)对重心坐标，对应着使用线性差值的像素中心的片元求值。
+中心坐标的K坐标可以根据给定的 I + J + K = 1.0 公式推导。
 
 code:BaryCoordNoPerspCentroidAMD::
 
-The code:BaryCoordNoPerspCentroidAMD decoration can: be used to decorate a
-fragment shader input variable.
-This variable will contain the (I,J) pair of the barycentric coordinates
-corresponding to the fragment evaluated using linear interpolation at the
-centroid.
-The K coordinate of the barycentric coordinates can: be derived given the
-identity I + J + K = 1.0.
+code:BaryCoordNoPerspCentroidAMD 修饰符可以用于片元着色器输入变量。
+此变量将含有 (I,J)对重心坐标，对应着在此重心使用线性差值的片元求值。
+中心坐标的K坐标可以根据给定的 I + J + K = 1.0 公式推导。
 
 code:BaryCoordNoPerspSampleAMD::
 
-The code:BaryCoordNoPerspCentroidAMD decoration can: be used to decorate a
-fragment shader input variable.
-This variable will contain the (I,J) pair of the barycentric coordinates
-corresponding to the fragment evaluated using linear interpolation at each
-covered sample.
-The K coordinate of the barycentric coordinates can: be derived given the
-identity I + J + K = 1.0.
+code:BaryCoordNoPerspCentroidAMD 修饰符可以用于片元着色器输入变量。
+此变量将含有 (I,J)对重心坐标，对应着在每一个覆盖的采样点使用线性差值的片元求值。
+中心坐标的K坐标可以根据给定的 I + J + K = 1.0 公式推导。
 
 code:BaryCoordPullModelAMD::
 
-The code:BaryCoordPullModelAMD decoration can: be used to decorate a
-fragment shader input variable.
+code:BaryCoordPullModelAMD 修饰符 可以用于片元着色器输入变量。
 This variable will contain (1/W, 1/I, 1/J) evaluated at the pixel center and
 can: be used to calculate gradients and then interpolate I, J, and W at any
 desired sample location.
@@ -676,8 +623,7 @@ shader input variable.
 This variable will contain the (I,J) pair of the barycentric coordinates
 corresponding to the fragment evaluated using perspective interpolation at
 the pixel's center.
-The K coordinate of the barycentric coordinates can: be derived given the
-identity I + J + K = 1.0.
+中心坐标的K坐标可以根据给定的 I + J + K = 1.0 公式推导。
 
 code:BaryCoordSmoothCentroidAMD::
 
@@ -686,8 +632,7 @@ fragment shader input variable.
 This variable will contain the (I,J) pair of the barycentric coordinates
 corresponding to the fragment evaluated using perspective interpolation at
 the centroid.
-The K coordinate of the barycentric coordinates can: be derived given the
-identity I + J + K = 1.0.
+中心坐标的K坐标可以根据给定的 I + J + K = 1.0 公式推导。
 
 code:BaryCoordSmoothSampleAMD::
 
@@ -696,8 +641,7 @@ fragment shader input variable.
 This variable will contain the (I,J) pair of the barycentric coordinates
 corresponding to the fragment evaluated using perspective interpolation at
 each covered sample.
-The K coordinate of the barycentric coordinates can: be derived given the
-identity I + J + K = 1.0.
+中心坐标的K坐标可以根据给定的 I + J + K = 1.0 公式推导。
 
 endif::VK_AMD_shader_explicit_vertex_parameter[]
 
@@ -713,13 +657,11 @@ code:BaseInstance is the pname:firstInstance parameter to a _direct drawing
 command_ or the pname:firstInstance member of a structure consumed by an
 _indirect drawing command_.
 +
-The code:BaseInstance decoration must: be used only within vertex shaders.
+code:BaseInstance 修饰符只能在顶点着色器内使用。
 +
-The variable decorated with BaseInstance must: be declared using the input
-storage class.
+BaseInstance 修饰的变量必须使用 input 存储类别来声明。
 +
-The variable decorated with BaseInstance must: be declared as a scalar
-32-bit integer.
+BaseInstance 修饰的变量必须被声明为32位整型标量。
 
 [[interfaces-builtin-variables-basevertex]]
 code:BaseVertex::
@@ -735,13 +677,11 @@ For _indexed drawing commands_, this variable is the pname:vertexOffset
 parameter to a _direct drawing command_ or the pname:vertexOffset member of
 the structure consumed by an _indirect drawing command_.
 +
-The code:BaseVertex decoration must: be used only within vertex shaders.
+code:BaseVertex 修饰符只能在顶点着色器内使用。
 +
-The variable decorated with code:BaseVertex must: be declared using the
-input storage class.
+code:BaseVertex 修饰的变量必须使用 input 存储类别来声明。
 +
-The variable decorated with codeBaseVertex must: be declared as a scalar
-32-bit integer.
+codeBaseVertex 修饰的变量必须被声明位32位整型标量。
 
 endif::VK_KHR_shader_draw_parameters[]
 
@@ -755,27 +695,20 @@ A clip distance of 0 means the vertex is on the plane, a positive distance
 means the vertex is inside the clip half-space, and a negative distance
 means the point is outside the clip half-space.
 +
-The code:ClipDistance decoration must: be used only within vertex, fragment,
-tessellation control, tessellation evaluation, and geometry shaders.
+code:ClipDistance 修饰符只能在顶点、片元、细分控制、细分求值、几何着色器内使用。
 +
-In vertex shaders, any variable decorated with code:ClipDistance must: be
-declared using the code:Output storage class.
+在顶点着色器内，code:ClipDistance 修饰的任何变量必须使用 code:Output 存储类别来声明。
 +
-In fragment shaders, any variable decorated with code:ClipDistance must: be
-declared using the code:Input storage class.
+在片元着色器内，code:ClipDistance 修饰的变量必须使用code:Input 存储类别来声明。
 +
-In tessellation control, tessellation evaluation, or geometry shaders, any
-variable decorated with code:ClipDistance must: not be in a storage class
-other than code:Input or code:Output.
+在细分控制、细分求值、几何着色器内，code:ClipDistance 修饰的任何变量只能是code:Input 或者 code:Output类别。
 +
-Any variable decorated with code:ClipDistance must: be declared as an array
-of 32-bit floating-point values.
+code:ClipDistance 修饰的任何变量必须位声明位32位浮点型的数组。
 
 [NOTE]
 .注意
 ====
-The array variable decorated with code:ClipDistance is explicitly sized by
-the shader.
+code:ClipDistance修饰的数组变量，会自动被着色器填充大小。
 ====
 
 [NOTE]
@@ -797,27 +730,22 @@ If any member of this array is assigned a negative value for all vertices
 belonging to a primitive, then the primitive is discarded before
 rasterization.
 +
-The code:CullDistance decoration must: be used only within vertex, fragment,
-tessellation control, tessellation evaluation, and geometry shaders.
+code:CullDistance 修饰符只能在顶点、片元、细分控制、细分求值、几何着色器中使用。
 +
-In vertex shaders, any variable decorated with code:CullDistance must: be
-declared using the code:Output storage class.
+在顶点着色器中，code:CullDistance 修饰的任何变量必须使用 code:Output 存储类别来声明。
 +
-In fragment shaders, any variable decorated with code:CullDistance must: be
-declared using the code:Input storage class.
+在片元着色器中，code:CullDistance 修饰的任何变量必须使用 code:Input 存储类别来声明。
 +
 In tessellation control, tessellation evaluation, or geometry shaders, any
 variable decorated with code:CullDistance must: not be declared in a storage
 class other than input or output.
 +
-Any variable decorated with code:CullDistance must: be declared as an array
-of 32-bit floating-point values.
+code:CullDistance 修饰的任何变量必须被声明位32位浮点型的三元素数组。
 
 [NOTE]
 .注意
 ====
-In fragment shaders, the values of the code:CullDistance array are linearly
-interpolated across each primitive.
+在片元着色器中，code:CullDistance 数组的值在每个图元之间被线性差值。
 ====
 
 [NOTE]
@@ -842,13 +770,11 @@ The number of draw commands is given by the pname:drawCount parameter.
 For _direct drawing commands_, code:DrawIndex is always zero.
 code:DrawIndex is dynamically uniform.
 +
-The code:DrawIndex decoration must: be used only within vertex shaders.
+code:DrawIndex 修饰符只能在顶点着色器中使用。
 +
-The variable decorated with code:DrawIndex must: be declared using the input
-storage class.
+code:DrawIndex 修饰的变量必须使用 input存储类别来声明。
 +
-The variable decorated with code:DrawIndex must: be declared as a scalar
-32-bit integer.
+code:DrawIndex 修饰的变量必须被声明位32位整型标量。
 
 endif::VK_KHR_shader_draw_parameters[]
 
@@ -872,16 +798,13 @@ the primitive.
 +
 The [eq]#w# component is the interpolated latexmath:[\frac{1}{w}].
 +
-The code:FragCoord decoration must: be used only within fragment shaders.
+code:FragCoord 修饰符只能在片元着色器中使用。
 +
-The variable decorated with code:FragCoord must: be declared using the
-code:Input storage class.
+code:FragCoord 修饰的变量必须使用code:Input 存储类别来声明。
 +
-The code:Centroid interpolation decoration is ignored, but allowed, on
-code:FragCoord.
+code:Centroid 差值修饰副被忽略，但是在code:FragCoord上是允许的。
 +
-The variable decorated with code:FragCoord must: be declared as a
-four-component vector of 32-bit floating-point values.
+code:FragCoord 修饰的变量必须被声明位32位浮点型的四元素数组。
 
 code:FragDepth::
 
@@ -898,13 +821,11 @@ execution path through the shader that does not set code:FragDepth, then the
 fragment's depth value is undefined for executions of the shader that take
 that path.
 +
-The code:FragDepth decoration must: be used only within fragment shaders.
+code:FragDepth 修饰符只能在片元着色器中使用。
 +
-The variable decorated with code:FragDepth must: be declared using the
-code:Output storage class.
+code:FragDepth 修饰的变量必须使用code:Output 存储类别来声明。
 +
-The variable decorated with code:FragDepth must: be declared as a scalar
-32-bit floating-point value.
+code:FragDepth 修饰的变量必须被声明位32位浮点型标量。
 
 code:FrontFacing::
 
@@ -914,12 +835,11 @@ This variable is non-zero if the current fragment is considered to be part
 of a <<primsrast-polygons-basic,front-facing>> primitive and is zero if the
 fragment is considered to be part of a back-facing primitive.
 +
-The code:FrontFacing decoration must: be used only within fragment shaders.
+code:FrontFacing 修饰符只能在片元着色器中使用。
 +
-The variable decorated with code:FrontFacing must: be declared using the
-code:Input storage class.
+code:FrontFacing 修饰的变量必须使用 code:Input 存储类别来声明。
 +
-The variable decorated with code:FrontFacing must: be declared as a boolean.
+code:FrontFacing 修饰的变量必须被声明位boolean 类型。
 
 code:GlobalInvocationId::
 
@@ -929,14 +849,11 @@ within the global workgroup.
 Each component is equal to the index of the local workgroup multiplied by
 the size of the local workgroup plus code:LocalInvocationId.
 +
-The code:GlobalInvocationId decoration must: be used only within compute
-shaders.
+code:GlobalInvocationId 修饰符只能在计算着色器中使用。
 +
-The variable decorated with code:GlobalInvocationId must: be declared using
-the code:Input storage class.
+code:GlobalInvocationId 修饰的变量必须使用 code:Input 存储类别来声明。
 +
-The variable decorated with code:GlobalInvocationId must: be declared as a
-three-component vector of 32-bit integers.
+code:GlobalInvocationId 修饰的变量必须被声明为32位整型的三元素数组。
 
 code:HelperInvocation::
 
@@ -948,14 +865,11 @@ invocation and zero otherwise.
 A helper invocation is an invocation of the shader that is produced to
 satisfy internal requirements such as the generation of derivatives.
 +
-The code:HelperInvocation decoration must: be used only within fragment
-shaders.
+code:HelperInvocation 修饰符必须在片元着色器中使用。
 +
-The variable decorated with code:HelperInvocation must: be declared using
-the code:Input storage class.
+code:HelperInvocation 修饰的变量必须使用 code:Input 存储类别来声明。
 +
-The variable decorated with code:HelperInvocation must: be declared as a
-boolean.
+code:HelperInvocation 修饰的变量必须位声明为boolean类型。
 
 [NOTE]
 .注意
@@ -977,14 +891,11 @@ shader minus one.
 If the instance count of the geometry shader is one or is not specified,
 then code:InvocationId will be zero.
 +
-The code:InvocationId decoration must: be used only within tessellation
-control and geometry shaders.
+code:InvocationId 修饰符只能在细分控制、几何着色器中使用。
 +
-The variable decorated with code:InvocationId must: be declared using the
-code:Input storage class.
+code:InvocationId 修饰的变量必须使用code:Input 存储类别来声明。
 +
-The variable decorated with code:InvocationId must: be declared as a scalar
-32-bit integer.
+code:InvocationId 修饰的变量必须被声明为32位整型标量。
 
 code:InstanceIndex::
 
@@ -996,13 +907,11 @@ flink:vkCmdDraw or flink:vkCmdDrawIndexed or at the pname:firstInstance
 member of a structure consumed by flink:vkCmdDrawIndirect or
 flink:vkCmdDrawIndexedIndirect.
 +
-The code:InstanceIndex decoration must: be used only within vertex shaders.
+code:InstanceIndex 修饰符只能在顶点着色器中使用。
 +
-The variable decorated with code:InstanceIndex must: be declared using the
-code:Input storage class.
+code:InstanceIndex 修饰的变量必须使用code:Input 存储类别来声明。
 +
-The variable decorated with code:InstanceIndex must: be declared as a scalar
-32-bit integer.
+code:InstanceIndex 修饰的变量必须被声明位一个32位整型标量。
 
 code:Layer::
 
@@ -1021,17 +930,13 @@ vertices of a given primitive.
 In a fragment shader, a variable decorated with code:Layer contains the
 layer index of the primitive that the fragment invocation belongs to.
 +
-The code:Layer decoration must: be used only within geometry and fragment
-shaders.
+code:Layer 修饰符只能在几何、片元着色器中使用。
 +
-In a geometry shader, any variable decorated with code:Layer must: be
-declared using the code:Output storage class.
+在几何着色器中，code:Layer 修饰的任何变量必须使用code:Output 存储类别来声明。
 +
-In a fragment shader, any variable decorated with code:Layer must: be
-declared using the code:Input storage class.
+在片元着色器中，  code:Layer 修饰的任何变量必须使用code:Input 存储类别来声明。
 +
-Any variable decorated with code:Layer must: be declared as a scalar 32-bit
-integer.
+code:Layer 修饰的任何变量必须被声明位32位整型标量。
 
 code:LocalInvocationId::
 
@@ -1041,14 +946,11 @@ invocation within the local workgroup.
 Each component ranges from zero through to the size of the workgroup in that
 dimension minus one.
 +
-The code:LocalInvocationId decoration must: be used only within compute
-shaders.
+code:LocalInvocationId 修饰符必须在计算着色器中使用。
 +
-The variable decorated with code:LocalInvocationId must: be declared using
-the code:Input storage class.
+code:LocalInvocationId 修饰的变量必须使用 code:Input 存储类别来声明。
 +
-The variable decorated with code:LocalInvocationId must: be declared as a
-three-component vector of 32-bit integers.
+code:LocalInvocationId 修饰的变量必须被声明位32位整型的三元素向量。
 
 [NOTE]
 .注意
@@ -1070,13 +972,11 @@ Each component is equal to the values of the parameters passed into
 flink:vkCmdDispatch or read from the sname:VkDispatchIndirectCommand
 structure read through a call to flink:vkCmdDispatchIndirect.
 +
-The code:NumWorkgroups decoration must: be used only within compute shaders.
+code:NumWorkgroups 修饰符只能在计算着色器中使用。
 +
-The variable decorated with code:NumWorkgroups must: be declared using the
-code:Input storage class.
+code:NumWorkgroups 修饰的变量必须使用code:Input 存储类别来声明。
 +
-The variable decorated with code:NumWorkgroups must: be declared as a
-three-component vector of 32-bit integers.
+code:NumWorkgroups 修饰的变量必须被声明位32位整型的三元素数组。
 
 code:PatchVertices::
 
@@ -1087,14 +987,11 @@ A single tessellation control or tessellation evaluation shader can: read
 patches of differing sizes, so the value of the code:PatchVertices variable
 may: differ between patches.
 +
-The code:PatchVertices decoration must: be used only within tessellation
-control and tessellation evaluation shaders.
+code:PatchVertices 修饰符只能在细分控制、细分求值着色器中使用。
 +
-The variable decorated with code:PatchVertices must: be declared using the
-code:Input storage class.
+code:PatchVertices 修饰的变量必须使用code:Input 存储类别来声明。
 +
-The variable decorated with code:PatchVertices must: be declared as a scalar
-32-bit integer.
+code:PatchVertices 修饰的变量必须被声明位32位整型标量。
 
 code:PointCoord::
 
@@ -1107,13 +1004,12 @@ If the primitive the fragment shader invocation belongs to is not a point,
 then the variable decorated with code:PointCoord contains an undefined
 value.
 +
-The code:PointCoord decoration must: be used only within fragment shaders.
+code:PointCoord 修饰符只能在片元着色器中使用。
 +
-The variable decorated with code:PointCoord must: be declared using the
-code:Input storage class.
+code:PointCoord 修饰的变量必须使用code:Input  存储类别来声明。
 +
-The variable decorated with code:PointCoord must: be declared as
-two-component vector of 32-bit floating-point values.
+code:PointCoord 修饰的变量必须被声明位32位浮点型二元素数组。
+
 
 [NOTE]
 .注意
@@ -1130,18 +1026,14 @@ The value written to the variable decorated with code:PointSize by the last
 vertex processing stage in the pipeline is used as the framebuffer-space
 size of points produced by rasterization.
 +
-The code:PointSize decoration must: be used only within vertex, tessellation
-control, tessellation evaluation, and geometry shaders.
+code:PointSize 修饰符只能在顶点、细分控制、细分求值、几何着色器中使用。shaders.
 +
-In a vertex shader, any variable decorated with code:PointSize must: be
-declared using the code:Output storage class.
+在顶点着色器中，code:PointSize 修饰的任何变量必须使用code:Output 存储类别来声明。
 +
-In a tessellation control, tessellation evaluation, or geometry shader, any
-variable decorated with code:PointSize must: be declared using either the
-code:Input or code:Output storage class.
+在细分控制、细分求值、几何着色器中，code:PointSize 修饰的任何变量必须使用
+code:Input 或者 code:Output 存储类别来声明。
 +
-Any variable decorated with code:PointSize must: be declared as a scalar
-32-bit floating-point value.
+code:PointSize 修饰的任何变量必须被声明位一个32位浮点型标量。
 
 [NOTE]
 .注意
@@ -1159,18 +1051,13 @@ In the last vertex processing stage, the value of the variable decorated
 with code:Position is used in subsequent primitive assembly, clipping, and
 rasterization operations.
 +
-The code:Position decoration must: be used only within vertex, tessellation
-control, tessellation evaluation, and geometry shaders.
+code:Position 修饰符只能在顶点、细分控制、细分求值、几何着色器中使用。
 +
-In a vertex shader, any variable decorated with code:Position must: be
-declared using the code:Output storage class.
+在顶点着色器中，code:Position 修饰的任何变量必须使用 code:Output 存储类别来声明。
 +
-In a tessellation control, tessellation evaluation, or geometry shader, any
-variable decorated with code:Position must: not be declared in a storage
-class other than input or output.
+在细分控制、细分求值或几何着色器中，  code:Position 修饰的任何变量只能使用 input 或者 output存储类别来声明。
 +
-Any variable decorated with code:Position must: be declared as a
-four-component vector of 32-bit floating-point values.
+code:Position 修饰的任何变量必须被声明为32位浮点型的四元素数组。
 
 [NOTE]
 .注意
@@ -1223,9 +1110,7 @@ Any variable decorated with code:PrimitiveId must: be declared as a scalar
 [NOTE]
 .注意
 ====
-When the code:PrimitiveId decoration is applied to an output variable in the
-geometry shader, the resulting value is seen through the code:PrimitiveId
-decorated input variable in the fragment shader.
+当code:PrimitiveId 修饰符被应用到几何着色器的一个输出变量上，生成的值在片元着色器中可以通过code:PrimitiveId修饰的输入变量看到。
 ====
 
 code:SampleId::
@@ -1239,13 +1124,11 @@ If a fragment shader entry point's interface includes an input variable
 decorated with code:SampleId, per-sample shading is enabled for draws that
 use that fragment shader.
 +
-The code:SampleId decoration must: be used only within fragment shaders.
+code:SampleId 修饰符只能在片元着色器中使用。
 +
-The variable decorated with code:SampleId must: be declared using the
-code:Input storage class.
+code:SampleId 修饰的变量只能使用code:Input 存储类别修饰。
 +
-The variable decorated with code:SampleId must: be declared as a scalar
-32-bit integer.
+code:SampleId修饰的变量必须被声明为32位的标量整型。
 
 code:SampleMask::
 
@@ -1297,8 +1180,7 @@ The code:SampleMask decoration must: be used only within fragment shaders.
 Any variable decorated with code:SampleMask must: be declared using either
 the code:Input or code:Output storage class.
 +
-Any variable decorated with code:SampleMask must: be declared as an array of
-32-bit integers.
+code:SampleMask修饰的任何变量必须被声明为32位整型的数组。
 
 code:SamplePosition::
 
@@ -1311,11 +1193,9 @@ If a fragment shader entry point's interface includes an input variable
 decorated with code:SamplePosition, per-sample shading is enabled for draws
 that use that fragment shader.
 +
-The code:SamplePosition decoration must: be used only within fragment
-shaders.
+code:SamplePosition 修饰符必须只在片元着色器中使用。
 +
-The variable decorated with code:SamplePosition must: be declared using the
-code:Input storage class.
+code:SamplePosition修饰的变量必须使用code:Input 存储类别来声明。
 +
 The variable decorated with code:SamplePosition must: be declared as a
 two-component vector of 32-bit floating-point values.
@@ -1332,8 +1212,7 @@ The bit corresponding to the code:SubgroupLocalInvocationId is set in the
 variable decorated with code:SubgroupEqMaskKHR.
 All other bits are set to zero.
 +
-The variable decorated with code:SubgroupEqMaskKHR must: be declared using
-the code:Input storage class.
+code:SubgroupEqMaskKHR修饰的变量必须使用code:Input 存储类别 来声明。
 +
 The variable decorated with code:SubgroupEqMaskKHR must: be declared as a
 four-component vector of 32-bit integer values.
@@ -1349,8 +1228,7 @@ code:SubgroupLocalInvocationId through code:SubgroupSize-1 are set in the
 variable decorated with code:SubgroupGeMaskKHR.
 All other bits are set to zero.
 +
-The variable decorated with code:SubgroupGeMaskKHR must: be declared using
-the code:Input storage class.
+code:SubgroupGeMaskKHR修饰的变量必须使用 code:Input 存储类别来声明。
 +
 The variable decorated with code:SubgroupGeMaskKHR must: be declared as a
 four-component vector of 32-bit integer values.
@@ -1366,11 +1244,9 @@ code:SubgroupLocalInvocationId through code:SubgroupSize-1 are set in the
 variable decorated with code:SubgroupGtMaskKHR.
 All other bits are set to zero.
 +
-The variable decorated with code:SubgroupGtMaskKHR must: be declared using
-the code:Input storage class.
+code:SubgroupGtMaskKHR修饰的变量必须使用  code:Input存储类别来声明。
 +
-The variable decorated with code:SubgroupGtMaskKHR must: be declared as a
-four-component vector of 32-bit integer values.
+code:SubgroupGtMaskKHR 修饰的变量必须被声明位32位整型的四元素数组。
 
 [[interfaces-builtin-variables-sgle]]
 code:SubgroupLeMaskKHR::
@@ -1383,11 +1259,9 @@ code:SubgroupLocalInvocationId are set in the variable decorated with
 code:SubgroupLeMaskKHR.
 All other bits are set to zero.
 +
-The variable decorated with code:SubgroupLeMaskKHR must: be declared using
-the code:Input storage class.
+code:SubgroupLeMaskKHR 修饰的变量必须使用 code:Input 存储类别来声明。
 +
-The variable decorated with code:SubgroupLeMaskKHR must: be declared as a
-four-component vector of 32-bit integer values.
+code:SubgroupLeMaskKHR 声明的变量必须被声明位32位整型的四元素数组。
 
 [[interfaces-builtin-variables-sglt]]
 code:SubgroupLtMaskKHR::
@@ -1400,11 +1274,9 @@ code:SubgroupLocalInvocationId are set in the variable decorated with
 code:SubgroupLtMaskKHR.
 All other bits are set to zero.
 +
-The variable decorated with code:SubgroupLtMaskKHR must: be declared using
-the code:Input storage class.
+code:SubgroupLtMaskKHR 修饰的变量必须使用 code:Input 存储类别来声明。
 +
-The variable decorated with code:SubgroupLtMaskKHR must: be declared as a
-four-component vector of 32-bit integer values.
+code:SubgroupLtMaskKHR 修饰的变量必须声明为32位整型的四元素数组。
 
 [[interfaces-builtin-variables-sgli]]
 code:SubgroupLocalInvocationId::
@@ -1414,11 +1286,10 @@ decoration will make that variable contain the index of the invocation
 within the subgroup.
 This variable is in range [0,code:SubgroupSize-1].
 +
-The variable decorated with code:SubgroupLocalInvocationId must: be declared
-using the code:Input storage class.
+code:SubgroupLocalInvocationId修饰的变量必须使用 code:Input 存储类别来声明。
 +
-The variable decorated with code:SubgroupLocalInvocationId must: be declared
-as a scalar 32-bit integer.
+code:SubgroupLocalInvocationId 修饰的变量必须被声明为32位整型标量。
+
 
 [[interfaces-builtin-variables-sgs]]
 code:SubgroupSize::
@@ -1429,11 +1300,9 @@ invocations in a subgroup.
 The maximum number of invocations that an implementation can support per
 subgroup is 128.
 +
-The variable decorated with code:SubgroupSize must: be declared using the
-code:Input storage class.
+code:SubgroupSize 修饰的变量必须使用 code:Input 存储类别来声明。
 +
-The variable decorated with code:SubgroupSize must: be declared as a scalar
-32-bit integer.
+code:SubgroupSize 修饰的变量必须被声明位32位整型标量。
 
 endif::VK_EXT_shader_subgroup_ballot[]
 
@@ -1447,14 +1316,11 @@ across the primitive being subdivided.
 For the tessellation modes of code:Quads or code:IsoLines, the third
 component is always zero.
 +
-The code:TessCoord decoration must: be used only within tessellation
-evaluation shaders.
+code:TessCoord 修饰符只能在细分求值着色器中使用。
 +
-The variable decorated with code:TessCoord must: be declared using the
-code:Input storage class.
+code:TessCoord修饰的变量必须使用code:Input 存储类别来声明。
 +
-The variable decorated with code:TessCoord must: be declared as
-three-component vector of 32-bit floating-point values.
+code:TessCoord 修饰的变量必须被声明为 32位浮点类型的三元素数组。
 
 code:TessLevelOuter::
 
@@ -1468,21 +1334,15 @@ factors for the resulting patch.
 These values are used by the tessellator to control primitive tessellation
 and can: be read by tessellation evaluation shaders.
 +
-In tessellation evaluation shaders, the variable decorated with
-code:TessLevelOuter can: read the values written by the tessellation control
-shader.
+在细分求值着色器内，code:TessLevelOuter修饰的变量可以读取 细分控制着色器写入的值。
 +
-The code:TessLevelOuter decoration must: be used only within tessellation
-control and tessellation evaluation shaders.
+code:TessLevelOuter 修饰符只能在细分控制着色器、细分求值着色器中使用。
 +
-In a tessellation control shader, any variable decorated with
-code:TessLevelOuter must: be declared using the code:Output storage class.
+在细分控制着色器内，code:TessLevelOuter修饰的任何变量必须使用 code:Output 存储类别来声明。
 +
-In a tessellation evaluation shader, any variable decorated with
-code:TessLevelOuter must: be declared using the code:Input storage class.
+在细分求值着色器内，code:TessLevelOuter修饰的任何变量必须使用 code:Input 存储类别来声明。
 +
-Any variable decorated with code:TessLevelOuter must: be declared as an
-array of size four, containing 32-bit floating-point values.
+code:TessLevelOuter修饰的任何变量必须被声明为32位浮点型的四元素数组。
 
 code:TessLevelInner::
 
@@ -1500,8 +1360,7 @@ In tessellation evaluation shaders, the variable decorated with
 code:TessLevelInner can: read the values written by the tessellation control
 shader.
 +
-The code:TessLevelInner decoration must: be used only within tessellation
-control and tessellation evaluation shaders.
+code:TessLevelInner 修饰符只能在细分控制着色器、细分求值着色器内使用。
 +
 In a tessellation control shader, any variable decorated with
 code:TessLevelInner must: be declared using the code:Output storage class.
@@ -1526,13 +1385,11 @@ vertex plus the pname:vertexOffset parameter to flink:vkCmdDrawIndexed or
 the pname:vertexOffset member of the structure consumed by
 flink:vkCmdDrawIndexedIndirect.
 +
-The code:VertexIndex decoration must: be used only within vertex shaders.
+code:VertexIndex 修饰符只能在顶点着色器内使用。
 +
-The variable decorated with code:VertexIndex must: be declared using the
-code:Input storage class.
+code:VertexIndex修饰的变量必须使用code:Input 存储类别来声明。
 +
-The variable decorated with code:VertexIndex must: be declared as a scalar
-32-bit integer.
+code:VertexIndex 修饰的变量必须被声明位32位的标量整型。
 
 [NOTE]
 .注意
@@ -1560,17 +1417,13 @@ In a fragment shader, the variable decorated with code:ViewportIndex
 contains the viewport index of the primitive that the fragment invocation
 belongs to.
 +
-The code:ViewportIndex decoration must: be used only within geometry and
-fragment shaders.
+code:ViewportIndex 修饰符只能在几何着色器、片元着色器中使用。
 +
-In a geometry shader, any variable decorated with code:ViewportIndex must:
-be declared using the code:Output storage class.
+在几何着色器内部，code:ViewportIndex 修饰的任何变量必须使用 code:Output 存储类别来声明。
 +
-In a fragment shader, any variable decorated with code:ViewportIndex must:
-be declared using the code:Input storage class.
+在片元着色器内，code:ViewportIndex 修饰的任何变量必须使用 code:Input 存储类别来声明。
 +
-Any variable decorated with code:ViewportIndex must: be declared as a scalar
-32-bit integer.
+code:ViewportIndex修饰的任何变量必须被声明为32位整型标量。
 
 code:WorkgroupId::
 
@@ -1581,13 +1434,11 @@ Each component ranges from zero to the values of the parameters passed into
 flink:vkCmdDispatch or read from the sname:VkDispatchIndirectCommand
 structure read through a call to flink:vkCmdDispatchIndirect.
 +
-The code:WorkgroupId decoration must: be used only within compute shaders.
+code:WorkgroupId 修饰符只能在计算着色器内使用。
 +
-The variable decorated with code:WorkgroupId must: be declared using the
-code:Input storage class.
+code:WorkgroupId 修饰的变量必须使用code:Input 存储类别来声明。
 +
-The variable decorated with code:WorkgroupId must: be declared as a
-three-component vector of 32-bit integers.
+code:WorkgroupId 修饰的变量必须被声明位32位整型的三元素数组。
 
 code:WorkgroupSize::
 
@@ -1596,10 +1447,8 @@ make that variable contain the dimensions of a local workgroup.
 If an object is decorated with the code:WorkgroupSize decoration, this must:
 take precedence over any execution mode set for code:LocalSize.
 +
-The code:WorkgroupSize decoration must: be used only within compute shaders.
+code:WorkgroupSize 修饰符只能在计算着色器内使用。
 +
-The object decorated with code:WorkgroupSize must: be a specialization
-constant or a constant.
+code:WorkgroupSize 修饰的对象必须是一个特化常量或者是一个常量。
 +
-The object decorated with code:WorkgroupSize must: be declared as a
-three-component vector of 32-bit integers.
+code:WorkgroupSize 修饰的对象必须被声明为32位整型的三元素数组。
