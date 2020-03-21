@@ -537,8 +537,7 @@ Member variables of an code:OpTypeStruct with storage class of code:Uniform
 and a decoration of code:Block (uniform buffers) must: be laid out according
 to the following rules.
 
-  * The code:Offset Decoration must: be a multiple of its base alignment,
-    computed recursively as follows:
+  * code:Offset 修饰符必须是它的基础对齐的倍数，通过如下规则来递归计算：
   ** a scalar of size [eq]#N# has a base alignment of [eq]#N#
   ** a two-component vector, with components of size [eq]#N#, has a base
      alignment of [eq]#2 N#
@@ -563,7 +562,7 @@ to the following rules.
 [NOTE]
 .注意
 ====
-The *std140 layout* in GLSL satisfies these rules.
+GLSL *std140 layout* 满足这些规则。
 ====
 
 [[interfaces-resources-layout-std430]]
@@ -715,12 +714,8 @@ code:ClipDistance修饰的数组变量，会自动被着色器填充大小。
 [NOTE]
 .注意
 ====
-In the last vertex processing stage, these values will be linearly
-interpolated across the primitive and the portion of the primitive with
-interpolated distances less than 0 will be considered outside the clip
-volume.
-If code:ClipDistance is then used by a fragment shader, code:ClipDistance
-contains these linearly interpolated values.
+在顶点处理阶段，这些值在图元之间被线性插值，部分插值距离小于0的图元 将被认为是超出剪裁空间。
+若 code:ClipDistance 被片元着色器使用， code:ClipDistance将包含这些线性插值的值。
 ====
 
 code:CullDistance::
@@ -737,9 +732,7 @@ code:CullDistance 修饰符只能在顶点、片元、细分控制、细分求�
 +
 在片元着色器中，code:CullDistance 修饰的任何变量必须使用 code:Input 存储类别来声明。
 +
-In tessellation control, tessellation evaluation, or geometry shaders, any
-variable decorated with code:CullDistance must: not be declared in a storage
-class other than input or output.
+在细分控制、细分求值、或几何着色器中，code:CullDistance 修饰的任何变量必须使用 input 或 output 类别。
 +
 code:CullDistance 修饰的任何变量必须被声明位32位浮点型的三元素数组。
 
@@ -752,9 +745,7 @@ code:CullDistance 修饰的任何变量必须被声明位32位浮点型的三元
 [NOTE]
 .注意
 ====
-If code:CullDistance decorates an input variable, that variable will contain
-the corresponding value from the code:CullDistance decorated output variable
-from the previous shader stage.
+若code:CullDistance 修饰一个 input variable，该变量将包含对应的值，从 上一个着色器阶段的 code:CullDistance 修饰的输出变量获得。
 ====
 
 ifdef::VK_KHR_shader_draw_parameters[]
@@ -886,11 +877,8 @@ make that variable contain the index of the current shader invocation in a
 geometry shader, or the index of the output patch vertex in a tessellation
 control shader.
 +
-In a geometry shader, the index of the current shader invocation ranges from
-zero to the number of <<geometry-invocations,instances>> declared in the
-shader minus one.
-If the instance count of the geometry shader is one or is not specified,
-then code:InvocationId will be zero.
+在几何着色器内，当前着色器调用的索引从0 到 着色器内声明的<<geometry-invocations,instances>> 减去1之差。
+若几何着色器的实例数量是1或者未指定，那么 code:InvocationId 将为0.
 +
 code:InvocationId 修饰符只能在细分控制、几何着色器中使用。
 +
@@ -1070,12 +1058,9 @@ code:Position from the previous shader stage.
 
 code:PrimitiveId::
 
-Decorating a variable with the code:PrimitiveId built-in decoration will
-make that variable contain the index of the current primitive.
+使用 code:PrimitiveId built-in修饰符修饰的变量将让该变量包含当前图元的索引。
 +
-In tessellation control and tessellation evaluation shaders, it will contain
-the index of the patch within the current set of rendering primitives that
-correspond to the shader invocation.
+在细分控制和细分求值着色器中，它将包含 对应着色器调用的当前渲染图元内的patch的索引。
 +
 In a geometry shader, it will contain the number of primitives presented as
 input to the shader since the current set of rendering primitives was
@@ -1176,7 +1161,7 @@ If a fragment shader entry point's interface does not include an output
 variable decorated with code:SampleMask, the sample mask has no effect on
 the processing of a fragment.
 +
-The code:SampleMask decoration must: be used only within fragment shaders.
+code:SampleMask 修饰符只能在片元着色器内使用。
 +
 Any variable decorated with code:SampleMask must: be declared using either
 the code:Input or code:Output storage class.
@@ -1374,17 +1359,12 @@ array of size two, containing 32-bit floating-point values.
 
 code:VertexIndex::
 
-Decorating a variable with the code:VertexIndex built-in decoration will
-make that variable contain the index of the vertex that is being processed
-by the current vertex shader invocation.
-For non-indexed draws, this variable begins at the pname:firstVertex
-parameter to flink:vkCmdDraw or the pname:firstVertex member of a structure
-consumed by flink:vkCmdDrawIndirect and increments by one for each vertex in
-the draw.
-For indexed draws, its value is the content of the index buffer for the
-vertex plus the pname:vertexOffset parameter to flink:vkCmdDrawIndexed or
-the pname:vertexOffset member of the structure consumed by
-flink:vkCmdDrawIndexedIndirect.
+使用built-in 修饰符 code:VertexIndex 来修饰变量，将导致当前顶点着色器调用正在处理的该变量包含顶点的索引。
+对于非索引化绘制，此变量从 pname:firstVertex
+参数开始 到  flink:vkCmdDraw 或者 flink:vkCmdDrawIndirect使用的数据结构的pname:firstVertex 成员，且在绘制过程中对于每个顶点增长一个。
+对于索引化绘制，它的值就是 顶点的索引缓冲区的内容加上
+flink:vkCmdDrawIndexed 命令的pname:vertexOffset参数或者
+flink:vkCmdDrawIndexedIndirect使用的 pname:vertexOffset成员。
 +
 code:VertexIndex 修饰符只能在顶点着色器内使用。
 +
@@ -1395,7 +1375,7 @@ code:VertexIndex 修饰的变量必须被声明位32位的标量整型。
 [NOTE]
 .注意
 ====
-code:VertexIndex starts at the same starting value for each instance.
+code:VertexIndex 对于每个实例都从相同的值开始。
 ====
 
 code:ViewportIndex::

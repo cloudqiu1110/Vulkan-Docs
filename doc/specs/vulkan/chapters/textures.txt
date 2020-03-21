@@ -4,14 +4,10 @@
 [[textures]]
 = 图像操作
 
-== Image Operations Overview
+== 图像操作总揽
 
-Image Operations are steps performed by SPIR-V image instructions, where
-those instructions which take an code:OpTypeImage (representing a
-sname:VkImageView) or code:OpTypeSampledImage (representing a
-(sname:VkImageView, sname:VkSampler) pair) and texel coordinates as
-operands, and return a value based on one or more neighboring texture
-elements (_texels_) in the image.
+图像操作是SPIR-V图像指令进行的步骤，这些指令把  code:OpTypeImage ( 一个sname:VkImageView) 或
+code:OpTypeSampledImage (一个(sname:VkImageView, sname:VkSampler) pair) 和纹素坐标当作操作对象，且返回图像中一个基于1或者更多临近纹素 (_texels_)。
 
 [NOTE]
 .注意
@@ -55,12 +51,12 @@ SPIR-V Image Instructions include the following functionality:
 
 === Texel Coordinate Systems
 
-Images are addressed by _texel coordinates_.
-There are three _texel coordinate systems_:
+通过 _texel coordinates_ 对图像寻址。
+有三种 _texel coordinate systems_:
 
-  * normalized texel coordinates [eq]#[0.0, 1.0]#
-  * unnormalized texel coordinates [eq]#[0.0, width / height / depth)#
-  * integer texel coordinates [eq]#[0, width / height / depth)#
+  * 归一化的纹素坐标 [eq]#[0.0, 1.0]#
+  * 非归一化的纹素坐标 [eq]#[0.0, width / height / depth)#
+  * 整型纹素坐标 [eq]#[0, width / height / depth)#
 
 SPIR-V code:OpImageFetch, code:OpImageSparseFetch, code:OpImageRead,
 code:OpImageSparseRead, and code:OpImageWrite instructions use integer texel
@@ -626,7 +622,7 @@ the value of the sparse unbound texel is undefined.
 
 
 [[textures-depth-compare-operation]]
-=== Depth Compare Operation
+=== 深度比较操作
 
 If the image view has a depth/stencil format, the depth component is
 selected by the pname:aspectMask, and the operation is a code:Dref
@@ -661,7 +657,7 @@ where, in the depth comparison:
 
 
 [[textures-conversion-to-rgba]]
-=== Conversion to RGBA
+=== 转换到 RGBA
 
 The texel is expanded from one, two, or three to four components based on
 the image base color:
@@ -1634,12 +1630,10 @@ computes a weighted average between neighboring mip levels:
 
 
 [[textures-texel-anisotropic-filtering]]
-=== Texel Anisotropic Filtering
+=== 纹素各向异性过滤
 
-Anisotropic filtering is enabled by the pname:anisotropyEnable in the
-sampler.
-When enabled, the image filtering scheme accounts for a degree of
-anisotropy.
+在采样器中通过pname:anisotropyEnable 启用各向异性过滤。
+当被启用来，图像过滤方案占各向异性的角度。
 
 The particular scheme for anisotropic texture filtering is implementation
 dependent.
