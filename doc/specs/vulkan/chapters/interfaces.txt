@@ -170,8 +170,7 @@ code:Component 修饰符允许 code:Location 更精细的被指定为标量和�
 
 一个标量或者两个分量64位数据类型不能指定 code:Component描述1或者3.
 一个code:Component 声明不能对不是标量或者数组类型
-A code:Component decoration must: not be specified for any type that is not
-a scalar or vector.
+code:Component 修饰符只能能用于标量或数组。
 
 
 [[interfaces-vertexinput]]
@@ -256,17 +255,12 @@ those components.
 这些变量必须被声明为 code:OpTypeImage 类型，一个code:Dim维的code:SubpassData操作数，
 一个code:Sampled 操作数为2。
 
-A subpass input variable identified with an code:InputAttachmentIndex
-decoration of _i_ reads from the input attachment indicated by
-pname:pInputAttachments[_i_] member of sname:VkSubpassDescription.
-If the subpass input variable is declared as an array of size N, it consumes
-N consecutive input attachments, starting with the index specified.
-There must: not be more than one input variable with the same
-code:InputAttachmentIndex whether explicitly declared or implied by an array
-declaration.
-The number of available input attachment indices is given by the
-pname:maxPerStageDescriptorInputAttachments member of the
-sname:VkPhysicalDeviceLimits structure.
+code:InputAttachmentIndex修饰符指定的 一个subpass 输入变量 _i_ 从
+sname:VkSubpassDescription 的pname:pInputAttachments[_i_]成员指向的输入附件读取数据。
+若此 subpass 输入变量被声明为N元素的数组，它消耗N个连续的输入附件，从指定的索引开始。
+同一个code:InputAttachmentIndex 的输入变量不能多于1个，不管是通过显式还是隐式数组声明。
+The number of 可用的输入附件索引个数是通过
+sname:VkPhysicalDeviceLimits 数据结构的pname:maxPerStageDescriptorInputAttachments 成员指定的。
 
 带有 code:InputAttachmentIndex的变量必须只能在片元阶段被使用。
 subpass 输入的基础的数据类型(floating-point, integer, unsigned integer) 必须与对应的输入附件的基础格式要匹配，
@@ -321,15 +315,12 @@ interface>>) 存储类型修饰的 着色器变量组成， 变量被管线的�
 管线布局中的sname:VkDescriptorSetLayout 对象对其赋值于匹配，管线布局如
 <<interfaces-resources-setandbinding,DescriptorSet and Binding Assignment>>所述。
 
-Variables identified with the code:UniformConstant storage class are used
-only as handles to refer to opaque resources.
-Such variables must: be typed as code:OpTypeImage, code:OpTypeSampler,
-code:OpTypeSampledImage, or arrays of only these types.
-Variables of type code:OpTypeImage must: have a code:Sampled operand of 1
-(sampled image) or 2 (storage image).
+code:UniformConstant 存储类别的变量 只能被用作指向不透明资源的handle。
+此类变量必须是code:OpTypeImage, code:OpTypeSampler,
+code:OpTypeSampledImage类型，或者是这些类型的数组。
+code:OpTypeImage 类型的变量的运算对象只能是 1(sampled image) 或者 2 (storage image)。
 
-Any array of these types must: only be indexed with constant integral
-expressions, except under the following conditions:
+这些类型的数组只能通过常量整型来索引，除了如下情形：
 
   * For arrays of code:OpTypeImage variables with code:Sampled operand of 2,
     if the pname:shaderStorageImageArrayDynamicIndexing feature is enabled
@@ -449,41 +440,31 @@ descriptor types.
 [[interfaces-resources-setandbinding]]
 === 描述符集合、绑定赋值
 
-A variable identified with a code:DescriptorSet decoration of [eq]#s# and a
-code:Binding decoration of [eq]#b# indicates that this variable is
-associated with the slink:VkDescriptorSetLayoutBinding that has a
-pname:binding equal to [eq]#b# in pname:pSetLayouts[_s_] that was specified
-in slink:VkPipelineLayoutCreateInfo.
+code:DescriptorSet 修饰符 为 [eq]#s# 和
+code:Binding 修饰符为 [eq]#b# 确定的一个变量，表示该变量关联一个 slink:VkDescriptorSetLayoutBinding，该布局绑定
+在 pname:pSetLayouts[_s_]中 有一个pname:binding 值为 [eq]#b#，该布局是通过
+slink:VkPipelineLayoutCreateInfo指定的。
 
-The range of descriptor sets is between zero and
-pname:maxBoundDescriptorSets minus one.
-If a descriptor set value is statically used by an entry point there must:
-be an associated pname:pSetLayout in the corresponding pipeline layout as
-described in <<descriptorsets-pipelinelayout-consistency,Pipeline Layouts
-consistency>>.
+The range of 描述符集合的区间在0和
+pname:maxBoundDescriptorSets 减1 之间。
+若一个描述符集合值被一个着色器入口函数静态使用，在对应的管线布局汇总必须有一个对应的关联pname:pSetLayout，详细描述在<<descriptorsets-pipelinelayout-consistency,Pipeline Layouts
+consistency>>一节。
 
-If the code:Binding decoration is used with an array, the entire array is
-identified with that binding value.
-The size of the array declaration must: be no larger than the
-pname:descriptorCount of that sname:VkDescriptorSetLayoutBinding.
-The index of each element of the array is referred to as the _arrayElement_.
-For the purposes of interface matching and descriptor set
-<<descriptorsets-updates,operations>>, if a resource variable is not an
-array, it is treated as if it has an arrayElement of zero.
+若code:Binding 修饰符用于数组，那么整个数组都被设置为该绑定值。数组声明的大小不能大于
+该sname:VkDescriptorSetLayoutBinding的pname:descriptorCount。
+数组的每个元素的索引是通过 _arrayElement_来访问的。
+为了接口匹配和描述符集合<<descriptorsets-updates,operations>>，若资源变量不是数组，
+那么它被认为是有0个数组元素。
 
-The binding can: be any 32-bit unsigned integer value, as described in
-<<descriptorsets-setlayout>>.
-Each descriptor set has its own binding name space.
+此绑定可以是任何32位无符号整型值，如<<descriptorsets-setlayout>>小节所述。
+每一个描述符集合都有自己的绑定名字空间。
 
-There is a limit on the number of resources of each type that can: be
-accessed by a pipeline stage as shown in
-<<interfaces-resources-limits,Shader Resource Limits>>.
-The "`Resources Per Stage`" column gives the limit on the number each type
-of resource that can: be statically used for an entry point in any given
-stage in a pipeline.
-The "`Resource Types`" column lists which resource types are counted against
-the limit.
-Some resource types count against multiple limits.
+在管线阶段中可以被访问的每种类型的资源的数量极限如
+<<interfaces-resources-limits,Shader Resource Limits>>小节所描述。
+"`Resources Per Stage`" 一列给出 在管线中任一给定阶段的入口函数可以使用的 每种类型资源的数量极限。
+
+"`Resource Types`" 一列列出了 极限对应的资源类型。
+一些资源类型对应多个极限。
 
 If multiple entry points in the same pipeline refer to the same set and
 binding, all variable definitions with that code:DescriptorSet and
@@ -566,7 +547,7 @@ GLSL *std140 layout* 满足这些规则。
 ====
 
 [[interfaces-resources-layout-std430]]
-*Standard Storage Buffer Layout*
+*标准存储缓冲区布局*
 
 Member variables of an code:OpTypeStruct with a storage class of
 code:PushConstant (push constants), or a storage class of code:Uniform with
@@ -618,8 +599,7 @@ desired sample location.
 
 code:BaryCoordSmoothAMD::
 
-The code:BaryCoordSmoothAMD decoration can: be used to decorate a fragment
-shader input variable.
+code:BaryCoordSmoothAMD 修饰符可以用来修饰片元着色器的输入变量。
 This variable will contain the (I,J) pair of the barycentric coordinates
 corresponding to the fragment evaluated using perspective interpolation at
 the pixel's center.
@@ -627,8 +607,7 @@ the pixel's center.
 
 code:BaryCoordSmoothCentroidAMD::
 
-The code:BaryCoordSmoothCentroidAMD decoration can: be used to decorate a
-fragment shader input variable.
+code:BaryCoordSmoothCentroidAMD 修饰符可以用来修饰片元着色器输入变量。
 This variable will contain the (I,J) pair of the barycentric coordinates
 corresponding to the fragment evaluated using perspective interpolation at
 the centroid.
@@ -636,8 +615,7 @@ the centroid.
 
 code:BaryCoordSmoothSampleAMD::
 
-The code:BaryCoordSmoothCentroidAMD decoration can: be used to decorate a
-fragment shader input variable.
+code:BaryCoordSmoothCentroidAMD 修饰符可以用来修饰片元着色器输入变量。
 This variable will contain the (I,J) pair of the barycentric coordinates
 corresponding to the fragment evaluated using perspective interpolation at
 each covered sample.
@@ -772,23 +750,18 @@ endif::VK_KHR_shader_draw_parameters[]
 
 code:FragCoord::
 
-Decorating a variable with the code:FragCoord built-in decoration will make
-that variable contain the framebuffer coordinate
-latexmath:[(x,y,z,\frac{1}{w})] of the fragment being processed.
-The [eq]#(x,y)# coordinate [eq]#(0,0)# is the upper left corner of the upper
-left pixel in the framebuffer.
+使用 code:FragCoord built-in 修饰符来修饰一个变量将造成该变量
+包含片元着色器处理生成的帧缓冲区坐标
+latexmath:[(x,y,z,\frac{1}{w})] 。
+[eq]#(x,y)# 坐标 [eq]#(0,0)# 是帧缓冲区左上角像素的左上角。
 +
-When sample shading is enabled, the [eq]#x# and [eq]#y# components of
-code:FragCoord reflect the location of the sample corresponding to the
-shader invocation.
+当开启了采样着色时， code:FragCoord 的 [eq]#x# 和 [eq]#y# 成员反映了该着色器调用对应的采样位置。
 +
-When sample shading is not enabled, the x and y components of code:FragCoord
-reflect the location of the center of the pixel, [eq]#(0.5,0.5)#.
+当没有开启采样着色时，code:FragCoord 的x 和 y 成员反映了像素的中心 [eq]#(0.5,0.5)# 的位置 。
 +
-The [eq]#z# component of code:FragCoord is the interpolated depth value of
-the primitive.
+code:FragCoord的 [eq]#z# 成员是图元的插值深度值。
 +
-The [eq]#w# component is the interpolated latexmath:[\frac{1}{w}].
+[eq]#w# 成员是插值的 latexmath:[\frac{1}{w}].
 +
 code:FragCoord 修饰符只能在片元着色器中使用。
 +
@@ -1003,17 +976,14 @@ code:PointCoord 修饰的变量必须被声明位32位浮点型二元素数组�
 [NOTE]
 .注意
 ====
-Depending on how the point is rasterized, code:PointCoord may: never reach
-[eq]#(0,0)# or [eq]#(1,1)#.
+取决于单点是如何被渲染的， code:PointCoord 可能永远不会达到
+[eq]#(0,0)# 或 [eq]#(1,1)#.
 ====
 
 code:PointSize::
 
-Decorating a variable with the code:PointSize built-in decoration will make
-that variable contain the size of point primitives.
-The value written to the variable decorated with code:PointSize by the last
-vertex processing stage in the pipeline is used as the framebuffer-space
-size of points produced by rasterization.
+给一个变量加上code:PointSize built-in 修饰符将导致该变量包含顶点图元的大小。
+管线内最后的顶点处理阶段写入到code:PointSize修饰的该变量被用于 栅格化产生的帧缓冲区空间的点的大小。
 +
 code:PointSize 修饰符只能在顶点、细分控制、细分求值、几何着色器中使用。shaders.
 +
@@ -1062,22 +1032,16 @@ code:PrimitiveId::
 +
 在细分控制和细分求值着色器中，它将包含 对应着色器调用的当前渲染图元内的patch的索引。
 +
-In a geometry shader, it will contain the number of primitives presented as
-input to the shader since the current set of rendering primitives was
-started.
+在几何着色器内，它将包含从当前渲染图元的集合开始之后 作为着色器输入的图元的个数。
 +
-In a fragment shader, it will contain the primitive index written by the
-geometry shader if a geometry shader is present, or with the value that
-would have been presented as input to the geometry shader had it been
-present.
+在片元着色器中，它将包含几何着色器（若有的话）写入的图元索引，或者该值会当作 几何着色器（若有的话）的输入。
 +
 If a geometry shader is present and the fragment shader reads from an input
 variable decorated with code:PrimitiveId, then the geometry shader must:
 write to an output variable decorated with code:PrimitiveId in all execution
 paths.
 +
-The code:PrimitiveId decoration must: be used only within fragment,
-tessellation control, tessellation evaluation, and geometry shaders.
+code:PrimitiveId 修饰符只能在片元、细分控制、细分求值、几何着色器中使用。
 +
 In a tessellation control or tessellation evaluation shader, any variable
 decorated with code:PrimitiveId must: be declared using the code:Output
@@ -1090,8 +1054,7 @@ In a fragment shader, any variable decorated with code:PrimitiveId must: be
 declared using the code:Input storage class, and either the code:Geometry or
 code:Tessellation capability must also be declared.
 +
-Any variable decorated with code:PrimitiveId must: be declared as a scalar
-32-bit integer.
+code:PrimitiveId 修饰的任何变量必须被声明为32位整型标量。
 
 [NOTE]
 .注意
@@ -1163,8 +1126,7 @@ the processing of a fragment.
 +
 code:SampleMask 修饰符只能在片元着色器内使用。
 +
-Any variable decorated with code:SampleMask must: be declared using either
-the code:Input or code:Output storage class.
+code:SampleMask 修饰的任何变量必须使用 code:Input 或 code:Output 存储类型来声明。
 +
 code:SampleMask修饰的任何变量必须被声明为32位整型的数组。
 
@@ -1200,8 +1162,7 @@ All other bits are set to zero.
 +
 code:SubgroupEqMaskKHR修饰的变量必须使用code:Input 存储类别 来声明。
 +
-The variable decorated with code:SubgroupEqMaskKHR must: be declared as a
-four-component vector of 32-bit integer values.
+code:SubgroupEqMaskKHR 修饰的变量必须被声明位32位整型的四元素数组。
 
 [[interfaces-builtin-variables-sgge]]
 code:SubgroupGeMaskKHR::
@@ -1216,8 +1177,7 @@ All other bits are set to zero.
 +
 code:SubgroupGeMaskKHR修饰的变量必须使用 code:Input 存储类别来声明。
 +
-The variable decorated with code:SubgroupGeMaskKHR must: be declared as a
-four-component vector of 32-bit integer values.
+code:SubgroupGeMaskKHR 修饰的变量必须被声明位32位整型的四元素数组。
 
 [[interfaces-builtin-variables-sggt]]
 code:SubgroupGtMaskKHR::
