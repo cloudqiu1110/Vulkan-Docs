@@ -4,18 +4,14 @@
 [[queries]]
 = 查询
 
-_Queries_ provide a mechanism to return information about the processing of
-a sequence of Vulkan commands.
-Query operations are asynchronous, and as such, their results are not
-returned immediately.
-Instead, their results, and their availability status, are stored in a
-<<queries-pools, Query Pool>>.
-The state of these queries can: be read back on the host, or copied to a
-buffer object on the device.
+_Queries_ 提供了一种机制，返回关于处理一个队列的vulkan命令的返回值的有关信息。
+查询操作是异步的，故，它们的结果并不会立即被返回。
+相反，它们的结果与它们可用性的状态，被存储在一个 <<queries-pools, 查询池>>.
+这些查询的状态可以在CPU端读取，或者复制到device上一个缓冲区对象。
 
-The supported query types are <<queries-occlusion,Occlusion Queries>>,
-<<queries-pipestats,Pipeline Statistics Queries>>, and <<queries-timestamps,
-Timestamp Queries>>.
+受支持的查询类型是<<queries-occlusion,Occlusion Queries>>,
+<<queries-pipestats,Pipeline Statistics Queries>>, 和 <<queries-timestamps,
+Timestamp Queries>>。
 
 
 [[queries-pools]]
@@ -23,11 +19,10 @@ Timestamp Queries>>.
 
 // refBegin VkQueryPool Opaque handle to a query pool object
 
-Queries are managed using _query pool_ objects.
-Each query pool is a collection of a specific number of queries of a
-particular type.
+使用 _query pool_ 对象来管理查询。
+每一个查询池是一个特定类型的查询的集合。
 
-Query pools are represented by sname:VkQueryPool handles:
+可使用 sname:VkQueryPool handles 来表示查询池：
 
 include::../api/handles/VkQueryPool.txt[]
 
@@ -35,17 +30,14 @@ include::../api/handles/VkQueryPool.txt[]
 
 // refBegin vkCreateQueryPool Create a new query pool object
 
-To create a query pool, call:
+可调用如下命令来创建一个查询池：:
 
 include::../api/protos/vkCreateQueryPool.txt[]
 
-  * pname:device is the logical device that creates the query pool.
-  * pname:pCreateInfo is a pointer to an instance of the
-    sname:VkQueryPoolCreateInfo structure containing the number and type of
-    queries to be managed by the pool.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
-  * pname:pQueryPool is a pointer to a sname:VkQueryPool handle in which the
+  * pname:device 是创建查询池的逻辑设备。
+  * pname:pCreateInfo 是一个指针，指向一个 sname:VkQueryPoolCreateInfo 数据结构实例， 包含池所管理的查询的类型与数量。
+  * pname:pAllocator 控制CPU端内存分配，如  <<memory-allocation, Memory Allocation>> 章描述。
+  * pname:pQueryPool 是一个指针，指向一个  sname:VkQueryPool handle，它是被返回的查询池对象。
     resulting query pool object is returned.
 
 include::../validity/protos/vkCreateQueryPool.txt[]
@@ -59,51 +51,42 @@ include::../api/structs/VkQueryPoolCreateInfo.txt[]
   * pname:sType 是数据结构的类型。
   * pname:pNext 是 `NULL` 或者一个指向拓展特定的数据结构的指针。
   * pname:flags 被保留。
-  * pname:queryType is the type of queries managed by the pool, and must: be
+  * pname:queryType 是池所管理的查询的类型，必须是如下值之一：
     one of the values
 +
 --
 // refBegin VkQueryType Specify the type of queries managed by a query pool
 include::../api/enums/VkQueryType.txt[]
 --
-  * pname:queryCount is the number of queries managed by the pool.
-  * pname:pipelineStatistics is a bitmask indicating which counters will be
-    returned in queries on the new pool, as described below in
-    <<queries-pipestats>>.
-    pname:pipelineStatistics is ignored if pname:queryType is not
-    ename:VK_QUERY_TYPE_PIPELINE_STATISTICS.
+  * pname:queryCount 是池所管理的查询的数量。
+  * pname:pipelineStatistics 是一个位掩码，指示新的池中查询返回的计数，如下所述  <<queries-pipestats>>。
+    若 pname:queryType 不是 ename:VK_QUERY_TYPE_PIPELINE_STATISTICS， pname:pipelineStatistics 就会被忽略。
 
 .正确使用
 ****
-  * If the <<features-features-pipelineStatisticsQuery,pipeline statistics
-    queries>> feature is not enabled, pname:queryType must: not be
-    ename:VK_QUERY_TYPE_PIPELINE_STATISTICS
-  * If pname:queryType is ename:VK_QUERY_TYPE_PIPELINE_STATISTICS,
-    pname:pipelineStatistics must: be a valid combination of
-    elink:VkQueryPipelineStatisticFlagBits values
+  * 若 <<features-features-pipelineStatisticsQuery, pipeline statistics
+    queries>> 特征没有被启用， pname:queryType 不能是    ename:VK_QUERY_TYPE_PIPELINE_STATISTICS
+  * 若pname:queryType 是 ename:VK_QUERY_TYPE_PIPELINE_STATISTICS，
+    pname:pipelineStatistics 必须是 elink:VkQueryPipelineStatisticFlagBits 值的位运算结果。
 ****
 
 include::../validity/structs/VkQueryPoolCreateInfo.txt[]
 
 // refBegin vkDestroyQueryPool Destroy a query pool object
 
-To destroy a query pool, call:
+可调用如下命令来销毁一个查询池：
 
 include::../api/protos/vkDestroyQueryPool.txt[]
 
-  * pname:device is the logical device that destroys the query pool.
-  * pname:queryPool is the query pool to destroy.
-  * pname:pAllocator controls host memory allocation as described in the
-    <<memory-allocation, Memory Allocation>> chapter.
+  * pname:device 是销毁查询池的逻辑设备。
+  * pname:queryPool 需要被销毁的查询池。
+  * pname:pAllocator 控制CPU端内存分配，如  <<memory-allocation, Memory Allocation>> 章所述。
 
 .正确使用
 ****
-  * All submitted commands that refer to pname:queryPool must: have
-    completed execution
-  * If sname:VkAllocationCallbacks were provided when pname:queryPool was
-    created, a compatible set of callbacks must: be provided here
-  * If no sname:VkAllocationCallbacks were provided when pname:queryPool was
-    created, pname:pAllocator must: be `NULL`
+  * 所有涉及到 pname:queryPool 的已提交命令必须已经完成。
+  * 若 创建pname:queryPool 时提供了sname:VkAllocationCallbacks，那么必须在此处提供兼容的一系列回调。    
+  * 若 创建  pname:queryPool 时没有提供sname:VkAllocationCallbacks，pname:pAllocator 必须为 `NULL`。
 ****
 
 include::../validity/protos/vkDestroyQueryPool.txt[]
@@ -112,25 +95,17 @@ include::../validity/protos/vkDestroyQueryPool.txt[]
 [[queries-operation]]
 == 查询操作
 
-The operation of queries is controlled by the commands
-flink:vkCmdBeginQuery, flink:vkCmdEndQuery, flink:vkCmdResetQueryPool,
-flink:vkCmdCopyQueryPoolResults, and flink:vkCmdWriteTimestamp.
+查询操作受 flink:vkCmdBeginQuery，flink:vkCmdEndQuery，flink:vkCmdResetQueryPool，
+flink:vkCmdCopyQueryPoolResults， 和 flink:vkCmdWriteTimestamp 命令控制。
 
-In order for a sname:VkCommandBuffer to record query management commands,
-the queue family for which its sname:VkCommandPool was created must: support
-the appropriate type of operations (graphics, compute) suitable for the
-query type of a given query pool.
+为了让 sname:VkCommandBuffer 记录查询管理命令，为sname:VkCommandPool创建的队列族必须支持针对一个给定查询池的查询类型而言合适的操作的类型（图形、计算）。
 
-Each query in a query pool has a status that is either _unavailable_ or
-_available_, and also has state to store the numerical results of a query
-operation of the type requested when the query pool was created.
-Resetting a query via flink:vkCmdResetQueryPool sets the status to
-unavailable and makes the numerical results undefined.
-Performing a query operation with flink:vkCmdBeginQuery and
-flink:vkCmdEndQuery changes the status to available when the query
-<<queries-operation-finished,finishes>>, and updates the numerical results.
-Both the availability status and numerical results are retrieved by calling
-either flink:vkGetQueryPoolResults or flink:vkCmdCopyQueryPoolResults.
+查询池中每个查询都有一个状态量，要么是 _unavailable_ ，要么是_available_，且有查询池按照操作类型而创建的一个存储查询操作的数值结果。
+
+可通过 flink:vkCmdResetQueryPool 重置一个查询可设置其状态为unavailable 且让数值结果变得未定义。
+当查询<<queries-operation-finished, 完成>>了，通过 flink:vkCmdBeginQuery 操作和flink:vkCmdEndQuery 来执行查询操作，可把状态变为available，
+且更新数值结果。
+可通过 flink:vkGetQueryPoolResults 或者 flink:vkCmdCopyQueryPoolResults来获取可用性状态和数值结果。
 
 [[queries-order]]
 Query commands, for the same query and submitted to the same queue, execute
@@ -143,23 +118,20 @@ flink:vkCmdCopyQueryPoolResults does not include
 ename:VK_QUERY_RESULT_WAIT_BIT, execution of flink:vkCmdCopyQueryPoolResults
 may: happen-before the results of flink:vkCmdEndQuery are available.
 
-After query pool creation, each query is in an undefined state and must: be
-reset prior to use.
-Queries must: also be reset between uses.
-Using a query that has not been reset will result in undefined behavior.
+查询池创建了之后，每一个查询都处于未定义状态，且必须在使用之前被重置。
+查询必须在每次使用之前都需要被重置。
+使用了一个未重置的查询，其结果是未定义的。
 
 // refBegin vkCmdResetQueryPool Reset queries in a query pool
 
-To reset a range of queries in a query pool, call:
+可调用如下命令来重置查询池中一个区间的查询：:
 
 include::../api/protos/vkCmdResetQueryPool.txt[]
 
-  * pname:commandBuffer is the command buffer into which this command will
-    be recorded.
-  * pname:queryPool is the handle of the query pool managing the queries
-    being reset.
-  * pname:firstQuery is the initial query index to reset.
-  * pname:queryCount is the number of queries to reset.
+  * pname:commandBuffer 是记录命令的命令缓冲区。
+  * pname:queryPool 是管理需要被重置的查询的查询池handle。
+  * pname:firstQuery 需要被重置的起始查询索引。
+  * pname:queryCount 是需要重置的查询个数。
 
 When executed on a queue, this command sets the status of query indices
 [eq]#[pname:firstQuery, pname:firstQuery + pname:queryCount - 1]# to
@@ -167,63 +139,47 @@ unavailable.
 
 .正确使用
 ****
-  * pname:firstQuery must: be less than the number of queries in
-    pname:queryPool
-  * The sum of pname:firstQuery and pname:queryCount must: be less than or
-    equal to the number of queries in pname:queryPool
+  * pname:firstQuery 必须小于  pname:queryPool中查询的个数。
+  * pname:firstQuery 与 pname:queryCount 之和必须小于等于 pname:queryPool中查询的个数。
 ****
 
 include::../validity/protos/vkCmdResetQueryPool.txt[]
 
-Once queries are reset and ready for use, query commands can: be issued to a
-command buffer.
+一旦查询被重置，可以被使用，查询命令就可以被记录到命令缓冲区了。
+遮挡查询和管线统计查询记录事件-各自对应采样绘制和阶段调用-
 Occlusion queries and pipeline statistics queries count events - drawn
-samples and pipeline stage invocations, respectively - resulting from
-commands that are recorded between a flink:vkCmdBeginQuery command and a
-flink:vkCmdEndQuery command within a specified command buffer, effectively
-scoping a set of drawing and/or compute commands.
-Timestamp queries write timestamps to a query pool.
+samples and pipeline stage invocations, respectively -来自于一个特定命令缓冲区的flink:vkCmdBeginQuery 命令和
+flink:vkCmdEndQuery 命令之间，有效的限定了一系列的绘制和计算命令。时间戳查询记录时间戳到查询池。
 
-A query must: begin and end in the same command buffer, although if it is a
-primary command buffer, and the
-<<features-features-inheritedQueries,inherited queries>> feature is enabled,
-it can: execute secondary command buffers during the query operation.
-For a secondary command buffer to be executed while a query is active, it
-must: set the pname:occlusionQueryEnable, pname:queryFlags, and/or
-pname:pipelineStatistics members of slink:VkCommandBufferInheritanceInfo to
-conservative values, as described in the <<commandbuffers-recording, Command
-Buffer Recording>> section.
-A query must: either begin and end inside the same subpass of a render pass
-instance, or must: both begin and end outside of a render pass instance
-(i.e. contain entire render pass instances).
+一个查询必须在同一个命令缓冲区中开始与结束，即使这是一个主命令缓冲区，且
+<<features-features-inheritedQueries,inherited queries>> 特征被开启了。
+它可以在查询操作期间执行次级命令缓冲。
+对于查询激活期间执行的一个次级命令缓冲区，它必须设置slink:VkCommandBufferInheritanceInfo的成员 pname:occlusionQueryEnable, pname:queryFlags, 和/或 pname:pipelineStatistics 
+为保留值，如 <<commandbuffers-recording, Command Buffer Recording>> 小节所描述。
+一个查询要么在同一个render pass实例的subpass中开始和结束，要们在一个render pass实例之外开始和结束
+(i.e. 包含整个render pass实例)。
 
 // refBegin vkCmdBeginQuery Begin a query
 
-To begin a query, call:
+调用如下命令来开始一个查询：
 
 include::../api/protos/vkCmdBeginQuery.txt[]
 
-  * pname:commandBuffer is the command buffer into which this command will
-    be recorded.
-  * pname:queryPool is the query pool that will manage the results of the
-    query.
-  * pname:query is the query index within the query pool that will contain
-    the results.
-  * pname:flags is a bitmask indicating constraints on the types of queries
-    that can: be performed.
+  * pname:commandBuffer 是记录此命令的命令缓冲区。
+  * pname:queryPool 是管理查询结果的查询池。
+  * pname:query 是包含结果的查询池内查询的索引。
+  * pname:flags i是一个位掩码，包含指示可以执行的查询你类型的限制条件。
     Bits which can: be set include:
 +
 // refBegin VkQueryControlFlagBits Bitmask specifying constraints on a query
 include::../api/enums/VkQueryControlFlagBits.txt[]
 
-If the pname:queryType of the pool is ename:VK_QUERY_TYPE_OCCLUSION and
-pname:flags contains ename:VK_QUERY_CONTROL_PRECISE_BIT, an implementation
-must: return a result that matches the actual number of samples passed.
-This is described in more detail in <<queries-occlusion,Occlusion Queries>>.
+若池的 pname:queryType 是ename:VK_QUERY_TYPE_OCCLUSION 且
+pname:flags 包含 ename:VK_QUERY_CONTROL_PRECISE_BIT，vulakn实现必须返回匹配传入的实际采样数。
+详细信息在 <<queries-occlusion,Occlusion Queries>>小节。
 
 [[queries-operation-active]]
-After beginning a query, that query is considered _active_ within the
-command buffer it was called in until that same query is ended.
+在一个查询开始后，此查询就被认为在被调用的命令缓冲区内就是  _active_ 的，直到相同的查询结束。
 Queries active in a primary command buffer when secondary command buffers
 are executed are considered active for those secondary command buffers.
 
@@ -231,74 +187,52 @@ are executed are considered active for those secondary command buffers.
 ****
   * The query identified by pname:queryPool and pname:query must: currently
     not be <<queries-operation-active,active>>
-  * The query identified by pname:queryPool and pname:query must: be
-    unavailable
-  * If the <<features-features-occlusionQueryPrecise,precise occlusion
-    queries>> feature is not enabled, or the pname:queryType used to create
-    pname:queryPool was not ename:VK_QUERY_TYPE_OCCLUSION, pname:flags must:
-    not contain ename:VK_QUERY_CONTROL_PRECISE_BIT
-  * pname:queryPool must: have been created with a pname:queryType that
-    differs from that of any other queries that have been made
-    <<queries-operation-active,active>>, and are currently still active
-    within pname:commandBuffer
-  * pname:query must: be less than the number of queries in pname:queryPool
-  * If the pname:queryType used to create pname:queryPool was
-    ename:VK_QUERY_TYPE_OCCLUSION, the sname:VkCommandPool that
-    pname:commandBuffer was allocated from must: support graphics operations
-  * If the pname:queryType used to create pname:queryPool was
-    ename:VK_QUERY_TYPE_PIPELINE_STATISTICS and any of the
-    pname:pipelineStatistics indicate graphics operations, the
-    sname:VkCommandPool that pname:commandBuffer was allocated from must:
-    support graphics operations
-  * If the pname:queryType used to create pname:queryPool was
-    ename:VK_QUERY_TYPE_PIPELINE_STATISTICS and any of the
-    pname:pipelineStatistics indicate compute operations, the
-    sname:VkCommandPool that pname:commandBuffer was allocated from must:
-    support compute operations
+  * pname:queryPool 和 pname:query 指定的查询必须是非可用状态。
+  * 若 <<features-features-occlusionQueryPrecise, 精确遮挡查询 >> 特征被启用，或者 被用于创建  pname:queryPool的pname:queryType并不是  
+     ename:VK_QUERY_TYPE_OCCLUSION, pname:flags 不能包含 ename:VK_QUERY_CONTROL_PRECISE_BIT
+  * pname:queryPool 必须在创建是带有 pname:queryType 标志，以区别于那些已经被
+    <<queries-operation-active, 激活>>，且在pname:commandBuffer内仍处于激活状态的查询.
+  * pname:query 必须小于pname:queryPool 中查询的数量
+  * 若被用于创建pname:queryPool的 pname:queryType 是 ename:VK_QUERY_TYPE_OCCLUSION，分配pname:commandBuffer的sname:VkCommandPool 必须支持图形操作。
+  * 若被用于创建pname:queryPool的 pname:queryType 是  ename:VK_QUERY_TYPE_PIPELINE_STATISTICS 且  
+    pname:pipelineStatistics 中任何一个都是图形操作， 分配pname:commandBuffer 的
+    sname:VkCommandPool 必须支持图形操作。
+  * 若被用于创建pname:queryPool的pname:queryType 是 
+    ename:VK_QUERY_TYPE_PIPELINE_STATISTICS 且 
+    pname:pipelineStatistics 中任何一个都是计算操作， 分配pname:commandBuffer 的sname:VkCommandPool 表现支持计算操作。
 ****
 
 include::../validity/protos/vkCmdBeginQuery.txt[]
 
 // refBegin vkCmdEndQuery Ends a query
 
-To end a query after the set of desired draw or dispatch commands is
-executed, call:
+在目标的一系列绘制或者分发命令之后，可调用如下命令来结束一个查询，:
 
 include::../api/protos/vkCmdEndQuery.txt[]
 
-  * pname:commandBuffer is the command buffer into which this command will
-    be recorded.
-  * pname:queryPool is the query pool that is managing the results of the
-    query.
-  * pname:query is the query index within the query pool where the result is
-    stored.
+  * pname:commandBuffer 是记录命令的命令缓冲区。
+  * pname:queryPool 是管理查询结果的查询池。
+  * pname:query 是储存结果的查询池中查询的索引。 
 
 [[queries-operation-finished]]
-As queries operate asynchronously, ending a query does not immediately set
-the query's status to available.
-A query is considered _finished_ when the final results of the query are
-ready to be retrieved by flink:vkGetQueryPoolResults and
-flink:vkCmdCopyQueryPoolResults, and this is when the query's status is set
-to available.
+查询是异步的，结束一个查询并不会立即设置查询的状态为可用状态。
+一个查询，只有在其结果准备好被 flink:vkGetQueryPoolResults 和
+flink:vkCmdCopyQueryPoolResults 获取时，才能被认为是 完成了，此时，查询的状态才被设置为可用。
 
-Once a query is ended the query must: finish in finite time, unless the
-state of the query is changed using other commands, e.g. by issuing a reset
-of the query.
+一旦一个查询结束了，查询被吸在有限时间内完成，除非查询的状态被其他命令改变，例如使用命令重置了查询。
 
 .正确使用
 ****
-  * The query identified by pname:queryPool and pname:query must: currently
-    be <<queries-operation-active,active>>
-  * pname:query must: be less than the number of queries in pname:queryPool
+  * pname:queryPool 和 pname:query 确定的查询，必须在当前是 
+      <<queries-operation-active, 激活的>>
+  * pname:query 必须小于 pname:queryPool中查询的数量。
 ****
 
 include::../validity/protos/vkCmdEndQuery.txt[]
 
 [[queries-operation-memorylayout]]
-An application can: retrieve results either by requesting they be written
-into application-provided memory, or by requesting they be copied into a
-sname:VkBuffer.
-In either case, the layout in memory is defined as follows:
+应用程序可以通过把它们写入应用程序指定的内存，或者要求它们复制到一个 sname:VkBuffer 来获取结果。
+任一情形，内存的布局的定义如下：
 
   * The first query's result is written starting at the first byte requested
     by the command, and each subsequent query's result begins pname:stride
@@ -327,111 +261,71 @@ To retrieve status and results for a set of queries, call:
 
 include::../api/protos/vkGetQueryPoolResults.txt[]
 
-  * pname:device is the logical device that owns the query pool.
-  * pname:queryPool is the query pool managing the queries containing the
-    desired results.
-  * pname:firstQuery is the initial query index.
-  * pname:queryCount is the number of queries.
-    pname:firstQuery and pname:queryCount together define a range of
-    queries.
-  * pname:dataSize is the size in bytes of the buffer pointed to by
-    pname:pData.
-  * pname:pData is a pointer to a user-allocated buffer where the results
-    will be written
-  * pname:stride is the stride in bytes between results for individual
-    queries within pname:pData.
-  * pname:flags is a bitmask of elink:VkQueryResultFlagBits specifying how
-    and when results are returned.
-    Bits which can: be set include:
+  * pname:device 是持有该查询池的逻辑设备。
+  * pname:queryPool 管理包含期望结果的查询的查询池。
+  * pname:firstQuery 是初始查询的索引。
+  * pname:queryCount 是查询的数量。
+    pname:firstQuery 和 pname:queryCount 逻辑上定义了查询的一个范围。
+  * pname:dataSize 是  pname:pData指向的缓冲区的字节大小。
+  * pname:pData 是一个指针，指向用户定义的一个缓冲区，包含将要写入的结果。
+  * pname:stride 是pname:pData中每个独立查询之间的步长。
+  * pname:flags 是一个位掩码，  elink:VkQueryResultFlagBits 类型，指定了结果将如何、何时返回。
+    可以设置的bit 包含如下：
 +
 --
 // refBegin VkQueryResultFlagBits Bitmask specifying how and when query results are returned
 include::../api/enums/VkQueryResultFlagBits.txt[]
 --
 +
-  ** ename:VK_QUERY_RESULT_64_BIT indicates the results will be written as
-     an array of 64-bit unsigned integer values.
-     If this bit is not set, the results will be written as an array of
-     32-bit unsigned integer values.
-  ** ename:VK_QUERY_RESULT_WAIT_BIT indicates that Vulkan will wait for each
-     query's status to become available before retrieving its results.
-  ** ename:VK_QUERY_RESULT_WITH_AVAILABILITY_BIT indicates that the
-     availability status accompanies the results.
-  ** ename:VK_QUERY_RESULT_PARTIAL_BIT indicates that returning partial
-     results is acceptable.
+  ** ename:VK_QUERY_RESULT_64_BIT 表示结果将被当作64bit无符号整型的数组写入。若这个bit没有被设置，结果将被当作32bit无符号整型值数组写入。
+  ** ename:VK_QUERY_RESULT_WAIT_BIT 表示Vulkan将在获取结果之前等待每个查询的状态变为可用。
+  ** ename:VK_QUERY_RESULT_WITH_AVAILABILITY_BIT 表示 可用性状态和结果在一起。 
+  ** ename:VK_QUERY_RESULT_PARTIAL_BIT 表示返回部分结果也是可以接受的。
 
-If no bits are set in pname:flags, and all requested queries are in the
-available state, results are written as an array of 32-bit unsigned integer
-values.
-The behavior when not all queries are available, is described
-<<queries-wait-bit-not-set, below>>.
+If no bits are set in若 pname:flags中没有设置任何bit，且所有请求的查询都处于可用状态，结果就会以32bit无符号整型值数组写入。
+当并非所有查询都是可用状态时的行为，在<<queries-wait-bit-not-set, 下方>>描述。
 
-If ename:VK_QUERY_RESULT_64_BIT is not set and the result overflows a 32-bit
-value, the value may: either wrap or saturate.
-Similarly, if ename:VK_QUERY_RESULT_64_BIT is set and the result overflows a
-64-bit value, the value may: either wrap or saturate.
+若ename:VK_QUERY_RESULT_64_BIT 没有被设置，且结果32-bit值溢出，那么结果将wrap或者饱和。
+同理，若 ename:VK_QUERY_RESULT_64_BIT 被设置，且结果64bit溢出，结果将wrap或者饱和。
 
-If ename:VK_QUERY_RESULT_WAIT_BIT is set, Vulkan will wait for each query to
-be in the available state before retrieving the numerical results for that
-query.
-In this case, fname:vkGetQueryPoolResults is guaranteed to succeed and
-return ename:VK_SUCCESS if the queries become available in a finite time
-(i.e. if they have been issued and not reset).
-If queries will never finish (e.g. due to being reset but not issued), then
-fname:vkGetQueryPoolResults may: not return in finite time.
+若 ename:VK_QUERY_RESULT_WAIT_BIT 被设置，Vulkan 将在获取查询的数值结果之前等待每个查询变为可用状态。
+此情形下，若在有限的时间内查询变为可用状态( 亦即，它们已经被发出且没有被重置)，fname:vkGetQueryPoolResults 保证成功，且返回ename:VK_SUCCESS。
+若查询永远不会完成(亦即由于被重置了却未被发出)，那么 fname:vkGetQueryPoolResults 将不会在有限时间内返回。
 
 [[queries-wait-bit-not-set]]
-If ename:VK_QUERY_RESULT_WAIT_BIT and ename:VK_QUERY_RESULT_PARTIAL_BIT are
-both not set then no result values are written to pname:pData for queries
-that are in the unavailable state at the time of the call, and
-fname:vkGetQueryPoolResults returns ename:VK_NOT_READY.
-However, availability state is still written to pname:pData for those
-queries if ename:VK_QUERY_RESULT_WITH_AVAILABILITY_BIT is set.
+若ename:VK_QUERY_RESULT_WAIT_BIT 和 ename:VK_QUERY_RESULT_PARTIAL_BIT 都未被设置，那么，对于在调用时处于非可用状态的查询，没有数据将会被写入到
+pname:pData  ，且fname:vkGetQueryPoolResults 返回 ename:VK_NOT_READY。
+然而，若 ename:VK_QUERY_RESULT_WITH_AVAILABILITY_BIT 被设置，对于那些查询，可用性状态仍被写入到 pname:pData。
 
 [NOTE]
 .注意
 ====
-Applications must: take care to ensure that use of the
-ename:VK_QUERY_RESULT_WAIT_BIT bit has the desired effect.
+应用程序必须小心保证
+ename:VK_QUERY_RESULT_WAIT_BIT bit 的使用有期望的效果。
 
-For example, if a query has been used previously and a command buffer
-records the commands fname:vkCmdResetQueryPool, fname:vkCmdBeginQuery, and
-fname:vkCmdEndQuery for that query, then the query will remain in the
-available state until the fname:vkCmdResetQueryPool command executes on a
-queue.
-Applications can: use fences or events to ensure that a query has already
-been reset before checking for its results or availability status.
-Otherwise, a stale value could be returned from a previous use of the query.
+例如，若一个查询在之前已经被使用，且一个命令缓冲区为该查询记录了命令 fname:vkCmdResetQueryPool， fname:vkCmdBeginQuery和
+fname:vkCmdEndQuery，那么该查询将持续处于可用性状态，直至 fname:vkCmdResetQueryPool 命令在队列上被执行。
+应用程序可使用栅栏或者事件来保证查询在检查结果或者可用性状态之前已经被重置。
+否则，状态值可用是上一次查询的结果。
 
-The above also applies when ename:VK_QUERY_RESULT_WAIT_BIT is used in
-combination with ename:VK_QUERY_RESULT_WITH_AVAILABILITY_BIT.
-In this case, the returned availability status may: reflect the result of a
-previous use of the query unless the fname:vkCmdResetQueryPool command has
-been executed since the last use of the query.
+当ename:VK_QUERY_RESULT_WAIT_BIT 和 
+ ename:VK_QUERY_RESULT_WITH_AVAILABILITY_BIT 联合使用时，如上的规则也有效。
+ 此情形下，返回的可用性状态可能反映了前一次查询的结果，除非 fname:vkCmdResetQueryPool 命令在上一次使用查询之后已经被执行了。
 ====
 
 [NOTE]
 .注意
 ====
-Applications can: double-buffer query pool usage, with a pool per frame, and
-reset queries at the end of the frame in which they are read.
+应用程序可以使用双缓冲查询池，每一帧用一个池，且在帧结束后重置查询。
 ====
 
-If ename:VK_QUERY_RESULT_PARTIAL_BIT is set, ename:VK_QUERY_RESULT_WAIT_BIT
-is not set, and the query's status is unavailable, an intermediate result
-value between zero and the final result value is written to pname:pData for
-that query.
+若 ename:VK_QUERY_RESULT_PARTIAL_BIT 被设置了，ename:VK_QUERY_RESULT_WAIT_BIT没有被设置，且
+查询的状态是非可用，对于该查询，一个0到最终产生值之间的立即值将被写入到pname:pData。
 
-ename:VK_QUERY_RESULT_PARTIAL_BIT must: not be used if the pool's
-pname:queryType is ename:VK_QUERY_TYPE_TIMESTAMP.
+若池的pname:queryType 是 ename:VK_QUERY_TYPE_TIMESTAMP，ename:VK_QUERY_RESULT_PARTIAL_BIT 不能被使用。
 
-If ename:VK_QUERY_RESULT_WITH_AVAILABILITY_BIT is set, the final integer
-value written for each query is non-zero if the query's status was available
-or zero if the status was unavailable.
-When ename:VK_QUERY_RESULT_WITH_AVAILABILITY_BIT is used, implementations
-must: guarantee that if they return a non-zero availability value then the
-numerical results must: be valid, assuming the results are not reset by a
-subsequent command.
+如果ename:VK_QUERY_RESULT_WITH_AVAILABILITY_BIT 被设置，若查询的状态是可用状态,对于每个查询最终写入的整型值是非0，若状态是非可用状态，结果是0.
+当 ename:VK_QUERY_RESULT_WITH_AVAILABILITY_BIT 被使用，Vulkan实现必须保证若他们返回一个非0可用性值，那么数值结果必须是有效的，假设结果没有被后续的命令重置。
 
 [NOTE]
 .注意
@@ -442,18 +336,13 @@ e.g. to read the availability status before reading the results.
 
 .正确使用
 ****
-  * pname:firstQuery must: be less than the number of queries in
-    pname:queryPool
-  * If ename:VK_QUERY_RESULT_64_BIT is not set in pname:flags then
-    pname:pData and pname:stride must: be multiples of `4`
-  * If ename:VK_QUERY_RESULT_64_BIT is set in pname:flags then pname:pData
-    and pname:stride must: be multiples of `8`
-  * The sum of pname:firstQuery and pname:queryCount must: be less than or
-    equal to the number of queries in pname:queryPool
-  * pname:dataSize must: be large enough to contain the result of each
-    query, as described <<queries-operation-memorylayout,here>>
-  * If the pname:queryType used to create pname:queryPool was
-    ename:VK_QUERY_TYPE_TIMESTAMP, pname:flags must: not contain
+  * pname:firstQuery 必须小于 pname:queryPool中查询的数量。
+  * 若ename:VK_QUERY_RESULT_64_BIT 不在  pname:flags 中，那么 pname:pData 和 pname:stride 必须是  `4`的倍数
+  * 若 ename:VK_QUERY_RESULT_64_BIT 在 pname:flags 中，那么 pname:pData和 pname:stride 必须是 `8`的倍数
+  * pname:firstQuery 和 pname:queryCount 之和必须小于等于pname:queryPool中查询的数量
+  * pname:dataSize 必须足够大，以包含每个查询的结果，如 <<queries-operation-memorylayout, 此处>>描述
+  * 若 用于创建 pname:queryPool 的pname:queryType 是
+    ename:VK_QUERY_TYPE_TIMESTAMP， pname:flags 不能包含
     ename:VK_QUERY_RESULT_PARTIAL_BIT
 ****
 
@@ -461,33 +350,23 @@ include::../validity/protos/vkGetQueryPoolResults.txt[]
 
 // refBegin vkCmdCopyQueryPoolResults Copy the results of queries in a query pool to a buffer object
 
-To copy query statuses and numerical results directly to buffer memory,
-call:
+可调用如下命令来复制查询状态和数值结果直接到缓冲区内存：
 
 include::../api/protos/vkCmdCopyQueryPoolResults.txt[]
 
-  * pname:commandBuffer is the command buffer into which this command will
-    be recorded.
-  * pname:queryPool is the query pool managing the queries containing the
-    desired results.
-  * pname:firstQuery is the initial query index.
-  * pname:queryCount is the number of queries.
-    pname:firstQuery and pname:queryCount together define a range of
-    queries.
-  * pname:dstBuffer is a sname:VkBuffer object that will receive the results
-    of the copy command.
-  * pname:dstOffset is an offset into pname:dstBuffer.
-  * pname:stride is the stride in bytes between results for individual
-    queries within pname:dstBuffer.
-    The required size of the backing memory for pname:dstBuffer is
-    determined as described above for flink:vkGetQueryPoolResults.
-  * pname:flags is a bitmask of elink:VkQueryResultFlagBits specifying how
-    and when results are returned.
+  * pname:commandBuffer 是记录本命令的命令缓冲区。
+  * pname:queryPool 是管理包含期望结果的查询的查询池。
+  * pname:firstQuery 是初始查询的索引。
+  * pname:queryCount 是查询的数量。
+    pname:firstQuery 和 pname:queryCount 一起定义了一个范围的查询。
+  * pname:dstBuffer 是一个 sname:VkBuffer 对象，包含接受copy命令结果。
+  * pname:dstOffset 是pname:dstBuffer的偏移
+  * pname:stride 是 pname:dstBuffer内每个查询结果之间的步长
+      pname:dstBuffer 实际内存的申请大小由上面提到的 flink:vkGetQueryPoolResults决定
+  * pname:flags 是一个位掩码 elink:VkQueryResultFlagBits ，指定了结果如何、何时被返回
 
-fname:vkCmdCopyQueryPoolResults is guaranteed to see the effect of previous
-uses of fname:vkCmdResetQueryPool in the same queue, without any additional
-synchronization.
-Thus, the results will always reflect the most recent use of the query.
+fname:vkCmdCopyQueryPoolResults 被保证可以看到上一次使用同一个队列中的 fname:vkCmdResetQueryPool 结果，不需要同步。
+故，结果总是反映了最近一次查询的影响。
 
 pname:flags has the same possible values described above for the pname:flags
 parameter of flink:vkGetQueryPoolResults, but the different style of
@@ -496,65 +375,43 @@ Because fname:vkCmdCopyQueryPoolResults executes in order with respect to
 other query commands, there is less ambiguity about which use of a query is
 being requested.
 
-If no bits are set in pname:flags, results for all requested queries in the
-available state are written as 32-bit unsigned integer values, and nothing
-is written for queries in the unavailable state.
+若 pname:flags中没有设置bit，所有处于可用状态的要求的查询的结果被当作32-bit无符号整型写入，对于处于非可用状态的查询，不会写入结果。
 
-If ename:VK_QUERY_RESULT_64_BIT is set, the results are written as an array
-of 64-bit unsigned integer values as described for
-flink:vkGetQueryPoolResults.
+若设置了 ename:VK_QUERY_RESULT_64_BIT，结果就会被当作64-bit无符号整型数组写入，如
+flink:vkGetQueryPoolResults所描述。
 
-If ename:VK_QUERY_RESULT_WAIT_BIT is set, the implementation will wait for
-each query's status to be in the available state before retrieving the
-numerical results for that query.
-This is guaranteed to reflect the most recent use of the query on the same
-queue, assuming that the query is not being simultaneously used by other
-queues.
-If the query does not become available in a finite amount of time (e.g. due
-to not issuing a query since the last reset), a ename:VK_ERROR_DEVICE_LOST
-error may: occur.
+若 ename:VK_QUERY_RESULT_WAIT_BIT 被设置，Vulkan实现将在获取到该查询的数值结果之前等待每个查询的状态变为可用状态。
+这保证反映了最近一次对同一个队列使用查询所带来的影响，假定查询不会被其他队列同时使用。
+若查询在有限时间内（比如，从上一次重置后没有激发新的查询）并不变为可用状态 ，会抛出一个  ename:VK_ERROR_DEVICE_LOST 错误。
 
-Similarly, if ename:VK_QUERY_RESULT_WITH_AVAILABILITY_BIT is set and
-ename:VK_QUERY_RESULT_WAIT_BIT is not set, the availability is guaranteed to
-reflect the most recent use of the query on the same queue, assuming that
-the query is not being simultaneously used by other queues.
-As with fname:vkGetQueryPoolResults, implementations must: guarantee that if
-they return a non-zero availability value, then the numerical results are
-valid.
+同样，若 ename:VK_QUERY_RESULT_WITH_AVAILABILITY_BIT 被设置，且ename:VK_QUERY_RESULT_WAIT_BIT 没有被设置，可用性被保证反映同一个
+队列上查询最近一次使用，假定该查询没有同时被其他队列好似用。
+和 fname:vkGetQueryPoolResults同样，Vulkan实现必须保证若它们返回一个非0可用值，那么数值结果就是有效的。
 
-If ename:VK_QUERY_RESULT_PARTIAL_BIT is set, ename:VK_QUERY_RESULT_WAIT_BIT
-is not set, and the query's status is unavailable, an intermediate result
-value between zero and the final result value is written for that query.
 
-ename:VK_QUERY_RESULT_PARTIAL_BIT must: not be used if the pool's
-pname:queryType is ename:VK_QUERY_TYPE_TIMESTAMP.
+若 ename:VK_QUERY_RESULT_PARTIAL_BIT 被设置，ename:VK_QUERY_RESULT_WAIT_BIT没有被设置，且查询处于非可用状态，就会为该查询写入 0和最终结果值之间的一个值。
 
-fname:vkCmdCopyQueryPoolResults is considered to be a transfer operation,
-and its writes to buffer memory must: be synchronized using
-ename:VK_PIPELINE_STAGE_TRANSFER_BIT and ename:VK_ACCESS_TRANSFER_WRITE_BIT
-before using the results.
+若池的pname:queryType 是 ename:VK_QUERY_TYPE_TIMESTAMP，ename:VK_QUERY_RESULT_PARTIAL_BIT 不能被使用，
+
+fname:vkCmdCopyQueryPoolResults 被认为是一个转移操作，在使用结果之前，它对于缓冲区内存的写入必须使用 
+ename:VK_PIPELINE_STAGE_TRANSFER_BIT 和 ename:VK_ACCESS_TRANSFER_WRITE_BIT 来同步。
 
 .正确使用
 ****
-  * pname:dstOffset must: be less than the size of pname:dstBuffer
-  * pname:firstQuery must: be less than the number of queries in
-    pname:queryPool
-  * The sum of pname:firstQuery and pname:queryCount must: be less than or
-    equal to the number of queries in pname:queryPool
-  * If ename:VK_QUERY_RESULT_64_BIT is not set in pname:flags then
-    pname:dstOffset and pname:stride must: be multiples of `4`
-  * If ename:VK_QUERY_RESULT_64_BIT is set in pname:flags then
-    pname:dstOffset and pname:stride must: be multiples of `8`
-  * pname:dstBuffer must: have enough storage, from pname:dstOffset, to
-    contain the result of each query, as described
-    <<queries-operation-memorylayout,here>>
-  * pname:dstBuffer must: have been created with
-    ename:VK_BUFFER_USAGE_TRANSFER_DST_BIT usage flag
-  * If pname:dstBuffer is non-sparse then it must: be bound completely and
-    contiguously to a single sname:VkDeviceMemory object
-  * If the pname:queryType used to create pname:queryPool was
-    ename:VK_QUERY_TYPE_TIMESTAMP, pname:flags must: not contain
-    ename:VK_QUERY_RESULT_PARTIAL_BIT
+  * pname:dstOffset 必须小于 pname:dstBuffer的大小
+  * pname:firstQuery 必须小于 pname:queryPool中查询的数量
+  * pname:firstQuery 和 pname:queryCount 之和必须小于等于 pname:queryPool中查询的数量
+  * 若 ename:VK_QUERY_RESULT_64_BIT 没有被设置给pname:flags，那么
+    pname:dstOffset 和 pname:stride 必须是  `4`的倍数
+  * 若ename:VK_QUERY_RESULT_64_BIT 设置给pname:flags 那么
+    pname:dstOffset 和 pname:stride 必须是`8`的倍数
+  * pname:dstBuffer 从 pname:dstOffset开始必须足够大，以包含每个查询的结果，如 
+    <<queries-operation-memorylayout, 此处>>所描述
+  * pname:dstBuffer 必须在创建时带有
+    ename:VK_BUFFER_USAGE_TRANSFER_DST_BIT 使用标志 
+  * 若 pname:dstBuffer 是非稀疏的，那么它必须被完全且连续绑定到一个sname:VkDeviceMemory 对象
+  * 若创建pname:queryPool 时 pname:queryType是
+    ename:VK_QUERY_TYPE_TIMESTAMP，pname:flags 不能包含 ename:VK_QUERY_RESULT_PARTIAL_BIT
 ****
 
 include::../validity/protos/vkCmdCopyQueryPoolResults.txt[]
@@ -646,113 +503,67 @@ sname:VkCommandBufferInheritanceInfo::pname:pipelineStatistics.
 
 // refBegin VkQueryPipelineStatisticFlagBits Bitmask specifying queried pipeline statistics
 
-Bits which can: be set in pname:pipelineStatistics include:
+pname:pipelineStatistics 中可以设置的位包含如下：
 
 include::../api/enums/VkQueryPipelineStatisticFlagBits.txt[]
 
-These bits have the following meanings:
+这些bit有如下含义：
 
-  * If ename:VK_QUERY_PIPELINE_STATISTIC_INPUT_ASSEMBLY_VERTICES_BIT is set,
-    queries managed by the pool will count the number of vertices processed
-    by the <<drawing,input assembly>> stage.
-    Vertices corresponding to incomplete primitives may: contribute to the
-    count.
-  * If ename:VK_QUERY_PIPELINE_STATISTIC_INPUT_ASSEMBLY_PRIMITIVES_BIT is
-    set, queries managed by the pool will count the number of primitives
-    processed by the <<drawing,input assembly>> stage.
-    If primitive restart is enabled, restarting the primitive topology has
-    no effect on the count.
-    Incomplete primitives may: be counted.
-  * If ename:VK_QUERY_PIPELINE_STATISTIC_VERTEX_SHADER_INVOCATIONS_BIT is
-    set, queries managed by the pool will count the number of vertex shader
-    invocations.
-    This counter's value is incremented each time a vertex shader is
-    <<shaders-vertex-execution,invoked>>.
-  * If ename:VK_QUERY_PIPELINE_STATISTIC_GEOMETRY_SHADER_INVOCATIONS_BIT is
-    set, queries managed by the pool will count the number of geometry
-    shader invocations.
-    This counter's value is incremented each time a geometry shader is
-    <<shaders-geometry-execution,invoked>>.
-    In the case of <<geometry-invocations,instanced geometry shaders>>, the
-    geometry shader invocations count is incremented for each separate
-    instanced invocation.
-  * If ename:VK_QUERY_PIPELINE_STATISTIC_GEOMETRY_SHADER_PRIMITIVES_BIT is
-    set, queries managed by the pool will count the number of primitives
-    generated by geometry shader invocations.
-    The counter's value is incremented each time the geometry shader emits a
-    primitive.
-    Restarting primitive topology using the SPIR-V instructions
-    code:OpEndPrimitive or code:OpEndStreamPrimitive has no effect on the
-    geometry shader output primitives count.
-  * If ename:VK_QUERY_PIPELINE_STATISTIC_CLIPPING_INVOCATIONS_BIT is set,
-    queries managed by the pool will count the number of primitives
-    processed by the <<vertexpostproc-clipping,Primitive Clipping>> stage of
-    the pipeline.
-    The counter's value is incremented each time a primitive reaches the
-    primitive clipping stage.
-  * If ename:VK_QUERY_PIPELINE_STATISTIC_CLIPPING_PRIMITIVES_BIT is set,
-    queries managed by the pool will count the number of primitives output
-    by the <<vertexpostproc-clipping,Primitive Clipping>> stage of the
-    pipeline.
-    The counter's value is incremented each time a primitive passes the
-    primitive clipping stage.
-    The actual number of primitives output by the primitive clipping stage
-    for a particular input primitive is implementation-dependent but must:
-    satisfy the following conditions:
+  *若 ename:VK_QUERY_PIPELINE_STATISTIC_INPUT_ASSEMBLY_VERTICES_BIT 被设置，
+    池所管理的查询将记录<<drawing,input assembly>>阶段处理的顶点数量。 
+    对于不完整的图元的顶点，也包含在内。
+  * 若 ename:VK_QUERY_PIPELINE_STATISTIC_INPUT_ASSEMBLY_PRIMITIVES_BIT 被设置，
+    池所管理的查询将记录<<drawing,input assembly>> 阶段所处理的图元数量。
+    若 primitive restart 被开启，重启图元拓扑对于数量没有影响。不完整的图元也会被计数。    
+  * 若 ename:VK_QUERY_PIPELINE_STATISTIC_VERTEX_SHADER_INVOCATIONS_BIT 被设置，
+    池所管理的查询将记录顶点着色器被调用的次数。计数器的值在每个顶点着色器被    <<shaders-vertex-execution, 调用>>时自增。
+  * 若 ename:VK_QUERY_PIPELINE_STATISTIC_GEOMETRY_SHADER_INVOCATIONS_BIT 被设置，
+    池所管理的查询将会记录几何着色器调用次数。计数器的值在每个几何着色器被 <<shaders-geometry-execution,调用>>是自增。
+    <<geometry-invocations,instanced geometry shaders>>，对于每个单独的实例调用，几何着色器调用次数就会自增一个。 
+  * 若 ename:VK_QUERY_PIPELINE_STATISTIC_GEOMETRY_SHADER_PRIMITIVES_BIT 被设置，
+    池所管理的查询将记录几何着色器调用所产生的图元的数量。计数器的值在几何着色器每次发射一个图元之后自增1。
+    使用 SPIR-V指令    code:OpEndPrimitive or code:OpEndStreamPrimitive 重启图元拓扑，对于几何着色器输出的图元数量并没有影响。
+  * 若 ename:VK_QUERY_PIPELINE_STATISTIC_CLIPPING_INVOCATIONS_BIT 被设置，
+    池所管理的查询将会对管线的 <<vertexpostproc-clipping,Primitive Clipping>>阶段所处理的图元进行计数。 
+      计数器的值在每个到达图元剪裁阶段时自增1。
+  * 若 ename:VK_QUERY_PIPELINE_STATISTIC_CLIPPING_PRIMITIVES_BIT 被设置，
+    池所管理的查询将对管线的 <<vertexpostproc-clipping,Primitive Clipping>> 阶段所输出的图元进行计数。
+     计数器的值在每个通过了图元剪裁阶段后自增1。
+    对于一个特定的图元，图元剪裁阶段实际输出的图元数量，对于Vulkan实现而言是不确定，且必须满足如下条件：
   ** If at least one vertex of the input primitive lies inside the clipping
      volume, the counter is incremented by one or more.
   ** Otherwise, the counter is incremented by zero or more.
-  * If ename:VK_QUERY_PIPELINE_STATISTIC_FRAGMENT_SHADER_INVOCATIONS_BIT is
-    set, queries managed by the pool will count the number of fragment
-    shader invocations.
-    The counter's value is incremented each time the fragment shader is
-    <<shaders-fragment-execution,invoked>>.
-  * If
-    ename:VK_QUERY_PIPELINE_STATISTIC_TESSELLATION_CONTROL_SHADER_PATCHES_BIT
-    is set, queries managed by the pool will count the number of patches
-    processed by the tessellation control shader.
-    The counter's value is incremented once for each patch for which a
-    tessellation control shader is
-    <<shaders-tessellation-control-execution,invoked>>.
-  * If
-    ename:VK_QUERY_PIPELINE_STATISTIC_TESSELLATION_EVALUATION_SHADER_INVOCATIONS_BIT
-    is set, queries managed by the pool will count the number of invocations
-    of the tessellation evaluation shader.
-    The counter's value is incremented each time the tessellation evaluation
-    shader is <<shaders-tessellation-evaluation-execution,invoked>>.
-  * If ename:VK_QUERY_PIPELINE_STATISTIC_COMPUTE_SHADER_INVOCATIONS_BIT is
-    set, queries managed by the pool will count the number of compute shader
-    invocations.
-    The counter's value is incremented every time the compute shader is
-    invoked.
-    Implementations may: skip the execution of certain compute shader
-    invocations or execute additional compute shader invocations for
-    implementation-dependent reasons as long as the results of rendering
-    otherwise remain unchanged.
+  * 若 ename:VK_QUERY_PIPELINE_STATISTIC_FRAGMENT_SHADER_INVOCATIONS_BIT 被设置，
+    池所管理的查询将对每个片元着色器调用进行计数。 
+    计数器的值在每个片元着色器被 <<shaders-fragment-execution,invoked>>时自增1。
+  * 若
+    ename:VK_QUERY_PIPELINE_STATISTIC_TESSELLATION_CONTROL_SHADER_PATCHES_BIT被设置，
+    池所管理的查询将对细分控制着色器所处理的patch进行计数。 
+    计数器的值在每个细分控制着色器被    <<shaders-tessellation-control-execution,invoked>>时自增1。
+  * 若
+    ename:VK_QUERY_PIPELINE_STATISTIC_TESSELLATION_EVALUATION_SHADER_INVOCATIONS_BIT被设置，
+     池所管理的查询将对每个细分求值着色器调用进行计数。计数器的值在每个细分求值着色器被 <<shaders-tessellation-evaluation-execution,invoked>>时自增1。
+  * 若 ename:VK_QUERY_PIPELINE_STATISTIC_COMPUTE_SHADER_INVOCATIONS_BIT 被设置，
+    池所管理的查询将对每个计算着色器调用进行计数。计数器的值在计算着色器被每次调用是自增1。
+	Vulkan实现可能跳过某些计算着色器调用的执行，或者为Vulkan实现特定的原因执行一些额外的计算着色器调用，只要渲染的结果保持不变。
+ 
 
-These values are intended to measure relative statistics on one
-implementation.
-Various device architectures will count these values differently.
-Any or all counters may: be affected by the issues described in
-<<queries-operation-undefined,Query Operation>>.
+在Vulkan实现上，这些值只能测量出相对统计数据。
+各种设备架构都会以不同的方式来计量。
+计数器可能受<<queries-operation-undefined,Query Operation>>中描述的内容所影响。
 
 [NOTE]
 .注意
 ====
-For example, tile-based rendering devices may: need to replay the scene
-multiple times, affecting some of the counts.
+例如，tile-based 渲染设备可能需要回放场景多次，影响一些计数。
 ====
 
-If a pipeline has pname:rasterizerDiscardEnable enabled, implementations
-may: discard primitives after the final vertex processing stage.
-As a result, if pname:rasterizerDiscardEnable is enabled, the clipping input
-and output primitives counters may: not be incremented.
+若一个管线开启了 pname:rasterizerDiscardEnable，Vulkan实现可能在最终顶点处理阶段丢弃一些图元。
+结果，如果开启了pname:rasterizerDiscardEnable，剪裁输入和输出图元计算器可能并不会增加。
 
-When a pipeline statistics query finishes, the result for that query is
-marked as available.
-The application can: copy the result to a buffer (via
-fname:vkCmdCopyQueryPoolResults), or request it be put into host memory (via
-fname:vkGetQueryPoolResults).
+当一个管线统计查询完成，该查询的结果被标记为可用。
+应用程序能复制结果到缓冲区 (通过
+fname:vkCmdCopyQueryPoolResults), 或者要求它被写入到CPU端内存 (通过fname:vkGetQueryPoolResults).
 
 // refEnd VkQueryPipelineStatisticFlagBits
 
@@ -790,17 +601,14 @@ fname:vkGetPhysicalDeviceProperties.
 
 // refBegin vkCmdWriteTimestamp Write a device timestamp into a query object
 
-To request a timestamp, call:
+可调用如下命令来获取一个时间戳：
 
 include::../api/protos/vkCmdWriteTimestamp.txt[]
 
-  * pname:commandBuffer is the command buffer into which the command will be
-    recorded.
-  * pname:pipelineStage is one of the elink:VkPipelineStageFlagBits,
-    specifying a stage of the pipeline.
-  * pname:queryPool is the query pool that will manage the timestamp.
-  * pname:query is the query within the query pool that will contain the
-    timestamp.
+  * pname:commandBuffer 是记录此命令的命令缓冲区。
+  * pname:pipelineStage 是 elink:VkPipelineStageFlagBits中的一个值，指定了管线的阶段。
+  * pname:queryPool 是管理该时间戳的查询池。
+  * pname:query 是查询池中包含该时间戳的查询。
 
 fname:vkCmdWriteTimestamp latches the value of the timer when all previous
 commands have completed executing as far as the specified pipeline stage,
